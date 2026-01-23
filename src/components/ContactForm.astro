@@ -1,0 +1,215 @@
+---
+---
+
+<div
+	id="contact-modal"
+	class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+	aria-labelledby="contact-modal-title"
+	aria-modal="true"
+	role="dialog"
+>
+	<div
+		class="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-[2rem] bg-white p-6 shadow-lg ring-1 ring-black/10 sm:p-8"
+	>
+		<button
+			type="button"
+			id="close-modal"
+			class="absolute right-4 top-4 rounded-xl p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--plum)]"
+			aria-label="Fermer le formulaire"
+		>
+			<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+			</svg>
+		</button>
+
+		<h2 id="contact-modal-title" class="text-2xl font-semibold text-slate-900 sm:text-3xl">
+			Me contacter
+		</h2>
+		<p class="mt-2 text-sm leading-relaxed text-slate-700">
+			Remplis le formulaire ci-dessous et je te répondrai dans les meilleurs délais.
+		</p>
+
+		<form
+			name="contact"
+			method="POST"
+			data-netlify="true"
+			data-netlify-honeypot="bot-field"
+			action="/"
+			class="mt-6 space-y-4"
+		>
+			<input type="hidden" name="form-name" value="contact" />
+			<input type="hidden" name="bot-field" />
+
+			<div>
+				<label for="name" class="block text-sm font-medium text-slate-900">
+					Nom <span class="text-slate-500">*</span>
+				</label>
+				<input
+					type="text"
+					id="name"
+					name="name"
+					required
+					class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition focus:border-[color:var(--plum)] focus:outline-none focus:ring-2 focus:ring-[color:var(--plum)]/20"
+					placeholder="Ton nom"
+				/>
+			</div>
+
+			<div>
+				<label for="email" class="block text-sm font-medium text-slate-900">
+					Email <span class="text-slate-500">*</span>
+				</label>
+				<input
+					type="email"
+					id="email"
+					name="email"
+					required
+					class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition focus:border-[color:var(--plum)] focus:outline-none focus:ring-2 focus:ring-[color:var(--plum)]/20"
+					placeholder="ton@email.com"
+				/>
+			</div>
+
+			<div>
+				<label for="message" class="block text-sm font-medium text-slate-900">
+					Message <span class="text-slate-500">*</span>
+				</label>
+				<textarea
+					id="message"
+					name="message"
+					required
+					rows="5"
+					class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 transition focus:border-[color:var(--plum)] focus:outline-none focus:ring-2 focus:ring-[color:var(--plum)]/20"
+					placeholder="Ton message..."
+				></textarea>
+			</div>
+
+			<div id="form-success" class="hidden rounded-xl bg-green-50 p-4 text-sm text-green-800 ring-1 ring-green-200">
+				<p class="font-medium">Message envoyé avec succès !</p>
+				<p class="mt-1">Je te répondrai sous 48h ouvrées.</p>
+			</div>
+
+			<div id="form-error" class="hidden rounded-xl bg-red-50 p-4 text-sm text-red-800 ring-1 ring-red-200">
+				<p class="font-medium">Une erreur est survenue.</p>
+				<p class="mt-1">Veuillez réessayer ou m'envoyer un email directement à cecile.c.coach@gmail.com</p>
+			</div>
+
+			<button
+				type="submit"
+				class="w-full rounded-2xl bg-[color:var(--plum)] px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+			>
+				Envoyer le message
+			</button>
+		</form>
+	</div>
+</div>
+
+<script is:inline>
+	// Initialiser la fonction globale pour ouvrir la modale
+	window.openContactModal = function () {
+		const modal = document.getElementById('contact-modal');
+		const form = document.querySelector('form[name="contact"]');
+		if (modal) {
+			modal.classList.remove('hidden');
+			modal.classList.add('flex');
+			document.body.style.overflow = 'hidden';
+			// Focus sur le premier champ
+			const firstInput = form?.querySelector('input, textarea');
+			if (firstInput) {
+				setTimeout(() => firstInput.focus(), 100);
+			}
+		}
+	};
+</script>
+
+<script>
+	const modal = document.getElementById('contact-modal');
+	const closeBtn = document.getElementById('close-modal');
+	const form = document.querySelector('form[name="contact"]');
+	const formSuccess = document.getElementById('form-success');
+	const formError = document.getElementById('form-error');
+
+	// Fermer la modale
+	function closeModal() {
+		if (modal) {
+			modal.classList.add('hidden');
+			modal.classList.remove('flex');
+			document.body.style.overflow = '';
+			// Réinitialiser le formulaire
+			if (form) {
+				form.reset();
+				formSuccess?.classList.add('hidden');
+				formError?.classList.add('hidden');
+			}
+		}
+	}
+
+	// Fermer avec le bouton
+	if (closeBtn) {
+		closeBtn.addEventListener('click', closeModal);
+	}
+
+	// Fermer en cliquant sur le fond
+	if (modal) {
+		modal.addEventListener('click', (e) => {
+			if (e.target === modal) {
+				closeModal();
+			}
+		});
+	}
+
+	// Fermer avec Escape
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+			closeModal();
+		}
+	});
+
+	// Gestion de la soumission du formulaire
+	if (form) {
+		form.addEventListener('submit', async (e) => {
+			e.preventDefault();
+
+			const formData = new FormData(form);
+			const submitButton = form.querySelector('button[type="submit"]');
+			const originalText = submitButton?.textContent;
+
+			// Masquer les messages précédents
+			formSuccess?.classList.add('hidden');
+			formError?.classList.add('hidden');
+
+			// Désactiver le bouton
+			if (submitButton) {
+				submitButton.disabled = true;
+				submitButton.textContent = 'Envoi en cours...';
+			}
+
+			try {
+				const response = await fetch('/', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+					body: new URLSearchParams(formData).toString(),
+				});
+
+				if (response.ok) {
+					formSuccess?.classList.remove('hidden');
+					form.reset();
+					// Fermer la modale après 2 secondes
+					setTimeout(() => {
+						closeModal();
+					}, 2000);
+				} else {
+					throw new Error('Erreur lors de l\'envoi');
+				}
+			} catch (error) {
+				formError?.classList.remove('hidden');
+			} finally {
+				// Réactiver le bouton
+				if (submitButton) {
+					submitButton.disabled = false;
+					if (originalText) {
+						submitButton.textContent = originalText;
+					}
+				}
+			}
+		});
+	}
+</script>

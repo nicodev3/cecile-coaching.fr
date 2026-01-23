@@ -33,20 +33,16 @@ const reveal =
 			</p>
 		</div>
 
-		<ol class="mx-auto mt-10 max-w-4xl">
+		<ol class="mx-auto mt-10 max-w-4xl space-y-6">
 			{steps.map((s, idx) => (
-				<li class="relative pl-10">
-					<div class="absolute left-0 top-0 flex h-full w-10 items-start justify-center" aria-hidden="true">
-						<div class="mt-1 h-full w-px bg-black/10"></div>
-					</div>
-					<div
-						class="absolute left-0 top-0 grid h-10 w-10 place-items-center rounded-2xl bg-white/70 ring-1 ring-black/5 shadow-sm"
-						aria-hidden="true"
-					>
-						<span class="text-sm font-semibold text-[color:var(--plum)]">{idx + 1}</span>
-					</div>
-
-					<div class="mb-6 rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+				<li>
+					<div class="relative rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+						<div
+							class="absolute -left-2 -top-2 grid h-10 w-10 place-items-center rounded-2xl bg-white/70 ring-1 ring-black/5 shadow-sm"
+							aria-hidden="true"
+						>
+							<span class="text-sm font-semibold text-[color:var(--plum)]">{idx + 1}</span>
+						</div>
 						<p class="text-base font-semibold text-slate-900">{s.title}</p>
 						<p class="mt-2 text-sm leading-relaxed text-slate-700">{s.desc}</p>
 					</div>

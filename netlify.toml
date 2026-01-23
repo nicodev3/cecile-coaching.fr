@@ -1,0 +1,8 @@
+# Configuration Netlify pour le site
+
+# Configuration des formulaires Netlify
+# Pour configurer l'email de destination (cecile.c.coach@gmail.com) :
+# 1. Allez dans le dashboard Netlify > Site settings > Forms
+# 2. Activez "Email notifications"
+# 3. Ajoutez l'email de destination : cecile.c.coach@gmail.com
+# 4. Sélectionnez le formulaire "contact" dans la liste
