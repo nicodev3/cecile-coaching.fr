@@ -1,0 +1,58 @@
+---
+const steps = [
+	{
+		title: 'Reconnexion',
+		desc: 'Réapprendre à bouger en sécurité, sans douleur inutile, avec des repères simples.',
+	},
+	{
+		title: 'Stabilité',
+		desc: 'Installer une routine douce qui tient dans une vraie vie (et une énergie fluctuante).',
+	},
+	{
+		title: 'Renforcement',
+		desc: 'Reconstruire le tonus progressivement pour gagner en aisance au quotidien.',
+	},
+	{
+		title: 'Autonomie',
+		desc: 'Savoir t’adapter, choisir les bonnes séances, et conserver les bénéfices dans le temps.',
+	},
+];
+
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section class={`py-14 sm:py-18 ${reveal}`} data-reveal data-revealed="false" aria-labelledby="steps-title">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
+			<h2 id="steps-title" class="text-2xl font-semibold text-slate-900 sm:text-3xl">
+				Les 4 étapes de transformation
+			</h2>
+			<p class="mt-4 text-base leading-relaxed text-slate-800">
+				Une progression claire, douce, et rassurante — pour avancer sans pression.
+			</p>
+		</div>
+
+		<ol class="mx-auto mt-10 max-w-4xl">
+			{steps.map((s, idx) => (
+				<li class="relative pl-10">
+					<div class="absolute left-0 top-0 flex h-full w-10 items-start justify-center" aria-hidden="true">
+						<div class="mt-1 h-full w-px bg-black/10"></div>
+					</div>
+					<div
+						class="absolute left-0 top-0 grid h-10 w-10 place-items-center rounded-2xl bg-white/70 ring-1 ring-black/5 shadow-sm"
+						aria-hidden="true"
+					>
+						<span class="text-sm font-semibold text-[color:var(--plum)]">{idx + 1}</span>
+					</div>
+
+					<div class="mb-6 rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+						<p class="text-base font-semibold text-slate-900">{s.title}</p>
+						<p class="mt-2 text-sm leading-relaxed text-slate-700">{s.desc}</p>
+					</div>
+				</li>
+			))}
+		</ol>
+	</div>
+</section>
+

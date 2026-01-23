@@ -1,0 +1,59 @@
+---
+const testimonials = [
+	{
+		name: 'Julie',
+		meta: 'Accompagnement en reprise progressive',
+		quote:
+			"Je me sens à nouveau capable. Les séances sont douces, mais je vois une vraie différence dans mon quotidien.",
+	},
+	{
+		name: 'Nadia',
+		meta: 'Fatigue chronique, routine apaisante',
+		quote:
+			"Je n’ai plus cette pression de “performer”. J’avance à mon rythme, et ça change tout pour ma confiance.",
+	},
+	{
+		name: 'Sophie',
+		meta: 'Reconnexion corps-esprit',
+		quote:
+			"Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
+	},
+];
+
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section
+	id="temoignages"
+	class={`py-14 sm:py-18 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-labelledby="testimonials-title"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
+			<h2 id="testimonials-title" class="text-2xl font-semibold text-slate-900 sm:text-3xl">
+				Témoignages
+			</h2>
+			<p class="mt-4 text-base leading-relaxed text-slate-800">
+				Des retours d’expérience (placeholders) — à remplacer par tes témoignages réels.
+			</p>
+		</div>
+
+		<div class="mt-10 grid gap-4 lg:grid-cols-3">
+			{testimonials.map((t) => (
+				<figure class="rounded-[2rem] bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
+					<blockquote class="text-sm leading-relaxed text-slate-800">
+						“{t.quote}”
+					</blockquote>
+					<figcaption class="mt-5 text-sm">
+						<p class="font-semibold text-slate-900">{t.name}</p>
+						<p class="text-slate-700">{t.meta}</p>
+					</figcaption>
+				</figure>
+			))}
+		</div>
+	</div>
+</section>
+

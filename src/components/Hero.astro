@@ -1,0 +1,87 @@
+---
+// Image hero à placer dans /src/assets/hero.jpg (ou .png).
+// Si l'import n'est pas dispo, fallback possible vers une image en /public (ex: "/hero.jpg").
+import heroImage from '../assets/hero.jpeg';
+
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section
+	class={`relative overflow-hidden py-14 sm:py-18 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-labelledby="hero-title"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
+			<div class="order-1 lg:order-none">
+				<div class="relative">
+					<div
+						class="pointer-events-none absolute -inset-6 rounded-[2rem] bg-white/30 blur-2xl"
+						aria-hidden="true"
+					/>
+					<img
+						src={heroImage.src}
+						width={heroImage.width}
+						height={heroImage.height}
+						alt="Femme en méditation, assise en tailleur."
+						loading="eager"
+						decoding="async"
+						class="relative w-full max-w-xl rounded-[2rem] bg-white/50 shadow-sm shadow-black/10 ring-1 ring-black/5"
+					/>
+				</div>
+			</div>
+
+			<div class="order-2 text-left lg:text-right">
+				<p class="text-xs font-semibold tracking-[0.28em] text-slate-700/80">PROGRAMME</p>
+				<h1
+					id="hero-title"
+					class="mt-4 text-4xl font-semibold tracking-[0.18em] text-slate-900 sm:text-5xl"
+				>
+					RE-FLOW
+				</h1>
+				<h2 class="mt-4 text-2xl font-medium text-slate-900 sm:text-3xl">
+					Quand le corps redevient un <span class="text-[color:var(--plum)]">allié</span>
+				</h2>
+				<p class="mt-5 max-w-prose text-base leading-relaxed text-slate-800 lg:ml-auto">
+					Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.
+				</p>
+
+				<ul
+					class="mt-6 inline-flex flex-col gap-2 text-base text-slate-800 lg:items-end"
+					aria-label="Promesse"
+				>
+					<li class="inline-flex items-center gap-2">
+						<span class="h-1.5 w-1.5 rounded-full bg-[color:var(--plum)]" aria-hidden="true"></span>
+						<span>Sans performance.</span>
+					</li>
+					<li class="inline-flex items-center gap-2">
+						<span class="h-1.5 w-1.5 rounded-full bg-[color:var(--plum)]" aria-hidden="true"></span>
+						<span>À ton rythme.</span>
+					</li>
+				</ul>
+
+				<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-start lg:justify-end">
+					<a
+						href="#programme"
+						class="inline-flex items-center justify-center rounded-2xl bg-[color:var(--plum)] px-6 py-3 text-sm font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+					>
+						Découvrir le programme
+					</a>
+					<a
+						href="#faq"
+						class="inline-flex items-center justify-center rounded-2xl bg-white/50 px-6 py-3 text-sm font-semibold text-slate-900 ring-1 ring-black/10 transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+					>
+						Voir si c’est fait pour moi
+					</a>
+				</div>
+
+				<p class="mt-6 text-sm text-slate-700 lg:ml-auto">
+					Un accompagnement calme, progressif, pensé pour les jours “avec” et les jours “sans”.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+

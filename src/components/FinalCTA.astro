@@ -1,0 +1,52 @@
+---
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section
+	id="cta"
+	class={`py-14 sm:py-18 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-labelledby="cta-title"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="relative overflow-hidden rounded-[2rem] bg-[color:var(--plum)] px-8 py-12 text-white shadow-sm shadow-black/15 sm:px-12">
+			<div
+				class="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-2xl"
+				aria-hidden="true"
+			/>
+			<div
+				class="pointer-events-none absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-white/10 blur-2xl"
+				aria-hidden="true"
+			/>
+
+			<div class="relative mx-auto max-w-3xl text-center">
+				<h2 id="cta-title" class="text-2xl font-semibold sm:text-3xl">
+					Prête à reconnecter avec ton corps ?
+				</h2>
+				<p class="mt-4 text-base leading-relaxed text-white/90">
+					Choisis une approche douce, progressive, et réellement compatible avec ton quotidien.
+				</p>
+				<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+					<a
+						href="#programme"
+						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm shadow-black/10 transition hover:bg-white/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+					>
+						Découvrir le programme
+					</a>
+					<a
+						href="mailto:contact@cecile-coaching.fr"
+						class="inline-flex items-center justify-center rounded-2xl bg-white/10 px-6 py-3 text-sm font-semibold text-white ring-1 ring-white/20 transition hover:bg-white/15 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+					>
+						Me contacter
+					</a>
+				</div>
+				<p class="mt-6 text-xs text-white/75">
+					Réponse sous 48h ouvrées. Tu peux aussi passer par la FAQ ci-dessus.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+

@@ -1,0 +1,73 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = 'RE-FLOW',
+	description = 'Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+	</head>
+
+	<body class="min-h-screen bg-[color:var(--sage)] text-[color:var(--ink)] antialiased">
+		<a
+			href="#contenu"
+			class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-xl focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-slate-900 focus:shadow"
+		>
+			Aller au contenu
+		</a>
+
+		<div class="min-h-screen flex flex-col">
+			<slot name="header" />
+
+			<main id="contenu" class="flex-1">
+				<slot />
+			</main>
+
+			<footer class="border-t border-black/5 bg-white/60">
+				<div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+					<div class="flex flex-col gap-3 text-sm text-slate-700 sm:flex-row sm:items-center sm:justify-between">
+						<p class="font-medium tracking-wide text-slate-900">RE-FLOW</p>
+						<p class="text-slate-700">
+							&copy; {new Date().getFullYear()} — Programme de reconnexion corporelle. Tous droits réservés.
+						</p>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		<script is:inline type="module">
+			// Révélation douce au scroll (IntersectionObserver)
+			const els = Array.from(document.querySelectorAll('[data-reveal]'));
+			if (!('IntersectionObserver' in window)) {
+				els.forEach((el) => el.setAttribute('data-revealed', 'true'));
+			} else {
+				const io = new IntersectionObserver(
+					(entries) => {
+						for (const entry of entries) {
+							if (entry.isIntersecting) {
+								entry.target.setAttribute('data-revealed', 'true');
+								io.unobserve(entry.target);
+							}
+						}
+					},
+					{ rootMargin: '0px 0px -10% 0px', threshold: 0.12 },
+				);
+				els.forEach((el) => io.observe(el));
+			}
+		</script>
+	</body>
+</html>
+

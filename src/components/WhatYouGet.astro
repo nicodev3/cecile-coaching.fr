@@ -1,0 +1,76 @@
+---
+const cards = [
+	{
+		title: 'Ressources',
+		items: [
+			'Séances guidées à suivre chez toi, en douceur.',
+			'Routines “bons jours / jours plus difficiles”.',
+			'Supports clairs pour garder le cap.',
+		],
+	},
+	{
+		title: 'Coaching',
+		items: [
+			'Points réguliers pour ajuster au réel.',
+			'Conseils personnalisés selon ton énergie.',
+			'Un cadre qui te sécurise et te motive sans pression.',
+		],
+	},
+	{
+		title: 'Bonus',
+		items: [
+			'Respiration & relaxation pour apaiser le système nerveux.',
+			'Mini-séances express quand tu manques de temps.',
+			'Checklist simple pour rester autonome.',
+		],
+	},
+];
+
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section
+	id="programme"
+	class={`py-14 sm:py-18 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-labelledby="what-title"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="mx-auto max-w-3xl text-center">
+			<h2 id="what-title" class="text-2xl font-semibold text-slate-900 sm:text-3xl">
+				Concrètement, tu reçois
+			</h2>
+			<p class="mt-4 text-base leading-relaxed text-slate-800">
+				Un programme clair, respirable, et adapté — pour reprendre confiance dans ton corps.
+			</p>
+		</div>
+
+		<div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			{cards.map((c) => (
+				<div class="rounded-[2rem] bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
+					<p class="text-base font-semibold text-slate-900">{c.title}</p>
+					<ul class="mt-4 space-y-2 text-sm text-slate-700">
+						{c.items.map((it) => (
+							<li class="flex gap-2">
+								<span
+									class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--plum)]"
+									aria-hidden="true"
+								></span>
+								<span>{it}</span>
+							</li>
+						))}
+					</ul>
+				</div>
+			))}
+		</div>
+
+		<div class="mt-10 rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+			<p class="text-sm text-slate-700">
+				<span class="font-semibold text-slate-900">Durée</span> : 4 mois — progressif, sans surcharger.
+			</p>
+		</div>
+	</div>
+</section>
+

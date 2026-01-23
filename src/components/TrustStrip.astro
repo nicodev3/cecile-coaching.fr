@@ -1,0 +1,35 @@
+---
+const items = [
+	{
+		title: 'Approche adaptée',
+		desc: 'Un cadre sécurisant, pensé pour les capacités fluctuantes.',
+	},
+	{
+		title: 'Progressif',
+		desc: 'On reconstruit sans brusquer, étape par étape.',
+	},
+	{
+		title: 'Suivi personnalisé',
+		desc: 'Un accompagnement humain, ajusté à ton quotidien.',
+	},
+];
+
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section class={`py-8 ${reveal}`} data-reveal data-revealed="false" aria-label="Éléments de confiance">
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="grid gap-4 sm:grid-cols-3">
+			{items.map((it) => (
+				<div
+					class="rounded-[2rem] bg-white/60 px-6 py-5 shadow-sm shadow-black/5 ring-1 ring-black/5"
+				>
+					<p class="text-sm font-semibold text-slate-900">{it.title}</p>
+					<p class="mt-1 text-sm leading-relaxed text-slate-700">{it.desc}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+

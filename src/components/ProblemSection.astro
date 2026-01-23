@@ -1,0 +1,83 @@
+---
+const cycle = [
+	{ title: 'Fatigue', desc: 'Tu économises ton énergie au maximum.' },
+	{ title: 'Sédentarité', desc: 'Moins de mouvement, moins de confiance.' },
+	{ title: 'Fonte musculaire', desc: 'Le corps perd du tonus et se fragilise.' },
+	{ title: 'Découragement', desc: 'Tu te sens “bloquée” et tu abandonnes.' },
+];
+
+const reveal =
+	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section
+	id="methode"
+	class={`py-14 sm:py-18 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-labelledby="problem-title"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		<div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+			<div class="lg:col-span-5">
+				<h2 id="problem-title" class="text-2xl font-semibold text-slate-900 sm:text-3xl">
+					Casser le cercle vicieux
+				</h2>
+				<p class="mt-4 text-base leading-relaxed text-slate-800">
+					Quand la fatigue s’installe, on bouge moins. Puis le corps perd en force… et la confiance s’effrite.
+					RE-FLOW te guide pour retrouver un mouvement sûr, possible, et durable.
+				</p>
+				<div class="mt-6 rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+					<p class="text-sm font-semibold text-slate-900">La solution RE-FLOW</p>
+					<ul class="mt-3 space-y-2 text-sm text-slate-700">
+						<li class="flex gap-2">
+							<span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--plum)]" aria-hidden="true"></span>
+							<span>Des séances adaptées aux “bons” et “mauvais” jours.</span>
+						</li>
+						<li class="flex gap-2">
+							<span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--plum)]" aria-hidden="true"></span>
+							<span>Un renforcement progressif pour reconstruire le tonus.</span>
+						</li>
+						<li class="flex gap-2">
+							<span class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--plum)]" aria-hidden="true"></span>
+							<span>Un cadre rassurant pour reprendre confiance sans performance.</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="lg:col-span-7">
+				<ol class="grid gap-4 sm:grid-cols-2">
+					{cycle.map((step, i) => (
+						<li class="relative rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+							<p class="text-xs font-semibold tracking-[0.22em] text-slate-700/80">
+								ÉTAPE {i + 1}
+							</p>
+							<p class="mt-2 text-base font-semibold text-slate-900">{step.title}</p>
+							<p class="mt-2 text-sm leading-relaxed text-slate-700">{step.desc}</p>
+							<div
+								class="pointer-events-none absolute -right-2 top-1/2 hidden -translate-y-1/2 sm:block"
+								aria-hidden="true"
+							>
+								{i % 2 === 0 && i !== cycle.length - 1 ? (
+									<span class="grid h-10 w-10 place-items-center rounded-2xl bg-[color:var(--sage)]/70 ring-1 ring-black/5">
+										<span class="text-sm font-semibold text-slate-900">→</span>
+									</span>
+								) : null}
+							</div>
+						</li>
+					))}
+				</ol>
+
+				<div class="mt-6 rounded-[2rem] bg-[color:var(--plum)]/10 p-6 ring-1 ring-black/5">
+					<p class="text-sm font-semibold text-slate-900">Objectif</p>
+					<p class="mt-2 text-sm leading-relaxed text-slate-700">
+						Remettre du mouvement dans la journée, reconstruire doucement, et retrouver un esprit plus apaisé — sans se
+						mettre en échec.
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
