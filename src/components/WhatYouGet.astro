@@ -1,7 +1,12 @@
 ---
+import IconRessources from './icons/IconRessources.astro';
+import IconCoaching from './icons/IconCoaching.astro';
+import IconBonus from './icons/IconBonus.astro';
+
 const cards = [
 	{
 		title: 'Ressources',
+		icon: IconRessources,
 		items: [
 			'Séances guidées à suivre chez toi, en douceur.',
 			'Routines “bons jours / jours plus difficiles”.',
@@ -10,6 +15,7 @@ const cards = [
 	},
 	{
 		title: 'Coaching',
+		icon: IconCoaching,
 		items: [
 			'Points réguliers pour ajuster au réel.',
 			'Conseils personnalisés selon ton énergie.',
@@ -18,6 +24,7 @@ const cards = [
 	},
 	{
 		title: 'Bonus',
+		icon: IconBonus,
 		items: [
 			'Respiration & relaxation pour apaiser le système nerveux.',
 			'Mini-séances express quand tu manques de temps.',
@@ -50,7 +57,12 @@ const reveal =
 		<div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 			{cards.map((c) => (
 				<div class="rounded-[2rem] bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
-					<p class="text-base font-semibold text-slate-900">{c.title}</p>
+					<div class="mb-4 flex items-center gap-3">
+						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[color:var(--sage)]/70 ring-1 ring-black/5">
+							<c.icon class="text-[color:var(--plum)]" />
+						</div>
+						<p class="text-base font-semibold text-slate-900">{c.title}</p>
+					</div>
 					<ul class="mt-4 space-y-2 text-sm text-slate-700">
 						{c.items.map((it) => (
 							<li class="flex gap-2">

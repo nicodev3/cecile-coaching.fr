@@ -1,20 +1,29 @@
 ---
+import IconReconnexion from './icons/IconReconnexion.astro';
+import IconStabilite from './icons/IconStabilite.astro';
+import IconRenforcement from './icons/IconRenforcement.astro';
+import IconAutonomie from './icons/IconAutonomie.astro';
+
 const steps = [
 	{
 		title: 'Reconnexion',
 		desc: 'Réapprendre à bouger en sécurité, sans douleur inutile, avec des repères simples.',
+		icon: IconReconnexion,
 	},
 	{
 		title: 'Stabilité',
 		desc: 'Installer une routine douce qui tient dans une vraie vie (et une énergie fluctuante).',
+		icon: IconStabilite,
 	},
 	{
 		title: 'Renforcement',
 		desc: 'Reconstruire le tonus progressivement pour gagner en aisance au quotidien.',
+		icon: IconRenforcement,
 	},
 	{
 		title: 'Autonomie',
 		desc: 'Savoir t’adapter, choisir les bonnes séances, et conserver les bénéfices dans le temps.',
+		icon: IconAutonomie,
 	},
 ];
 
@@ -37,14 +46,23 @@ const reveal =
 			{steps.map((s, idx) => (
 				<li>
 					<div class="relative rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
-						<div
-							class="absolute -left-2 -top-2 grid h-10 w-10 place-items-center rounded-2xl bg-white/70 ring-1 ring-black/5 shadow-sm"
-							aria-hidden="true"
-						>
-							<span class="text-sm font-semibold text-[color:var(--plum)]">{idx + 1}</span>
+						<div class="flex items-start gap-4">
+							<div
+								class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-[color:var(--sage)]/70 ring-1 ring-black/5"
+								aria-hidden="true"
+							>
+								<s.icon class="text-[color:var(--plum)]" />
+							</div>
+							<div class="flex-1">
+								<div class="mb-1 flex items-center gap-2">
+									<span class="text-xs font-semibold tracking-[0.22em] text-slate-700/80">
+										ÉTAPE {idx + 1}
+									</span>
+								</div>
+								<p class="text-base font-semibold text-slate-900">{s.title}</p>
+								<p class="mt-2 text-sm leading-relaxed text-slate-700">{s.desc}</p>
+							</div>
 						</div>
-						<p class="text-base font-semibold text-slate-900">{s.title}</p>
-						<p class="mt-2 text-sm leading-relaxed text-slate-700">{s.desc}</p>
 					</div>
 				</li>
 			))}

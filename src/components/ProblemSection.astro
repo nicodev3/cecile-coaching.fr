@@ -1,9 +1,14 @@
 ---
+import IconFatigue from './icons/IconFatigue.astro';
+import IconSedentarite from './icons/IconSedentarite.astro';
+import IconFonteMusculaire from './icons/IconFonteMusculaire.astro';
+import IconDecouragement from './icons/IconDecouragement.astro';
+
 const cycle = [
-	{ title: 'Fatigue', desc: 'Tu économises ton énergie au maximum.' },
-	{ title: 'Sédentarité', desc: 'Moins de mouvement, moins de confiance.' },
-	{ title: 'Fonte musculaire', desc: 'Le corps perd du tonus et se fragilise.' },
-	{ title: 'Découragement', desc: 'Tu te sens “bloquée” et tu abandonnes.' },
+	{ title: 'Fatigue', desc: 'Tu économises ton énergie au maximum.', icon: IconFatigue },
+	{ title: 'Sédentarité', desc: 'Moins de mouvement, moins de confiance.', icon: IconSedentarite },
+	{ title: 'Fonte musculaire', desc: 'Le corps perd du tonus et se fragilise.', icon: IconFonteMusculaire },
+	{ title: 'Découragement', desc: 'Tu te sens “bloquée” et tu abandonnes.', icon: IconDecouragement },
 ];
 
 const reveal =
@@ -51,10 +56,15 @@ const reveal =
 				<ol class="grid gap-4 sm:grid-cols-2">
 					{cycle.map((step, i) => (
 						<li class="relative rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
-							<p class="text-xs font-semibold tracking-[0.22em] text-slate-700/80">
-								ÉTAPE {i + 1}
-							</p>
-							<p class="mt-2 text-base font-semibold text-slate-900">{step.title}</p>
+							<div class="mb-3 flex items-center gap-3">
+								<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[color:var(--sage)]/70 ring-1 ring-black/5">
+									<step.icon class="text-[color:var(--plum)]" />
+								</div>
+								<p class="text-xs font-semibold tracking-[0.22em] text-slate-700/80">
+									ÉTAPE {i + 1}
+								</p>
+							</div>
+							<p class="text-base font-semibold text-slate-900">{step.title}</p>
 							<p class="mt-2 text-sm leading-relaxed text-slate-700">{step.desc}</p>
 							<div
 								class="pointer-events-none absolute -right-2 top-1/2 hidden -translate-y-1/2 sm:block"
