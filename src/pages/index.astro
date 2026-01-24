@@ -7,9 +7,11 @@ import ProblemSection from '../components/ProblemSection.astro';
 import StepsTimeline from '../components/StepsTimeline.astro';
 import WhatYouGet from '../components/WhatYouGet.astro';
 import Pricing from '../components/Pricing.astro';
+import AboutCoach from '../components/AboutCoach.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
+import ContactForm from '../components/ContactForm.astro';
 ---
 
 <BaseLayout
@@ -40,6 +42,7 @@ import FinalCTA from '../components/FinalCTA.astro';
 		</div>
 
 		<Pricing />
+		<AboutCoach />
 		<Testimonials />
 
 		<div class="border-y border-black/5 bg-white/35">
@@ -47,5 +50,9 @@ import FinalCTA from '../components/FinalCTA.astro';
 		</div>
 
 		<FinalCTA />
+
+		<div class="border-y border-black/5 bg-white/35">
+			<ContactForm />
+		</div>
 	</div>
 </BaseLayout>
