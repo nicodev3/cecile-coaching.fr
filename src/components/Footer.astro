@@ -3,8 +3,8 @@ const today = new Date();
 ---
 
 <footer>
+	<p class="apa-badge">Coach sportive certifiée APA — Activités Physiques Adaptées</p>
 	<p>&copy; {today.getFullYear()} RE-FLOW - Programme de reconnexion corporelle. Tous droits réservés.</p>
-	<p>Coach sportive certifiée APA (Activités Physiques Adaptées)</p>
 </footer>
 <style>
 	footer {
@@ -12,6 +12,11 @@ const today = new Date();
 		background: linear-gradient(var(--gray-gradient)) no-repeat;
 		color: rgb(var(--gray));
 		text-align: center;
+	}
+	footer .apa-badge {
+		font-weight: 600;
+		margin-bottom: 0.5em;
+		letter-spacing: 0.02em;
 	}
 	.social-links {
 		display: flex;
