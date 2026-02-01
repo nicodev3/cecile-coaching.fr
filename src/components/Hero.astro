@@ -1,7 +1,7 @@
 ---
-// Image hero à placer dans /src/assets/hero.jpg (ou .png).
-// Si l'import n'est pas dispo, fallback possible vers une image en /public (ex: "/hero.jpg").
-import heroImage from '../assets/femme-yoga.png';
+// Images hero dans /src/assets/ — import pour que Vite/Astro traitent les chemins.
+import heroImagePng from '../assets/femme-yoga.png';
+import heroImageWebp from '../assets/femme-yoga.webp';
 
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
@@ -21,15 +21,16 @@ const reveal =
 						class="pointer-events-none absolute -inset-6 rounded-[2rem] bg-white/30 blur-2xl"
 						aria-hidden="true"
 					/>
-					<img
-						src={heroImage.src}
-						width={heroImage.width}
-						height={heroImage.height}
-						alt="Femme en méditation, assise en tailleur."
-						loading="eager"
-						decoding="async"
-						class="relative w-full max-w-xl"
-					/>
+					<picture>
+						<source srcset={heroImageWebp.src} type="image/webp" />
+						<img
+							src={heroImagePng.src}
+							alt="Femme en méditation, assise en tailleur."
+							loading="eager"
+							decoding="async"
+							class="relative w-full max-w-xl"
+						/>
+					</picture>
 				</div>
 			</div>
 
