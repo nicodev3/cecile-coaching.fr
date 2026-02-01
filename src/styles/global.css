@@ -4,6 +4,8 @@
 	/* Palette “force douce” */
 	--sage: #d7e2d2;
 	--plum: #7b4e8c;
+	/* Teinte plum plus foncée pour le texte sur fond clair (contraste WCAG AA) */
+	--plum-ink: #4a2d57;
 	--ink: #111827;
 	--paper: #f7faf6;
 
