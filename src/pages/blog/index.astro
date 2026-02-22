@@ -36,7 +36,7 @@ const posts = (await getCollection('blog')).sort(
 											width={index === 0 ? 960 : 320}
 											height={index === 0 ? 480 : 320}
 											src={post.data.heroImage}
-											alt=""
+											alt={post.data.title}
 											class:list={[
 												"mb-2 rounded-xl transition-shadow duration-200 group-hover:shadow-lg",
 												index === 0 && "w-full"
