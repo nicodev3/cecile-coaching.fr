@@ -1,11 +1,22 @@
 ---
-const links = [
+const rawLinks = [
 	{ href: '#programme', label: 'Programme' },
 	{ href: '#methode', label: 'Méthode' },
 	{ href: '#tarif', label: 'Tarif' },
 	{ href: '#temoignages', label: 'Témoignages' },
 	{ href: '#faq', label: 'FAQ' },
+	{ href: '/blog', label: 'Blog' },
 ];
+
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
+
+const links = rawLinks.map((l) => {
+	const isAnchor = l.href.startsWith('#');
+	const href = !isHome && isAnchor ? `/${l.href}` : l.href;
+	const isCurrent = isAnchor ? false : currentPath.startsWith(l.href);
+	return { ...l, href, isCurrent };
+});
 ---
 
 <header class="sticky top-0 z-40 border-b border-black/5 bg-[color:var(--sage)]/80 backdrop-blur">
@@ -28,8 +39,14 @@ const links = [
 			<nav class="hidden items-center gap-1 lg:flex" aria-label="Navigation principale">
 				{links.map((l) => (
 					<a
-						href={l.href}
-						class="rounded-xl px-3 py-2 text-base font-medium text-slate-800 transition hover:bg-white/60 hover:text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+						href={l.isCurrent ? undefined : l.href}
+						aria-current={l.isCurrent ? 'page' : undefined}
+						class:list={[
+							"rounded-xl px-3 py-2 text-base font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]",
+							l.isCurrent
+								? "text-[color:var(--plum)] font-semibold cursor-default pointer-events-none"
+								: "text-slate-800 hover:bg-white/60 hover:text-slate-900"
+						]}
 					>
 						{l.label}
 					</a>
@@ -38,7 +55,7 @@ const links = [
 
 			<div class="hidden lg:flex items-center gap-3">
 				<a
-					href="#programme"
+					href={isHome ? '#programme' : '/#programme'}
 					class="inline-flex items-center justify-center rounded-2xl bg-[color:var(--plum)] px-4 py-2 text-base font-semibold text-white shadow-sm shadow-black/5 transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
 				>
 					Découvrir
@@ -60,15 +77,21 @@ const links = [
 					<nav class="p-2" aria-label="Menu mobile">
 						{links.map((l) => (
 							<a
-								href={l.href}
-								class="block rounded-xl px-3 py-2 text-base font-medium text-slate-800 hover:bg-[color:var(--sage)]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--plum)]"
+								href={l.isCurrent ? undefined : l.href}
+								aria-current={l.isCurrent ? 'page' : undefined}
+								class:list={[
+									"block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--plum)]",
+									l.isCurrent
+										? "text-[color:var(--plum)] font-semibold cursor-default pointer-events-none"
+										: "text-slate-800 hover:bg-[color:var(--sage)]/60"
+								]}
 							>
 								{l.label}
 							</a>
 						))}
 						<div class="mt-2 border-t border-black/5 pt-2">
 							<a
-								href="#programme"
+								href={isHome ? '#programme' : '/#programme'}
 								class="block rounded-xl bg-[color:var(--plum)] px-3 py-2 text-center text-base font-semibold text-white shadow-sm shadow-black/5 hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--plum)]"
 							>
 								Découvrir

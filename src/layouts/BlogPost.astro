@@ -15,45 +15,172 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 <html lang="fr">
 	<head>
 		<BaseHead title={title} description={description} />
-		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
-			}
-			.hero-image {
-				width: 100%;
-			}
-			.hero-image img {
-				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
-			}
-			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
-			}
-			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
-				text-align: center;
-				line-height: 1;
-			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
-			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
-			}
-			.last-updated-on {
-				font-style: italic;
-			}
-		</style>
+	<style>
+		main {
+			width: calc(100% - 2em);
+			max-width: 100%;
+			margin: 0;
+		}
+		.hero-image {
+			width: 100%;
+		}
+		.hero-image img {
+			display: block;
+			margin: 0 auto;
+		}
+		.prose {
+			width: 720px;
+			max-width: calc(100% - 2em);
+			margin: auto;
+			padding: 1em 1em 4em;
+			color: #1e1b2e;
+			font-size: 1.0625rem;
+			line-height: 1.75;
+		}
+		.title {
+			margin-bottom: 2em;
+			padding: 1em 0;
+			text-align: center;
+			line-height: 1;
+		}
+		.title h1 {
+			margin: 0 0 0.5em 0;
+			font-size: 2rem;
+			line-height: 1.2;
+			color: #1e1b2e;
+		}
+		.date {
+			margin-bottom: 0.75em;
+			font-size: 0.875rem;
+			color: rgb(var(--gray));
+			letter-spacing: 0.04em;
+		}
+		.last-updated-on {
+			font-style: italic;
+		}
+
+		/* ── Titres ── */
+		.prose :global(h2) {
+			font-family: var(--font-title);
+			font-size: 1.375rem;
+			font-weight: 600;
+			color: var(--plum-ink);
+			margin: 2.5em 0 0.75em;
+			line-height: 1.3;
+		}
+		.prose :global(h3) {
+			font-family: var(--font-title);
+			font-size: 1.125rem;
+			font-weight: 600;
+			color: #1e1b2e;
+			margin: 2em 0 0.5em;
+			line-height: 1.4;
+		}
+
+		/* ── Paragraphes ── */
+		.prose :global(p) {
+			margin: 0 0 1.25em;
+		}
+
+		/* ── Liens ── */
+		.prose :global(a) {
+			color: var(--plum);
+			text-decoration: underline;
+			text-underline-offset: 3px;
+			transition: color 0.15s ease;
+		}
+		.prose :global(a:hover) {
+			color: var(--plum-ink);
+		}
+
+		/* ── Listes ── */
+		.prose :global(ul),
+		.prose :global(ol) {
+			margin: 0 0 1.25em 1.5em;
+			padding: 0;
+		}
+		.prose :global(ul) {
+			list-style: none;
+			margin-left: 0;
+		}
+		.prose :global(ul li) {
+			position: relative;
+			padding-left: 1.5em;
+			margin-bottom: 0.5em;
+		}
+		.prose :global(ul li::before) {
+			content: '';
+			position: absolute;
+			left: 0;
+			top: 0.65em;
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			background-color: var(--plum);
+		}
+		.prose :global(ol) {
+			list-style: decimal;
+		}
+		.prose :global(ol li) {
+			margin-bottom: 0.5em;
+			padding-left: 0.25em;
+		}
+
+		/* ── Texte en gras / italique ── */
+		.prose :global(strong) {
+			font-weight: 700;
+			color: var(--plum-ink);
+		}
+		.prose :global(em) {
+			font-style: italic;
+			color: rgb(var(--gray));
+		}
+
+		/* ── Séparateur horizontal ── */
+		.prose :global(hr) {
+			border: none;
+			border-top: 1px solid rgb(var(--gray-light));
+			margin: 2.5em 0;
+		}
+		.title :global(hr) {
+			border: none;
+			border-top: 2px solid var(--sage);
+			margin: 1em auto 0;
+			width: 4rem;
+		}
+
+		/* ── Blockquote ── */
+		.prose :global(blockquote) {
+			border-left: 3px solid var(--plum);
+			margin: 1.5em 0;
+			padding: 0.75em 1.25em;
+			background: color-mix(in srgb, var(--sage) 30%, transparent);
+			border-radius: 0 0.75rem 0.75rem 0;
+			color: var(--plum-ink);
+			font-style: italic;
+		}
+		.prose :global(blockquote p) {
+			margin: 0;
+		}
+
+		/* ── Code inline ── */
+		.prose :global(code) {
+			font-size: 0.875em;
+			background: color-mix(in srgb, var(--sage) 40%, transparent);
+			color: var(--plum-ink);
+			padding: 0.15em 0.4em;
+			border-radius: 0.3em;
+		}
+
+		/* ── Images dans le contenu ── */
+		.prose :global(img) {
+			max-width: 100%;
+			border-radius: 12px;
+			margin: 1.5em auto;
+			display: block;
+			box-shadow: var(--box-shadow);
+		}
+	</style>
 	</head>
 
 	<body>
@@ -61,7 +188,7 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={400} height={541} src={heroImage} alt="" />}
+					{heroImage && <Image width={320} height={320} src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
 					<div class="title">
