@@ -10,11 +10,37 @@ import '../styles/global.css';
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
+const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+const blogPostingStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'BlogPosting',
+	headline: title,
+	description,
+	datePublished: pubDate.toISOString(),
+	...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
+	mainEntityOfPage: {
+		'@type': 'WebPage',
+		'@id': pageUrl,
+	},
+	author: {
+		'@type': 'Person',
+		name: 'Cecile',
+	},
+	publisher: {
+		'@type': 'Organization',
+		name: 'RE-FLOW',
+		url: siteUrlNormalized,
+	},
+	inLanguage: 'fr-FR',
+	...(heroImage ? { image: [new URL(heroImage.src, Astro.site).toString()] } : {}),
+};
 ---
 
 <html lang="fr">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} structuredData={blogPostingStructuredData} />
 	<style>
 		main {
 			width: calc(100% - 2em);

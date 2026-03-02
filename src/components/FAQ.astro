@@ -26,6 +26,19 @@ const faqs = [
 	},
 ];
 
+const faqStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((f) => ({
+		'@type': 'Question',
+		name: f.q,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: f.a,
+		},
+	})),
+};
+
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
 ---
@@ -67,4 +80,6 @@ const reveal =
 		</div>
 	</div>
 </section>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)}></script>
 

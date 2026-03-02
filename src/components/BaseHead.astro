@@ -6,17 +6,49 @@ import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/cecile-coach-apa.webp';
 import { SITE_TITLE } from '../consts';
 
+type StructuredData = Record<string, unknown>;
+
 interface Props {
 	title: string;
 	description: string;
 	image?: ImageMetadata;
+	structuredData?: StructuredData | StructuredData[];
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage } = Astro.props;
+const { title, description, image = FallbackImage, structuredData } = Astro.props;
 const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
+const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
+const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+
+const coachingStructuredData: StructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfessionalService',
+	'@id': `${siteUrlNormalized}/#coaching-service`,
+	name: 'RE-FLOW',
+	description:
+		'Programme de reconnexion corporelle pour les femmes touchees par une maladie chronique. Coaching certifie APA.',
+	url: siteUrlNormalized,
+	inLanguage: 'fr-FR',
+	areaServed: {
+		'@type': 'Country',
+		name: 'France',
+	},
+	provider: {
+		'@type': 'Person',
+		name: 'Cecile',
+		jobTitle: 'Coach certifiee APA',
+	},
+};
+
+const extraStructuredData = Array.isArray(structuredData)
+	? structuredData
+	: structuredData
+		? [structuredData]
+		: [];
+const structuredDataScripts = [coachingStructuredData, ...extraStructuredData];
 ---
 
 <!-- Global Metadata -->
@@ -60,4 +92,10 @@ const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
 		umamiUrl && (
 			<script defer src={`${umamiUrl}/script.js`} data-website-id={umamiId}></script>
 		)
+}
+
+{
+	structuredDataScripts.map((schema) => (
+		<script type="application/ld+json" set:html={JSON.stringify(schema)}></script>
+	))
 }
