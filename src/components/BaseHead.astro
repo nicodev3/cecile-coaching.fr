@@ -15,6 +15,8 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = FallbackImage } = Astro.props;
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
 ---
 
 <!-- Global Metadata -->
@@ -52,3 +54,10 @@ const { title, description, image = FallbackImage } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+
+{
+	umamiId &&
+		umamiUrl && (
+			<script defer src={`${umamiUrl}/script.js`} data-website-id={umamiId}></script>
+		)
+}

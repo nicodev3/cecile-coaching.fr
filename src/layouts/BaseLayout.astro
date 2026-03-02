@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
 
 interface Props {
 	title?: string;
@@ -10,25 +10,12 @@ const {
 	title = 'RE-FLOW',
 	description = 'Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.',
 } = Astro.props;
-
-const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
-const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
 ---
 
 <!doctype html>
 <html lang="fr" class="scroll-smooth">
 	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<title>{title}</title>
-		<meta name="description" content={description} />
-		{umamiId && umamiUrl && (
-			<script
-			  defer
-			  src={`${umamiUrl}/script.js`}
-			  data-website-id={umamiId}
-			></script>
-		  )}
+		<BaseHead title={title} description={description} />
 	</head>
 
 	<body class="min-h-screen bg-[color:var(--sage)] text-[color:var(--ink)] antialiased">
@@ -80,4 +67,3 @@ const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
 		</script>
 	</body>
 </html>
-
