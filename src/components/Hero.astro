@@ -1,6 +1,6 @@
 ---
+import { Image } from 'astro:assets';
 // Images hero dans /src/assets/ — import pour que Vite/Astro traitent les chemins.
-import heroImagePng from '../assets/femme-yoga.png';
 import heroImageWebp from '../assets/femme-yoga.webp';
 
 const reveal =
@@ -21,16 +21,13 @@ const reveal =
 						class="pointer-events-none absolute -inset-6 rounded-[2rem] bg-white/30 blur-2xl"
 						aria-hidden="true"
 					/>
-					<picture>
-						<source srcset={heroImageWebp.src} type="image/webp" />
-						<img
-							src={heroImagePng.src}
-							alt="Femme en méditation, assise en tailleur."
-							loading="eager"
-							decoding="async"
-							class="relative w-full max-w-xl"
-						/> 
-					</picture>
+					<Image
+						src={heroImageWebp}
+						alt="Femme en méditation, assise en tailleur."
+						loading="eager"
+						decoding="async"
+						class="relative w-full max-w-xl"
+					/>
 				</div>
 			</div>
 
@@ -46,9 +43,9 @@ const reveal =
 				>
 					RE-FLOW
 				</h1>
-				<h2 class="mt-4 text-2xl font-medium text-slate-900 sm:text-3xl">
+				<p class="mt-4 text-2xl font-medium text-slate-900 sm:text-3xl">
 					Quand le corps redevient un <span class="text-[color:var(--plum)]">allié</span>
-				</h2>
+				</p>
 				<p class="mt-5 max-w-prose text-base leading-relaxed text-slate-800 lg:ml-auto">
 					Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.
 				</p>

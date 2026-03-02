@@ -10,14 +10,16 @@ import '../styles/global.css';
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const seoTitle = `${title} | Blog RE-FLOW`;
+const seoDescription = `${description} Article du blog RE-FLOW sur la reconnexion corporelle et l'APA.`;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
 const blogPostingStructuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'BlogPosting',
-	headline: title,
-	description,
+	headline: seoTitle,
+	description: seoDescription,
 	datePublished: pubDate.toISOString(),
 	...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
 	mainEntityOfPage: {
@@ -40,7 +42,7 @@ const blogPostingStructuredData = {
 
 <html lang="fr">
 	<head>
-		<BaseHead title={title} description={description} structuredData={blogPostingStructuredData} />
+		<BaseHead title={seoTitle} description={seoDescription} structuredData={blogPostingStructuredData} />
 	<style>
 		main {
 			width: calc(100% - 2em);
@@ -223,7 +225,7 @@ const blogPostingStructuredData = {
 							{
 								updatedDate && (
 									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
+										Mise à jour le <FormattedDate date={updatedDate} />
 									</div>
 								)
 							}

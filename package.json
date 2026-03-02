@@ -21,6 +21,8 @@
     "typescript": "^5.9.3"
   },
   "devDependencies": {
+    "@fontsource/lato": "^5.2.7",
+    "@fontsource/montserrat": "^5.2.8",
     "to-ico": "^1.1.5"
   }
 }
