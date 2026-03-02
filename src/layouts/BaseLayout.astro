@@ -10,6 +10,9 @@ const {
 	title = 'RE-FLOW',
 	description = 'Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.',
 } = Astro.props;
+
+const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
+const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
 ---
 
 <!doctype html>
@@ -19,6 +22,13 @@ const {
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
+		{umamiId && umamiUrl && (
+			<script
+			  defer
+			  src={`${umamiUrl}/script.js`}
+			  data-website-id={umamiId}
+			></script>
+		  )}
 	</head>
 
 	<body class="min-h-screen bg-[color:var(--sage)] text-[color:var(--ink)] antialiased">
