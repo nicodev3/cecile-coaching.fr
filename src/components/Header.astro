@@ -20,19 +20,19 @@ const links = rawLinks.map((l) => {
 });
 ---
 
-<header class="sticky top-0 z-40 border-b border-black/5 bg-[color:var(--sage)]/80 backdrop-blur">
+<header class="sticky top-0 z-40 border-b border-black/5 bg-(--sage)/80 backdrop-blur">
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 		<div class="flex h-16 items-center justify-between gap-4">
 			<a
 				href="/"
-				class="group inline-flex items-center gap-2 rounded-xl px-2 py-1 text-base font-semibold tracking-[0.22em] text-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+				class="group inline-flex items-center gap-2 rounded-xl px-2 py-1 text-base font-semibold tracking-[0.22em] text-slate-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 				aria-label="Aller à l’accueil"
 			>
 				<span
 					class="grid h-8 w-8 place-items-center rounded-2xl bg-white/70 ring-1 ring-black/5 shadow-sm transition group-hover:bg-white"
 					aria-hidden="true"
 				>
-					<span class="h-2.5 w-2.5 rounded-full bg-[color:var(--plum)]"></span>
+					<span class="h-2.5 w-2.5 rounded-full bg-(--plum)"></span>
 				</span>
 				<span>RE-FLOW</span>
 			</a>
@@ -43,9 +43,9 @@ const links = rawLinks.map((l) => {
 						href={l.isCurrent ? undefined : l.href}
 						aria-current={l.isCurrent ? 'page' : undefined}
 						class:list={[
-							"rounded-xl px-3 py-2 text-base font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]",
+							"rounded-xl px-3 py-2 text-base font-medium transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)",
 							l.isCurrent
-								? "text-[color:var(--plum)] font-semibold cursor-default pointer-events-none"
+								? "text-(--plum) font-semibold cursor-default pointer-events-none"
 								: "text-slate-800 hover:bg-white/60 hover:text-slate-900"
 						]}
 					>
@@ -57,7 +57,7 @@ const links = rawLinks.map((l) => {
 			<div class="hidden lg:flex items-center gap-3">
 				<a
 					href={isHome ? '#programme' : '/#programme'}
-					class="inline-flex items-center justify-center rounded-2xl bg-[color:var(--plum)] px-4 py-2 text-base font-semibold text-white shadow-sm shadow-black/5 transition hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+					class="inline-flex items-center justify-center rounded-2xl bg-(--plum) px-4 py-2 text-base font-semibold text-white shadow-sm shadow-black/5 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 				>
 					Découvrir
 				</a>
@@ -66,7 +66,7 @@ const links = rawLinks.map((l) => {
 			<!-- Mobile -->
 			<details class="group relative lg:hidden">
 				<summary
-					class="list-none inline-flex items-center justify-center rounded-2xl bg-white/60 px-3 py-2 text-base font-semibold text-slate-900 ring-1 ring-black/5 shadow-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+					class="list-none inline-flex items-center justify-center rounded-2xl bg-white/60 px-3 py-2 text-base font-semibold text-slate-900 ring-1 ring-black/5 shadow-sm transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 					aria-label="Ouvrir le menu"
 				>
 					Menu
@@ -81,10 +81,10 @@ const links = rawLinks.map((l) => {
 								href={l.isCurrent ? undefined : l.href}
 								aria-current={l.isCurrent ? 'page' : undefined}
 								class:list={[
-									"block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--plum)]",
+									"block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)",
 									l.isCurrent
-										? "text-[color:var(--plum)] font-semibold cursor-default pointer-events-none"
-										: "text-slate-800 hover:bg-[color:var(--sage)]/60"
+										? "text-(--plum) font-semibold cursor-default pointer-events-none"
+										: "text-slate-800 hover:bg-(--sage)/60"
 								]}
 							>
 								{l.label}
@@ -93,7 +93,7 @@ const links = rawLinks.map((l) => {
 						<div class="mt-2 border-t border-black/5 pt-2">
 							<a
 								href={isHome ? '#programme' : '/#programme'}
-								class="block rounded-xl bg-[color:var(--plum)] px-3 py-2 text-center text-base font-semibold text-white shadow-sm shadow-black/5 hover:brightness-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:var(--plum)]"
+								class="block rounded-xl bg-(--plum) px-3 py-2 text-center text-base font-semibold text-white shadow-sm shadow-black/5 hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
 							>
 								Découvrir
 							</a>

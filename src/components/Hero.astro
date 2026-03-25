@@ -1,4 +1,5 @@
 ---
+import { Check } from '@lucide/astro';
 import { Image } from 'astro:assets';
 // Images hero dans /src/assets/ — import pour que Vite/Astro traitent les chemins.
 import heroImageWebp from '../assets/femme-yoga.webp';
@@ -34,8 +35,8 @@ const reveal =
 
 			<div class="order-2 text-left lg:text-right">
 				<p class="text-sm font-semibold tracking-[0.28em] text-slate-700/80">PROGRAMME</p>
-				<p class="mt-1 inline-flex flex-wrap items-center gap-2 rounded-xl bg-var(--plum)/10 px-3 py-1.5 text-sm font-semibold text-var(--plum-ink) ring-1 ring-var(--plum)/20">
-					<span aria-hidden="true">✓</span>
+				<p class="mt-1 inline-flex flex-wrap items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
+					<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
 					<span>Coach certifiée APA — Activités Physiques Adaptées</span>
 				</p>
 				<h1
@@ -45,7 +46,7 @@ const reveal =
 					RE-FLOW
 				</h1>
 				<p class="mt-4 text-2xl font-medium text-slate-900 sm:text-3xl">
-					Quand le corps redevient un <span class="text-var(--plum)">allié</span>
+					Quand le corps redevient un <span class="text-(--plum)">allié</span>
 				</p>
 				<p class="mt-5 max-w-prose text-base leading-relaxed text-slate-800 lg:ml-auto">
 					Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.
@@ -56,11 +57,11 @@ const reveal =
 					aria-label="Promesse"
 				>
 					<li class="inline-flex items-center gap-2">
-						<span class="h-1.5 w-1.5 rounded-full bg-var(--plum)" aria-hidden="true"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-(--plum)" aria-hidden="true"></span>
 						<span>Sans performance.</span>
 					</li>
 					<li class="inline-flex items-center gap-2">
-						<span class="h-1.5 w-1.5 rounded-full bg-var(--plum)" aria-hidden="true"></span>
+						<span class="h-1.5 w-1.5 rounded-full bg-(--plum)" aria-hidden="true"></span>
 						<span>À ton rythme.</span>
 					</li>
 				</ul>
@@ -68,13 +69,13 @@ const reveal =
 				<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-start lg:justify-end">
 					<a
 						href="#programme"
-						class="inline-flex items-center justify-center rounded-2xl bg-var(--plum) px-6 py-3 text-base font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-var(--plum)"
+						class="inline-flex items-center justify-center rounded-2xl bg-(--plum) px-6 py-3 text-base font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 					>
 						Découvrir le programme
 					</a>
 					<a
 						href="#faq"
-						class="inline-flex items-center justify-center rounded-2xl bg-white/50 px-6 py-3 text-base font-semibold text-slate-900 ring-1 ring-black/10 transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-var(--plum)"
+						class="inline-flex items-center justify-center rounded-2xl bg-white/50 px-6 py-3 text-base font-semibold text-slate-900 ring-1 ring-black/10 transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 					>
 						Savoir si ce programme est pour moi
 					</a>

@@ -1,0 +1,23 @@
+---
+description: Classes Tailwind en syntaxe canonique (v4+) — éviter suggestCanonicalClasses
+globs: "**/*.{astro,tsx,jsx,vue,html,css}"
+alwaysApply: false
+---
+
+# Classes Tailwind : syntaxe canonique
+
+- Utiliser **la syntaxe officielle de la version installée** du projet (`tailwindcss` / `@tailwindcss/*` dans `package.json`), alignée sur la [doc Tailwind CSS](https://tailwindcss.com/docs) actuelle.
+- **Objectif** : aucun avertissement du langage Tailwind / IntelliSense de type **`suggestCanonicalClasses`** (classes non canoniques ou anciennes formes).
+- Lors de l’écriture ou la modification de classes dans `class`, `className`, attributs utilitaires ou `@apply` :
+  - **Appliquer la suggestion proposée** par l’outil (nom de classe canonique) plutôt que la variante dépréciée ou alias.
+  - Ne pas mélanger intentionnellement anciennes et nouvelles formes pour la même intention.
+
+## Exemples fréquents (à confirmer selon la version)
+
+| À éviter si l’outil signale une forme canonique | Forme à privilégier |
+|------------------------------------------------|----------------------|
+| utilitaires « historiques » ou alias | nom canonique affiché par la suggestion |
+| `flex-grow` / `flex-shrink` quand la doc v4 recommande autre chose | `grow` / `shrink` (si c’est ce que propose la suggestion) |
+| `w-*` + `h-*` identiques quand `size-*` est canonique pour ce cas | `size-*` (si adapté) |
+
+En cas de doute, **suivre la suggestion de correction exacte** du diagnostic plutôt que de tenir une forme obsolète.

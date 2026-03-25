@@ -1,5 +1,12 @@
 ---
+import { Check } from '@lucide/astro';
 import coachImage from '../assets/cecile-coach-apa.webp';
+
+const ytVideoId = 'tT4GFMTYE4k';
+const ytEmbedQuery =
+	'si=JiE3xxtSmPTgzafW&modestbranding=1&rel=0&playsinline=1';
+const ytEmbedUrl = `https://www.youtube.com/embed/${ytVideoId}?${ytEmbedQuery}`;
+const ytEmbedUrlAutoplay = `${ytEmbedUrl}&autoplay=1&mute=1`;
 
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
@@ -28,13 +35,24 @@ const reveal =
 					<!-- Image circulaire avec effet design -->
 					<div class="relative mb-6">
 						<div
-							class="pointer-events-none absolute -inset-4 rounded-full bg-linear-to-br from-var(--plum)/20 to-var(--sage)/20 blur-xl"
+							class="pointer-events-none absolute -inset-4 rounded-full bg-linear-to-br from-(--plum)/20 to-(--sage)/20 blur-xl"
 							aria-hidden="true"
 						/>
+						<div class="relative rounded-full p-1 ring-4 ring-white/80 shadow-lg shadow-black/10">
+							<img
+								src={coachImage.src}
+								width={coachImage.width}
+								height={coachImage.height}
+								alt="Cécile, coach certifiée APA — Activités Physiques Adaptées"
+								loading="lazy"
+								decoding="async"
+								class="h-32 w-32 rounded-full object-cover sm:h-40 sm:w-40"
+							/> 
+						</div>
+					</div>
 
-
-					<div class="inline-flex items-center gap-2 rounded-xl bg-var(--plum)/10 px-3 py-1.5 text-sm font-semibold text-var(--plum-ink) ring-1 ring-var(--plum)/20">
-						<span aria-hidden="true">✓</span>
+					<div class="inline-flex items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
+						<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
 						<span>Coach certifiée APA — Activités Physiques Adaptées</span>
 					</div>
 					<h3 class="mt-6 text-xl font-semibold text-slate-900 sm:text-2xl">
@@ -54,16 +72,45 @@ const reveal =
 
 					<div class="mt-10 w-full max-w-3xl">
 						<div
-							class="relative aspect-video overflow-hidden rounded-2xl bg-black/5 shadow-lg ring-1 ring-black/10"
+							id="coach-video-root"
+							class="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-black/10"
 						>
+							<!-- Desktop : lecteur chargé normalement -->
 							<iframe
-								class="absolute inset-0 h-full w-full border-0"
-								src="https://www.youtube.com/embed/tT4GFMTYE4k?si=JiE3xxtSmPTgzafW&modestbranding=1&rel=0&playsinline=1"
+								class="absolute inset-0 hidden h-full w-full border-0 lg:block"
+								src={ytEmbedUrl}
 								title="Vidéo de présentation — Cécile, coach APA"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
 								referrerpolicy="strict-origin-when-cross-origin"
 								allowfullscreen
 								loading="lazy"
+							/>
+							<!-- Mobile : vignette + chargement et lecture au clic (autoplay) + plein écran -->
+							<img
+								src={`https://i.ytimg.com/vi/${ytVideoId}/hqdefault.jpg`}
+								alt=""
+								class="coach-yt-poster absolute inset-0 z-0 h-full w-full object-cover lg:hidden"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div
+								class="coach-yt-facade absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 lg:hidden"
+							>
+								<div class="absolute inset-0 bg-black/35" aria-hidden="true" />
+								<button
+									type="button"
+									class="coach-yt-play relative z-10 inline-flex items-center justify-center rounded-2xl bg-(--plum) px-5 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 ring-1 ring-white/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+								>
+									Lancer la vidéo
+								</button>
+							</div>
+							<iframe
+								class="coach-yt-mobile pointer-events-none absolute inset-0 z-5 h-full w-full border-0 opacity-0 transition-opacity duration-200 lg:hidden"
+								data-src={ytEmbedUrlAutoplay}
+								title="Vidéo de présentation — Cécile, coach APA"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allowfullscreen
 							/>
 						</div>
 					</div>
@@ -71,4 +118,28 @@ const reveal =
 			</div>
 		</div>
 	</div>
+
+	<script is:inline>
+		(function () {
+			var root = document.getElementById('coach-video-root');
+			if (!root) return;
+			if (window.matchMedia('(min-width: 1024px)').matches) return;
+
+			var facade = root.querySelector('.coach-yt-facade');
+			var poster = root.querySelector('.coach-yt-poster');
+			var btn = root.querySelector('.coach-yt-play');
+			var iframe = root.querySelector('.coach-yt-mobile');
+			if (!btn || !iframe || !facade) return;
+
+			btn.addEventListener('click', function () {
+				var url = iframe.getAttribute('data-src');
+				if (!url || iframe.getAttribute('src')) return;
+				iframe.setAttribute('src', url);
+				iframe.classList.remove('pointer-events-none', 'opacity-0');
+				iframe.classList.add('opacity-100');
+				facade.classList.add('hidden');
+				if (poster) poster.classList.add('hidden');
+			});
+		})();
+	</script>
 </section>

@@ -60,14 +60,14 @@ const reveal =
 
 		<div class="mx-auto mt-10 max-w-3xl space-y-3">
 			{faqs.map((f) => (
-				<details class="group rounded-[2rem] bg-white/60 px-6 py-5 ring-1 ring-black/5">
+				<details class="group rounded-4xl bg-white/60 px-6 py-5 ring-1 ring-black/5">
 					<summary
-						class="cursor-pointer list-none text-base font-semibold text-slate-900 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[color:var(--plum)]"
+						class="cursor-pointer list-none text-base font-semibold text-slate-900 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 					>
 						<span class="flex items-center justify-between gap-4">
 							<span>{f.q}</span>
 							<span
-								class="grid h-8 w-8 shrink-0 place-items-center rounded-2xl bg-[color:var(--sage)]/70 ring-1 ring-black/5"
+								class="grid h-8 w-8 shrink-0 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5"
 								aria-hidden="true"
 							>
 								<span class="text-lg leading-none text-slate-900 group-open:rotate-45 transition">+</span>

@@ -1,12 +1,10 @@
 ---
-import IconRessources from './icons/IconRessources.astro';
-import IconCoaching from './icons/IconCoaching.astro';
-import IconBonus from './icons/IconBonus.astro';
+import { BookOpen, Gift, MessageCircle } from '@lucide/astro';
 
 const cards = [
 	{
 		title: 'Ressources',
-		icon: IconRessources,
+		icon: BookOpen,
 		items: [
 			'Séances guidées à suivre chez toi, en douceur.',
 			'Routines “bons jours / jours plus difficiles”.',
@@ -15,7 +13,7 @@ const cards = [
 	},
 	{
 		title: 'Coaching',
-		icon: IconCoaching,
+		icon: MessageCircle,
 		items: [
 			'Points réguliers pour ajuster au réel.',
 			'Conseils personnalisés selon ton énergie.',
@@ -24,7 +22,7 @@ const cards = [
 	},
 	{
 		title: 'Bonus',
-		icon: IconBonus,
+		icon: Gift,
 		items: [
 			'Respiration & relaxation pour apaiser le système nerveux.',
 			'Mini-séances express quand tu manques de temps.',
@@ -58,8 +56,8 @@ const reveal =
 			{cards.map((c) => (
 				<div class="rounded-4xl bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
 					<div class="mb-4 flex items-center gap-3">
-						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-var(--sage)/70 ring-1 ring-black/5">
-							<c.icon class="text-var(--plum)" />
+						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5">
+							<c.icon class="h-6 w-6 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
 						</div>
 						<p class="text-base font-semibold text-slate-900">{c.title}</p>
 					</div>
@@ -67,7 +65,7 @@ const reveal =
 						{c.items.map((it) => (
 							<li class="flex gap-2">
 								<span
-									class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-var(--plum)"
+									class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)"
 									aria-hidden="true"
 								></span>
 								<span>{it}</span>
