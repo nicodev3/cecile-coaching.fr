@@ -1,6 +1,8 @@
 ---
 import { Phone } from '@lucide/astro';
 
+const formspreeEndpoint = 'https://formspree.io/f/mnjoqddy';
+
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
 ---
@@ -41,13 +43,19 @@ const reveal =
 				<form
 					name="contact"
 					method="POST"
-					data-netlify="true"
-					data-netlify-honeypot="bot-field"
-					action="/"
+					action={formspreeEndpoint}
 					class="space-y-4"
 				>
-					<input type="hidden" name="form-name" value="contact" />
-					<input type="hidden" name="bot-field" />
+					<div class="sr-only" aria-hidden="true">
+						<label for="contact-gotcha">Ne pas remplir</label>
+						<input
+							type="text"
+							id="contact-gotcha"
+							name="_gotcha"
+							tabindex="-1"
+							autocomplete="off"
+						/>
+					</div>
 
 					<div>
 						<label for="name" class="block text-base font-medium text-slate-900">
@@ -149,18 +157,18 @@ const reveal =
 	})();
 </script>
 
-<script>
-	const form = document.querySelector('form[name="contact"]') as HTMLFormElement | null;
+<script define:vars={{ formspreeEndpoint }}>
+	const form = document.querySelector('form[name="contact"]');
 	const formSuccess = document.getElementById('form-success');
 	const formError = document.getElementById('form-error');
 
 	// Gestion de la soumission du formulaire
-	if (form) {
+	if (form instanceof HTMLFormElement) {
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
 
 			const formData = new FormData(form);
-			const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+			const submitButton = form.querySelector('button[type="submit"]');
 			const originalText = submitButton?.textContent;
 
 			// Masquer les messages précédents
@@ -168,16 +176,16 @@ const reveal =
 			formError?.classList.add('hidden');
 
 			// Désactiver le bouton
-			if (submitButton) {
+			if (submitButton instanceof HTMLButtonElement) {
 				submitButton.disabled = true;
 				submitButton.textContent = 'Envoi en cours...';
 			}
 
 			try {
-				const response = await fetch('/', {
+				const response = await fetch(formspreeEndpoint, {
 					method: 'POST',
-					headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-					body: new URLSearchParams(formData as any).toString(),
+					headers: { Accept: 'application/json' },
+					body: formData,
 				});
 
 				if (response.ok) {
@@ -193,7 +201,7 @@ const reveal =
 				formError?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 			} finally {
 				// Réactiver le bouton
-				if (submitButton) {
+				if (submitButton instanceof HTMLButtonElement) {
 					submitButton.disabled = false;
 					if (originalText) {
 						submitButton.textContent = originalText;
