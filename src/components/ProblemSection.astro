@@ -1,11 +1,26 @@
 ---
-import { Armchair, ArrowRight, BatteryLow, CloudRain, Dumbbell } from '@lucide/astro';
+import { Activity, Award, CloudSun, Compass, ShieldCheck } from '@lucide/astro';
 
 const cycle = [
-	{ title: 'Fatigue', desc: 'Tu économises ton énergie au maximum.', icon: BatteryLow },
-	{ title: 'Sédentarité', desc: 'Moins de mouvement, moins de confiance.', icon: Armchair },
-	{ title: 'Fonte musculaire', desc: 'Le corps perd du tonus et se fragilise.', icon: Dumbbell },
-	{ title: 'Découragement', desc: 'Tu te sens “bloquée” et tu abandonnes.', icon: CloudRain },
+	{ title: 'Fatigue', desc: 'Tu économises ton énergie au maximum.' },
+	{ title: 'Sédentarité', desc: 'Moins de mouvement, moins de confiance.' },
+	{ title: 'Fonte musculaire', desc: 'Le corps perd du tonus et se fragilise.' },
+	{ title: 'Découragement', desc: 'Tu te sens “bloquée” et tu abandonnes.' },
+];
+
+const solutionPoints = [
+	{
+		text: 'Des séances adaptées aux “bons” et “mauvais” jours.',
+		icon: CloudSun,
+	},
+	{
+		text: 'Un renforcement progressif pour reconstruire le tonus.',
+		icon: Activity,
+	},
+	{
+		text: 'Un cadre rassurant pour reprendre confiance sans performance.',
+		icon: ShieldCheck,
+	},
 ];
 
 const reveal =
@@ -20,72 +35,95 @@ const reveal =
 	aria-labelledby="problem-title"
 >
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
-			<div class="lg:col-span-5">
-				<h2 id="problem-title" class="text-3xl font-semibold text-slate-900">
-					Te remettre en mouvement	
-				</h2>
-				<p class="mt-4 text-base leading-relaxed text-slate-800">
-					Quand la fatigue s’installe, on bouge moins. Puis le corps perd en force… et la confiance s’effrite.
-					RE-FLOW te guide pour retrouver un mouvement sûr, possible, et durable.
-				</p>
-				<div class="mt-6 rounded-4xl bg-white/60 p-6 ring-1 ring-black/5">
-					<p class="text-base font-semibold text-slate-900">La solution RE-FLOW</p>
-					<p class="mt-1 text-sm font-medium text-(--plum-ink)">Encadrée par une coach certifiée APA — Activités Physiques Adaptées.</p>
-					<ul class="mt-3 space-y-2 text-base text-slate-700">
-						<li class="flex gap-2">
-							<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
-							<span>Des séances adaptées aux “bons” et “mauvais” jours.</span>
-						</li>
-						<li class="flex gap-2">
-							<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
-							<span>Un renforcement progressif pour reconstruire le tonus.</span>
-						</li>
-						<li class="flex gap-2">
-							<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
-							<span>Un cadre rassurant pour reprendre confiance sans performance.</span>
-						</li>
-					</ul>
-				</div>
-			</div>
+		<h2 id="problem-title" class="text-3xl font-semibold text-slate-900">
+			Te remettre en mouvement
+		</h2>
 
-			<div class="lg:col-span-7">
-				<ol class="grid gap-4 sm:grid-cols-2">
-					{cycle.map((step, i) => (
-						<li class="relative rounded-4xl bg-white/60 p-6 ring-1 ring-black/5">
-							<div class="mb-3 flex items-center gap-3">
-								<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5">
-									<step.icon class="h-6 w-6 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
-								</div>
-								<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">
-									ÉTAPE {i + 1}
-								</p>
-							</div>
-							<p class="text-base font-semibold text-slate-900">{step.title}</p>
-							<p class="mt-2 text-base leading-relaxed text-slate-700">{step.desc}</p>
-							<div
-								class="pointer-events-none absolute -right-2 top-1/2 hidden -translate-y-1/2 sm:block"
-								aria-hidden="true"
-							>
-								{i % 2 === 0 && i !== cycle.length - 1 ? (
-									<span class="grid h-10 w-10 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5">
-										<ArrowRight class="h-5 w-5 text-slate-900" aria-hidden="true" stroke-width={1.5} />
-									</span>
-								) : null}
-							</div>
+		<p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-600">
+			À gauche, ce qui bloque souvent. À droite, ce que propose RE-FLOW pour en sortir.
+		</p>
+
+		<div class="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
+			<!-- Engrenage -->
+			<div class="min-w-0">
+				<h3 id="problem-cycle-title" class="text-base font-semibold text-slate-900">
+					L’engrenage, souvent
+				</h3>
+				<p id="problem-cycle-desc" class="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
+					Sans cadre adapté, la fatigue entraîne moins de mouvement, puis la perte de tonus et le découragement — ce n’est pas
+					une marche à suivre, c’est ce qui s’enchaîne.
+				</p>
+				<ul
+					class="mt-4 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2"
+					aria-labelledby="problem-cycle-title"
+					aria-describedby="problem-cycle-desc"
+				>
+					{cycle.map((item, i) => (
+						<li class="rounded-2xl bg-white/50 px-4 py-3 ring-1 ring-black/5">
+							<p class="text-xs font-semibold tracking-[0.18em] text-slate-500">
+								{i + 1}/{cycle.length}
+							</p>
+							<p class="mt-1 text-sm font-semibold text-slate-900">{item.title}</p>
+							<p class="mt-0.5 text-xs leading-snug text-slate-600 sm:text-sm">{item.desc}</p>
 						</li>
 					))}
-				</ol>
+				</ul>
+			</div>
 
-				<div class="mt-6 rounded-4xl bg-(--plum)/10 p-6 ring-1 ring-black/5">
-					<p class="text-base font-semibold text-slate-900">Objectif</p>
-					<p class="mt-2 text-base leading-relaxed text-slate-700">
-						Remettre du mouvement dans la journée, reconstruire doucement, et retrouver un esprit plus apaisé — sans se
-						mettre en échec.
-					</p>
+			<!-- Solution (réponse à l’engrenage) -->
+			<div
+				class="relative min-w-0 overflow-hidden rounded-4xl bg-linear-to-br from-(--sage)/15 via-white/75 to-(--plum)/8 p-6 ring-1 ring-black/6 sm:p-7"
+				aria-labelledby="solution-title"
+			>
+				<div
+					class="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-(--sage)/25 blur-3xl"
+					aria-hidden="true"
+				></div>
+				<div
+					class="pointer-events-none absolute -bottom-16 -left-10 h-36 w-36 rounded-full bg-(--plum)/10 blur-3xl"
+					aria-hidden="true"
+				></div>
+
+				<div class="relative">
+					<p class="text-sm font-medium text-slate-600">Pour en sortir — la solution</p>
+
+					<div class="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+						<div class="min-w-0 flex-1">
+							<h3 id="solution-title" class="text-xl font-semibold text-slate-900 sm:text-2xl">
+								RE-FLOW : mouvement sûr, possible et durable
+							</h3>
+							<p class="mt-2 text-base leading-relaxed text-slate-700">
+								RE-FLOW t’accompagne pour retrouver un rythme physique adapté à ton énergie — sans te mettre en échec.
+							</p>
+						</div>
+					</div>
+
+					<ul class="relative mt-5 space-y-3 p-0">
+						{solutionPoints.map((point) => (
+							<li class="flex gap-3 rounded-2xl bg-white/65 p-3 ring-1 ring-black/6 shadow-sm shadow-black/4">
+								<div class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-(--sage)/40 ring-1 ring-black/5">
+									<point.icon class="h-5 w-5 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
+								</div>
+								<p class="min-w-0 pt-0.5 text-sm leading-snug text-slate-700 sm:text-base sm:leading-relaxed">
+									{point.text}
+								</p>
+							</li>
+						))}
+					</ul>
+
+					<div class="relative mt-5 flex gap-3 rounded-2xl bg-white/55 p-4 ring-1 ring-black/5 sm:items-start sm:p-4">
+						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-(--sage)/35 ring-1 ring-black/5">
+							<Compass class="h-5 w-5 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
+						</div>
+						<div class="min-w-0">
+							<p class="text-base font-semibold text-slate-900">Objectif</p>
+							<p class="mt-1 text-base leading-relaxed text-slate-700">
+								Remettre du mouvement dans la journée, reconstruire doucement, et retrouver un esprit plus apaisé.
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
-
