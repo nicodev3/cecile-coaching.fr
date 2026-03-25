@@ -1,24 +1,39 @@
 ---
-import { Activity, Award, CloudSun, Compass, ShieldCheck } from '@lucide/astro';
+import { Activity, CloudSun, Cog, Compass, ShieldCheck } from '@lucide/astro';
 
 const cycle = [
-	{ title: 'Fatigue', desc: 'Tu économises ton énergie au maximum.' },
-	{ title: 'Sédentarité', desc: 'Moins de mouvement, moins de confiance.' },
-	{ title: 'Fonte musculaire', desc: 'Le corps perd du tonus et se fragilise.' },
-	{ title: 'Découragement', desc: 'Tu te sens “bloquée” et tu abandonnes.' },
+	{
+		title: 'Fatigue',
+		desc: 'Quand l’énergie baisse, on réduit naturellement les mouvements.',
+	},
+	{
+		title: 'Moins de mouvement',
+		desc: 'Le corps est moins sollicité, et le quotidien devient plus prudent.',
+	},
+	{
+		title: 'Perte de tonus',
+		desc: 'La force, la stabilité et l’endurance diminuent peu à peu.',
+	},
+	{
+		title: 'Découragement',
+		desc: 'On doute davantage, et reprendre devient encore plus difficile.',
+	},
 ];
 
-const solutionPoints = [
+const pillars = [
 	{
-		text: 'Des séances adaptées aux “bons” et “mauvais” jours.',
+		title: 'Selon ton énergie',
+		desc: 'Les séances s’adaptent au jour que tu traverses, avec des versions plus douces quand tu en as besoin.',
 		icon: CloudSun,
 	},
 	{
-		text: 'Un renforcement progressif pour reconstruire le tonus.',
+		title: 'Progressivement',
+		desc: 'On reconstruit le tonus, la stabilité et la confiance sans brusquer ton corps.',
 		icon: Activity,
 	},
 	{
-		text: 'Un cadre rassurant pour reprendre confiance sans performance.',
+		title: 'Avec un cadre clair',
+		desc: 'Tu sais quoi faire, quoi ajuster et comment avancer sans te mettre en échec.',
 		icon: ShieldCheck,
 	},
 ];
@@ -35,93 +50,67 @@ const reveal =
 	aria-labelledby="problem-title"
 >
 	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<h2 id="problem-title" class="text-3xl font-semibold text-slate-900">
-			Te remettre en mouvement
-		</h2>
+		<div class="mx-auto max-w-3xl text-center">
+			<h2 id="problem-title" class="text-3xl font-semibold text-slate-900">
+				Quand l’inactivité s’installe, un engrenage peut se créer
+			</h2>
 
-		<p class="mt-3 max-w-3xl text-base leading-relaxed text-slate-600">
-			À gauche, ce qui bloque souvent. À droite, ce que propose RE-FLOW pour en sortir.
-		</p>
+			<p class="mt-4 text-base leading-relaxed text-slate-700">
+				Quand on vit avec une fatigue chronique ou un corps plus fragile, bouger moins peut sembler protéger.
+				Mais avec le temps, cela peut aussi entretenir un cercle qui épuise encore davantage.
+			</p>
+		</div>
 
-		<div class="mt-8 grid gap-8 lg:grid-cols-2 lg:gap-10 lg:items-start">
-			<!-- Engrenage -->
-			<div class="min-w-0">
-				<h3 id="problem-cycle-title" class="text-base font-semibold text-slate-900">
-					L’engrenage, souvent
-				</h3>
-				<p id="problem-cycle-desc" class="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
-					Sans cadre adapté, la fatigue entraîne moins de mouvement, puis la perte de tonus et le découragement — ce n’est pas
-					une marche à suivre, c’est ce qui s’enchaîne.
-				</p>
-				<ul
-					class="mt-4 grid list-none grid-cols-1 gap-2 p-0 sm:grid-cols-2"
-					aria-labelledby="problem-cycle-title"
-					aria-describedby="problem-cycle-desc"
-				>
-					{cycle.map((item, i) => (
-						<li class="rounded-2xl bg-white/50 px-4 py-3 ring-1 ring-black/5">
-							<p class="text-xs font-semibold tracking-[0.18em] text-slate-500">
-								{i + 1}/{cycle.length}
-							</p>
-							<p class="mt-1 text-sm font-semibold text-slate-900">{item.title}</p>
-							<p class="mt-0.5 text-xs leading-snug text-slate-600 sm:text-sm">{item.desc}</p>
-						</li>
-					))}
-				</ul>
-			</div>
-
-			<!-- Solution (réponse à l’engrenage) -->
-			<div
-				class="relative min-w-0 overflow-hidden rounded-4xl bg-linear-to-br from-(--sage)/15 via-white/75 to-(--plum)/8 p-6 ring-1 ring-black/6 sm:p-7"
-				aria-labelledby="solution-title"
-			>
-				<div
-					class="pointer-events-none absolute -right-12 -top-16 h-40 w-40 rounded-full bg-(--sage)/25 blur-3xl"
-					aria-hidden="true"
-				></div>
-				<div
-					class="pointer-events-none absolute -bottom-16 -left-10 h-36 w-36 rounded-full bg-(--plum)/10 blur-3xl"
-					aria-hidden="true"
-				></div>
-
-				<div class="relative">
-					<p class="text-sm font-medium text-slate-600">Pour en sortir — la solution</p>
-
-					<div class="mt-3 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
-						<div class="min-w-0 flex-1">
-							<h3 id="solution-title" class="text-xl font-semibold text-slate-900 sm:text-2xl">
-								RE-FLOW : mouvement sûr, possible et durable
-							</h3>
-							<p class="mt-2 text-base leading-relaxed text-slate-700">
-								RE-FLOW t’accompagne pour retrouver un rythme physique adapté à ton énergie — sans te mettre en échec.
-							</p>
-						</div>
+		<div class="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+			{cycle.map((item, index) => (
+				<div class="rounded-3xl bg-slate-100 p-5 ring-1 ring-slate-300/50 shadow-sm shadow-slate-900/4">
+					<div class="grid h-9 w-9 place-items-center rounded-2xl bg-slate-200/90 ring-1 ring-slate-400/30">
+						<Cog
+							class={`h-5 w-5 text-slate-600 ${index % 2 === 1 ? 'rotate-12' : '-rotate-12'}`}
+							aria-hidden="true"
+							stroke-width={1.5}
+						/>
 					</div>
+					<p class="mt-2 text-base font-semibold text-slate-800">{item.title}</p>
+					<p class="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">{item.desc}</p>
+				</div>
+			))}
+		</div>
 
-					<ul class="relative mt-5 space-y-3 p-0">
-						{solutionPoints.map((point) => (
-							<li class="flex gap-3 rounded-2xl bg-white/65 p-3 ring-1 ring-black/6 shadow-sm shadow-black/4">
-								<div class="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-(--sage)/40 ring-1 ring-black/5">
-									<point.icon class="h-5 w-5 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
-								</div>
-								<p class="min-w-0 pt-0.5 text-sm leading-snug text-slate-700 sm:text-base sm:leading-relaxed">
-									{point.text}
-								</p>
-							</li>
-						))}
-					</ul>
+		<div class="mx-auto mt-10 max-w-3xl text-center">
+			<h3 class="text-2xl font-semibold text-slate-900">
+				RE-FLOW aide à sortir de cet engrenage, sans brusquer ton corps
+			</h3>
+			<p class="mt-4 text-base leading-relaxed text-slate-700">
+				Ici, il ne s’agit pas de te pousser. Il s’agit de retrouver du mouvement d’une manière compatible avec ton énergie,
+				ton quotidien et ton corps.
+			</p>
+		</div>
 
-					<div class="relative mt-5 flex gap-3 rounded-2xl bg-white/55 p-4 ring-1 ring-black/5 sm:items-start sm:p-4">
-						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-(--sage)/35 ring-1 ring-black/5">
-							<Compass class="h-5 w-5 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
+		<div class="mt-8 grid gap-4 lg:grid-cols-3">
+			{pillars.map((pillar) => (
+				<div class="rounded-4xl bg-white p-7 ring-1 ring-(--sage)/30 shadow-sm shadow-(--sage)/10">
+					<div class="flex items-center gap-3">
+						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-(--sage)/35 ring-1 ring-(--sage)/30">
+							<pillar.icon class="h-5 w-5 text-(--plum-ink)" aria-hidden="true" stroke-width={1.7} />
 						</div>
-						<div class="min-w-0">
-							<p class="text-base font-semibold text-slate-900">Objectif</p>
-							<p class="mt-1 text-base leading-relaxed text-slate-700">
-								Remettre du mouvement dans la journée, reconstruire doucement, et retrouver un esprit plus apaisé.
-							</p>
-						</div>
+						<p class="text-base font-semibold text-slate-900">{pillar.title}</p>
 					</div>
+					<p class="mt-4 text-base leading-relaxed text-slate-700">{pillar.desc}</p>
+				</div>
+			))}
+		</div>
+
+		<div class="mt-8 overflow-hidden rounded-4xl bg-(--sage)/12 p-6 ring-1 ring-(--sage)/25 sm:p-7">
+			<div class="flex gap-3 sm:items-start">
+				<div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-(--sage)/25">
+					<Compass class="h-5 w-5 text-(--plum-ink)" aria-hidden="true" stroke-width={1.7} />
+				</div>
+				<div class="min-w-0">
+					<p class="text-base font-semibold text-slate-900">Le cap</p>
+					<p class="mt-1 text-base leading-relaxed text-slate-700">
+						Le but n’est pas d’en faire plus. Le but est de refaire une place au mouvement, durablement.
+					</p>
 				</div>
 			</div>
 		</div>
