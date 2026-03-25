@@ -10,19 +10,19 @@
     "generate-favicon": "node scripts/generate-favicon.js"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.6",
-    "@astrojs/mdx": "^4.3.13",
-    "@astrojs/rss": "^4.0.15",
-    "@astrojs/sitemap": "^3.7.0",
+    "@astrojs/check": "^0.9.8",
+    "@astrojs/mdx": "^5.0.2",
+    "@astrojs/rss": "^4.0.17",
+    "@astrojs/sitemap": "^3.7.1",
+    "@fontsource/lato": "^5.2.7",
+    "@fontsource/montserrat": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
-    "astro": "^5.17.3",
+    "astro": "^6.0.8",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@fontsource/lato": "^5.2.7",
-    "@fontsource/montserrat": "^5.2.8",
     "to-ico": "^1.1.5"
   }
 }

@@ -2,6 +2,7 @@
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
 import '../styles/global.css';
+import { Font } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/cecile-coach-apa.webp';
 import { SITE_TITLE } from '../consts';
@@ -50,6 +51,9 @@ const extraStructuredData = Array.isArray(structuredData)
 		: [];
 const structuredDataScripts = [coachingStructuredData, ...extraStructuredData];
 ---
+
+<Font cssVariable="--font-body" />
+<Font cssVariable="--font-title" />
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />

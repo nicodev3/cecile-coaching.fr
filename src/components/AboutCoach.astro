@@ -6,7 +6,7 @@ const reveal =
 ---
 
 <section
-	id="coach"
+	id="qui-suis-je"
 	class={`py-14 sm:py-18 ${reveal}`}
 	data-reveal
 	data-revealed="false"
@@ -28,23 +28,12 @@ const reveal =
 					<!-- Image circulaire avec effet design -->
 					<div class="relative mb-6">
 						<div
-							class="pointer-events-none absolute -inset-4 rounded-full bg-gradient-to-br from-[color:var(--plum)]/20 to-[color:var(--sage)]/20 blur-xl"
+							class="pointer-events-none absolute -inset-4 rounded-full bg-linear-to-br from-var(--plum)/20 to-var(--sage)/20 blur-xl"
 							aria-hidden="true"
 						/>
-						<div class="relative rounded-full p-1 ring-4 ring-white/80 shadow-lg shadow-black/10">
-							<img
-								src={coachImage.src}
-								width={coachImage.width}
-								height={coachImage.height}
-								alt="Cécile, coach certifiée APA — Activités Physiques Adaptées"
-								loading="lazy"
-								decoding="async"
-								class="h-32 w-32 rounded-full object-cover sm:h-40 sm:w-40"
-							/>
-						</div>
-					</div>
 
-					<div class="inline-flex items-center gap-2 rounded-xl bg-[color:var(--plum)]/10 px-3 py-1.5 text-sm font-semibold text-[color:var(--plum-ink)] ring-1 ring-[color:var(--plum)]/20">
+
+					<div class="inline-flex items-center gap-2 rounded-xl bg-var(--plum)/10 px-3 py-1.5 text-sm font-semibold text-var(--plum-ink) ring-1 ring-var(--plum)/20">
 						<span aria-hidden="true">✓</span>
 						<span>Coach certifiée APA — Activités Physiques Adaptées</span>
 					</div>
@@ -62,6 +51,22 @@ const reveal =
 						performance. Chaque jour est différent, et c'est normal — mon accompagnement 
 						s'adapte à tes "bons jours" comme à tes jours plus difficiles.
 					</p>
+
+					<div class="mt-10 w-full max-w-3xl">
+						<div
+							class="relative aspect-video overflow-hidden rounded-2xl bg-black/5 shadow-lg ring-1 ring-black/10"
+						>
+							<iframe
+								class="absolute inset-0 h-full w-full border-0"
+								src="https://www.youtube.com/embed/tT4GFMTYE4k?si=JiE3xxtSmPTgzafW&modestbranding=1&rel=0&playsinline=1"
+								title="Vidéo de présentation — Cécile, coach APA"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+								referrerpolicy="strict-origin-when-cross-origin"
+								allowfullscreen
+								loading="lazy"
+							/>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
