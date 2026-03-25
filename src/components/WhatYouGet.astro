@@ -56,10 +56,10 @@ const reveal =
 
 		<div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 			{cards.map((c) => (
-				<div class="rounded-[2rem] bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
+				<div class="rounded-4xl bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
 					<div class="mb-4 flex items-center gap-3">
-						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-[color:var(--sage)]/70 ring-1 ring-black/5">
-							<c.icon class="text-[color:var(--plum)]" />
+						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-var(--sage)/70 ring-1 ring-black/5">
+							<c.icon class="text-var(--plum)" />
 						</div>
 						<p class="text-base font-semibold text-slate-900">{c.title}</p>
 					</div>
@@ -67,7 +67,7 @@ const reveal =
 						{c.items.map((it) => (
 							<li class="flex gap-2">
 								<span
-									class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--plum)]"
+									class="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-var(--plum)"
 									aria-hidden="true"
 								></span>
 								<span>{it}</span>
@@ -78,7 +78,7 @@ const reveal =
 			))}
 		</div>
 
-		<div class="mt-10 rounded-[2rem] bg-white/60 p-6 ring-1 ring-black/5">
+		<div class="mt-10 rounded-4xl bg-white/60 p-6 ring-1 ring-black/5">
 			<p class="text-base text-slate-700">
 				<span class="font-semibold text-slate-900">Durée</span> : 4 mois — progressif, sans surcharger.
 			</p>
