@@ -64,7 +64,7 @@ const links = rawLinks.map((l) => {
 			</div>
 
 			<!-- Mobile -->
-			<details class="group relative lg:hidden">
+			<details class="group relative lg:hidden" data-mobile-nav>
 				<summary
 					class="list-none inline-flex items-center justify-center rounded-2xl bg-white/60 px-3 py-2 text-base font-semibold text-slate-900 ring-1 ring-black/5 shadow-sm transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
 					aria-label="Ouvrir le menu"
@@ -104,3 +104,16 @@ const links = rawLinks.map((l) => {
 		</div>
 	</div>
 </header>
+
+<script>
+	const mobileNav = document.querySelector<HTMLDetailsElement>('details[data-mobile-nav]');
+	if (mobileNav) {
+		mobileNav.addEventListener('click', (e) => {
+			const t = e.target;
+			if (!(t instanceof Element)) return;
+			const link = t.closest('a[href]');
+			if (!link || !mobileNav.contains(link)) return;
+			mobileNav.open = false;
+		});
+	}
+</script>
