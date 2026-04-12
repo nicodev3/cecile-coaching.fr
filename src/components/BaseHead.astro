@@ -32,16 +32,26 @@ const coachingStructuredData: StructuredData = {
 	description:
 		'Programme de reconnexion corporelle pour les femmes touchees par une maladie chronique. Coaching certifie APA.',
 	url: siteUrlNormalized,
-	inLanguage: 'fr-FR',
 	areaServed: {
 		'@type': 'Country',
 		name: 'France',
 	},
-	provider: {
+	founder: {
 		'@type': 'Person',
 		name: 'Cecile',
 		jobTitle: 'Coach certifiee APA',
 	},
+};
+
+const webPageStructuredData: StructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	'@id': `${canonicalURL.href}#webpage`,
+	url: canonicalURL.href,
+	name: title,
+	description,
+	inLanguage: 'fr-FR',
+	about: { '@id': `${siteUrlNormalized}/#coaching-service` },
 };
 
 const extraStructuredData = Array.isArray(structuredData)
@@ -49,7 +59,7 @@ const extraStructuredData = Array.isArray(structuredData)
 	: structuredData
 		? [structuredData]
 		: [];
-const structuredDataScripts = [coachingStructuredData, ...extraStructuredData];
+const structuredDataScripts = [coachingStructuredData, webPageStructuredData, ...extraStructuredData];
 ---
 
 <Font cssVariable="--font-body" />
