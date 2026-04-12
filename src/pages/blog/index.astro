@@ -56,13 +56,13 @@ const blogIndexDescription =
 									]}
 								>
 									{post.data.heroImage && (
-										<div class="relative aspect-16/10 shrink-0 overflow-hidden bg-(--sage)/50">
+										<div class="relative aspect-square w-full shrink-0 overflow-hidden bg-(--sage)/50">
 											<Image
 												width={720}
-												height={450}
+												height={720}
 												src={post.data.heroImage}
 												alt={cardTitle}
-												class="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+												class="absolute inset-0 h-full w-full object-contain transition duration-300 ease-out group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
 											/>
 											<div
 												class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 transition duration-300 group-hover:opacity-100 motion-reduce:group-hover:opacity-0"

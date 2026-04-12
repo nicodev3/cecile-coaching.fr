@@ -2,7 +2,7 @@
 title: "Kiné, coach sportif ou coach APA : qui consulter ?"
 description: "Kinésithérapeute, coach sportif ou coach APA : définitions, différences et critères pour choisir le bon professionnel selon votre santé, vos objectifs et votre contexte."
 pubDate: 'Apr 12 2026'
-heroImage: '../../assets/cecile-coach-apa.webp'
+heroImage: '../../assets/coach-apa.webp'
 ---
 
 **Kinésithérapeute**, **coach sportif**, **coach APA** : trois accompagnements autour du corps et du mouvement, mais pas les mêmes missions ni les mêmes cadres. Si tu te demandes **qui consulter** en premier, ce guide pose les repères pour t’orienter sans te tromper de porte.

@@ -12,10 +12,18 @@ const rawLinks = [
 const currentPath = Astro.url.pathname;
 const isHome = currentPath === '/';
 
+const isBlogIndex =
+	currentPath === '/blog' || currentPath === '/blog/';
+
 const links = rawLinks.map((l) => {
 	const isAnchor = l.href.startsWith('#');
 	const href = !isHome && isAnchor ? `/${l.href}` : l.href;
-	const isCurrent = isAnchor ? false : currentPath.startsWith(l.href);
+	const isBlogNav = l.href === '/blog/';
+	const isCurrent = isAnchor
+		? false
+		: isBlogNav
+			? isBlogIndex
+			: currentPath.startsWith(l.href);
 	return { ...l, href, isCurrent };
 });
 ---
