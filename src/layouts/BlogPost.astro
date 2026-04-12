@@ -6,11 +6,13 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
+import { tieFrenchQuestionMark } from '../utils/frenchTypography';
 
 type Props = CollectionEntry<'blog'>['data'];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
-const seoTitle = `${title} | Blog RE-FLOW`;
+const displayTitle = tieFrenchQuestionMark(title);
+const seoTitle = `${displayTitle} | Blog RE-FLOW`;
 const seoDescription = `${description} Article du blog RE-FLOW sur la reconnexion corporelle et l'APA.`;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
@@ -216,7 +218,7 @@ const blogPostingStructuredData = {
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={320} height={320} src={heroImage} alt={title} />}
+					{heroImage && <Image width={320} height={320} src={heroImage} alt={displayTitle} />}
 				</div>
 				<div class="prose">
 					<div class="title">
@@ -230,7 +232,7 @@ const blogPostingStructuredData = {
 								)
 							}
 						</div>
-						<h1>{title}</h1>
+						<h1>{displayTitle}</h1>
 						<hr />
 					</div>
 					<slot />

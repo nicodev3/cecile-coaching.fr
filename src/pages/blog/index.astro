@@ -5,10 +5,16 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import { tieFrenchQuestionMark } from '../../utils/frenchTypography';
+import '../../styles/global.css';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+/** Nombre impair d’articles : la dernière carte est seule sur sa ligne — on la centre */
+const isOrphanLast = (index: number) =>
+	index === posts.length - 1 && posts.length % 2 === 1;
 
 const blogIndexTitle = 'Blog RE-FLOW | Conseils APA et reconnexion corporelle';
 const blogIndexDescription =
@@ -20,45 +26,69 @@ const blogIndexDescription =
 	<head>
 		<BaseHead title={blogIndexTitle} description={blogIndexDescription} />
 	</head>
-	<body>
+	<body class="min-h-screen bg-(--sage) text-(--ink) antialiased">
 		<Header />
-		<main class="max-w-4xl mx-auto px-4 py-8">
+		<main class="mx-auto max-w-4xl px-4 py-10 sm:py-12">
 			<section>
-				<h1 class="text-2xl font-semibold text-slate-900 sm:text-3xl mb-12">Articles et ressources sur le coaching pour les femmes touchées par une maladie chronique</h1>
-				<ul class="grid lg:grid-cols-4 gap-4">
+				<h1 class="mb-10 text-2xl font-semibold leading-tight text-slate-900 sm:mb-12 sm:text-3xl">
+					Articles et ressources sur le coaching pour les femmes touchées par une maladie chronique
+				</h1>
+				<ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8">
 					{
-						posts.map((post, index) => (
-							<li class:list={[
-								"transition-all duration-200",
-								index === 0
-									? "w-full mb-4 text-center"
-									: "w-[calc(50%-1rem)] max-sm:w-full max-sm:text-center"
-							]}>
-								<a href={`/blog/${post.id}/`} class="block no-underline group">
+						posts.map((post, index) => {
+							const orphanLast = isOrphanLast(index);
+							const cardTitle = tieFrenchQuestionMark(post.data.title);
+							return (
+							<li
+								class:list={[
+									'flex min-h-0',
+									orphanLast && 'sm:col-span-2 sm:justify-center',
+								]}
+							>
+								<a
+									href={`/blog/${post.id}/`}
+									class:list={[
+										'group flex h-full min-h-0 w-full max-w-xl flex-col overflow-hidden rounded-2xl bg-white/75 text-left no-underline ring-1 ring-black/5 shadow-sm shadow-black/5 transition duration-200',
+										'hover:-translate-y-0.5 hover:shadow-md hover:ring-(--plum)/20 motion-reduce:hover:translate-y-0',
+										'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--plum) focus-visible:ring-offset-2 focus-visible:ring-offset-(--sage)',
+										'sm:mx-0 sm:max-w-none',
+										orphanLast && 'sm:max-w-lg',
+									]}
+								>
 									{post.data.heroImage && (
-										<Image
-											width={index === 0 ? 960 : 320}
-											height={index === 0 ? 480 : 320}
-											src={post.data.heroImage}
-											alt={post.data.title}
-											class:list={[
-												"mb-2 rounded-xl transition-shadow duration-200 group-hover:shadow-lg",
-												index === 0 && "w-full"
-											]}
-										/>
+										<div class="relative aspect-16/10 shrink-0 overflow-hidden bg-(--sage)/50">
+											<Image
+												width={720}
+												height={450}
+												src={post.data.heroImage}
+												alt={cardTitle}
+												class="h-full w-full object-cover transition duration-300 ease-out group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+											/>
+											<div
+												class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/10 to-transparent opacity-0 transition duration-300 group-hover:opacity-100 motion-reduce:group-hover:opacity-0"
+												aria-hidden="true"
+											/>
+										</div>
 									)}
-									<h2 class:list={[
-										"m-0 leading-none text-black transition-colors duration-200 group-hover:text-[rgb(var(--accent))]",
-										"text-3xl"
-									]}>
-										{post.data.title}
-									</h2>
-									<p class="m-0 text-sm text-gray-500 transition-colors duration-200 group-hover:text-[rgb(var(--accent))]">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+									<div class="flex flex-1 flex-col p-5 sm:p-6">
+										<h2 class="m-0 text-lg font-semibold leading-snug text-slate-900 transition-colors duration-200 group-hover:text-(--plum) sm:text-xl">
+											{cardTitle}
+										</h2>
+										<p class="mt-2 text-sm text-slate-600 [&_time]:text-inherit">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+										<span
+											class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-(--plum) transition group-hover:gap-2 motion-reduce:transition-none"
+											aria-hidden="true"
+										>
+											Lire l’article
+											<span class="translate-y-px">→</span>
+										</span>
+									</div>
 								</a>
 							</li>
-						))
+							);
+						})
 					}
 				</ul>
 			</section>
