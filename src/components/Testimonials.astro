@@ -5,18 +5,27 @@ const testimonials = [
 		meta: 'Accompagnement en reprise progressive',
 		quote:
 			"Je me sens à nouveau capable. Les séances sont douces, mais je vois une vraie différence dans mon quotidien.",
+		initial: 'J',
+		avatarClass:
+			'bg-(--plum)/12 text-(--plum-ink) ring-1 ring-(--plum)/25 shadow-black/5',
 	},
 	{
 		name: 'Nadia',
 		meta: 'Fatigue chronique, routine apaisante',
 		quote:
 			"Je n’ai plus cette pression de “performer”. J’avance à mon rythme, et ça change tout pour ma confiance.",
+		initial: 'N',
+		avatarClass:
+			'bg-(--sage)/90 text-(--plum-ink) ring-1 ring-(--sage)/50 shadow-black/5',
 	},
 	{
 		name: 'Sophie',
 		meta: 'Reconnexion corps-esprit',
 		quote:
 			"Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
+		initial: 'S',
+		avatarClass:
+			'bg-(--plum)/18 text-(--plum) ring-1 ring-(--plum)/20 shadow-black/5',
 	},
 ];
 
@@ -44,9 +53,17 @@ const reveal =
 					<blockquote class="text-base leading-relaxed text-slate-800">
 						“{t.quote}”
 					</blockquote>
-					<figcaption class="mt-5 text-base">
-						<p class="font-semibold text-slate-900">{t.name}</p>
-						<p class="text-slate-700">{t.meta}</p>
+					<figcaption class="mt-5 flex items-start gap-3.5 text-base">
+						<span
+							class={`grid h-12 w-12 shrink-0 place-items-center rounded-full text-[1.05rem] font-semibold shadow-sm ${t.avatarClass}`}
+							aria-hidden="true"
+						>
+							{t.initial}
+						</span>
+						<div class="min-w-0 pt-0.5">
+							<p class="font-semibold text-slate-900">{t.name}</p>
+							<p class="text-slate-700">{t.meta}</p>
+						</div>
 					</figcaption>
 				</figure>
 			))}

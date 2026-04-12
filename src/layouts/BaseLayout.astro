@@ -1,6 +1,8 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 
+const instagramUrl = 'https://www.instagram.com/cecile.c.oaching/';
+
 interface Props {
 	title?: string;
 	description?: string;
@@ -35,8 +37,32 @@ const {
 
 			<footer class="border-t border-black/5 bg-white/60">
 				<div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-					<div class="flex flex-col gap-3 text-base text-slate-700 sm:flex-row sm:items-center sm:justify-between">
-						<p class="font-medium tracking-wide text-slate-900">RE-FLOW</p>
+					<div class="flex flex-col gap-4 text-base text-slate-700 sm:flex-row sm:items-center sm:justify-between">
+						<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+							<p class="font-medium tracking-wide text-slate-900">RE-FLOW</p>
+							<a
+								href={instagramUrl}
+								class="inline-flex items-center gap-2 font-semibold text-(--plum) underline-offset-4 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								<svg
+									class="h-5 w-5 shrink-0"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									aria-hidden="true"
+								>
+									<rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+									<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+									<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+								</svg>
+								{'Instagram'}
+							</a>
+						</div>
 						<p class="text-slate-700">
 							&copy; {new Date().getFullYear()} — Programme de reconnexion corporelle. Tous droits réservés.
 						</p>

@@ -1,10 +1,14 @@
 ---
 const today = new Date();
+const instagramUrl = 'https://www.instagram.com/cecile.c.oaching/';
 ---
 
 <footer>
 	<p class="apa-badge">Coach sportive certifiée APA — Activités Physiques Adaptées</p>
 	<p>&copy; {today.getFullYear()} RE-FLOW - Programme de reconnexion corporelle. Tous droits réservés.</p>
+	<div class="social-links">
+		<a href={instagramUrl} target="_blank" rel="noopener noreferrer">Instagram — @cecile.c.oaching</a>
+	</div>
 </footer>
 <style>
 	footer {
