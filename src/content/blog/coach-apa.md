@@ -69,4 +69,6 @@ Si tu te demandes si ce programme est fait pour toi, la réponse courte : si tu 
 
 ---
 
-*Tu veux en savoir plus sur le programme ?* [Découvrir RE-FLOW →](/#programme)
+*Tu veux en savoir plus sur le programme ?* 
+
+[Découvrir RE-FLOW →](/#programme)
