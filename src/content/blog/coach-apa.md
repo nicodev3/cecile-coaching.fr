@@ -1,6 +1,6 @@
 ---
 title: "Coach APA : c'est quoi exactement ?"
-description: "Qu'est-ce qu'un coach APA ? Définition des activités physiques adaptées, comparaison avec un coach sportif et intérêt en maladie chronique."
+description: "Coach APA : définition claire, différences avec un coach sportif et bénéfices des activités physiques adaptées en cas de maladie chronique."
 pubDate: 'Feb 22 2026'
 heroImage: '../../assets/cecile-coach-apa.webp'
 ---
