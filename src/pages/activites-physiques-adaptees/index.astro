@@ -1,0 +1,67 @@
+---
+import PillarLayout from '../../layouts/PillarLayout.astro';
+
+const title = 'Activités physiques adaptées (APA) : définition et intérêt | RE-FLOW';
+const description =
+	"Comprendre l'APA : formation, adaptation du mouvement à la santé, cadre sécurisant pour les femmes en maladie chronique — sans culture de la performance.";
+const path = '/activites-physiques-adaptees/';
+const faqs = [
+	{
+		q: "L'APA, c'est la même chose qu'un coach sportif ?",
+		a: "Non. L'APA part de la santé, des pathologies et des fluctuations du jour pour adapter le mouvement. Un coach sportif classique vise plutôt la performance et la condition physique chez des personnes globalement aptes.",
+	},
+	{
+		q: "Est-ce que l'APA soigne une maladie ?",
+		a: "Non. L'APA ne remplace pas un traitement médical. Elle vise un mouvement encadré, compatible avec ton état, pour limiter le déconditionnement physique et retrouver de la confiance dans ton corps.",
+	},
+	{
+		q: 'Faut-il un certificat médical pour commencer ?',
+		a: "Cela dépend de ta situation. En cas de doute, d'événement récent ou de symptômes inquiétants, le médecin reste la personne à consulter en premier. En coaching, on construit un cadre progressif et réaliste.",
+	},
+];
+---
+
+<PillarLayout
+	title={title}
+	description={description}
+	path={path}
+	breadcrumbLabel="Activités physiques adaptées"
+	tunnelCampaign="pillar-apa"
+	faqs={faqs}
+>
+	<h1>Activités physiques adaptées (APA)</h1>
+	<p>
+		L’<strong>APA</strong> désigne des pratiques de mouvement <strong>ajustées à l’état de santé</strong>, aux
+		capacités du moment et aux contre-indications éventuelles. Ce n’est pas une promesse de guérison : c’est un
+		cadre pour <strong>bouger sans se mettre en échec</strong>, notamment lorsque l’énergie ou les symptômes
+		varient d’un jour à l’autre.
+	</p>
+
+	<h2>Ce que recouvre une formation APA</h2>
+	<p>
+		En France, l’APA s’appuie sur une <strong>formation universitaire reconnue</strong>. Les professionnel·les
+		formé·es à l’APA sont préparé·es à lire la réalité du corps « avec une maladie » : fatigue, douleur,
+		traitements, phases de poussée, etc., et à <strong>moduler les exercices</strong> plutôt qu’à imposer un
+		programme unique.
+	</p>
+
+	<h2>Pourquoi c’est pertinent en maladie chronique</h2>
+	<p>
+		Beaucoup de personnes ont déjà tenté une remise en forme « classique » et se sont retrouvées avec
+		<strong>culpabilité</strong> ou <strong>découragement</strong> quand le corps ne suivait pas. L’APA inverse
+		la logique : on part de ton point de départ, on respecte les « mauvais jours », et on cherche la
+		<strong>régularité douce</strong> plutôt que la performance.
+	</p>
+	<ul>
+		<li>Des alternatives quand la douleur ou la fatigue augmentent</li>
+		<li>Des progressions courtes, répétables, vérifiables</li>
+		<li>Un langage qui évite la pression et la comparaison</li>
+	</ul>
+
+	<h2>Liens utiles sur ce site</h2>
+	<p>
+		Pour la suite du parcours de lecture : <a href="/mouvement-maladie-chronique/">mouvement et maladie chronique</a>,
+		<a href="/fatigue-chronique-mouvement/">fatigue chronique et mouvement</a>, ou le
+		<a href="/blog/coach-apa/">article « Coach APA : c’est quoi exactement ? »</a>.
+	</p>
+</PillarLayout>

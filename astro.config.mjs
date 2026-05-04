@@ -9,6 +9,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://cecilecoaching.fr',
+  trailingSlash: 'always',
   integrations: [mdx(), sitemap()],
 
   fonts: [

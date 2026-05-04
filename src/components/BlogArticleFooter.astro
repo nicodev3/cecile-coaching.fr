@@ -1,0 +1,54 @@
+---
+import { PILLAR_BY_KEY, type PillarKey } from '../data/pillars';
+import TunnelCtaLink from './TunnelCtaLink.astro';
+
+interface Props {
+	relatedPillars?: PillarKey[];
+	tunnelCampaign: string;
+}
+
+const { relatedPillars = [], tunnelCampaign } = Astro.props;
+---
+
+<aside
+	class="not-prose mt-14 border-t border-black/10 pt-10"
+	aria-label="Pour aller plus loin"
+>
+	{
+		relatedPillars.length > 0 && (
+			<>
+				<h2 class="text-xl font-semibold text-slate-900">Sur le même thème</h2>
+				<ul class="mt-4 list-none space-y-2 pl-0">
+					{relatedPillars.map((key) => {
+						const p = PILLAR_BY_KEY[key];
+						return (
+							<li>
+								<a
+									href={p.slug}
+									class="font-medium text-(--plum) underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+								>
+									{p.label}
+								</a>
+							</li>
+						);
+					})}
+				</ul>
+			</>
+		)
+	}
+
+	<div class:list={[relatedPillars.length > 0 && 'mt-10']}>
+		<h2 class="text-xl font-semibold text-slate-900">Découvrir RE-FLOW</h2>
+		<p class="mt-3 text-base text-slate-700">
+			Immersion gratuite (4 jours) et programme sur l’espace dédié — ouvert dans un nouvel onglet.
+		</p>
+		<div class="mt-5">
+			<TunnelCtaLink
+				campaign={tunnelCampaign}
+				class="inline-flex items-center justify-center rounded-2xl bg-(--plum) px-5 py-2.5 text-base font-semibold text-white shadow-sm transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+			>
+				Commencer l’immersion gratuite (4 jours)
+			</TunnelCtaLink>
+		</div>
+	</div>
+</aside>

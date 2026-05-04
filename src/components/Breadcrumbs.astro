@@ -1,0 +1,53 @@
+---
+/**
+ * Fil d’Ariane visuel + JSON-LD BreadcrumbList (https://schema.org/BreadcrumbList)
+ */
+export interface Crumb {
+	name: string;
+	href: string;
+}
+
+interface Props {
+	items: Crumb[];
+}
+
+const { items } = Astro.props;
+const origin = Astro.site?.origin ?? Astro.url.origin;
+
+const itemListElement = items.map((c, i) => ({
+	'@type': 'ListItem',
+	position: i + 1,
+	name: c.name,
+	item: new URL(c.href, origin).href,
+}));
+
+const breadcrumbJsonLd = {
+	'@context': 'https://schema.org',
+	'@type': 'BreadcrumbList',
+	itemListElement,
+};
+---
+
+<nav aria-label="Fil d’Ariane" class="mb-8 text-sm text-slate-600">
+	<ol class="flex flex-wrap items-center gap-1.5">
+		{
+			items.map((c, i) => (
+				<li class="flex items-center gap-1.5">
+					{i > 0 && <span aria-hidden="true">/</span>}
+					{i === items.length - 1 ? (
+						<span class="font-medium text-slate-900">{c.name}</span>
+					) : (
+						<a
+							href={c.href}
+							class="text-(--plum) underline-offset-2 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+						>
+							{c.name}
+						</a>
+					)}
+				</li>
+			))
+		}
+	</ol>
+</nav>
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />

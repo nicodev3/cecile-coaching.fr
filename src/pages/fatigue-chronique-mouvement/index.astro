@@ -1,0 +1,61 @@
+---
+import PillarLayout from '../../layouts/PillarLayout.astro';
+
+const title = 'Fatigue chronique et mouvement : doser sans culpabiliser | RE-FLOW';
+const description =
+	"Fatigue chronique : comment réintroduire le mouvement sans culture de l'effort, avec des durées modulables et un cadre APA — repères généraux, pas médicaux.";
+const path = '/fatigue-chronique-mouvement/';
+const faqs = [
+	{
+		q: 'Si je suis épuisée, est-ce que bouger va m’épuiser davantage ?',
+		a: "Pas nécessairement : il s'agit de doser (durée, intensité, type d'exercice) et d'avoir des versions « express » pour les jours difficiles. L'idée est d'éviter le tout-ou-rien.",
+	},
+	{
+		q: 'Combien de minutes par semaine viser ?',
+		a: "Il n'y a pas de chiffre universel : ça dépend de ton état, de ton historique et de ton accompagnement. L'APA privilégie un plan réaliste plutôt qu'un objectif fixe imposé.",
+	},
+	{
+		q: 'Est-ce que le programme RE-FLOW est adapté aux fluctuations d’énergie ?',
+		a: "Oui : l'approche prévoit des options plus douces et des ajustements selon les journées. Le tunnel d'inscription détaille l'immersion gratuite et la suite du parcours.",
+	},
+];
+---
+
+<PillarLayout
+	title={title}
+	description={description}
+	path={path}
+	breadcrumbLabel="Fatigue chronique et mouvement"
+	tunnelCampaign="pillar-fatigue"
+	faqs={faqs}
+>
+	<h1>Fatigue chronique et mouvement</h1>
+	<p>
+		Quand la <strong>fatigue</strong> devient centrale dans le quotidien, les injonctions du type « il faut se
+		forcer » sont contre-productives. Un cadre utile est celui du <strong>mouvement dosé</strong> : peu, mais
+		de façon <strong>répétable</strong>, avec la possibilité de raccourcir ou d’adoucir sans « rater » sa
+		séance.
+	</p>
+
+	<h2>Énergie variable : une normalité, pas une exception</h2>
+	<p>
+		Les personnes concernées par une fatigue chronique ou des pathologies évolutives connaissent souvent des
+		<strong>hauts et des bas</strong>. Le coaching APA prend cette variabilité comme point de départ : on
+		construit des <strong>versions courtes</strong> (quelques minutes) et des <strong>versions plus
+		completes</strong> pour les jours où c’est possible.
+	</p>
+
+	<h2>Éviter la spirale de la culpabilité</h2>
+	<p>
+		Un plan trop ambitieux mène à l’abandon, puis à la culpabilité. Un plan <strong>juste assez exigeant</strong>
+		permet de <strong>garder le contact</strong> avec le corps, même les semaines difficiles — ce qui, à
+		moyen terme, soutient mieux la confiance et l’autonomie.
+	</p>
+
+	<h2>Aller plus loin sur ce site</h2>
+	<p>
+		<a href="/activites-physiques-adaptees/">Qu’est-ce que l’APA ?</a> ·
+		<a href="/mouvement-maladie-chronique/">Mouvement et maladie chronique</a> ·
+		<a href="/blog/coach-apa/">Article « Coach APA »</a>
+	</p>
+</PillarLayout>

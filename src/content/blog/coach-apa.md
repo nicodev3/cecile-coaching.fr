@@ -3,6 +3,9 @@ title: "Coach APA : c'est quoi exactement ?"
 description: "Coach APA : définition claire, différences avec un coach sportif et bénéfices des activités physiques adaptées en cas de maladie chronique."
 pubDate: 'Feb 22 2026'
 heroImage: '../../assets/cecile-coach-apa.webp'
+relatedPillars:
+  - apa
+  - maladie-chronique
 ---
 
 Tu as peut-être vu la mention **"coach certifiée APA"** sur ce site sans vraiment savoir ce que ça recouvre. C'est normal — l'APA reste encore méconnue du grand public, alors qu'elle fait une différence concrète pour toutes les personnes qui vivent avec une maladie chronique.
@@ -69,6 +72,4 @@ Si tu te demandes si ce programme est fait pour toi, la réponse courte : si tu 
 
 ---
 
-*Tu veux en savoir plus sur le programme ?* 
-
-[Découvrir RE-FLOW →](/#programme)
+*Tu veux en savoir plus sur le programme ?* Retrouve aussi la page dédiée [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) sur ce site.

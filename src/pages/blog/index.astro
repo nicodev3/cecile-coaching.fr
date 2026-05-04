@@ -2,9 +2,11 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseHead from '../../components/BaseHead.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
+import { editorialSuggestions, type EditorialPillar } from '../../data/editorial-calendar';
 import { tieFrenchQuestionMark } from '../../utils/frenchTypography';
 import '../../styles/global.css';
 
@@ -19,6 +21,12 @@ const isOrphanLast = (index: number) =>
 const blogIndexTitle = 'Blog RE-FLOW | Conseils APA et reconnexion corporelle';
 const blogIndexDescription =
 	'Articles RE-FLOW pour mieux vivre avec une maladie chronique: activite physique adaptee, energie, douleur et reconnexion corporelle.';
+
+const pillarLabelFr: Record<EditorialPillar, string> = {
+	apa: 'Activités physiques adaptées',
+	'maladie-chronique': 'Maladie chronique',
+	fatigue: 'Fatigue et mouvement',
+};
 ---
 
 <!doctype html>
@@ -29,6 +37,12 @@ const blogIndexDescription =
 	<body class="min-h-screen bg-(--sage) text-(--ink) antialiased">
 		<Header />
 		<main class="mx-auto max-w-4xl px-4 py-10 sm:py-12">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Blog', href: '/blog/' },
+				]}
+			/>
 			<section>
 				<h1 class="mb-10 text-2xl font-semibold leading-tight text-slate-900 sm:mb-12 sm:text-3xl">
 					Articles et ressources sur le coaching pour les femmes touchées par une maladie chronique
@@ -89,6 +103,29 @@ const blogIndexDescription =
 							</li>
 							);
 						})
+					}
+				</ul>
+			</section>
+
+			<section class="mt-14 rounded-3xl bg-white/50 p-6 ring-1 ring-black/5 sm:p-8" aria-labelledby="editorial-title">
+				<h2 id="editorial-title" class="text-lg font-semibold text-slate-900 sm:text-xl">
+					Pistes d’articles (calendrier éditorial)
+				</h2>
+				<p class="mt-2 text-sm leading-relaxed text-slate-600">
+					Sujets à décliner en articles pour renforcer le maillage avec les pages guides (APA, maladie chronique,
+					fatigue).
+				</p>
+				<ul class="mt-5 list-none space-y-3 pl-0 text-base text-slate-800">
+					{
+						editorialSuggestions.map((s) => (
+							<li class="border-b border-black/5 pb-3 last:border-0 last:pb-0">
+								<span class="font-medium text-slate-900">{s.title}</span>
+								<span class="mt-1 block text-sm text-slate-600">
+									Pilier : {pillarLabelFr[s.pillar]}
+									{s.note ? ` — ${s.note}` : ''}
+								</span>
+							</li>
+						))
 					}
 				</ul>
 			</section>

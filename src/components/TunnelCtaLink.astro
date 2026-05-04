@@ -1,0 +1,23 @@
+---
+import { tunnelEntryUrl } from '../utils/tunnelUrl';
+
+interface Props {
+	/** Identifiant UTM `utm_campaign` + suffixe événement Umami */
+	campaign: string;
+	class?: string;
+}
+
+const { campaign, class: className } = Astro.props;
+const href = tunnelEntryUrl(campaign);
+const umamiEvent = `tunnel_cta_${campaign.replace(/[^a-z0-9_-]/gi, '_')}`;
+---
+
+<a
+	href={href}
+	class={className}
+	target="_blank"
+	rel="noopener noreferrer"
+	data-umami-event={umamiEvent}
+>
+	<slot />
+</a>

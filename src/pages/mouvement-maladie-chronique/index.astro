@@ -1,0 +1,64 @@
+---
+import PillarLayout from '../../layouts/PillarLayout.astro';
+
+const title = 'Mouvement et maladie chronique : repères sans pression | RE-FLOW';
+const description =
+	'Maladie chronique et activité physique : déconditionnement, peur de bouger, routines douces. Repères pédagogiques — pas de diagnostic médical.';
+const path = '/mouvement-maladie-chronique/';
+const faqs = [
+	{
+		q: 'Si je bouge moins, est-ce que mon corps se « déconditionne » ?',
+		a: "Réduire le mouvement peut être une protection à court terme, mais à long terme la force, la stabilité et l'endurance peuvent baisser — ce qui rend le quotidien plus exigeant. L'objectif n'est pas de « tout reprendre d'un coup », mais de réinstaller du mouvement compatible avec ta santé.",
+	},
+	{
+		q: 'Est-ce que je dois reprendre le sport comme avant la maladie ?',
+		a: "Souvent non. Le cadre utile est celui d'une progression adaptée, avec des versions plus courtes ou plus douces. L'APA et un programme comme RE-FLOW sont pensés pour cette réalité.",
+	},
+	{
+		q: 'Qui contacter en premier si j’ai une douleur nouvelle ou intense ?',
+		a: 'Un professionnel de santé (médecin, spécialiste) reste la référence pour évaluer un symptôme inquiétant. Le coaching ne remplace pas un avis médical.',
+	},
+];
+---
+
+<PillarLayout
+	title={title}
+	description={description}
+	path={path}
+	breadcrumbLabel="Mouvement et maladie chronique"
+	tunnelCampaign="pillar-maladie-chronique"
+	faqs={faqs}
+>
+	<h1>Mouvement et maladie chronique</h1>
+	<p>
+		Vivre avec une <strong>maladie chronique</strong>, c’est souvent jongler avec des pics de fatigue, des
+		symptômes variables et une vie qui continue quand même. Dans ce contexte, « faire du sport » peut sonner
+		hors de portée — alors qu’un <strong>mouvement adapté</strong>, très progressif, peut aider à retrouver de
+		l’aisance au quotidien, sans promesse miracle.
+	</p>
+
+	<h2>Le cercle qu’on veut éviter</h2>
+	<p>
+		Moins d’énergie → on bouge moins → le corps est moins sollicité → la confiance baisse → on hésite encore
+		plus à bouger. Ce n’est pas un « manque de volonté » : c’est une <strong>spirale compréhensible</strong>. La
+		sortie de ce cercle passe par de <strong>petites actions répétables</strong>, pas par des pics
+		d’intensité.
+	</p>
+
+	<h2>Que peut apporter un cadre APA / RE-FLOW ?</h2>
+	<ul>
+		<li>Des séances pensées pour les <strong>bons et les mauvais jours</strong></li>
+		<li>Une progression qui vise la <strong>stabilité</strong> et le <strong>tonus</strong>, pas la compétition</li>
+		<li>Un langage qui réduit la <strong>culpabilité</strong> liée aux absences ou aux ralentissements</li>
+	</ul>
+	<p>
+		Pour distinguer les métiers autour du corps, voir aussi
+		<a href="/blog/kine-coach-sportif-coach-apa/">Kiné, coach sportif ou coach APA</a>.
+	</p>
+
+	<h2>Poursuivre la lecture</h2>
+	<p>
+		<a href="/activites-physiques-adaptees/">Activités physiques adaptées (APA)</a> ·
+		<a href="/fatigue-chronique-mouvement/">Fatigue chronique et mouvement</a>
+	</p>
+</PillarLayout>

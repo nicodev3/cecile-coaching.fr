@@ -3,21 +3,25 @@ import BaseHead from '../components/BaseHead.astro';
 
 const instagramUrl = 'https://www.instagram.com/cecile.c.oaching/';
 
+type StructuredData = Record<string, unknown>;
+
 interface Props {
 	title?: string;
 	description?: string;
+	structuredData?: StructuredData | StructuredData[];
 }
 
 const {
 	title = 'RE-FLOW',
 	description = 'Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.',
+	structuredData,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="fr" class="scroll-smooth">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title} description={description} structuredData={structuredData} />
 	</head>
 
 	<body class="min-h-screen bg-(--sage) text-(--ink) antialiased">
@@ -37,6 +41,23 @@ const {
 
 			<footer class="border-t border-black/5 bg-white/60">
 				<div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+					<div class="mb-6 flex flex-wrap gap-x-6 gap-y-2 border-b border-black/5 pb-6 text-sm font-medium text-slate-800">
+						<a
+							href="/blog/"
+							class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">Blog</a>
+						<a
+							href="/activites-physiques-adaptees/"
+							class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+							>Activités physiques adaptées</a>
+						<a
+							href="/mouvement-maladie-chronique/"
+							class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+							>Maladie chronique</a>
+						<a
+							href="/fatigue-chronique-mouvement/"
+							class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+							>Fatigue et mouvement</a>
+					</div>
 					<div class="flex flex-col gap-4 text-base text-slate-700 sm:flex-row sm:items-center sm:justify-between">
 						<div class="flex flex-wrap items-center gap-x-5 gap-y-2">
 							<p class="font-medium tracking-wide text-slate-900">RE-FLOW</p>

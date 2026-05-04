@@ -3,6 +3,9 @@ title: "Kiné, coach sportif ou coach APA : qui consulter ?"
 description: "Kiné, coach sportif ou coach APA : découvrez les différences et choisissez le bon accompagnement selon votre santé, vos objectifs et votre situation."
 pubDate: 'Apr 12 2026'
 heroImage: '../../assets/coach-apa.webp'
+relatedPillars:
+  - apa
+  - maladie-chronique
 ---
 
 **Kinésithérapeute**, **coach sportif**, **coach APA** : trois accompagnements autour du corps et du mouvement, mais pas les mêmes missions ni les mêmes cadres. Si tu te demandes **qui consulter** en premier, ce guide pose les repères pour t’orienter sans te tromper de porte.
@@ -128,6 +131,4 @@ Si tu te reconnais dans ce dernier profil, l’accompagnement peut aussi passer 
 
 ---
 
-*Tu veux découvrir le programme ?* 
-
-[Voir RE-FLOW →](/#programme)
+*Tu veux découvrir le programme ?* Pour un panorama APA sur ce site, voir [Activités physiques adaptées](/activites-physiques-adaptees/).

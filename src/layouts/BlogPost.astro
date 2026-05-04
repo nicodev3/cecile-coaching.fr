@@ -2,15 +2,18 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
+import BlogArticleFooter from '../components/BlogArticleFooter.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
 import { tieFrenchQuestionMark } from '../utils/frenchTypography';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, description, pubDate, updatedDate, heroImage, relatedPillars, postId } = Astro.props;
+const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
 const displayTitle = tieFrenchQuestionMark(title);
 const seoTitle = `${displayTitle} | Blog RE-FLOW`;
 const seoDescription = `${description} Article du blog RE-FLOW sur la reconnexion corporelle et l'APA.`;
@@ -46,10 +49,11 @@ const blogPostingStructuredData = {
 	<head>
 		<BaseHead title={seoTitle} description={seoDescription} structuredData={blogPostingStructuredData} />
 	<style>
-		main {
+		.blog-post-shell {
 			width: calc(100% - 2em);
-			max-width: 100%;
-			margin: 0;
+			max-width: 720px;
+			margin: 0 auto;
+			padding: 0 1em 4em;
 		}
 		.hero-image {
 			width: 100%;
@@ -215,7 +219,14 @@ const blogPostingStructuredData = {
 
 	<body>
 		<Header />
-		<main>
+		<main class="blog-post-shell">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Blog', href: '/blog/' },
+					{ name: displayTitle, href: Astro.url.pathname },
+				]}
+			/>
 			<article>
 				<div class="hero-image mt-10">
 					{heroImage && <Image width={320} height={320} src={heroImage} alt={displayTitle} />}
@@ -237,6 +248,7 @@ const blogPostingStructuredData = {
 					</div>
 					<slot />
 				</div>
+				<BlogArticleFooter relatedPillars={relatedPillars} tunnelCampaign={tunnelCampaign} />
 			</article>
 		</main>
 		<Footer />
