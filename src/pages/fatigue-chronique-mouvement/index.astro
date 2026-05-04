@@ -4,7 +4,6 @@ import PillarLayout from '../../layouts/PillarLayout.astro';
 const title = 'Fatigue chronique et mouvement : doser sans culpabiliser | RE-FLOW';
 const description =
 	"Fatigue chronique : comment réintroduire le mouvement sans culture de l'effort, avec des durées modulables et un cadre APA — repères généraux, pas médicaux.";
-const path = '/fatigue-chronique-mouvement/';
 const faqs = [
 	{
 		q: 'Si je suis épuisée, est-ce que bouger va m’épuiser davantage ?',
@@ -24,8 +23,7 @@ const faqs = [
 <PillarLayout
 	title={title}
 	description={description}
-	path={path}
-	breadcrumbLabel="Fatigue chronique et mouvement"
+	pillarKey="fatigue"
 	tunnelCampaign="pillar-fatigue"
 	faqs={faqs}
 >
@@ -42,7 +40,7 @@ const faqs = [
 		Les personnes concernées par une fatigue chronique ou des pathologies évolutives connaissent souvent des
 		<strong>hauts et des bas</strong>. Le coaching APA prend cette variabilité comme point de départ : on
 		construit des <strong>versions courtes</strong> (quelques minutes) et des <strong>versions plus
-		completes</strong> pour les jours où c’est possible.
+		complètes</strong> pour les jours où c’est possible.
 	</p>
 
 	<h2>Éviter la spirale de la culpabilité</h2>
@@ -52,10 +50,9 @@ const faqs = [
 		moyen terme, soutient mieux la confiance et l’autonomie.
 	</p>
 
-	<h2>Aller plus loin sur ce site</h2>
+	<h2>Pour aller plus loin</h2>
 	<p>
 		<a href="/activites-physiques-adaptees/">Qu’est-ce que l’APA ?</a> ·
-		<a href="/mouvement-maladie-chronique/">Mouvement et maladie chronique</a> ·
-		<a href="/blog/coach-apa/">Article « Coach APA »</a>
+		<a href="/mouvement-maladie-chronique/">Mouvement et maladie chronique</a>
 	</p>
 </PillarLayout>

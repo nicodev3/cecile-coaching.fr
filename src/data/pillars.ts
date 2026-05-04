@@ -1,29 +1,58 @@
-/** Pages piliers SEO (vitrine) — chemins avec slash final pour cohérence sitemap. */
-export const PILLARS = [
-	{
-		slug: '/activites-physiques-adaptees/',
-		label: 'Activités physiques adaptées',
-		shortLabel: 'APA',
-	},
-	{
-		slug: '/mouvement-maladie-chronique/',
-		label: 'Mouvement et maladie chronique',
-		shortLabel: 'Maladie chronique',
-	},
-	{
-		slug: '/fatigue-chronique-mouvement/',
-		label: 'Fatigue chronique et mouvement',
-		shortLabel: 'Fatigue',
-	},
-] as const;
-
+/**
+ * Pages piliers SEO (vitrine) — chemins avec slash final pour cohérence sitemap.
+ * Source de vérité unique pour la nav, le footer, les hubs et les archives blog.
+ */
 export type PillarKey = 'apa' | 'maladie-chronique' | 'fatigue';
 
-export const PILLAR_BY_KEY: Record<
-	PillarKey,
-	(typeof PILLARS)[number] & { key: PillarKey }
-> = {
-	apa: { ...PILLARS[0], key: 'apa' },
-	'maladie-chronique': { ...PILLARS[1], key: 'maladie-chronique' },
-	fatigue: { ...PILLARS[2], key: 'fatigue' },
+export interface Pillar {
+	key: PillarKey;
+	/** URL de la page guide (pilier vitrine) */
+	slug: `/${string}/`;
+	/** URL de l'archive blog filtrée sur ce pilier */
+	archiveSlug: `/blog/${string}/`;
+	/** Libellé long pour titres et footer */
+	label: string;
+	/** Libellé court pour breadcrumbs / tags */
+	shortLabel: string;
+	/** Tagline (1 phrase) utilisée dans les hubs et cartes */
+	tagline: string;
+}
+
+export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
+	apa: {
+		key: 'apa',
+		slug: '/activites-physiques-adaptees/',
+		archiveSlug: '/blog/apa/',
+		label: 'Activités physiques adaptées',
+		shortLabel: 'APA',
+		tagline:
+			'Comprendre l’APA, ce qu’elle apporte et pourquoi c’est différent d’un coach sportif classique.',
+	},
+	'maladie-chronique': {
+		key: 'maladie-chronique',
+		slug: '/mouvement-maladie-chronique/',
+		archiveSlug: '/blog/maladie-chronique/',
+		label: 'Mouvement et maladie chronique',
+		shortLabel: 'Maladie chronique',
+		tagline:
+			'Repères doux pour réinstaller du mouvement quand on vit avec une maladie chronique.',
+	},
+	fatigue: {
+		key: 'fatigue',
+		slug: '/fatigue-chronique-mouvement/',
+		archiveSlug: '/blog/fatigue/',
+		label: 'Fatigue chronique et mouvement',
+		shortLabel: 'Fatigue',
+		tagline:
+			'Doser le mouvement quand l’énergie varie, sans culture de la performance.',
+	},
 };
+
+export const PILLARS: readonly Pillar[] = [
+	PILLARS_BY_KEY.apa,
+	PILLARS_BY_KEY['maladie-chronique'],
+	PILLARS_BY_KEY.fatigue,
+];
+
+/** Conservé pour rétro-compatibilité avec d'anciens imports. */
+export const PILLAR_BY_KEY = PILLARS_BY_KEY;

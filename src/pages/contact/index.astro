@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import Header from '../../components/Header.astro';
+
+const title = 'Contact — RE-FLOW, coach APA pour femmes en maladie chronique';
+const description =
+	"Une question sur le programme RE-FLOW ou le coaching APA ? Écris-moi via le formulaire ou par téléphone, je te réponds dans les meilleurs délais.";
+
+const contactStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'ContactPage',
+	url: new URL(Astro.url.pathname, Astro.site).toString(),
+	name: title,
+	description,
+	inLanguage: 'fr-FR',
+};
+---
+
+<BaseLayout title={title} description={description} structuredData={contactStructuredData}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<div class="bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 pt-10 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Contact', href: '/contact/' },
+				]}
+			/>
+
+			<div class="text-center">
+				<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">CONTACT</p>
+				<h1 class="mt-2 text-3xl font-semibold text-slate-900 sm:text-4xl">Me contacter</h1>
+				<p class="mt-4 text-base leading-relaxed text-slate-800">
+					Une question sur le programme RE-FLOW, le coaching APA ou simplement envie d’échanger ?
+					Écris-moi via le formulaire ci-dessous, je te répondrai dans les meilleurs délais.
+				</p>
+			</div>
+		</div>
+	</div>
+
+	<ContactForm />
+</BaseLayout>

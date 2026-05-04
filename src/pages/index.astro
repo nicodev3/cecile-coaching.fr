@@ -1,22 +1,24 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import Hero from '../components/Hero.astro';
-import TrustStrip from '../components/TrustStrip.astro';
-import ProblemSection from '../components/ProblemSection.astro';
-import StepsTimeline from '../components/StepsTimeline.astro';
-import WhatYouGet from '../components/WhatYouGet.astro';
-import Pricing from '../components/Pricing.astro';
 import AboutCoach from '../components/AboutCoach.astro';
-import Testimonials from '../components/Testimonials.astro';
+import ContactForm from '../components/ContactForm.astro';
 import FAQ from '../components/FAQ.astro';
 import FinalCTA from '../components/FinalCTA.astro';
-import ContactForm from '../components/ContactForm.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import PillarsHub from '../components/PillarsHub.astro';
+import Pricing from '../components/Pricing.astro';
+import ProblemSection from '../components/ProblemSection.astro';
+import StepsTimeline from '../components/StepsTimeline.astro';
+import Testimonials from '../components/Testimonials.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import WhatYouGet from '../components/WhatYouGet.astro';
+import { SITE_DESCRIPTION } from '../consts';
 ---
 
 <BaseLayout
-	title="RE-FLOW — Quand le corps redevient un allié"
-	description="Programme de reconnexion corporelle pour les femmes touchées par une maladie chronique. Coach certifiée APA — Activités Physiques Adaptées."
+	title="Coach APA en ligne pour femmes en maladie chronique — RE-FLOW"
+	description={SITE_DESCRIPTION}
 >
 	<Fragment slot="header">
 		<Header />
@@ -54,12 +56,16 @@ import ContactForm from '../components/ContactForm.astro';
 		<Testimonials />
 
 		<div class="border-y border-black/5 bg-(--sage)/12">
+			<PillarsHub />
+		</div>
+
+		<div class="border-y border-black/5 bg-white/35">
 			<FAQ />
 		</div>
 
 		<FinalCTA />
 
-		<div class="border-y border-black/5 bg-white/35">
+		<div class="border-y border-black/5 bg-(--sage)/12">
 			<ContactForm />
 		</div>
 	</div>

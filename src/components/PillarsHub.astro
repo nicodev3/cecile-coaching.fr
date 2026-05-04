@@ -1,0 +1,93 @@
+---
+import { ArrowRight, BookOpen, Compass, HeartPulse } from '@lucide/astro';
+import { PILLARS, type PillarKey } from '../data/pillars';
+
+interface Props {
+	/** Optionnel: clé du pilier en cours pour le masquer dans la liste. */
+	exclude?: PillarKey;
+	title?: string;
+	intro?: string;
+	/** Affichage compact (pour pieds d'article ou pages secondaires). */
+	compact?: boolean;
+}
+
+const {
+	exclude,
+	title = 'Comprendre, à ton rythme',
+	intro = 'Trois guides pédagogiques pour poser les bons repères avant — ou pendant — l’accompagnement.',
+	compact = false,
+} = Astro.props;
+
+const pillars = PILLARS.filter((p) => p.key !== exclude);
+
+/** Icônes par pilier (cohérence visuelle dans la nav et les hubs). */
+const iconByKey = {
+	apa: BookOpen,
+	'maladie-chronique': HeartPulse,
+	fatigue: Compass,
+} as const;
+
+const reveal = compact
+	? ''
+	: 'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+---
+
+<section
+	class:list={[
+		compact ? 'py-8' : 'py-14 sm:py-18',
+		reveal,
+	]}
+	{...(compact ? {} : { 'data-reveal': true, 'data-revealed': 'false' })}
+	aria-labelledby="pillars-hub-title"
+>
+	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+		{
+			!compact && (
+				<div class="mx-auto max-w-3xl text-center">
+					<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">COMPRENDRE</p>
+					<h2 id="pillars-hub-title" class="mt-2 text-3xl font-semibold text-slate-900">
+						{title}
+					</h2>
+					<p class="mt-4 text-base leading-relaxed text-slate-800">{intro}</p>
+				</div>
+			)
+		}
+		{
+			compact && (
+				<h2 id="pillars-hub-title" class="text-xl font-semibold text-slate-900">
+					{title}
+				</h2>
+			)
+		}
+
+		<div
+			class:list={[
+				compact ? 'mt-5 grid gap-3 sm:grid-cols-3' : 'mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3',
+			]}
+		>
+			{
+				pillars.map((p) => {
+					const Icon = iconByKey[p.key];
+					return (
+						<a
+							href={p.slug}
+							class="group flex h-full flex-col rounded-3xl bg-white/70 p-6 ring-1 ring-black/5 shadow-sm shadow-black/5 transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum) motion-reduce:hover:translate-y-0"
+						>
+							<div class="mb-3 flex items-center gap-3">
+								<span class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5">
+									<Icon class="h-5 w-5 text-(--plum)" aria-hidden="true" stroke-width={1.7} />
+								</span>
+								<p class="text-base font-semibold text-slate-900">{p.label}</p>
+							</div>
+							<p class="text-sm leading-relaxed text-slate-700">{p.tagline}</p>
+							<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-(--plum) transition group-hover:gap-2">
+								Lire le guide
+								<ArrowRight class="h-4 w-4" aria-hidden="true" stroke-width={2} />
+							</span>
+						</a>
+					);
+				})
+			}
+		</div>
+	</div>
+</section>

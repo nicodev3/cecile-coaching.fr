@@ -1,0 +1,171 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Header from '../../components/Header.astro';
+import { COACH_EMAIL, COACH_NAME } from '../../consts';
+
+const title = 'Politique de confidentialité | RE-FLOW';
+const description =
+	"Politique de confidentialité et de protection des données personnelles du site cecilecoaching.fr (RGPD).";
+---
+
+<BaseLayout title={title} description={description}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Politique de confidentialité', href: '/politique-de-confidentialite/' },
+				]}
+			/>
+
+			<div class="legal-content text-base leading-relaxed text-slate-800">
+				<h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Politique de confidentialité</h1>
+				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : à compléter.</p>
+
+				<p>
+					La présente politique décrit la façon dont {COACH_NAME} (ci-après « <em>nous</em> »)
+					collecte, utilise et protège les données personnelles des utilisateurs du site
+					<strong>cecilecoaching.fr</strong>, conformément au Règlement général sur la protection
+					des données (RGPD) et à la loi Informatique et Libertés.
+				</p>
+
+				<h2>1. Responsable du traitement</h2>
+				<p>
+					Le responsable du traitement est {COACH_NAME}. Pour toute question relative à vos
+					données personnelles, vous pouvez écrire à
+					<a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a>.
+				</p>
+
+				<h2>2. Données collectées</h2>
+				<p>Les données collectées via ce site sont :</p>
+				<ul>
+					<li>
+						<strong>Formulaire de contact</strong> : nom, adresse email, téléphone (optionnel),
+						contenu du message. Ces données sont transmises via le service
+						<strong>Formspree</strong> (États-Unis) puis stockées dans la boîte mail de la
+						responsable du traitement.
+					</li>
+					<li>
+						<strong>Statistiques de fréquentation</strong> : pages consultées, durée de la
+						visite, type d’appareil, pays, source d’arrivée. Ces données sont collectées de
+						manière anonymisée par <strong>Umami Analytics</strong>, sans cookies de suivi
+						individuel.
+					</li>
+				</ul>
+
+				<h2>3. Finalités</h2>
+				<ul>
+					<li>Répondre aux demandes formulées via le formulaire de contact.</li>
+					<li>Mesurer l’audience du site et améliorer son contenu (statistiques anonymisées).</li>
+					<li>
+						Gérer la relation pré-contractuelle et contractuelle dans le cadre d’un éventuel
+						accompagnement.
+					</li>
+				</ul>
+
+				<h2>4. Bases légales</h2>
+				<ul>
+					<li><strong>Consentement</strong> de l’utilisateur (envoi du formulaire de contact).</li>
+					<li>
+						<strong>Intérêt légitime</strong> de l’éditeur à améliorer son site (statistiques
+						anonymisées).
+					</li>
+				</ul>
+
+				<h2>5. Durées de conservation</h2>
+				<ul>
+					<li>
+						<strong>Messages de contact</strong> : conservés tant que la relation est active,
+						puis archivés et supprimés au plus tard 3 ans après le dernier échange.
+					</li>
+					<li>
+						<strong>Données analytiques</strong> : conservées de manière agrégée et anonymisée,
+						sans durée maximale (pas de profilage individuel).
+					</li>
+				</ul>
+
+				<h2>6. Destinataires</h2>
+				<p>
+					Les données ne sont en aucun cas vendues, louées ou cédées à des tiers à des fins
+					commerciales. Les sous-traitants techniques sont :
+				</p>
+				<ul>
+					<li><strong>Netlify</strong> — hébergement.</li>
+					<li><strong>Formspree</strong> — réception des messages du formulaire de contact.</li>
+					<li><strong>Umami Analytics</strong> — statistiques anonymisées.</li>
+				</ul>
+
+				<h2>7. Cookies</h2>
+				<p>
+					Ce site n’utilise pas de cookies de suivi publicitaire. La solution analytics
+					(<strong>Umami</strong>) fonctionne sans cookie permettant d’identifier
+					individuellement un visiteur. Les vidéos YouTube intégrées peuvent en revanche poser
+					des cookies tiers : ils ne sont déposés qu’à partir du moment où vous lancez la
+					lecture.
+				</p>
+
+				<h2>8. Vos droits</h2>
+				<p>Conformément au RGPD, vous disposez des droits suivants :</p>
+				<ul>
+					<li>droit d’accès et de copie de vos données ;</li>
+					<li>droit de rectification ;</li>
+					<li>droit à l’effacement (« droit à l’oubli ») ;</li>
+					<li>droit à la limitation du traitement ;</li>
+					<li>droit à la portabilité ;</li>
+					<li>droit d’opposition.</li>
+				</ul>
+				<p>
+					Pour exercer ces droits, écrivez à
+					<a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a>. Vous disposez également du droit
+					d’introduire une réclamation auprès de la
+					<a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">CNIL</a>.
+				</p>
+
+				<h2>9. Sécurité</h2>
+				<p>
+					Le site est servi en HTTPS. Les sous-traitants utilisés disposent de leurs propres
+					mesures de sécurité conformes à l’état de l’art.
+				</p>
+
+				<h2>10. Modifications</h2>
+				<p>
+					La présente politique peut être amenée à évoluer. La date de dernière mise à jour est
+					indiquée en haut de la page.
+				</p>
+			</div>
+		</div>
+	</article>
+</BaseLayout>
+
+<style is:global>
+	.legal-content h2 {
+		margin-top: 2.25rem;
+		margin-bottom: 0.75rem;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #0f172a;
+	}
+	.legal-content p {
+		margin: 0 0 1rem;
+	}
+	.legal-content ul {
+		margin: 0 0 1rem 1.25rem;
+		list-style: disc;
+	}
+	.legal-content li {
+		margin-bottom: 0.35rem;
+	}
+	.legal-content a {
+		color: var(--plum);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+	.legal-content a:hover {
+		color: var(--plum-ink);
+	}
+</style>

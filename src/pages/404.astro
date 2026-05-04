@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import PillarsHub from '../components/PillarsHub.astro';
+
+const title = 'Page introuvable (404) | RE-FLOW';
+const description =
+	"La page que vous cherchez n'existe pas ou a été déplacée. Voici quelques liens pour retrouver votre chemin sur RE-FLOW.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<section class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 sm:py-20 lg:px-8">
+			<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">ERREUR 404</p>
+			<h1 class="mt-2 text-3xl font-semibold text-slate-900 sm:text-4xl">
+				Cette page n’existe pas (ou plus)
+			</h1>
+			<p class="mt-4 text-base leading-relaxed text-slate-700">
+				Le lien est peut-être ancien ou contient une faute de frappe. Voici quelques pistes pour
+				retrouver ce que vous cherchiez.
+			</p>
+
+			<div class="mt-8 flex flex-wrap justify-center gap-3">
+				<a
+					href="/"
+					class="inline-flex items-center justify-center rounded-2xl bg-(--plum) px-5 py-2.5 text-base font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+				>
+					Retour à l’accueil
+				</a>
+				<a
+					href="/blog/"
+					class="inline-flex items-center justify-center rounded-2xl bg-white/80 px-5 py-2.5 text-base font-semibold text-slate-900 ring-1 ring-black/5 transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+				>
+					Voir le blog
+				</a>
+				<a
+					href="/contact/"
+					class="inline-flex items-center justify-center rounded-2xl bg-white/80 px-5 py-2.5 text-base font-semibold text-slate-900 ring-1 ring-black/5 transition hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+				>
+					Me contacter
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<div class="border-y border-black/5 bg-(--sage)/12">
+		<PillarsHub
+			title="Explorer les guides RE-FLOW"
+			intro="Les trois piliers thématiques pour comprendre l’APA et le mouvement adapté à la maladie chronique."
+		/>
+	</div>
+</BaseLayout>

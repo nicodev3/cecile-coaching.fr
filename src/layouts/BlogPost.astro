@@ -9,6 +9,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
 import { tieFrenchQuestionMark } from '../utils/frenchTypography';
+import { COACH_NAME } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & { postId: string };
 
@@ -33,7 +34,8 @@ const blogPostingStructuredData = {
 	},
 	author: {
 		'@type': 'Person',
-		name: 'Cecile',
+		name: COACH_NAME,
+		url: `${siteUrlNormalized}/a-propos/`,
 	},
 	publisher: {
 		'@type': 'Organization',
@@ -217,7 +219,7 @@ const blogPostingStructuredData = {
 	</style>
 	</head>
 
-	<body>
+	<body class="min-h-screen bg-(--sage) text-(--ink) antialiased">
 		<Header />
 		<main class="blog-post-shell">
 			<Breadcrumbs

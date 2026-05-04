@@ -1,0 +1,159 @@
+---
+import { Image } from 'astro:assets';
+import { Check } from '@lucide/astro';
+import coachImage from '../../assets/cecile-coach-apa.webp';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Header from '../../components/Header.astro';
+import PillarsHub from '../../components/PillarsHub.astro';
+import TunnelCtaLink from '../../components/TunnelCtaLink.astro';
+import { COACH_NAME, SITE_INSTAGRAM } from '../../consts';
+
+const title = `${COACH_NAME}, coach APA — À propos | RE-FLOW`;
+const description = `Coach certifiée APA (Activités Physiques Adaptées), ${COACH_NAME} accompagne les femmes touchées par une maladie chronique avec une approche douce, progressive et adaptée à l'énergie du jour.`;
+
+const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
+const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const personStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	'@id': `${siteUrlNormalized}/a-propos/#cecile`,
+	name: COACH_NAME,
+	jobTitle: 'Coach certifiée APA — Activités Physiques Adaptées',
+	url: pageUrl,
+	image: new URL(coachImage.src, Astro.site).toString(),
+	worksFor: { '@id': `${siteUrlNormalized}/#coaching-service` },
+	knowsAbout: [
+		'Activités Physiques Adaptées',
+		'Maladie chronique',
+		'Fatigue chronique',
+		'Reconnexion corporelle',
+		'Mouvement adapté',
+	],
+	sameAs: [SITE_INSTAGRAM],
+};
+---
+
+<BaseLayout title={title} description={description} structuredData={personStructuredData}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'À propos', href: '/a-propos/' },
+				]}
+			/>
+
+			<div class="flex flex-col items-center text-center">
+				<div class="relative mb-6">
+					<div
+						class="pointer-events-none absolute -inset-4 rounded-full bg-linear-to-br from-(--plum)/20 to-(--sage)/20 blur-xl"
+						aria-hidden="true"
+					/>
+					<div class="relative rounded-full p-1 ring-4 ring-white/80 shadow-lg shadow-black/10">
+						<Image
+							src={coachImage}
+							alt={`${COACH_NAME}, coach certifiée APA — Activités Physiques Adaptées`}
+							class="h-32 w-32 rounded-full object-cover sm:h-40 sm:w-40"
+							loading="eager"
+							decoding="async"
+						/>
+					</div>
+				</div>
+
+				<div class="inline-flex items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
+					<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
+					<span>Coach certifiée APA — Activités Physiques Adaptées</span>
+				</div>
+
+				<h1 class="mt-6 text-3xl font-semibold text-slate-900 sm:text-4xl">
+					{COACH_NAME}, coach APA pour femmes en maladie chronique
+				</h1>
+			</div>
+
+			<div class="mt-10 space-y-5 text-base leading-relaxed text-slate-800">
+				<p>
+					Je m’appelle <strong>{COACH_NAME}</strong>, je suis <strong>coach sportive certifiée
+					APA</strong> (Activités Physiques Adaptées). J’accompagne les femmes touchées par une
+					<strong>maladie chronique</strong> à <strong>retrouver une relation apaisée avec leur
+					corps</strong>, par le mouvement.
+				</p>
+				<p>
+					Mon approche n’est pas celle d’un coach sportif classique. L’APA part toujours de la
+					<strong>réalité du corps</strong> : la maladie, les traitements, la fatigue, les
+					fluctuations d’énergie. Pas de pression, pas de culture de la performance, pas de plan
+					unique imposé. À la place : une <strong>progression douce</strong>, des séances
+					modulables et un cadre qui accueille les bons jours comme les jours plus difficiles.
+				</p>
+				<p>
+					Pourquoi ce parti pris ? Parce qu’un programme générique met souvent en échec celles qui
+					vivent avec une pathologie chronique : on aggrave la fatigue, on déclenche des poussées,
+					on culpabilise, et on finit par décrocher. L’APA inverse cette logique en cherchant la
+					<strong>régularité</strong> et la <strong>confiance</strong> plutôt que l’intensité.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-slate-900">Ma promesse</h2>
+				<ul class="space-y-2 pl-1">
+					<li class="flex gap-2">
+						<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
+						<span>Un cadre sécurisant, calé sur ton état de santé.</span>
+					</li>
+					<li class="flex gap-2">
+						<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
+						<span>Des progressions courtes, répétables, vérifiables.</span>
+					</li>
+					<li class="flex gap-2">
+						<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
+						<span>Un langage qui évite la culpabilité et la comparaison.</span>
+					</li>
+					<li class="flex gap-2">
+						<span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-(--plum)" aria-hidden="true"></span>
+						<span>Des alternatives quand la douleur ou la fatigue augmentent.</span>
+					</li>
+				</ul>
+
+				<h2 class="mt-10 text-2xl font-semibold text-slate-900">Approche & spécialités</h2>
+				<p>
+					Je travaille sur le <strong>déconditionnement physique</strong> lié à l’inactivité, la
+					<strong>peur de bouger</strong>, la <strong>fatigue chronique</strong> et la
+					<strong>reconnexion corporelle</strong> après des mois (ou des années) où le corps est
+					devenu un terrain hostile. Pour aller plus loin, voir les guides dédiés ci-dessous.
+				</p>
+			</div>
+
+			<div class="mt-12 rounded-3xl bg-(--plum) px-6 py-10 text-center text-white shadow-sm shadow-black/15 sm:px-10">
+				<h2 class="text-xl font-semibold sm:text-2xl">Découvrir RE-FLOW</h2>
+				<p class="mt-3 text-base text-white/90">
+					Immersion gratuite (4 jours) et programme complet sur l’espace dédié.
+				</p>
+				<div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
+					<TunnelCtaLink
+						campaign="a-propos"
+						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+					>
+						Commencer l’immersion gratuite
+					</TunnelCtaLink>
+					<a
+						href="/contact/"
+						class="inline-flex items-center justify-center rounded-2xl bg-transparent px-6 py-3 text-base font-semibold text-white ring-1 ring-white/40 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+					>
+						Me contacter
+					</a>
+				</div>
+			</div>
+		</div>
+	</article>
+
+	<div class="border-y border-black/5 bg-(--sage)/12">
+		<PillarsHub
+			title="Pour aller plus loin"
+			intro="Trois guides pour comprendre l’APA et ce que peut apporter le mouvement adapté quand la santé est variable."
+		/>
+	</div>
+</BaseLayout>

@@ -1,8 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
-import Header from '../components/Header.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Header from '../components/Header.astro';
+import PillarsHub from '../components/PillarsHub.astro';
 import TunnelCtaLink from '../components/TunnelCtaLink.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
 
 type StructuredData = Record<string, unknown>;
 
@@ -14,18 +18,23 @@ interface FaqItem {
 interface Props {
 	title: string;
 	description: string;
-	path: string;
-	breadcrumbLabel: string;
+	pillarKey: PillarKey;
 	tunnelCampaign: string;
 	faqs: FaqItem[];
 }
 
-const { title, description, path, breadcrumbLabel, tunnelCampaign, faqs } = Astro.props;
+const { title, description, pillarKey, tunnelCampaign, faqs } = Astro.props;
+const pillar = PILLARS_BY_KEY[pillarKey];
 
 const crumbs = [
 	{ name: 'Accueil', href: '/' },
-	{ name: breadcrumbLabel, href: path },
+	{ name: pillar.shortLabel, href: pillar.slug },
 ];
+
+const allPosts = await getCollection('blog');
+const pillarPosts = allPosts
+	.filter((post) => post.data.relatedPillars?.includes(pillarKey))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const faqStructuredData: StructuredData = {
 	'@context': 'https://schema.org',
@@ -97,6 +106,44 @@ const faqStructuredData: StructuredData = {
 				}
 			</style>
 
+			{
+				pillarPosts.length > 0 && (
+					<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="pillar-articles-title">
+						<div class="flex flex-wrap items-baseline justify-between gap-4">
+							<h2 id="pillar-articles-title" class="text-2xl font-semibold text-slate-900">
+								Articles sur le thème
+							</h2>
+							<a
+								href={pillar.archiveSlug}
+								class="text-sm font-semibold text-(--plum) underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+							>
+								Voir tous les articles {pillar.shortLabel} →
+							</a>
+						</div>
+						<ul class="mt-6 space-y-3 list-none pl-0">
+							{pillarPosts.map((post) => (
+								<li class="rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
+									<a
+										href={`/blog/${post.id}/`}
+										class="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+									>
+										<p class="text-base font-semibold text-slate-900 hover:text-(--plum)">
+											{post.data.title}
+										</p>
+										<p class="mt-1 text-sm text-slate-600">
+											<FormattedDate date={post.data.pubDate} />
+										</p>
+										<p class="mt-2 text-sm leading-relaxed text-slate-700">
+											{post.data.description}
+										</p>
+									</a>
+								</li>
+							))}
+						</ul>
+					</section>
+				)
+			}
+
 			<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="pillar-faq-title">
 				<h2 id="pillar-faq-title" class="text-2xl font-semibold text-slate-900">Questions fréquentes</h2>
 				<div class="mt-6 space-y-3">
@@ -139,4 +186,12 @@ const faqStructuredData: StructuredData = {
 			</div>
 		</div>
 	</article>
+
+	<div class="border-y border-black/5 bg-(--sage)/12">
+		<PillarsHub
+			exclude={pillarKey}
+			title="Continuer la lecture"
+			intro="Les autres guides pour compléter le tableau."
+		/>
+	</div>
 </BaseLayout>

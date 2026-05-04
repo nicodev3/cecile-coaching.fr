@@ -1,38 +1,157 @@
 ---
+import { PILLARS } from '../data/pillars';
+
 const today = new Date();
 const instagramUrl = 'https://www.instagram.com/cecile.c.oaching/';
+
+const programLinks = [
+	{ href: '/#programme', label: 'Programme' },
+	{ href: '/#methode', label: 'Méthode' },
+	{ href: '/#tarif', label: 'Tarif & modalités' },
+	{ href: '/#temoignages', label: 'Témoignages' },
+	{ href: '/#faq', label: 'FAQ' },
+];
+
+const understandingLinks = PILLARS.map((p) => ({
+	href: p.slug,
+	label: p.label,
+}));
+
+const resourceLinks = [
+	{ href: '/blog/', label: 'Tous les articles' },
+	...PILLARS.map((p) => ({ href: p.archiveSlug, label: `Articles ${p.shortLabel}` })),
+];
+
+const aboutLinks = [
+	{ href: '/a-propos/', label: 'À propos' },
+	{ href: '/contact/', label: 'Contact' },
+	{ href: '/mentions-legales/', label: 'Mentions légales' },
+	{ href: '/politique-de-confidentialite/', label: 'Politique de confidentialité' },
+];
 ---
 
-<footer>
-	<p class="apa-badge">Coach sportive certifiée APA — Activités Physiques Adaptées</p>
-	<p>&copy; {today.getFullYear()} RE-FLOW - Programme de reconnexion corporelle. Tous droits réservés.</p>
-	<div class="social-links">
-		<a href={instagramUrl} target="_blank" rel="noopener noreferrer">Instagram — @cecile.c.oaching</a>
+<footer class="border-t border-black/5 bg-white/60">
+	<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+		<div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+			<div>
+				<p class="text-base font-semibold tracking-[0.22em] text-slate-900">RE-FLOW</p>
+				<p class="mt-3 text-sm leading-relaxed text-slate-700">
+					Programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.
+				</p>
+				<p class="mt-3 text-sm font-medium text-slate-800">
+					Coach certifiée APA — Activités Physiques Adaptées.
+				</p>
+				<a
+					href={instagramUrl}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-(--plum) underline-offset-4 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
+				>
+					<svg
+						class="h-5 w-5 shrink-0"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+						<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+						<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+					</svg>
+					Instagram — @cecile.c.oaching
+				</a>
+			</div>
+
+			<nav aria-labelledby="footer-program-title">
+				<p id="footer-program-title" class="text-sm font-semibold tracking-[0.18em] text-slate-900">
+					PROGRAMME
+				</p>
+				<ul class="mt-4 space-y-2 text-sm text-slate-700">
+					{
+						programLinks.map((l) => (
+							<li>
+								<a
+									href={l.href}
+									class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+								>
+									{l.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<nav aria-labelledby="footer-understanding-title">
+				<p id="footer-understanding-title" class="text-sm font-semibold tracking-[0.18em] text-slate-900">
+					COMPRENDRE
+				</p>
+				<ul class="mt-4 space-y-2 text-sm text-slate-700">
+					{
+						understandingLinks.map((l) => (
+							<li>
+								<a
+									href={l.href}
+									class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+								>
+									{l.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				<p class="mt-6 text-sm font-semibold tracking-[0.18em] text-slate-900">RESSOURCES</p>
+				<ul class="mt-4 space-y-2 text-sm text-slate-700">
+					{
+						resourceLinks.map((l) => (
+							<li>
+								<a
+									href={l.href}
+									class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+								>
+									{l.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<nav aria-labelledby="footer-about-title">
+				<p id="footer-about-title" class="text-sm font-semibold tracking-[0.18em] text-slate-900">
+					À PROPOS
+				</p>
+				<ul class="mt-4 space-y-2 text-sm text-slate-700">
+					{
+						aboutLinks.map((l) => (
+							<li>
+								<a
+									href={l.href}
+									class="hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+								>
+									{l.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+		</div>
+
+		<div class="mt-10 flex flex-col gap-3 border-t border-black/5 pt-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
+			<p>
+				&copy; {today.getFullYear()} RE-FLOW — Programme de reconnexion corporelle. Tous droits réservés.
+			</p>
+			<a
+				href="/"
+				class="font-medium text-slate-700 hover:text-(--plum) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+			>
+				Retour à l’accueil
+			</a>
+		</div>
 	</div>
 </footer>
-<style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-	footer .apa-badge {
-		font-weight: 600;
-		margin-bottom: 0.5em;
-		letter-spacing: 0.02em;
-	}
-	.social-links {
-		display: flex;
-		justify-content: center;
-		gap: 1em;
-		margin-top: 1em;
-	}
-	.social-links a {
-		text-decoration: none;
-		color: rgb(var(--gray));
-	}
-	.social-links a:hover {
-		color: rgb(var(--gray-dark));
-	}
-</style>

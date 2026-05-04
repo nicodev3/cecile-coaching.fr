@@ -4,7 +4,6 @@ import PillarLayout from '../../layouts/PillarLayout.astro';
 const title = 'Activités physiques adaptées (APA) : définition et intérêt | RE-FLOW';
 const description =
 	"Comprendre l'APA : formation, adaptation du mouvement à la santé, cadre sécurisant pour les femmes en maladie chronique — sans culture de la performance.";
-const path = '/activites-physiques-adaptees/';
 const faqs = [
 	{
 		q: "L'APA, c'est la même chose qu'un coach sportif ?",
@@ -24,8 +23,7 @@ const faqs = [
 <PillarLayout
 	title={title}
 	description={description}
-	path={path}
-	breadcrumbLabel="Activités physiques adaptées"
+	pillarKey="apa"
 	tunnelCampaign="pillar-apa"
 	faqs={faqs}
 >
@@ -58,10 +56,9 @@ const faqs = [
 		<li>Un langage qui évite la pression et la comparaison</li>
 	</ul>
 
-	<h2>Liens utiles sur ce site</h2>
+	<h2>Pour aller plus loin</h2>
 	<p>
-		Pour la suite du parcours de lecture : <a href="/mouvement-maladie-chronique/">mouvement et maladie chronique</a>,
-		<a href="/fatigue-chronique-mouvement/">fatigue chronique et mouvement</a>, ou le
-		<a href="/blog/coach-apa/">article « Coach APA : c’est quoi exactement ? »</a>.
+		Pour la suite du parcours de lecture : <a href="/mouvement-maladie-chronique/">mouvement et maladie chronique</a>
+		et <a href="/fatigue-chronique-mouvement/">fatigue chronique et mouvement</a>.
 	</p>
 </PillarLayout>

@@ -1,0 +1,116 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Header from '../../components/Header.astro';
+import { COACH_EMAIL, COACH_NAME } from '../../consts';
+
+const title = 'Mentions légales | RE-FLOW';
+const description =
+	"Mentions légales du site cecilecoaching.fr — éditeur, hébergeur, propriété intellectuelle et conditions d'utilisation.";
+---
+
+<BaseLayout title={title} description={description}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Mentions légales', href: '/mentions-legales/' },
+				]}
+			/>
+
+			<div class="legal-content text-base leading-relaxed text-slate-800">
+				<h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Mentions légales</h1>
+				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : à compléter.</p>
+
+				<h2>1. Éditeur du site</h2>
+				<p>
+					Le présent site <strong>cecilecoaching.fr</strong> est édité par {COACH_NAME}, en
+					qualité de coach sportive certifiée APA (Activités Physiques Adaptées).
+				</p>
+				<ul>
+					<li><strong>Nom / Raison sociale</strong> : {COACH_NAME} — <em>à compléter (statut juridique)</em></li>
+					<li><strong>Adresse</strong> : <em>à compléter</em></li>
+					<li><strong>SIREN / SIRET</strong> : <em>à compléter</em></li>
+					<li><strong>Numéro de TVA intracommunautaire</strong> : <em>à compléter (le cas échéant)</em></li>
+					<li><strong>Directrice de la publication</strong> : {COACH_NAME}</li>
+					<li><strong>Email</strong> : <a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a></li>
+				</ul>
+
+				<h2>2. Hébergeur</h2>
+				<p>
+					Le site est hébergé par <strong>Netlify, Inc.</strong> — 512 2nd Street, Suite 200, San
+					Francisco, CA 94107, États-Unis. Site web :
+					<a href="https://www.netlify.com" target="_blank" rel="noopener noreferrer">netlify.com</a>.
+				</p>
+
+				<h2>3. Propriété intellectuelle</h2>
+				<p>
+					L’ensemble des contenus présents sur ce site (textes, images, logo, charte graphique,
+					vidéos, codes) est la propriété exclusive de {COACH_NAME}, sauf mention contraire. Toute
+					reproduction, représentation, modification, publication, adaptation totale ou partielle de
+					ces éléments, par quelque procédé que ce soit, est interdite sans autorisation écrite
+					préalable.
+				</p>
+
+				<h2>4. Limitation de responsabilité</h2>
+				<p>
+					Les informations diffusées sur ce site ont une vocation <strong>pédagogique</strong>.
+					Elles ne constituent en aucun cas un avis ou un conseil médical et ne remplacent pas
+					la consultation d’un professionnel de santé. {COACH_NAME} ne saurait être tenue
+					responsable de l’usage qui pourrait être fait des informations diffusées en dehors d’un
+					accompagnement personnalisé.
+				</p>
+
+				<h2>5. Liens hypertextes</h2>
+				<p>
+					Le site peut contenir des liens vers d’autres sites internet. {COACH_NAME} n’exerce
+					aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu.
+				</p>
+
+				<h2>6. Droit applicable</h2>
+				<p>
+					Les présentes mentions légales sont soumises au droit français. En cas de litige, les
+					tribunaux français seront seuls compétents.
+				</p>
+
+				<p class="mt-8 text-sm text-slate-600">
+					Pour toute question, vous pouvez écrire à
+					<a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a>.
+				</p>
+			</div>
+		</div>
+	</article>
+</BaseLayout>
+
+<style is:global>
+	.legal-content h2 {
+		margin-top: 2.25rem;
+		margin-bottom: 0.75rem;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: #0f172a;
+	}
+	.legal-content p {
+		margin: 0 0 1rem;
+	}
+	.legal-content ul {
+		margin: 0 0 1rem 1.25rem;
+		list-style: disc;
+	}
+	.legal-content li {
+		margin-bottom: 0.35rem;
+	}
+	.legal-content a {
+		color: var(--plum);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+	.legal-content a:hover {
+		color: var(--plum-ink);
+	}
+</style>

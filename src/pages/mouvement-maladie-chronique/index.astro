@@ -4,7 +4,6 @@ import PillarLayout from '../../layouts/PillarLayout.astro';
 const title = 'Mouvement et maladie chronique : repères sans pression | RE-FLOW';
 const description =
 	'Maladie chronique et activité physique : déconditionnement, peur de bouger, routines douces. Repères pédagogiques — pas de diagnostic médical.';
-const path = '/mouvement-maladie-chronique/';
 const faqs = [
 	{
 		q: 'Si je bouge moins, est-ce que mon corps se « déconditionne » ?',
@@ -24,8 +23,7 @@ const faqs = [
 <PillarLayout
 	title={title}
 	description={description}
-	path={path}
-	breadcrumbLabel="Mouvement et maladie chronique"
+	pillarKey="maladie-chronique"
 	tunnelCampaign="pillar-maladie-chronique"
 	faqs={faqs}
 >
@@ -51,12 +49,8 @@ const faqs = [
 		<li>Une progression qui vise la <strong>stabilité</strong> et le <strong>tonus</strong>, pas la compétition</li>
 		<li>Un langage qui réduit la <strong>culpabilité</strong> liée aux absences ou aux ralentissements</li>
 	</ul>
-	<p>
-		Pour distinguer les métiers autour du corps, voir aussi
-		<a href="/blog/kine-coach-sportif-coach-apa/">Kiné, coach sportif ou coach APA</a>.
-	</p>
 
-	<h2>Poursuivre la lecture</h2>
+	<h2>Pour aller plus loin</h2>
 	<p>
 		<a href="/activites-physiques-adaptees/">Activités physiques adaptées (APA)</a> ·
 		<a href="/fatigue-chronique-mouvement/">Fatigue chronique et mouvement</a>
