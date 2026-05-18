@@ -1,19 +1,36 @@
 ---
 import { Image } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
+import { Clock } from '@lucide/astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import BlogArticleFooter from '../components/BlogArticleFooter.astro';
+import BlogArticleNewsletter from '../components/BlogArticleNewsletter.astro';
+import BlogArticleSidebar from '../components/BlogArticleSidebar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
+import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
 import { tieFrenchQuestionMark } from '../utils/frenchTypography';
 import { COACH_NAME } from '../consts';
 
-type Props = CollectionEntry<'blog'>['data'] & { postId: string };
+type Props = CollectionEntry<'blog'>['data'] & {
+	postId: string;
+	readingTime: number;
+};
 
-const { title, description, pubDate, updatedDate, heroImage, relatedPillars, postId } = Astro.props;
+const {
+	title,
+	description,
+	pubDate,
+	updatedDate,
+	heroImage,
+	relatedPillars,
+	postId,
+	readingTime,
+} = Astro.props;
+
 const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
 const displayTitle = tieFrenchQuestionMark(title);
 const seoTitle = `${displayTitle} | Blog RE-FLOW`;
@@ -21,6 +38,29 @@ const seoDescription = `${description} Article du blog RE-FLOW sur la reconnexio
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+
+const primaryPillar = relatedPillars?.[0] as PillarKey | undefined;
+const pillar = primaryPillar ? PILLARS_BY_KEY[primaryPillar] : undefined;
+const breadcrumbLabel = pillar?.shortLabel ?? 'Article';
+
+const allPosts = await getCollection('blog');
+const others = allPosts.filter((p) => p.id !== postId);
+const byPillar =
+	relatedPillars && relatedPillars.length > 0
+		? others.filter((p) => p.data.relatedPillars?.some((k) => relatedPillars.includes(k)))
+		: others;
+const relatedPosts = [...byPillar]
+	.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+	.slice(0, 2);
+if (relatedPosts.length < 2) {
+	const taken = new Set(relatedPosts.map((p) => p.id));
+	const fill = others
+		.filter((p) => !taken.has(p.id))
+		.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+		.slice(0, 2 - relatedPosts.length);
+	relatedPosts.push(...fill);
+}
+
 const blogPostingStructuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'BlogPosting',
@@ -50,207 +90,199 @@ const blogPostingStructuredData = {
 <html lang="fr">
 	<head>
 		<BaseHead title={seoTitle} description={seoDescription} structuredData={blogPostingStructuredData} />
-	<style>
-		.blog-post-shell {
-			width: calc(100% - 2em);
-			max-width: 720px;
-			margin: 0 auto;
-			padding: 0 1em 4em;
-		}
-		.hero-image {
-			width: 100%;
-		}
-		.hero-image img {
-			display: block;
-			margin: 0 auto;
-		}
-		.prose {
-			width: 720px;
-			max-width: calc(100% - 2em);
-			margin: auto;
-			padding: 1em 1em 4em;
-			color: #1e1b2e;
-			font-size: 1.0625rem;
-			line-height: 1.75;
-		}
-		.title {
-			margin-bottom: 2em;
-			padding: 1em 0;
-			text-align: center;
-			line-height: 1;
-		}
-		.title h1 {
-			margin: 0 0 0.5em 0;
-			font-size: 2rem;
-			line-height: 1.2;
-			color: #1e1b2e;
-		}
-		.date {
-			margin-bottom: 0.75em;
-			font-size: 0.875rem;
-			color: rgb(var(--gray));
-			letter-spacing: 0.04em;
-		}
-		.last-updated-on {
-			font-style: italic;
-		}
-
-		/* ── Titres ── */
-		.prose :global(h2) {
-			font-family: var(--font-title);
-			font-size: 1.875rem;
-			font-weight: 600;
-			color: var(--plum-ink);
-			margin: 2.5em 0 0.75em;
-			line-height: 1.3;
-		}
-		.prose :global(h3) {
-			font-family: var(--font-title);
-			font-size: 1.125rem;
-			font-weight: 600;
-			color: #1e1b2e;
-			margin: 2em 0 0.5em;
-			line-height: 1.4;
-		}
-
-		/* ── Paragraphes ── */
-		.prose :global(p) {
-			margin: 0 0 1.25em;
-		}
-
-		/* ── Liens ── */
-		.prose :global(a) {
-			color: var(--plum);
-			text-decoration: underline;
-			text-underline-offset: 3px;
-			transition: color 0.15s ease;
-		}
-		.prose :global(a:hover) {
-			color: var(--plum-ink);
-		}
-
-		/* ── Listes ── */
-		.prose :global(ul),
-		.prose :global(ol) {
-			margin: 0 0 1.25em 1.5em;
-			padding: 0;
-		}
-		.prose :global(ul) {
-			list-style: none;
-			margin-left: 0;
-		}
-		.prose :global(ul li) {
-			position: relative;
-			padding-left: 1.5em;
-			margin-bottom: 0.5em;
-		}
-		.prose :global(ul li::before) {
-			content: '';
-			position: absolute;
-			left: 0;
-			top: 0.65em;
-			width: 6px;
-			height: 6px;
-			border-radius: 50%;
-			background-color: var(--plum);
-		}
-		.prose :global(ol) {
-			list-style: decimal;
-		}
-		.prose :global(ol li) {
-			margin-bottom: 0.5em;
-			padding-left: 0.25em;
-		}
-
-		/* ── Texte en gras / italique ── */
-		.prose :global(strong) {
-			font-weight: 700;
-			color: var(--plum-ink);
-		}
-		.prose :global(em) {
-			font-style: italic;
-			color: rgb(var(--gray));
-		}
-
-		/* ── Séparateur horizontal ── */
-		.prose :global(hr) {
-			border: none;
-			border-top: 1px solid rgb(var(--gray-light));
-			margin: 2.5em 0;
-		}
-		.title :global(hr) {
-			border: none;
-			border-top: 2px solid var(--sage);
-			margin: 1em auto 0;
-			width: 4rem;
-		}
-
-		/* ── Blockquote ── */
-		.prose :global(blockquote) {
-			border-left: 3px solid var(--plum);
-			margin: 1.5em 0;
-			padding: 0.75em 1.25em;
-			background: color-mix(in srgb, var(--sage) 30%, transparent);
-			border-radius: 0 0.75rem 0.75rem 0;
-			color: var(--plum-ink);
-			font-style: italic;
-		}
-		.prose :global(blockquote p) {
-			margin: 0;
-		}
-
-		/* ── Code inline ── */
-		.prose :global(code) {
-			font-size: 0.875em;
-			background: color-mix(in srgb, var(--sage) 40%, transparent);
-			color: var(--plum-ink);
-			padding: 0.15em 0.4em;
-			border-radius: 0.3em;
-		}
-
-		/* ── Images dans le contenu ── */
-		.prose :global(img) {
-			max-width: 100%;
-			border-radius: 12px;
-			margin: 1.5em auto;
-			display: block;
-			box-shadow: var(--box-shadow);
-		}
-	</style>
+		<style>
+			.article-prose {
+				font-size: 1.125rem;
+				line-height: 1.75;
+				color: var(--on-surface-variant);
+			}
+			.article-prose :global(h2) {
+				font-family: var(--font-title);
+				font-size: 2rem;
+				font-weight: 400;
+				color: var(--primary);
+				margin: 2.5rem 0 1rem;
+				line-height: 1.25;
+			}
+			.article-prose :global(h3) {
+				font-family: var(--font-title);
+				font-size: 1.25rem;
+				font-weight: 600;
+				color: var(--on-surface);
+				margin: 2rem 0 0.5rem;
+				line-height: 1.35;
+			}
+			.article-prose :global(p) {
+				margin: 0 0 1.5rem;
+			}
+			.article-prose :global(p:first-child) {
+				font-family: var(--font-title);
+				font-size: 1.5rem;
+				line-height: 1.4;
+				font-style: italic;
+				color: var(--on-surface);
+				margin-bottom: 2.5rem;
+				padding-left: 1.5rem;
+				border-left: 4px solid var(--primary);
+			}
+			.article-prose :global(a) {
+				color: var(--primary);
+				text-decoration: underline;
+				text-underline-offset: 3px;
+				transition: color 0.15s ease;
+			}
+			.article-prose :global(a:hover) {
+				color: var(--primary-container);
+			}
+			.article-prose :global(ul),
+			.article-prose :global(ol) {
+				margin: 0 0 1.5rem 1.5rem;
+				padding: 0;
+			}
+			.article-prose :global(ul) {
+				list-style: disc;
+				padding-left: 1.5rem;
+			}
+			.article-prose :global(ul li),
+			.article-prose :global(ol li) {
+				margin-bottom: 0.75rem;
+			}
+			.article-prose :global(strong) {
+				font-weight: 700;
+				color: var(--on-surface);
+			}
+			.article-prose :global(hr) {
+				border: none;
+				border-top: 1px solid var(--outline-variant);
+				margin: 2.5rem 0;
+			}
+			.article-prose :global(blockquote) {
+				position: relative;
+				margin: 3rem 0;
+				padding: 2rem;
+				background: var(--surface-container-low);
+				border: 1px solid var(--outline-variant);
+				border-radius: 0.75rem;
+				overflow: hidden;
+				font-style: italic;
+				color: var(--primary);
+			}
+			.article-prose :global(blockquote::before) {
+				content: '“';
+				position: absolute;
+				top: 0.5rem;
+				right: 1rem;
+				font-family: var(--font-title);
+				font-size: 4rem;
+				line-height: 1;
+				opacity: 0.15;
+				color: var(--primary);
+			}
+			.article-prose :global(blockquote p) {
+				margin: 0 0 0.75rem;
+				font-family: var(--font-title);
+				font-size: 1.5rem;
+				line-height: 1.35;
+				font-style: italic;
+				color: var(--primary);
+			}
+			.article-prose :global(blockquote p:last-child) {
+				margin-bottom: 0;
+			}
+			.article-prose :global(code) {
+				font-size: 0.875em;
+				background: color-mix(in srgb, var(--primary-fixed-dim) 40%, transparent);
+				padding: 0.15em 0.4em;
+				border-radius: 0.3em;
+			}
+			.article-prose :global(img) {
+				max-width: 100%;
+				border-radius: 0.75rem;
+				margin: 1.5rem auto;
+				display: block;
+				box-shadow: var(--box-shadow);
+			}
+		</style>
 	</head>
 
-	<body class="min-h-screen bg-(--sage) text-(--ink) antialiased">
+	<body class="min-h-screen bg-(--background) text-(--on-surface) antialiased">
 		<Header />
-		<main class="blog-post-shell">
+		<main class="mx-auto max-w-(--max-width-container) px-4 pb-24 sm:px-10">
 			<Breadcrumbs
+				variant="article"
 				items={[
-					{ name: 'Accueil', href: '/' },
 					{ name: 'Blog', href: '/blog/' },
-					{ name: displayTitle, href: Astro.url.pathname },
+					{
+						name: breadcrumbLabel,
+						href: pillar?.archiveSlug ?? Astro.url.pathname,
+					},
 				]}
 			/>
+
 			<article>
-				<div class="hero-image mt-10">
-					{heroImage && <Image width={320} height={320} src={heroImage} alt={displayTitle} />}
-				</div>
-				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
+				<header class="mb-16 grid grid-cols-1 gap-6 md:grid-cols-12 md:gap-8">
+					<div class="flex flex-col justify-center md:col-span-8">
+						{
+							pillar && (
+								<a
+									href={pillar.archiveSlug}
+									class="mb-6 inline-flex w-fit rounded-full bg-(--secondary-container) px-3 py-1 text-xs font-medium tracking-wide text-(--on-secondary-container) no-underline transition hover:bg-(--primary-fixed) hover:text-(--primary-container)"
+								>
+									{pillar.shortLabel}
+								</a>
+							)
+						}
+						<h1 class="mb-6 text-4xl leading-tight text-(--primary) sm:text-5xl">{displayTitle}</h1>
+						<div class="flex flex-wrap items-center gap-3 text-sm text-(--outline)">
+							<span class="inline-flex items-center gap-1.5">
+								<Clock class="h-[18px] w-[18px]" aria-hidden="true" />
+								{readingTime} min de lecture
+							</span>
+							<span class="h-1 w-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
+							<span>Par {COACH_NAME}</span>
+							<span class="h-1 w-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
+							<time datetime={pubDate.toISOString()}>
+								<FormattedDate date={pubDate} />
+							</time>
 							{
 								updatedDate && (
-									<div class="last-updated-on">
-										Mise à jour le <FormattedDate date={updatedDate} />
-									</div>
+									<>
+										<span class="h-1 w-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
+										<span class="italic">
+											Mise à jour le <FormattedDate date={updatedDate} />
+										</span>
+									</>
 								)
 							}
 						</div>
-						<h1>{displayTitle}</h1>
-						<hr />
 					</div>
-					<slot />
-				</div>
-				<BlogArticleFooter relatedPillars={relatedPillars} tunnelCampaign={tunnelCampaign} />
+					{
+						heroImage && (
+							<div class="relative aspect-square overflow-hidden rounded-xl shadow-sm md:col-span-4 md:aspect-auto md:min-h-[280px]">
+								<Image
+									width={640}
+									height={640}
+									src={heroImage}
+									alt={displayTitle}
+									class="h-full w-full object-cover"
+								/>
+							</div>
+						)
+					}
+				</header>
+
+				<section class="grid grid-cols-1 gap-12 md:grid-cols-12">
+					<div class="md:col-span-8">
+						<div class="article-prose">
+							<slot />
+						</div>
+						<BlogArticleNewsletter tunnelCampaign={tunnelCampaign} />
+						<BlogArticleFooter relatedPillars={relatedPillars} />
+					</div>
+					<div class="md:col-span-4">
+						<BlogArticleSidebar relatedPosts={relatedPosts} />
+					</div>
+				</section>
 			</article>
 		</main>
 		<Footer />

@@ -1,12 +1,6 @@
 ---
-import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from './Breadcrumbs.astro';
-import FormattedDate from './FormattedDate.astro';
-import Header from './Header.astro';
-import { PILLARS, PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
-import { tieFrenchQuestionMark } from '../utils/frenchTypography';
+import BlogListing from './BlogListing.astro';
+import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
 
 interface Props {
 	pillarKey: PillarKey;
@@ -17,122 +11,13 @@ interface Props {
 
 const { pillarKey, title, description, intro } = Astro.props;
 const pillar = PILLARS_BY_KEY[pillarKey];
-
-const allPosts = await getCollection('blog');
-const posts = allPosts
-	.filter((post) => post.data.relatedPillars?.includes(pillarKey))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
-
-const otherPillars = PILLARS.filter((p) => p.key !== pillarKey);
 ---
 
-<BaseLayout title={title} description={description}>
-	<Fragment slot="header">
-		<Header />
-	</Fragment>
-
-	<main class="mx-auto max-w-4xl px-4 py-10 sm:py-12">
-		<Breadcrumbs
-			items={[
-				{ name: 'Accueil', href: '/' },
-				{ name: 'Blog', href: '/blog/' },
-				{ name: `Articles ${pillar.shortLabel}`, href: pillar.archiveSlug },
-			]}
-		/>
-
-		<header class="mb-8">
-			<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">BLOG · {pillar.shortLabel.toUpperCase()}</p>
-			<h1 class="mt-2 text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl">
-				{title.replace(' | RE-FLOW', '')}
-			</h1>
-			<p class="mt-3 text-base leading-relaxed text-slate-700">{intro}</p>
-			<p class="mt-3 text-sm">
-				<a
-					href={pillar.slug}
-					class="font-semibold text-(--plum) underline-offset-2 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
-				>
-					Voir aussi le guide complet : {pillar.label} →
-				</a>
-			</p>
-		</header>
-
-		{
-			posts.length === 0 ? (
-				<div class="rounded-3xl bg-white/60 p-8 ring-1 ring-black/5">
-					<p class="text-base text-slate-700">
-						Aucun article publié pour ce thème pour le moment. En attendant, le guide
-						<a href={pillar.slug} class="font-semibold text-(--plum) underline-offset-2 hover:underline">
-							{' '}{pillar.label}{' '}
-						</a>
-						pose les bases.
-					</p>
-				</div>
-			) : (
-				<ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 lg:gap-8">
-					{posts.map((post) => {
-						const cardTitle = tieFrenchQuestionMark(post.data.title);
-						return (
-							<li class="flex min-h-0">
-								<a
-									href={`/blog/${post.id}/`}
-									class="group flex h-full min-h-0 w-full max-w-xl flex-col overflow-hidden rounded-2xl bg-white/75 text-left no-underline ring-1 ring-black/5 shadow-sm shadow-black/5 transition duration-200 hover:-translate-y-0.5 hover:shadow-md hover:ring-(--plum)/20 motion-reduce:hover:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-(--plum) focus-visible:ring-offset-2 focus-visible:ring-offset-(--sage)"
-								>
-									{post.data.heroImage && (
-										<div class="relative aspect-square w-full shrink-0 overflow-hidden bg-(--sage)/50">
-											<Image
-												width={720}
-												height={720}
-												src={post.data.heroImage}
-												alt={cardTitle}
-												class="absolute inset-0 h-full w-full object-contain transition duration-300 ease-out group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
-											/>
-										</div>
-									)}
-									<div class="flex flex-1 flex-col p-5 sm:p-6">
-										<h2 class="m-0 text-lg font-semibold leading-snug text-slate-900 transition-colors duration-200 group-hover:text-(--plum) sm:text-xl">
-											{cardTitle}
-										</h2>
-										<p class="mt-2 text-sm text-slate-600 [&_time]:text-inherit">
-											<FormattedDate date={post.data.pubDate} />
-										</p>
-										<p class="mt-3 text-sm leading-relaxed text-slate-700">
-											{post.data.description}
-										</p>
-										<span
-											class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-(--plum) transition group-hover:gap-2 motion-reduce:transition-none"
-											aria-hidden="true"
-										>
-											Lire l’article
-											<span class="translate-y-px">→</span>
-										</span>
-									</div>
-								</a>
-							</li>
-						);
-					})}
-				</ul>
-			)
-		}
-
-		<section class="mt-14 rounded-3xl bg-white/50 p-6 ring-1 ring-black/5 sm:p-8" aria-labelledby="other-pillars-title">
-			<h2 id="other-pillars-title" class="text-lg font-semibold text-slate-900">
-				Explorer les autres thèmes
-			</h2>
-			<ul class="mt-4 grid gap-3 sm:grid-cols-2">
-				{
-					otherPillars.map((p) => (
-						<li>
-							<a
-								href={p.archiveSlug}
-								class="flex flex-col rounded-2xl bg-white/80 p-4 ring-1 ring-black/5 transition hover:bg-white hover:shadow focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
-							>
-								<span class="text-base font-semibold text-slate-900">Articles {p.shortLabel}</span>
-								<span class="mt-1 text-sm text-slate-600">{p.tagline}</span>
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</section>
-	</main>
-</BaseLayout>
+<BlogListing
+	activeFilter={pillarKey}
+	pageTitle={title}
+	pageDescription={description}
+	heroTitle={`Articles ${pillar.shortLabel}`}
+	heroIntro={intro}
+	guideLink={{ href: pillar.slug, label: `Guide complet : ${pillar.label}` }}
+/>

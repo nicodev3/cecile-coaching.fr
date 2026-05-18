@@ -7,48 +7,39 @@ const reveal =
 
 <section
 	id="cta"
-	class={`py-14 sm:py-18 ${reveal}`}
+	class={`relative overflow-hidden py-20 sm:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="cta-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="relative overflow-hidden rounded-4xl bg-(--plum) px-8 py-12 text-white shadow-sm shadow-black/15 sm:px-12">
-			<div
-				class="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full bg-white/10 blur-2xl"
-				aria-hidden="true"
-			/>
-			<div
-				class="pointer-events-none absolute -right-24 -bottom-24 h-64 w-64 rounded-full bg-white/10 blur-2xl"
-				aria-hidden="true"
-			/>
+	<div
+		class="pointer-events-none absolute -bottom-40 -left-40 h-[500px] w-[500px] rounded-full bg-(--primary-fixed-dim)/20 blur-[100px]"
+		aria-hidden="true"
+	/>
 
-			<div class="relative mx-auto max-w-3xl text-center">
-				<h2 id="cta-title" class="text-3xl font-semibold">
-					Prête à reconnecter avec ton corps ?
-				</h2>
-				<p class="mt-4 text-base leading-relaxed text-white/90">
-					Choisis une approche douce, progressive, et réellement compatible avec ton quotidien.
-				</p>
-				<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
-					<TunnelCtaLink
-						campaign="final-cta"
-						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm shadow-black/10 transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-					>
-						Commencer l’immersion gratuite <br /> (4 jours)
-					</TunnelCtaLink>
-					<a
-						href="#contact"
-						class="inline-flex items-center justify-center rounded-2xl bg-white/10 px-6 py-3 text-base font-semibold text-white ring-1 ring-white/20 transition hover:bg-white/15 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
-					>
-						Me contacter pour un accompagnement personnalisé ou des questions
-					</a>
-				</div>
-				<p class="mt-6 text-sm text-white/75">
-					Tu peux aussi passer par la FAQ ci-dessus pour répondre à tes questions.
-				</p>
+	<div class="relative z-10 mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+		<div class="rounded-[3rem] bg-(--primary) px-8 py-12 text-center text-(--on-primary) sm:px-16 sm:py-20 md:px-24">
+			<h2 id="cta-title" class="text-3xl sm:text-5xl">
+				Prête à reconnecter avec ton corps ?
+			</h2>
+			<p class="mx-auto mt-6 max-w-2xl text-lg text-(--on-primary-container)">
+				Choisis une approche douce, progressive, et réellement compatible avec ton quotidien de femme
+				concernée par la maladie chronique.
+			</p>
+			<div class="mt-10 flex flex-col justify-center gap-6 sm:flex-row">
+				<TunnelCtaLink
+					campaign="final-cta"
+					class="inline-flex items-center justify-center rounded-full bg-(--surface) px-10 py-5 text-lg font-bold text-(--primary) transition hover:bg-(--primary-fixed)"
+				>
+					Commencer l'immersion gratuite
+				</TunnelCtaLink>
+				<a
+					href="#contact"
+					class="inline-flex items-center justify-center rounded-full border border-(--on-primary)/30 px-10 py-5 text-lg font-bold text-(--on-primary) transition hover:bg-(--on-primary)/10"
+				>
+					Me contacter
+				</a>
 			</div>
 		</div>
 	</div>
 </section>
-

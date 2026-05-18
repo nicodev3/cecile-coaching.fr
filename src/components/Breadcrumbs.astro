@@ -9,9 +9,11 @@ export interface Crumb {
 
 interface Props {
 	items: Crumb[];
+	/** Style compact pour les articles de blog (Stitch) */
+	variant?: 'default' | 'article';
 }
 
-const { items } = Astro.props;
+const { items, variant = 'default' } = Astro.props;
 const origin = Astro.site?.origin ?? Astro.url.origin;
 
 const itemListElement = items.map((c, i) => ({
@@ -28,18 +30,37 @@ const breadcrumbJsonLd = {
 };
 ---
 
-<nav aria-label="Fil d’Ariane" class="mb-8 text-sm text-slate-600">
-	<ol class="flex flex-wrap items-center gap-1.5">
+<nav
+	aria-label="Fil d’Ariane"
+	class:list={[
+		'py-8',
+		variant === 'article' ? 'text-xs text-(--outline)' : 'mb-8 text-sm text-(--on-surface-variant)',
+	]}
+>
+	<ol class="flex flex-wrap items-center gap-2">
 		{
 			items.map((c, i) => (
-				<li class="flex items-center gap-1.5">
-					{i > 0 && <span aria-hidden="true">/</span>}
+				<li class="flex items-center gap-2">
+					{i > 0 && <span aria-hidden="true" class="text-(--outline)">/</span>}
 					{i === items.length - 1 ? (
-						<span class="font-medium text-slate-900">{c.name}</span>
+						<span
+							class:list={[
+								variant === 'article'
+									? 'text-(--on-surface-variant)'
+									: 'font-medium text-(--on-surface)',
+							]}
+						>
+							{c.name}
+						</span>
 					) : (
 						<a
 							href={c.href}
-							class="text-(--plum) underline-offset-2 transition hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
+							class:list={[
+								'transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)',
+								variant === 'article'
+									? 'text-(--outline) hover:text-(--primary) no-underline'
+									: 'text-(--primary) underline-offset-2 hover:underline',
+							]}
 						>
 							{c.name}
 						</a>

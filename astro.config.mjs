@@ -14,22 +14,22 @@ export default defineConfig({
 
   fonts: [
     {
-      name: 'Lato',
+      name: 'Hanken Grotesk',
       cssVariable: '--font-body',
       provider: fontProviders.fontsource(),
-      weights: [400, 700],
+      weights: [400, 500, 600],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
     },
     {
-      name: 'Montserrat',
+      name: 'Libre Caslon Text',
       cssVariable: '--font-title',
       provider: fontProviders.fontsource(),
-      weights: [400, 500, 600, 700],
+      weights: [400, 700],
       styles: ['normal'],
       subsets: ['latin'],
-      fallbacks: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+      fallbacks: ['Georgia', 'Times New Roman', 'serif'],
     },
   ],
 

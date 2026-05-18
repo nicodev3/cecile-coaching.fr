@@ -1,8 +1,6 @@
 ---
-import { Check } from '@lucide/astro';
 import { Image } from 'astro:assets';
 import TunnelCtaLink from './TunnelCtaLink.astro';
-// Images hero dans /src/assets/ — import pour que Vite/Astro traitent les chemins.
 import heroImageWebp from '../assets/femme-yoga.webp';
 
 const reveal =
@@ -10,80 +8,60 @@ const reveal =
 ---
 
 <section
-	class={`relative overflow-hidden py-14 sm:py-18 ${reveal}`}
+	class={`relative flex min-h-[90vh] items-center overflow-hidden px-4 py-20 sm:px-10 lg:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="hero-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
-			<div class="order-1 lg:order-0">
-				<div class="relative">
-					<div
-						class="pointer-events-none absolute -inset-6 rounded-4xl bg-white/30 blur-2xl"
-						aria-hidden="true"
-					/>
-					<Image
-						src={heroImageWebp}
-						alt="Femme en méditation, assise en tailleur."
-						fetchpriority="high"
-						loading="eager"
-						decoding="async"
-						class="relative w-full max-w-xl"
-					/>
-				</div>
-			</div>
+	<div
+		class="pointer-events-none absolute top-1/2 -right-64 h-[600px] w-[600px] rounded-full bg-(--primary-fixed-dim)/10 blur-[120px]"
+		aria-hidden="true"
+	/>
 
-			<div class="order-2 text-left lg:text-right">
-				<p class="text-sm font-semibold tracking-[0.28em] text-slate-700/80">PROGRAMME</p>
-				<p class="mt-1 inline-flex flex-wrap items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
-					<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
-					<span>Coach certifiée APA — Activités Physiques Adaptées</span>
-				</p>
-				<p class="mt-4 text-4xl font-semibold tracking-[0.18em] text-slate-900 sm:text-5xl">
-					RE-FLOW
-				</p>
-				<h1
-					id="hero-title"
-					class="mt-4 text-2xl font-medium text-slate-900 sm:text-3xl"
+	<div class="relative z-10 mx-auto grid w-full max-w-(--max-width-container) grid-cols-1 items-center gap-12 md:grid-cols-2">
+		<div class="space-y-8">
+			<p class="text-sm font-semibold tracking-[0.2em] text-(--primary-container) uppercase">
+				Coach certifiée APA
+			</p>
+			<h1
+				id="hero-title"
+				class="text-4xl leading-tight text-(--primary) sm:text-5xl lg:text-[3rem] lg:leading-[1.15]"
+			>
+				Coach APA pour femmes en maladie chronique : quand le corps redevient un allié
+			</h1>
+			<p class="max-w-xl text-lg leading-relaxed text-(--secondary)">
+				Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.
+				Mouvement adapté, à ton rythme, sans culture de la performance.
+			</p>
+			<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+				<a
+					href="#programme"
+					class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-4 text-base font-medium text-(--on-primary) soft-glow transition hover:bg-(--primary-container)"
 				>
-					Coach APA pour femmes en maladie chronique : quand le corps redevient un
-					<span class="text-(--plum)">allié</span>
-				</h1>
-				<p class="mt-5 max-w-prose text-base leading-relaxed text-slate-800 lg:ml-auto">
-					Le programme de reconnexion corporelle pour les femmes touchées par une maladie chronique.
-					Mouvement adapté, à ton rythme, sans culture de la performance.
-				</p>
-
-				<ul
-					class="mt-6 inline-flex flex-col gap-2 text-base text-slate-800 lg:items-end"
-					aria-label="Promesse"
+					Découvrir le programme
+				</a>
+				<TunnelCtaLink
+					campaign="hero"
+					class="inline-flex items-center justify-center rounded-full border border-(--outline-variant) px-8 py-4 text-center text-base font-medium text-(--primary) transition hover:bg-(--surface-container)"
 				>
-					<li class="inline-flex items-center gap-2">
-						<span class="h-1.5 w-1.5 rounded-full bg-(--plum)" aria-hidden="true"></span>
-						<span>Sans performance.</span>
-					</li>
-					<li class="inline-flex items-center gap-2">
-						<span class="h-1.5 w-1.5 rounded-full bg-(--plum)" aria-hidden="true"></span>
-						<span>À ton rythme.</span>
-					</li>
-				</ul>
-
-				<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:justify-start lg:justify-end">
-					<TunnelCtaLink
-						campaign="hero"
-						class="inline-flex items-center text-center justify-center rounded-2xl bg-(--plum) px-6 py-3 text-base font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
-					>
-						Découvrir le programme <br />
-						Commencer l’immersion gratuite (4 jours)
-					</TunnelCtaLink>
-				</div>
-
-				<p class="mt-6 text-base text-slate-700 lg:ml-auto">
-					Un accompagnement calme, progressif, pensé pour les jours “avec” et les jours “sans”.
-				</p>
+					Immersion gratuite (4 jours)
+				</TunnelCtaLink>
 			</div>
+		</div>
+
+		<div class="group relative">
+			<div
+				class="pointer-events-none absolute -inset-4 rounded-[2rem] bg-(--primary-container)/10 blur-2xl transition group-hover:blur-3xl"
+				aria-hidden="true"
+			/>
+			<Image
+				src={heroImageWebp}
+				alt="Femme en méditation, assise en tailleur."
+				fetchpriority="high"
+				loading="eager"
+				decoding="async"
+				class="relative h-[min(600px,70vh)] w-full rounded-[2rem] object-cover soft-glow"
+			/>
 		</div>
 	</div>
 </section>
-

@@ -1,16 +1,21 @@
 ---
+import { Heart, ShieldCheck, TrendingUp } from '@lucide/astro';
+
 const items = [
 	{
 		title: 'Cadre sécurisant',
 		desc: 'Le mouvement est adapté à ton état de santé, à tes capacités et à ton énergie du moment.',
+		icon: ShieldCheck,
 	},
 	{
 		title: 'Approche progressive',
-		desc: 'On reconstruit sans brusquer, étape par étape.',
+		desc: 'On reconstruit sans brusquer, étape par étape, pour durer dans le temps.',
+		icon: TrendingUp,
 	},
 	{
 		title: 'Suivi personnalisé',
-		desc: 'Un accompagnement humain, ajusté à ton quotidien.',
+		desc: 'Un accompagnement humain, ajusté à ton quotidien et à tes besoins spécifiques.',
+		icon: Heart,
 	},
 ];
 
@@ -18,18 +23,26 @@ const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
 ---
 
-<section class={`py-8 ${reveal}`} data-reveal data-revealed="false" aria-label="Éléments de confiance">
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="grid gap-4 sm:grid-cols-3">
+<section
+	class={`bg-(--surface-container-low) py-20 sm:px-10 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-label="Éléments de confiance"
+>
+	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+		<div class="grid gap-8 md:grid-cols-3">
 			{items.map((it) => (
-				<div
-					class="rounded-4xl bg-white/60 px-6 py-5 shadow-sm shadow-black/5 ring-1 ring-black/5"
-				>
-					<p class="text-base font-semibold text-slate-900">{it.title}</p>
-					<p class="mt-1 text-base leading-relaxed text-slate-700">{it.desc}</p>
+				<div class="bento-card space-y-4 rounded-xl bg-(--surface-container-lowest) p-10 text-center soft-glow">
+					<div
+						class="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-(--primary-fixed-dim)/30"
+						aria-hidden="true"
+					>
+						<it.icon class="h-6 w-6 text-(--primary)" stroke-width={1.5} />
+					</div>
+					<h3 class="text-2xl text-(--primary)">{it.title}</h3>
+					<p class="text-(--secondary)">{it.desc}</p>
 				</div>
 			))}
 		</div>
 	</div>
 </section>
-

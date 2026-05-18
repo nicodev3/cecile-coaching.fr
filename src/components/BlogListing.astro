@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogFilters from './BlogFilters.astro';
+import BlogNewsletter from './BlogNewsletter.astro';
+import BlogPostCard from './BlogPostCard.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import Header from './Header.astro';
+import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
+
+interface Props {
+	activeFilter?: 'all' | PillarKey;
+	pageTitle?: string;
+	pageDescription?: string;
+	heroTitle?: string;
+	heroIntro?: string;
+	breadcrumbItems?: { name: string; href: string }[];
+	guideLink?: { href: string; label: string };
+}
+
+const {
+	activeFilter = 'all',
+	pageTitle = 'Blog RE-FLOW | Conseils APA et reconnexion corporelle',
+	pageDescription =
+		"Des ressources douces pour comprendre et bouger avec la maladie chronique. Articles sur l'APA, la fatigue et la reconnexion corporelle.",
+	heroTitle = 'Le Blog RE-FLOW',
+	heroIntro =
+		'Des ressources douces pour comprendre et bouger avec la maladie chronique. Apprenez à transformer votre quotidien avec bienveillance.',
+	breadcrumbItems,
+	guideLink,
+} = Astro.props;
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+	.filter(
+		(post) =>
+			activeFilter === 'all' || post.data.relatedPillars?.includes(activeFilter),
+	)
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const defaultBreadcrumbs = [
+	{ name: 'Accueil', href: '/' },
+	{ name: 'Blog', href: '/blog/' },
+];
+if (activeFilter !== 'all') {
+	const pillar = PILLARS_BY_KEY[activeFilter];
+	defaultBreadcrumbs.push({
+		name: pillar.shortLabel,
+		href: pillar.archiveSlug,
+	});
+}
+const breadcrumbs = breadcrumbItems ?? defaultBreadcrumbs;
+---
+
+<BaseLayout title={pageTitle} description={pageDescription}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<main class="pb-20 pt-8 sm:pt-12">
+		<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-10">
+			<Breadcrumbs items={breadcrumbs} />
+
+			<section class="pt-8 pb-12 text-center md:text-left">
+				<div class="max-w-2xl">
+					<h1 class="mb-4 text-4xl text-(--on-surface) sm:text-5xl">{heroTitle}</h1>
+					<p class="text-lg leading-relaxed text-(--on-surface-variant)">{heroIntro}</p>
+					{
+						guideLink && (
+							<p class="mt-4">
+								<a
+									href={guideLink.href}
+									class="text-sm font-semibold text-(--primary) underline-offset-2 hover:underline"
+								>
+									{guideLink.label} →
+								</a>
+							</p>
+						)
+					}
+				</div>
+			</section>
+
+			<BlogFilters active={activeFilter} />
+
+			{
+				posts.length === 0 ? (
+					<div class="rounded-xl bg-(--surface-container-low) p-10 text-center">
+						<p class="text-(--on-surface-variant)">
+							Aucun article publié pour ce thème pour le moment.
+						</p>
+					</div>
+				) : (
+					<section aria-label="Liste des articles">
+						<div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+							{posts.map((post) => (
+								<BlogPostCard post={post} />
+							))}
+						</div>
+					</section>
+				)
+			}
+		</div>
+
+		<BlogNewsletter />
+	</main>
+</BaseLayout>

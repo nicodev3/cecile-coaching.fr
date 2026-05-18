@@ -1,40 +1,45 @@
 ---
-import { Activity, CloudSun, Cog, Compass, ShieldCheck } from '@lucide/astro';
+import { BedDouble, Frown, PersonStanding, TrendingDown } from '@lucide/astro';
 
 const cycle = [
 	{
 		title: 'Fatigue',
-		desc: 'Quand l’énergie baisse, on réduit naturellement les mouvements.',
+		desc: "L'énergie baisse, on réduit les mouvements.",
+		icon: BedDouble,
 	},
 	{
 		title: 'Moins de mouvement',
-		desc: 'Le corps est moins sollicité, et le quotidien devient plus prudent.',
+		desc: "Le corps est moins sollicité, la prudence s'installe.",
+		icon: TrendingDown,
 	},
 	{
 		title: 'Perte de tonus',
-		desc: 'La force, la stabilité et l’endurance diminuent peu à peu.',
+		desc: "La force et l'endurance diminuent peu à peu.",
+		icon: PersonStanding,
 	},
 	{
 		title: 'Découragement',
-		desc: 'On doute davantage, et reprendre devient encore plus difficile.',
+		desc: 'On doute, et reprendre devient difficile.',
+		icon: Frown,
 	},
 ];
 
 const pillars = [
 	{
 		title: 'Selon ton énergie',
-		desc: 'Les séances s’adaptent au jour que tu traverses, avec des versions plus douces quand tu en as besoin.',
-		icon: CloudSun,
+		desc: 'Des versions plus douces quand tu en as besoin.',
 	},
 	{
 		title: 'Progressivement',
-		desc: 'On reconstruit le tonus, la stabilité et la confiance sans brusquer ton corps.',
-		icon: Activity,
+		desc: 'Reconstruire la confiance sans brusquer le corps.',
 	},
 	{
-		title: 'Avec un cadre clair',
-		desc: 'Tu sais quoi faire, quoi ajuster et comment avancer sans te mettre en échec.',
-		icon: ShieldCheck,
+		title: 'Cadre clair',
+		desc: 'Savoir quoi faire pour ne pas se mettre en échec.',
+	},
+	{
+		title: 'Le cap',
+		desc: 'Refaire une place au mouvement durablement.',
 	},
 ];
 
@@ -44,74 +49,59 @@ const reveal =
 
 <section
 	id="methode"
-	class={`py-14 sm:py-18 ${reveal}`}
+	class={`py-20 sm:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="problem-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl text-center">
-			<h2 id="problem-title" class="text-3xl font-semibold text-slate-900">
-				Quand l’inactivité s’installe, un engrenage peut se créer
+	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+		<div class="mb-16 space-y-4 text-center">
+			<h2 id="problem-title" class="text-3xl text-(--primary) sm:text-5xl">
+				Sortir de l'engrenage
 			</h2>
-
-			<p class="mt-4 text-base leading-relaxed text-slate-700">
-				Quand on vit avec une fatigue chronique ou un corps plus fragile, bouger moins peut sembler protéger.
-				Mais avec le temps, cela peut aussi entretenir un cercle qui épuise encore davantage.
+			<p class="mx-auto max-w-2xl text-lg leading-relaxed text-(--secondary)">
+				Quand la fatigue s'installe, bouger moins semble protéger. Mais ensemble, nous pouvons inverser la tendance.
 			</p>
 		</div>
 
-		<div class="mt-10 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-			{cycle.map((item, index) => (
-				<div class="rounded-3xl bg-slate-100 p-5 ring-1 ring-slate-300/50 shadow-sm shadow-slate-900/4">
-					<div class="grid h-9 w-9 place-items-center rounded-2xl bg-slate-200/90 ring-1 ring-slate-400/30">
-						<Cog
-							class={`h-5 w-5 text-slate-600 ${index % 2 === 1 ? 'rotate-12' : '-rotate-12'}`}
-							aria-hidden="true"
-							stroke-width={1.5}
-						/>
-					</div>
-					<p class="mt-2 text-base font-semibold text-slate-800">{item.title}</p>
-					<p class="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">{item.desc}</p>
-				</div>
-			))}
-		</div>
-
-		<div class="mx-auto mt-10 max-w-3xl text-center">
-			<h3 class="text-2xl font-semibold text-slate-900">
-				RE-FLOW aide à sortir de cet engrenage, sans brusquer ton corps
-			</h3>
-			<p class="mt-4 text-base leading-relaxed text-slate-700">
-				Ici, il ne s’agit pas de te pousser. Il s’agit de retrouver du mouvement d’une manière compatible avec ton énergie,
-				ton quotidien et ton corps.
-			</p>
-		</div>
-
-		<div class="mt-8 grid gap-4 lg:grid-cols-3">
-			{pillars.map((pillar) => (
-				<div class="rounded-4xl bg-white p-7 ring-1 ring-(--sage)/30 shadow-sm shadow-(--sage)/10">
-					<div class="flex items-center gap-3">
-						<div class="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-(--sage)/35 ring-1 ring-(--sage)/30">
-							<pillar.icon class="h-5 w-5 text-(--plum-ink)" aria-hidden="true" stroke-width={1.7} />
+		<div class="grid gap-6 md:grid-cols-12">
+			<div class="flex flex-col justify-between rounded-xl bg-(--surface-container) p-8 md:col-span-5">
+				<h3 class="mb-8 text-2xl text-(--primary)">Le cycle de l'inactivité</h3>
+				<div class="space-y-6">
+					{cycle.map((item) => (
+						<div class="flex items-start gap-4 rounded-lg border border-(--outline-variant)/30 bg-(--surface)/50 p-4">
+							<item.icon class="mt-0.5 h-5 w-5 shrink-0 text-(--primary-container)" aria-hidden="true" stroke-width={1.5} />
+							<div>
+								<p class="font-bold text-(--primary)">{item.title}</p>
+								<p class="text-sm text-(--secondary)">{item.desc}</p>
+							</div>
 						</div>
-						<p class="text-base font-semibold text-slate-900">{pillar.title}</p>
-					</div>
-					<p class="mt-4 text-base leading-relaxed text-slate-700">{pillar.desc}</p>
+					))}
 				</div>
-			))}
-		</div>
+			</div>
 
-		<div class="mt-8 overflow-hidden rounded-4xl bg-(--sage)/12 p-6 ring-1 ring-(--sage)/25 sm:p-7">
-			<div class="flex gap-3 sm:items-start">
-				<div class="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white ring-1 ring-(--sage)/25">
-					<Compass class="h-5 w-5 text-(--plum-ink)" aria-hidden="true" stroke-width={1.7} />
+			<div class="relative flex flex-col justify-center overflow-hidden rounded-xl bg-(--primary) p-8 text-(--on-primary) sm:p-12 md:col-span-7">
+				<div class="relative z-10 space-y-12">
+					<h3 class="text-3xl text-(--on-primary) sm:text-5xl">La solution RE-FLOW</h3>
+					<div class="grid gap-8 sm:grid-cols-2">
+						{pillars.map((pillar) => (
+							<div class="space-y-2">
+								<h4 class="text-xl text-(--primary-fixed)">{pillar.title}</h4>
+								<p class="text-(--on-primary-container)">{pillar.desc}</p>
+							</div>
+						))}
+					</div>
+					<a
+						href="#programme"
+						class="inline-block rounded-full bg-(--surface) px-8 py-4 text-base font-semibold text-(--primary) transition hover:bg-(--primary-fixed)"
+					>
+						Découvrir la méthode
+					</a>
 				</div>
-				<div class="min-w-0">
-					<p class="text-base font-semibold text-slate-900">Le cap</p>
-					<p class="mt-1 text-base leading-relaxed text-slate-700">
-						Le but n’est pas d’en faire plus. Le but est de refaire une place au mouvement, durablement.
-					</p>
-				</div>
+				<div
+					class="pointer-events-none absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-(--primary-container)/30 blur-[80px]"
+					aria-hidden="true"
+				/>
 			</div>
 		</div>
 	</div>

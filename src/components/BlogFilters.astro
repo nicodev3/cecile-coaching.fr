@@ -1,0 +1,40 @@
+---
+import { PILLARS, type PillarKey } from '../data/pillars';
+
+interface Props {
+	active: 'all' | PillarKey;
+}
+
+const { active } = Astro.props;
+
+const filters: { key: 'all' | PillarKey; label: string; href: string }[] = [
+	{ key: 'all', label: 'Tous les articles', href: '/blog/' },
+	...PILLARS.map((p) => ({
+		key: p.key,
+		label: p.label,
+		href: p.archiveSlug,
+	})),
+];
+
+const activeClass =
+	'whitespace-nowrap rounded-full bg-(--primary-container) px-6 py-2 text-sm font-semibold text-(--on-primary) transition-all';
+const inactiveClass =
+	'whitespace-nowrap rounded-full bg-(--secondary-container) px-6 py-2 text-sm font-semibold text-(--on-secondary-container) transition-all hover:bg-(--surface-container-highest)';
+---
+
+<nav
+	class="mb-12 flex items-center gap-4 overflow-x-auto border-b border-(--surface-container-high) pb-4"
+	aria-label="Filtrer les articles par thème"
+>
+	{
+		filters.map((f) => (
+			<a
+				href={f.href}
+				class:list={[f.key === active ? activeClass : inactiveClass]}
+				aria-current={f.key === active ? 'page' : undefined}
+			>
+				{f.label}
+			</a>
+		))
+	}
+</nav>

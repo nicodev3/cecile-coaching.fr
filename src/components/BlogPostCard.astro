@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
+import { tieFrenchQuestionMark } from '../utils/frenchTypography';
+
+interface Props {
+	post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const cardTitle = tieFrenchQuestionMark(post.data.title);
+const primaryPillar = post.data.relatedPillars?.[0] as PillarKey | undefined;
+const pillarLabel = primaryPillar ? PILLARS_BY_KEY[primaryPillar].shortLabel : 'RE-FLOW';
+---
+
+<article class="card-shadow group cursor-pointer overflow-hidden rounded-xl bg-(--surface-container-lowest) transition-transform duration-300 hover:-translate-y-1 motion-reduce:hover:translate-y-0">
+	<a href={`/blog/${post.id}/`} class="flex h-full flex-col no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)">
+		<div class="aspect-[16/10] overflow-hidden bg-(--surface-container)">
+			{
+				post.data.heroImage ? (
+					<Image
+						width={640}
+						height={400}
+						src={post.data.heroImage}
+						alt={cardTitle}
+						class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:group-hover:scale-100"
+					/>
+				) : (
+					<div class="flex h-full w-full items-center justify-center bg-(--primary-fixed-dim)/20" aria-hidden="true">
+						<span class="text-4xl text-(--primary-container)">RE-FLOW</span>
+					</div>
+				)
+			}
+		</div>
+		<div class="flex flex-1 flex-col p-8">
+			<span class="inline-flex w-fit rounded-full bg-(--primary-fixed) px-3 py-1 text-xs font-medium tracking-wider text-(--primary-container) uppercase">
+				{pillarLabel}
+			</span>
+			<h3 class="mt-4 mb-3 text-2xl text-(--on-surface) transition-colors group-hover:text-(--primary)">
+				{cardTitle}
+			</h3>
+			<p class="mb-6 line-clamp-3 text-(--on-surface-variant)">{post.data.description}</p>
+			<span class="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-(--primary)">
+				Lire l'article
+				<span aria-hidden="true">→</span>
+			</span>
+		</div>
+	</a>
+</article>

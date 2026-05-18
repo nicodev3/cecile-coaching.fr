@@ -1,36 +1,104 @@
 @import "tailwindcss";
 
 :root {
-	/* Palette “force douce” */
-	--sage: #d7e2d2;
-	--plum: #7b4e8c;
-	/* Teinte plum plus foncée pour le texte sur fond clair (contraste WCAG AA) */
-	--plum-ink: #4a2d57;
-	--ink: #111827;
-	--paper: #f7faf6;
+	/* Palette Stitch — Serene Professionalism (MD3) */
+	--primary: #536145;
+	--on-primary: #ffffff;
+	--primary-container: #6b7a5c;
+	--on-primary-container: #fcfff2;
+	--primary-fixed: #d8e8c4;
+	--primary-fixed-dim: #bccca9;
+	--on-primary-fixed-variant: #3d4b30;
+	--on-primary-fixed: #131f09;
+	--secondary: #5c5f5a;
+	--on-secondary: #ffffff;
+	--secondary-container: #dee0da;
+	--on-secondary-container: #60635e;
+	--tertiary: #7c552c;
+	--background: #fbf9f8;
+	--surface: #fbf9f8;
+	--surface-bright: #fbf9f8;
+	--surface-container: #efeded;
+	--surface-container-low: #f5f3f3;
+	--surface-container-lowest: #ffffff;
+	--surface-container-high: #eae8e7;
+	--surface-variant: #e4e2e2;
+	--outline: #75786f;
+	--outline-variant: #c5c8bd;
+	--on-surface: #1b1c1c;
+	--on-surface-variant: #454840;
+	--inverse-primary: #bccca9;
+	--surface-tint: #546346;
+	--error: #ba1a1a;
 
-	/* Compat (anciens composants/styles) */
-	--accent: var(--plum);
-	--accent-dark: #8b6b95;
-	--accent-sage: #b7c0a6;
-	--black: 15, 18, 25;
-	--gray: 107, 107, 107;
-	--gray-light: 245, 246, 243;
-	--gray-dark: 96, 64, 106;
-	--gray-gradient: rgba(183, 192, 166, 50%), #fff;
+	/* Alias sémantiques (composants existants) */
+	--ink: var(--on-surface);
+	--accent: var(--primary);
+	--accent-dark: var(--primary-container);
+	--accent-sage: var(--primary-fixed-dim);
+	--paper: var(--surface-bright);
+	--plum: var(--primary);
+	--plum-deep: var(--primary);
+	--plum-light: var(--primary-container);
+	--plum-ink: var(--on-surface);
+	--rose-dust: var(--primary-fixed-dim);
+	--sage: var(--primary-fixed-dim);
+	--sage-accent: var(--primary-container);
+	--sage-wash: var(--surface-container-low);
+	--surface-cream: var(--surface-bright);
+
+	--black: 27, 28, 28;
+	--gray: 92, 95, 90;
+	--gray-light: 245, 243, 243;
+	--gray-dark: 83, 97, 69;
+	--gray-gradient: rgba(188, 204, 169, 40%), #fff;
 	--box-shadow:
-		0 2px 6px rgba(96, 64, 106, 25%), 0 8px 24px rgba(96, 64, 106, 33%), 0 16px 32px
-		rgba(96, 64, 106, 33%);
+		0 20px 40px -15px rgba(84, 99, 70, 0.12),
+		0 4px 12px rgba(84, 99, 70, 0.04);
+}
+
+@theme {
+	--spacing-section: 5rem;
+	--spacing-section-sm: 3rem;
+	--spacing-gutter: 1.5rem;
+	--max-width-container: 75rem;
 }
 
 html {
-	font-size: 16px; /* Base pour l’accessibilité (WCAG) */
+	font-size: 16px;
+	scroll-behavior: smooth;
 }
 
 body {
 	font-family: var(--font-body);
+	background-color: var(--background);
+	color: var(--on-surface);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	font-family: var(--font-title);
+	font-weight: 400;
+}
+
+.soft-glow {
+	box-shadow: 0 20px 40px -15px rgba(84, 99, 70, 0.12);
+}
+
+.bento-card {
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease;
+}
+
+.bento-card:hover {
+	transform: translateY(-4px);
+}
+
+.card-shadow {
+	box-shadow: 0 4px 20px -2px rgba(84, 99, 70, 0.04);
 }

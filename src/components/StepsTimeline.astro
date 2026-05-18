@@ -1,26 +1,24 @@
 ---
-import { Compass, Dumbbell, HeartHandshake, Sparkles } from '@lucide/astro';
-
 const steps = [
 	{
 		title: 'Reconnexion & sécurité',
-		desc: 'Remettre le corps en mouvement en douceur, installer des pratiques sécuritaires',
-		icon: HeartHandshake,
+		desc: 'Remettre le corps en mouvement en douceur, installer des pratiques sécuritaires.',
+		badgeClass: 'bg-(--primary) text-(--on-primary)',
 	},
 	{
 		title: 'Force & progressivité',
-		desc: 'Construire force, stabilité, équilibre et endurance de manière progressive en respectant la fatigue chronique',
-		icon: Dumbbell,
+		desc: 'Construire force, stabilité, équilibre et endurance en respectant la fatigue.',
+		badgeClass: 'bg-(--primary-fixed-dim) text-(--on-primary-fixed-variant)',
 	},
 	{
 		title: 'Vitalité & énergie',
-		desc: "C'est le moment de retrouver plus d'élan et d'endurance, tout en restant à l'écoute de son corps",
-		icon: Sparkles,
+		desc: "Retrouver plus d'élan et d'endurance, tout en restant à l'écoute de son corps.",
+		badgeClass: 'bg-(--primary-container) text-(--on-primary)',
 	},
 	{
 		title: 'Confiance & autonomie',
-		desc: 'Stabiliser les progrès, installer une routine durable, redonner confiance dans ses capacités physiques.',
-		icon: Compass,
+		desc: 'Stabiliser les progrès et installer une routine durable et joyeuse.',
+		badgeClass: 'bg-(--secondary) text-(--on-secondary)',
 	},
 ];
 
@@ -28,41 +26,56 @@ const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
 ---
 
-<section class={`py-14 sm:py-18 ${reveal}`} data-reveal data-revealed="false" aria-labelledby="steps-title">
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl text-center">
-			<h2 id="steps-title" class="text-3xl font-semibold text-slate-900">
+<section
+	id="programme"
+	class={`bg-(--surface-bright) py-20 sm:px-10 ${reveal}`}
+	data-reveal
+	data-revealed="false"
+	aria-labelledby="steps-title"
+>
+	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+		<div class="mb-20 text-center">
+			<h2 id="steps-title" class="text-3xl text-(--primary) sm:text-5xl">
 				Les 4 étapes de transformation
 			</h2>
-			<p class="mt-4 text-base leading-relaxed text-slate-800">
-				Une progression claire, douce, et rassurante — pour avancer sans pression.
-			</p>
+			<p class="mt-4 text-(--secondary)">Une progression claire, douce et rassurante.</p>
 		</div>
 
-		<ol class="mx-auto mt-10 max-w-4xl space-y-6">
-			{steps.map((s, idx) => (
-				<li>
-					<div class="relative rounded-4xl bg-white/60 p-6 ring-1 ring-black/5">
-						<div class="flex items-start gap-4">
-							<div
-								class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5"
-								aria-hidden="true"
-							>
-								<s.icon class="h-6 w-6 text-(--plum)" aria-hidden="true" stroke-width={1.5} />
-							</div>
-							<div class="flex-1">
-								<div class="mb-1 flex items-center gap-2">
-									<span class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">
-										ÉTAPE {idx + 1}
-									</span>
-								</div>
-								<p class="text-base font-semibold text-slate-900">{s.title}</p>
-								<p class="mt-2 text-base leading-relaxed text-slate-700">{s.desc}</p>
-							</div>
+		<ol class="relative mx-auto max-w-3xl space-y-16">
+			<div
+				class="absolute top-0 bottom-0 left-6 hidden w-px bg-(--outline-variant)/50 md:left-1/2 md:block"
+				aria-hidden="true"
+			/>
+			{
+				steps.map((s, idx) => (
+					<li
+						class:list={[
+							'relative flex flex-col items-center gap-8 md:flex-row',
+							idx % 2 === 1 && 'md:flex-row-reverse',
+						]}
+					>
+						<div
+							class:list={[
+								'flex-1',
+								idx % 2 === 0 ? 'text-left md:text-right' : 'text-left',
+							]}
+						>
+							<h3 class="text-2xl text-(--primary)">{s.title}</h3>
+							<p class="mt-2 text-(--secondary)">{s.desc}</p>
 						</div>
-					</div>
-				</li>
-			))}
+						<div
+							class:list={[
+								'z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold',
+								s.badgeClass,
+							]}
+							aria-hidden="true"
+						>
+							{idx + 1}
+						</div>
+						<div class="hidden flex-1 md:block" aria-hidden="true" />
+					</li>
+				))
+			}
 		</ol>
 	</div>
 </section>

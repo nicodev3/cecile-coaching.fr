@@ -1,5 +1,4 @@
 ---
-import { Check } from '@lucide/astro';
 import coachImage from '../assets/cecile-coach-apa.webp';
 
 const ytVideoId = 'tT4GFMTYE4k';
@@ -13,106 +12,82 @@ const reveal =
 ---
 
 <section
-	id="qui-suis-je"
-	class={`border-y border-black/5 bg-(--sage)/12 py-14 sm:py-18 ${reveal}`}
+	id="propos"
+	class={`overflow-hidden py-20 sm:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="coach-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl text-center">
-			<h2 id="coach-title" class="text-3xl font-semibold text-slate-900">
-				Qui suis-je ?
-			</h2>
-			<p class="mt-4 text-base leading-relaxed text-slate-800">
-				Une coach qui t’aide à reprendre confiance dans ton corps avec une approche douce, claire et adaptée.
-			</p>
+	<div class="mx-auto flex max-w-(--max-width-container) flex-col items-center gap-16 px-4 sm:px-6 md:flex-row lg:px-8">
+		<div class="relative w-full md:w-1/2">
+			<div
+				class="pointer-events-none absolute -inset-4 -z-10 rotate-3 rounded-2xl border-2 border-(--primary-fixed-dim)"
+				aria-hidden="true"
+			/>
+			<img
+				src={coachImage.src}
+				width={coachImage.width}
+				height={coachImage.height}
+				alt="Cécile, coach certifiée APA — Activités Physiques Adaptées"
+				loading="lazy"
+				decoding="async"
+				class="w-full rounded-2xl object-cover shadow-xl soft-glow"
+			/>
 		</div>
 
-		<div class="mt-10">
-			<div class="mx-auto max-w-2xl">
-				<div class="flex flex-col items-center text-center">
-					<!-- Image circulaire avec effet design -->
-					<div class="relative mb-6">
-						<div
-							class="pointer-events-none absolute -inset-4 rounded-full bg-linear-to-br from-(--plum)/20 to-(--sage)/20 blur-xl"
-							aria-hidden="true"
-						/>
-						<div class="relative rounded-full p-1 ring-4 ring-white/80 shadow-lg shadow-black/10">
-							<img
-								src={coachImage.src}
-								width={coachImage.width}
-								height={coachImage.height}
-								alt="Cécile, coach certifiée APA — Activités Physiques Adaptées"
-								loading="lazy"
-								decoding="async"
-								class="h-32 w-32 rounded-full object-cover sm:h-40 sm:w-40"
-							/> 
-						</div>
-					</div>
+		<div class="w-full space-y-6 md:w-1/2">
+			<p class="text-sm font-semibold tracking-[0.2em] text-(--primary-container) uppercase">Qui suis-je ?</p>
+			<h2 id="coach-title" class="text-3xl text-(--primary) sm:text-5xl">Cécile</h2>
+			<p class="text-lg leading-relaxed text-(--secondary)">
+				Spécialisée en Activités Physiques Adaptées, je t'accompagne dans ta reconnexion corporelle avec une
+				approche douce et progressive, adaptée à ton rythme et à ton niveau d'énergie.
+			</p>
+			<p class="leading-relaxed text-(--secondary)">
+				Mon expérience me permet de construire un programme qui respecte tes limites et tes besoins concrets.
+				Ensemble, nous allons retrouver de la confiance dans ton corps, sans pression ni performance.
+			</p>
 
-					<div class="inline-flex items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
-						<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
-						<span>Spécialisée en Activités Physiques Adaptées</span>
-					</div>
-					<h3 class="mt-6 text-xl font-semibold text-slate-900 sm:text-2xl">
-						Cécile
-					</h3>
-					<p class="mt-4 text-base leading-relaxed text-slate-800">
-						Je t’accompagne dans ta reconnexion corporelle avec une approche douce et progressive,
-						adaptée à ton rythme et à ton niveau d’énergie. Mon expérience me permet de construire
-						un programme qui respecte tes limites et tes besoins concrets.
-					</p>
-					<p class="mt-4 text-base leading-relaxed text-slate-800">
-						Ensemble, nous allons retrouver de la confiance dans ton corps, sans pression ni
-						performance. Mon accompagnement suit la réalité de tes journées, avec plus de soutien
-						quand c’est nécessaire et plus d’autonomie quand tu te sens prête.
-					</p>
-
-					<div class="mt-10 w-full max-w-3xl">
-						<div
-							id="coach-video-root"
-							class="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-black/10"
+			<div class="w-full pt-4">
+				<div
+					id="coach-video-root"
+					class="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-(--outline-variant)/30"
+				>
+					<iframe
+						class="absolute inset-0 hidden h-full w-full border-0 lg:block"
+						src={ytEmbedUrl}
+						title="Vidéo de présentation — Cécile, coach APA"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
+						loading="lazy"
+					/>
+					<img
+						src={`https://i.ytimg.com/vi/${ytVideoId}/hqdefault.jpg`}
+						alt="Cécile, coach certifiée APA — Activités Physiques Adaptées"
+						class="coach-yt-poster absolute inset-0 z-0 h-full w-full object-cover lg:hidden"
+						loading="lazy"
+						decoding="async"
+					/>
+					<div
+						class="coach-yt-facade absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 lg:hidden"
+					>
+						<div class="absolute inset-0 bg-black/35" aria-hidden="true" />
+						<button
+							type="button"
+							class="coach-yt-play relative z-10 inline-flex items-center gap-3 rounded-full bg-(--primary) px-5 py-3 text-base font-semibold text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
 						>
-							<!-- Desktop : lecteur chargé normalement -->
-							<iframe
-								class="absolute inset-0 hidden h-full w-full border-0 lg:block"
-								src={ytEmbedUrl}
-								title="Vidéo de présentation — Cécile, coach APA"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-								referrerpolicy="strict-origin-when-cross-origin"
-								allowfullscreen
-								loading="lazy"
-							/>
-							<!-- Mobile : vignette + chargement et lecture au clic (autoplay) + plein écran -->
-							<img
-								src={`https://i.ytimg.com/vi/${ytVideoId}/hqdefault.jpg`}
-								alt="Cécile, coach certifiée APA — Activités Physiques Adaptées"
-								class="coach-yt-poster absolute inset-0 z-0 h-full w-full object-cover lg:hidden"
-								loading="lazy"
-								decoding="async"
-							/>
-							<div
-								class="coach-yt-facade absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 lg:hidden"
-							>
-								<div class="absolute inset-0 bg-black/35" aria-hidden="true" />
-								<button
-									type="button"
-									class="coach-yt-play relative z-10 inline-flex items-center justify-center rounded-2xl bg-(--plum) px-5 py-3 text-base font-semibold text-white shadow-lg shadow-black/20 ring-1 ring-white/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
-								>
-									Lancer la vidéo
-								</button>
-							</div>
-							<iframe
-								class="coach-yt-mobile pointer-events-none absolute inset-0 z-5 h-full w-full border-0 opacity-0 transition-opacity duration-200 lg:hidden"
-								data-src={ytEmbedUrlAutoplay}
-								title="Vidéo de présentation — Cécile, coach APA"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
-								referrerpolicy="strict-origin-when-cross-origin"
-								allowfullscreen
-							/>
-						</div>
+							<span aria-hidden="true">▶</span>
+							Lancer la vidéo de présentation
+						</button>
 					</div>
+					<iframe
+						class="coach-yt-mobile pointer-events-none absolute inset-0 z-5 h-full w-full border-0 opacity-0 transition-opacity duration-200 lg:hidden"
+						data-src={ytEmbedUrlAutoplay}
+						title="Vidéo de présentation — Cécile, coach APA"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
+						referrerpolicy="strict-origin-when-cross-origin"
+						allowfullscreen
+					/>
 				</div>
 			</div>
 		</div>

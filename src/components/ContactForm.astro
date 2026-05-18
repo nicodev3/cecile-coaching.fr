@@ -9,136 +9,122 @@ const reveal =
 
 <section
 	id="contact"
-	class={`py-14 sm:py-18 ${reveal}`}
+	class={`bg-(--surface) py-20 sm:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="contact-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl">
-			<div class="text-center">
-				<h2 id="contact-title" class="text-3xl font-semibold text-slate-900">
-					Me contacter
-				</h2>
-				<p class="mt-4 text-base leading-relaxed text-slate-800">
-					Remplis le formulaire ci-dessous et je te répondrai dans les meilleurs délais.
+	<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+		<div class="text-center">
+			<h2 id="contact-title" class="text-3xl text-(--primary) sm:text-5xl">Me contacter</h2>
+			<p class="mt-2 text-(--secondary)">Posez vos questions ou démarrez votre accompagnement.</p>
+		</div>
+
+		<div class="mt-6 flex items-center justify-center gap-2 rounded-xl bg-(--surface-container-low) p-3">
+			<Phone class="h-5 w-5 shrink-0 text-(--secondary)" aria-hidden="true" stroke-width={2} />
+			<span class="text-base text-(--secondary)">Téléphone :</span>
+			<a
+				id="phone-link"
+				href="#"
+				class="text-base font-semibold text-(--primary) hover:underline"
+				aria-label="Téléphone"
+			>
+				<span id="phone-display">Chargement...</span>
+			</a>
+		</div>
+
+		<form
+			name="contact"
+			method="POST"
+			action={formspreeEndpoint}
+			class="mt-8 space-y-6"
+		>
+			<div class="sr-only" aria-hidden="true">
+				<label for="contact-gotcha">Ne pas remplir</label>
+				<input type="text" id="contact-gotcha" name="_gotcha" tabindex="-1" autocomplete="off" />
+			</div>
+
+			<div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+				<div class="space-y-2">
+					<label for="name" class="text-sm font-semibold text-(--primary)">
+						Nom <span class="text-(--secondary)">*</span>
+					</label>
+					<input
+						type="text"
+						id="name"
+						name="name"
+						required
+						class="w-full rounded-xl border-none bg-(--surface-container-low) p-4 text-(--on-surface) transition focus:ring-2 focus:ring-(--primary-fixed) focus:outline-none"
+						placeholder="Ton nom"
+					/>
+				</div>
+				<div class="space-y-2">
+					<label for="email" class="text-sm font-semibold text-(--primary)">
+						Email <span class="text-(--secondary)">*</span>
+					</label>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						required
+						class="w-full rounded-xl border-none bg-(--surface-container-low) p-4 text-(--on-surface) transition focus:ring-2 focus:ring-(--primary-fixed) focus:outline-none"
+						placeholder="ton@email.com"
+					/>
+				</div>
+			</div>
+
+			<div class="space-y-2">
+				<label for="phone" class="text-sm font-semibold text-(--primary)">Téléphone</label>
+				<input
+					type="tel"
+					id="phone"
+					name="phone"
+					class="w-full rounded-xl border-none bg-(--surface-container-low) p-4 text-(--on-surface) transition focus:ring-2 focus:ring-(--primary-fixed) focus:outline-none"
+					placeholder="06 12 34 56 78 (optionnel)"
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<label for="message" class="text-sm font-semibold text-(--primary)">
+					Message <span class="text-(--secondary)">*</span>
+				</label>
+				<textarea
+					id="message"
+					name="message"
+					required
+					rows="5"
+					class="w-full rounded-xl border-none bg-(--surface-container-low) p-4 text-(--on-surface) transition focus:ring-2 focus:ring-(--primary-fixed) focus:outline-none"
+					placeholder="Ton message..."
+				></textarea>
+			</div>
+
+			<div
+				id="form-success"
+				class="hidden rounded-xl bg-(--primary-fixed)/40 p-4 text-(--on-primary-fixed-variant) ring-1 ring-(--primary-fixed-dim)"
+			>
+				<p class="font-medium">Message envoyé avec succès !</p>
+				<p class="mt-1">Je te répondrai dans les meilleurs délais.</p>
+			</div>
+
+			<div id="form-error" class="hidden rounded-xl bg-red-50 p-4 text-red-800 ring-1 ring-red-200">
+				<p class="font-medium">Une erreur est survenue.</p>
+				<p class="mt-1">
+					Veuillez réessayer ou m'envoyer un email directement à cecile.c.coach@gmail.com
 				</p>
 			</div>
 
-			<!-- Numéro de téléphone protégé contre les robots -->
-			<div class="mt-6 flex items-center justify-center gap-2 rounded-xl bg-slate-50 p-3 ring-1 ring-slate-200">
-				<Phone class="h-5 w-5 shrink-0 text-slate-600" aria-hidden="true" stroke-width={2} />
-				<span class="text-base text-slate-700">Téléphone :</span>
-				<a
-					id="phone-link"
-					href="#"
-					class="text-base font-semibold text-(--plum) hover:underline"
-					aria-label="Téléphone"
-				>
-					<span id="phone-display">Chargement...</span>
-				</a>
-			</div>
-
-			<div class="mt-8 rounded-4xl bg-white/60 p-6 ring-1 ring-black/5 shadow-sm shadow-black/5 sm:p-8">
-				<form
-					name="contact"
-					method="POST"
-					action={formspreeEndpoint}
-					class="space-y-4"
-				>
-					<div class="sr-only" aria-hidden="true">
-						<label for="contact-gotcha">Ne pas remplir</label>
-						<input
-							type="text"
-							id="contact-gotcha"
-							name="_gotcha"
-							tabindex="-1"
-							autocomplete="off"
-						/>
-					</div>
-
-					<div>
-						<label for="name" class="block text-base font-medium text-slate-900">
-							Nom <span class="text-slate-500">*</span>
-						</label>
-						<input
-							type="text"
-							id="name"
-							name="name"
-							required
-							class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-base text-slate-900 placeholder-slate-400 transition focus:border-(--plum) focus:outline-none focus:ring-2 focus:ring-(--plum)/20"
-							placeholder="Ton nom"
-						/>
-					</div>
-
-					<div>
-						<label for="email" class="block text-base font-medium text-slate-900">
-							Email <span class="text-slate-500">*</span>
-						</label>
-						<input
-							type="email"
-							id="email"
-							name="email"
-							required
-							class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-base text-slate-900 placeholder-slate-400 transition focus:border-(--plum) focus:outline-none focus:ring-2 focus:ring-(--plum)/20"
-							placeholder="ton@email.com"
-						/>
-					</div>
-
-					<div>
-						<label for="phone" class="block text-base font-medium text-slate-900">
-							Téléphone
-						</label>
-						<input
-							type="tel"
-							id="phone"
-							name="phone"
-							class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-base text-slate-900 placeholder-slate-400 transition focus:border-(--plum) focus:outline-none focus:ring-2 focus:ring-(--plum)/20"
-							placeholder="06 12 34 56 78 (optionnel)"
-						/>
-					</div>
-
-					<div>
-						<label for="message" class="block text-base font-medium text-slate-900">
-							Message <span class="text-slate-500">*</span>
-						</label>
-						<textarea
-							id="message"
-							name="message"
-							required
-							rows="5"
-							class="mt-1.5 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-base text-slate-900 placeholder-slate-400 transition focus:border-(--plum) focus:outline-none focus:ring-2 focus:ring-(--plum)/20"
-							placeholder="Ton message..."
-						></textarea>
-					</div>
-
-					<div id="form-success" class="hidden rounded-xl bg-green-50 p-4 text-base text-green-800 ring-1 ring-green-200">
-						<p class="font-medium">Message envoyé avec succès !</p>
-						<p class="mt-1">Je te répondrai dans les meilleurs délais.</p>
-					</div>
-
-					<div id="form-error" class="hidden rounded-xl bg-red-50 p-4 text-base text-red-800 ring-1 ring-red-200">
-						<p class="font-medium">Une erreur est survenue.</p>
-						<p class="mt-1">Veuillez réessayer ou m'envoyer un email directement à cecile.c.coach@gmail.com</p>
-					</div>
-
-					<button
-						type="submit"
-						class="w-full rounded-2xl bg-(--plum) px-6 py-3 text-base font-semibold text-white shadow-sm shadow-black/10 transition hover:brightness-105 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
-					>
-						Envoyer le message
-					</button>
-				</form>
-			</div>
-		</div>
+			<button
+				type="submit"
+				class="w-full rounded-full bg-(--primary) py-5 text-base font-bold text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+			>
+				Envoyer le message
+			</button>
+		</form>
 	</div>
 </section>
 
 <script is:inline>
-	// Protection du numéro de téléphone contre les robots
-	(function() {
-		// Numéro fragmenté pour éviter le scraping automatique
-		// Les robots simples ne peuvent pas facilement extraire le numéro complet
+	(function () {
 		const a = '0' + '6';
 		const b = '8' + '6';
 		const c = '4' + '1';
@@ -146,10 +132,10 @@ const reveal =
 		const e = '0' + '1';
 		const phoneNumber = a + b + c + d + e;
 		const phoneDisplay = phoneNumber.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
-		
+
 		const phoneLink = document.getElementById('phone-link');
 		const phoneDisplayEl = document.getElementById('phone-display');
-		
+
 		if (phoneLink && phoneDisplayEl) {
 			phoneLink.href = 'tel:+33' + phoneNumber.substring(1);
 			phoneDisplayEl.textContent = phoneDisplay;
@@ -162,7 +148,6 @@ const reveal =
 	const formSuccess = document.getElementById('form-success');
 	const formError = document.getElementById('form-error');
 
-	// Gestion de la soumission du formulaire
 	if (form instanceof HTMLFormElement) {
 		form.addEventListener('submit', async (e) => {
 			e.preventDefault();
@@ -171,11 +156,9 @@ const reveal =
 			const submitButton = form.querySelector('button[type="submit"]');
 			const originalText = submitButton?.textContent;
 
-			// Masquer les messages précédents
 			formSuccess?.classList.add('hidden');
 			formError?.classList.add('hidden');
 
-			// Désactiver le bouton
 			if (submitButton instanceof HTMLButtonElement) {
 				submitButton.disabled = true;
 				submitButton.textContent = 'Envoi en cours...';
@@ -191,7 +174,6 @@ const reveal =
 				if (response.ok) {
 					formSuccess?.classList.remove('hidden');
 					form.reset();
-					// Scroll vers le message de succès
 					formSuccess?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 				} else {
 					throw new Error('Erreur lors de l\'envoi');
@@ -200,7 +182,6 @@ const reveal =
 				formError?.classList.remove('hidden');
 				formError?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 			} finally {
-				// Réactiver le bouton
 				if (submitButton instanceof HTMLButtonElement) {
 					submitButton.disabled = false;
 					if (originalText) {

@@ -1,31 +1,31 @@
 ---
 const faqs = [
 	{
-		q: "C'est quoi l'APA — Activités Physiques Adaptées ?",
-		a: "C'est une formation reconnue qui permet d'adapter le mouvement à ton état de santé, tes capacités et tes limites. En tant que coach certifiée APA, j'accompagne les personnes touchées par une maladie chronique avec un cadre sécurisant, progressif et adapté à chaque jour.",
+		q: "C'est quoi l'APA ?",
+		a: "C'est une formation reconnue qui permet d'adapter le mouvement à ton état de santé, tes capacités et tes limites. C'est un cadre sécurisant et progressif.",
 	},
 	{
-		q: 'Est-ce que RE-FLOW est adapté si mon énergie fluctue beaucoup ?',
-		a: 'Oui. Le programme s’adapte à tes variations d’énergie, avec des options plus douces et des durées modulables selon le jour.',
+		q: 'Est-ce adapté si mon énergie fluctue ?',
+		a: "Oui. Le programme s'adapte à tes variations d'énergie, avec des options plus douces et des durées modulables selon ton ressenti quotidien.",
 	},
 	{
 		q: 'Faut-il déjà être sportive ?',
-		a: 'Non. L’approche est progressive, sans objectif de performance. On part de ton point de départ, avec un cadre rassurant.',
+		a: "Non. L'approche est progressive, sans objectif de performance. On part de ton point de départ actuel, avec douceur.",
 	},
 	{
-		q: 'Combien de temps dois-je prévoir chaque semaine ?',
-		a: "Le programme prévoit 3 séances d'une durée de 30 minutes environ. Il est possible d'ajuster le rythme et la durée selon ton énergie et tes besoins.",
+		q: 'Combien de temps prévoir ?',
+		a: 'Le programme prévoit environ 3 séances de 30 minutes par semaine, ajustables selon ton énergie.',
 	},
 	{
 		q: 'Et si je ressens des douleurs ?',
-		a: "Je t'aide à ajuster (amplitudes, respiration, intensité). Si une douleur apparaît, on privilégie l’adaptation.",
+		a: "Je t'aide à ajuster (amplitudes, respiration, intensité). Si une douleur apparaît, on privilégie l'adaptation.",
 	},
 	{
 		q: 'Comment se passe le paiement ?',
 		a: 'Un paiement en plusieurs fois est possible (2x ou 3x). Je te précise le tarif et les modalités lors de notre échange.',
 	},
 	{
-		q: 'Est-ce que le programme RE-FLOW est adapté pour toutes les maladies chroniques ?',
+		q: 'Est-ce adapté pour toutes les maladies chroniques ?',
 		a: "Oui. On ne soigne pas la maladie mais le déconditionnement physique qui en découle.",
 	},
 ];
@@ -49,36 +49,29 @@ const reveal =
 
 <section
 	id="faq"
-	class={`py-14 sm:py-18 ${reveal}`}
+	class={`py-20 sm:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="faq-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl text-center">
-			<h2 id="faq-title" class="text-3xl font-semibold text-slate-900">FAQ</h2>
-			<p class="mt-4 text-base leading-relaxed text-slate-800">
-				Quelques réponses rapides, pour décider sereinement.
-			</p>
-		</div>
+	<div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+		<h2 id="faq-title" class="mb-12 text-center text-3xl text-(--primary) sm:text-5xl">
+			Quelques réponses rapides
+		</h2>
 
-		<div class="mx-auto mt-10 max-w-3xl space-y-3">
+		<div class="space-y-4">
 			{faqs.map((f) => (
-				<details class="group rounded-4xl bg-white/60 px-6 py-5 ring-1 ring-black/5">
-					<summary
-						class="cursor-pointer list-none text-base font-semibold text-slate-900 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--plum)"
-					>
-						<span class="flex items-center justify-between gap-4">
-							<span>{f.q}</span>
-							<span
-								class="grid h-8 w-8 shrink-0 place-items-center rounded-2xl bg-(--sage)/70 ring-1 ring-black/5"
-								aria-hidden="true"
-							>
-								<span class="text-lg leading-none text-slate-900 group-open:rotate-45 transition">+</span>
-							</span>
+				<details class="group overflow-hidden rounded-xl bg-(--surface-container-low) transition-all">
+					<summary class="flex cursor-pointer list-none items-center justify-between p-6 outline-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)">
+						<h3 class="pr-4 text-xl text-(--primary)">{f.q}</h3>
+						<span
+							class="text-2xl text-(--primary) transition group-open:rotate-45"
+							aria-hidden="true"
+						>
+							+
 						</span>
 					</summary>
-					<p class="mt-4 text-base leading-relaxed text-slate-700">{f.a}</p>
+					<p class="px-6 pt-0 pb-6 text-(--secondary)">{f.a}</p>
 				</details>
 			))}
 		</div>
@@ -86,4 +79,3 @@ const reveal =
 </section>
 
 <script type="application/ld+json" set:html={JSON.stringify(faqStructuredData)}></script>
-

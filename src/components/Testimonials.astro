@@ -2,23 +2,21 @@
 const testimonials = [
 	{
 		name: 'Martine',
-		meta: 'Accompagnement d\'une maladie chronique',
+		meta: 'Accompagnement maladie chronique',
 		source: 'Avis Google',
 		quote:
-			"Je n'avais jamais fais de sport de ma vie... et grâce à sa motivation, ses encouragements, sa bonne humeur, sa connaissance du corps humain, son empathie... ǰe BOUGE ! On travaille tout, depuis les orteils ( si si !) jusqu'à la tête... J'en retire un grand bien ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois ... Merci à toi. Chère COACH ...",
+			"Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois.",
 		initial: 'M',
-		avatarClass:
-			'bg-(--plum)/12 text-(--plum-ink) ring-1 ring-(--plum)/25 shadow-black/5',
+		avatarClass: 'bg-(--primary-fixed) text-(--on-primary-fixed-variant)',
 	},
 	{
 		name: 'Nadia',
-		meta: 'Fatigue chronique, routine apaisante',
+		meta: 'Fatigue chronique',
 		source: '',
 		quote:
-			"Je n’ai plus cette pression de “performer”. J’avance à mon rythme, et ça change tout pour ma confiance.",
+			"Je n'ai plus cette pression de « performer ». J'avance à mon rythme, et ça change tout pour ma confiance personnelle.",
 		initial: 'N',
-		avatarClass:
-			'bg-(--sage)/90 text-(--plum-ink) ring-1 ring-(--sage)/50 shadow-black/5',
+		avatarClass: 'bg-(--primary-container) text-(--on-primary)',
 	},
 	{
 		name: 'Sophie',
@@ -27,8 +25,7 @@ const testimonials = [
 		quote:
 			"Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
 		initial: 'S',
-		avatarClass:
-			'bg-(--plum)/18 text-(--plum) ring-1 ring-(--plum)/20 shadow-black/5',
+		avatarClass: 'bg-(--secondary) text-(--on-secondary)',
 	},
 ];
 
@@ -38,39 +35,36 @@ const reveal =
 
 <section
 	id="temoignages"
-	class={`border-y border-black/5 bg-white/35 py-14 sm:py-18 ${reveal}`}
+	class={`bg-(--surface-container) py-20 sm:px-10 ${reveal}`}
 	data-reveal
 	data-revealed="false"
 	aria-labelledby="testimonials-title"
 >
-	<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-		<div class="mx-auto max-w-3xl text-center">
-			<h2 id="testimonials-title" class="text-3xl font-semibold text-slate-900">
-				Témoignages
-			</h2>
-		</div>
+	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+		<h2 id="testimonials-title" class="mb-16 text-center text-3xl text-(--primary) sm:text-5xl">
+			Elles ont reconnecté avec leur corps
+		</h2>
 
-		<div class="mt-10 grid gap-4 lg:grid-cols-3">
+		<div class="grid gap-8 md:grid-cols-3">
 			{testimonials.map((t) => (
-				<figure class="rounded-4xl bg-white/60 p-7 ring-1 ring-black/5 shadow-sm shadow-black/5">
-					<blockquote class="text-base leading-relaxed text-slate-800">
-						“{t.quote}”
-						{
-							t.source && (
-								<span class="mt-2 block text-sm text-slate-600">— {t.source}</span>
-							)
-						}
+				<figure class="flex flex-col justify-between rounded-2xl bg-(--surface) p-8 soft-glow">
+					<blockquote class="text-(--secondary) italic leading-relaxed">
+						"{t.quote}"
 					</blockquote>
-					<figcaption class="mt-5 flex items-start gap-3.5 text-base">
+					<figcaption class="mt-6 flex items-center gap-4">
 						<span
-							class={`grid h-12 w-12 shrink-0 place-items-center rounded-full text-[1.05rem] font-semibold shadow-sm ${t.avatarClass}`}
+							class:list={[
+								'flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold',
+								t.avatarClass,
+							]}
 							aria-hidden="true"
 						>
 							{t.initial}
 						</span>
-						<div class="min-w-0 pt-0.5">
-							<p class="font-semibold text-slate-900">{t.name}</p>
-							<p class="text-slate-700">{t.meta}</p>
+						<div>
+							<p class="font-bold text-(--primary)">{t.name}</p>
+							<p class="text-xs text-(--secondary)">{t.meta}</p>
+							{t.source && <p class="text-xs text-(--secondary)">{t.source}</p>}
 						</div>
 					</figcaption>
 				</figure>
@@ -78,4 +72,3 @@ const reveal =
 		</div>
 	</div>
 </section>
-
