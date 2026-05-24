@@ -5,6 +5,7 @@ pubDate: 'May 18 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:
   - fatigue
+  - apa
   - maladie-chronique
 ---
 
@@ -79,4 +80,4 @@ C'est exactement ce que propose l'immersion gratuite RE-FLOW : quatre jours pour
 
 ---
 
-*Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : c'est quoi exactement ?](/blog/coach-apa/)
+*Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : rôle et accompagnement](/blog/coach-apa/)

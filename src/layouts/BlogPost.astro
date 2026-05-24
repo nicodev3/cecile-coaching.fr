@@ -34,7 +34,7 @@ const {
 const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
 const displayTitle = tieFrenchQuestionMark(title);
 const seoTitle = `${displayTitle} | Blog RE-FLOW`;
-const seoDescription = `${description} Article du blog RE-FLOW sur la reconnexion corporelle et l'APA.`;
+const seoDescription = description;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
