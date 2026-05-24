@@ -1,6 +1,6 @@
 ---
 title: "Je suis fatiguée — est-ce que bouger va vraiment m'aider ?"
-description: "Bouger quand on est fatiguée avec une maladie chronique, ça semble absurde. Et pourtant, l'inactivité aggrave souvent la fatigue. Voici comment sortir de ce cercle."
+description: "Bouger quand on est fatiguée avec une maladie chronique semble absurde. Découvrez comment reprendre à distance avec un cadre APA en ligne."
 pubDate: 'May 18 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:
@@ -9,7 +9,7 @@ relatedPillars:
   - maladie-chronique
 ---
 
-C'est la question que beaucoup de femmes vivant avec une maladie chronique se posent — souvent en silence, souvent avec un mélange de découragement et de culpabilité.
+C'est la question que beaucoup de femmes vivant avec une maladie chronique se posent — souvent en silence, souvent avec un mélange de découragement et de culpabilité. C'est aussi une question qui peut se travailler à distance, avec un cadre APA en ligne bien dosé.
 
 **Bouger quand on est fatiguée, ça semble absurde.** Voire cruel.
 
@@ -27,7 +27,7 @@ Ce n'est pas celle qui part après une bonne nuit de sommeil.
 
 C'est une fatigue qui fluctue, qui s'accumule, qui ne répond pas aux règles habituelles. Certains jours tu peux sortir marcher. D'autres jours, prendre une douche représente déjà un effort réel.
 
-Cette réalité-là, un programme sportif classique ne la prend pas en compte. Et c'est pour ça que beaucoup de tentatives de reprise échouent — pas parce que tu n'as pas essayé assez fort, mais parce que le programme attendait un corps qui n'est pas le tien.
+Cette réalité-là, un programme sportif classique ne la prend pas en compte. Et c'est pour ça que beaucoup de tentatives de reprise échouent — pas parce que tu n'as pas essayé assez fort, mais parce que le programme attendait un corps qui n'est pas le tien. En ligne, l'enjeu est le même : le format doit rester adaptable, pas plaqué.
 
 ---
 
@@ -50,7 +50,7 @@ Pas à une heure de sport trois fois par semaine. Pas à une salle de sport et d
 
 Voici ce que ça peut vouloir dire, selon le jour :
 
-**Un bon jour** — une séance de 20 à 30 minutes, mobilité articulaire, renforcement doux, quelques exercices de respiration. Le corps est sollicité, mais pas poussé dans ses retranchements.
+**Un bon jour** — une séance de 20 à 30 minutes, en visio ou guidée depuis chez toi : mobilité articulaire, renforcement doux, quelques exercices de respiration. Le corps est sollicité, mais pas poussé dans ses retranchements.
 
 **Un jour moyen** — 10 minutes, allongée ou assise. Des étirements légers. Un travail de respiration. Garder le contact avec le corps sans rien forcer.
 
@@ -62,7 +62,7 @@ Ce que ces trois versions ont en commun : **elles comptent toutes**. Il n'y a pa
 
 ## Ce qui change quand le cadre est adapté
 
-La plupart des femmes qui reprennent le mouvement dans un cadre APA (Activités Physiques Adaptées) décrivent la même chose après quelques semaines : **elles dorment un peu mieux, elles se sentent un peu moins essoufflées dans les gestes du quotidien, et elles ont un peu plus confiance en leur corps.**
+La plupart des femmes qui reprennent le mouvement dans un cadre APA (Activités Physiques Adaptées), y compris à distance, décrivent la même chose après quelques semaines : **elles dorment un peu mieux, elles se sentent un peu moins essoufflées dans les gestes du quotidien, et elles ont un peu plus confiance en leur corps.**
 
 Pas une guérison. Pas un avant/après spectaculaire. Mais une qualité de vie qui s'améliore progressivement — et une relation au corps qui devient moins anxieuse.
 
@@ -76,7 +76,7 @@ Si tu vis avec une maladie chronique et que tu veux reprendre le mouvement sans 
 
 C'est de **vérifier que le cadre est adapté à ta réalité** : à ta pathologie, à ta fatigue, à tes fluctuations d'énergie.
 
-C'est exactement ce que propose l'immersion gratuite RE-FLOW : quatre jours pour explorer une approche du mouvement pensée pour les corps qui ont leurs propres règles. Sans performance. Sans culpabilité. À ton rythme.
+C'est exactement ce que propose l'immersion gratuite RE-FLOW : quatre jours en ligne pour explorer une approche du mouvement pensée pour les corps qui ont leurs propres règles. Sans performance. Sans culpabilité. À ton rythme, où que tu sois en France.
 
 ---
 

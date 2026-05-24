@@ -9,8 +9,8 @@ import PillarsHub from '../../components/PillarsHub.astro';
 import TunnelCtaLink from '../../components/TunnelCtaLink.astro';
 import { COACH_NAME, SITE_INSTAGRAM } from '../../consts';
 
-const title = `${COACH_NAME}, coach APA — À propos | RE-FLOW`;
-const description = `Coach certifiée APA (Activités Physiques Adaptées), ${COACH_NAME} accompagne les femmes touchées par une maladie chronique avec une approche douce, progressive et adaptée à l'énergie du jour.`;
+const title = `${COACH_NAME}, coach APA en ligne — À propos | RE-FLOW`;
+const description = `Coach certifiée APA (Activités Physiques Adaptées), ${COACH_NAME} accompagne à distance les femmes touchées par une maladie chronique, partout en France.`;
 
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
@@ -21,7 +21,7 @@ const personStructuredData = {
 	'@type': 'Person',
 	'@id': `${siteUrlNormalized}/a-propos/#cecile`,
 	name: COACH_NAME,
-	jobTitle: 'Coach certifiée APA — Activités Physiques Adaptées',
+	jobTitle: 'Coach certifiée APA en ligne — Activités Physiques Adaptées',
 	url: pageUrl,
 	image: new URL(coachImage.src, Astro.site).toString(),
 	worksFor: { '@id': `${siteUrlNormalized}/#coaching-service` },
@@ -69,26 +69,26 @@ const personStructuredData = {
 
 				<div class="inline-flex items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
 					<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
-					<span>Coach certifiée APA — Activités Physiques Adaptées</span>
+					<span>Coach certifiée APA en ligne — Activités Physiques Adaptées</span>
 				</div>
 
 				<h1 class="mt-6 text-3xl font-semibold text-slate-900 sm:text-4xl">
-					{COACH_NAME}, coach APA pour femmes en maladie chronique
+					{COACH_NAME}, coach APA en ligne pour femmes en maladie chronique
 				</h1>
 			</div>
 
 			<div class="mt-10 space-y-5 text-base leading-relaxed text-slate-800">
 				<p>
 					Je m’appelle <strong>{COACH_NAME}</strong>, je suis <strong>coach sportive certifiée
-					APA</strong> (Activités Physiques Adaptées). J’accompagne les femmes touchées par une
+					APA</strong> (Activités Physiques Adaptées). J’accompagne à distance les femmes touchées par une
 					<strong>maladie chronique</strong> à <strong>retrouver une relation apaisée avec leur
-					corps</strong>, par le mouvement.
+					corps</strong>, par le mouvement, peu importe où elles vivent en France.
 				</p>
 				<p>
 					Mon approche n’est pas celle d’un coach sportif classique. L’APA part toujours de la
 					<strong>réalité du corps</strong> : la maladie, les traitements, la fatigue, les
 					fluctuations d’énergie. Pas de pression, pas de culture de la performance, pas de plan
-					unique imposé. À la place : une <strong>progression douce</strong>, des séances
+					unique imposé. À la place : une <strong>progression douce</strong>, des séances en visio
 					modulables et un cadre qui accueille les bons jours comme les jours plus difficiles.
 				</p>
 				<p>
@@ -130,20 +130,20 @@ const personStructuredData = {
 			<div class="mt-12 rounded-3xl bg-(--plum) px-6 py-10 text-center text-white shadow-sm shadow-black/15 sm:px-10">
 				<h2 class="text-xl font-semibold sm:text-2xl">Découvrir RE-FLOW</h2>
 				<p class="mt-3 text-base text-white/90">
-					Immersion gratuite (4 jours) et programme complet sur l’espace dédié.
+					Immersion gratuite (4 jours) et programme complet en ligne sur l’espace dédié.
 				</p>
 				<div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
 					<TunnelCtaLink
 						campaign="a-propos"
 						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
-						Commencer l’immersion gratuite
+						Commencer l’immersion en ligne
 					</TunnelCtaLink>
 					<a
 						href="/contact/"
 						class="inline-flex items-center justify-center rounded-2xl bg-transparent px-6 py-3 text-base font-semibold text-white ring-1 ring-white/40 transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
-						Me contacter
+						Échanger à distance
 					</a>
 				</div>
 			</div>

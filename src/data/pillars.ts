@@ -26,7 +26,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		label: 'Activités physiques adaptées',
 		shortLabel: 'APA',
 		tagline:
-			'Comprendre l’APA, ce qu’elle apporte et pourquoi c’est différent d’un coach sportif classique.',
+			'Comprendre l’APA en ligne, ce qu’elle apporte et pourquoi c’est différent d’un coach sportif classique.',
 	},
 	'maladie-chronique': {
 		key: 'maladie-chronique',
@@ -35,7 +35,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		label: 'Mouvement et maladie chronique',
 		shortLabel: 'Maladie chronique',
 		tagline:
-			'Repères doux pour réinstaller du mouvement quand on vit avec une maladie chronique.',
+			'Repères doux pour réinstaller du mouvement à distance quand on vit avec une maladie chronique.',
 	},
 	fatigue: {
 		key: 'fatigue',
@@ -44,7 +44,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		label: 'Fatigue chronique et mouvement',
 		shortLabel: 'Fatigue',
 		tagline:
-			'Doser le mouvement quand l’énergie varie, sans culture de la performance.',
+			'Doser le mouvement chez soi quand l’énergie varie, sans culture de la performance.',
 	},
 };
 
