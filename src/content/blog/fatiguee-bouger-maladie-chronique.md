@@ -1,6 +1,6 @@
 ---
 title: "Je suis fatiguée — est-ce que bouger va vraiment m'aider ?"
-description: "Bouger quand on est fatiguée avec une maladie chronique semble absurde. Découvrez comment reprendre à distance avec un cadre APA en ligne."
+description: "Bouger quand on est fatiguée avec une maladie chronique : mythe ou vraie aide ?"
 pubDate: 'May 18 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:

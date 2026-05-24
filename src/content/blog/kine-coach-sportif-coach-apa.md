@@ -1,6 +1,6 @@
 ---
 title: "Kiné, coach sportif ou coach APA en ligne : qui consulter ?"
-description: "Kiné, coach sportif ou coach APA en ligne : découvrez les différences et choisissez le bon accompagnement à distance selon votre santé et vos objectifs."
+description: "Kiné, coach sportif ou coach APA en ligne : découvre les différences et choisis le bon accompagnement selon ta santé et tes objectifs."
 pubDate: 'Apr 12 2026'
 heroImage: '../../assets/une_femme_coach_sportive.webp'
 relatedPillars:
