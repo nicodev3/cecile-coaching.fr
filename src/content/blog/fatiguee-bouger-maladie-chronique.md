@@ -1,6 +1,6 @@
 ---
 title: "Je suis fatiguée — est-ce que bouger va vraiment m'aider ?"
-description: "Bouger quand on est fatiguée avec une maladie chronique : mythe ou vraie aide ?"
+description: "Fatigue chronique et activité physique : faut-il bouger ou se reposer ? Comprendre le cercle vicieux de l'inactivité et comment un mouvement adapté (APA) peut aider, sans épuiser."
 pubDate: 'May 18 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:

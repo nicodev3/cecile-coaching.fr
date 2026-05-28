@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { Clock } from '@lucide/astro';
+import coachImage from '../assets/cecile-coach-apa.webp';
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import BlogArticleFooter from '../components/BlogArticleFooter.astro';
@@ -33,7 +34,7 @@ const {
 
 const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
 const displayTitle = tieFrenchQuestionMark(title);
-const seoTitle = `${displayTitle} | Blog RE-FLOW`;
+const seoTitle = `${displayTitle} — RE-FLOW`;
 const seoDescription = description;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
@@ -263,7 +264,7 @@ const blogPostingStructuredData = {
 									width={640}
 									height={640}
 									src={heroImage}
-									alt={displayTitle}
+									alt={`${displayTitle} — article RE-FLOW coach APA`}
 									class="h-full w-full object-cover"
 								/>
 							</div>
@@ -277,6 +278,24 @@ const blogPostingStructuredData = {
 							<slot />
 						</div>
 						<BlogArticleNewsletter tunnelCampaign={tunnelCampaign} />
+
+						<aside class="mt-10 flex gap-4 rounded-2xl bg-white/80 p-5 ring-1 ring-black/8" aria-label="À propos de l'auteure">
+							<Image
+								src={coachImage}
+								alt={`${COACH_NAME}, coach certifiée APA en ligne`}
+								class="h-16 w-16 shrink-0 rounded-full object-cover"
+								width={64}
+								height={64}
+							/>
+							<div>
+								<p class="text-sm font-semibold text-slate-900">{COACH_NAME} — Coach certifiée APA en ligne</p>
+								<p class="mt-1 text-sm leading-relaxed text-slate-600">
+									Spécialisée dans l'accompagnement des femmes vivant avec une maladie chronique, Cécile propose un mouvement adapté, progressif et sans culture de la performance, partout en France.{' '}
+									<a href="/a-propos/" class="text-(--plum) underline underline-offset-2 hover:text-(--plum-ink)">En savoir plus</a>
+								</p>
+							</div>
+						</aside>
+
 						<BlogArticleFooter relatedPillars={relatedPillars} />
 					</div>
 					<div class="md:col-span-4">
