@@ -1,5 +1,5 @@
 ---
-title: "Coach APA en ligne : rôle, formation et accompagnement à distance"
+title: "Coach APA en ligne : rôle et accompagnement"
 description: "Qu'est-ce qu'un coach APA en ligne ? Découvrez son rôle, les différences avec un kinésithérapeute ou un coach sportif, et comment reprendre à distance."
 pubDate: 'Feb 22 2026'
 updatedDate: 'May 24 2026'

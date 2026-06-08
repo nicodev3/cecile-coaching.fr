@@ -1,6 +1,6 @@
 ---
-title: "Fatigue chronique : que faire quand rien ne marche ?"
-description: "Fatigue chronique que faire : comprendre pourquoi la fatigue persiste, ce qui aide vraiment (et ce qui aggrave), et comment le mouvement adapté peut être une piste concrète."
+title: "Fatigue chronique : que faire quand ça persiste ?"
+description: "Fatigue chronique : comprendre pourquoi elle persiste, ce qui aide vraiment, ce qui aggrave, et la place possible du mouvement adapté."
 pubDate: 'Jun 2 2026'
 heroImage: '../../assets/a_tired_adult_sitting.png'
 relatedPillars:

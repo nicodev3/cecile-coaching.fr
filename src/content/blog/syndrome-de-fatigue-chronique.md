@@ -1,6 +1,6 @@
 ---
-title: "Syndrome de fatigue chronique (SFC/EM) : comprendre et adapter son mouvement"
-description: "Syndrome de fatigue chronique (SFC ou EM/SFC) : définition, symptômes, malaise post-effort, et comment le mouvement adapté peut être envisagé prudemment dans ce contexte."
+title: "Syndrome de fatigue chronique : mouvement adapté"
+description: "Syndrome de fatigue chronique (SFC/EM) : symptômes, malaise post-effort et place prudente du mouvement adapté dans ce contexte."
 pubDate: 'Jun 2 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:

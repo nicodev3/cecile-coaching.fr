@@ -5,7 +5,7 @@ export { TUNNEL_ORIGIN, tunnelEntryUrl } from './utils/tunnelUrl';
 
 export const SITE_TITLE = 'RE-FLOW — Coach APA en ligne pour femmes en maladie chronique';
 export const SITE_DESCRIPTION =
-	'Reprenez le mouvement en douceur avec un coach certifié APA en ligne. Activités physiques adaptées pour femmes vivant avec une maladie chronique ou une fatigue chronique, partout en France. Sans performance, sans culpabilité.';
+	'Reprenez le mouvement en douceur avec un coach APA en ligne, pour femmes vivant avec une maladie chronique ou une fatigue chronique.';
 export const SITE_BRAND = 'RE-FLOW';
 export const SITE_INSTAGRAM = 'https://www.instagram.com/cecile.c.oaching/';
 export const COACH_NAME = 'Cécile';

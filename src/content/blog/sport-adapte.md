@@ -1,6 +1,6 @@
 ---
-title: "Sport adapté : définition, pour qui et comment commencer"
-description: "Qu'est-ce que le sport adapté ? Pour qui est-il fait, quelles différences avec l'APA, et comment débuter quand la maladie ou la fatigue rend le sport classique impossible."
+title: "Sport adapté : définition et premiers pas"
+description: "Qu'est-ce que le sport adapté ? Différences avec l'APA, publics concernés et repères pour débuter malgré la maladie ou la fatigue."
 pubDate: 'Jun 2 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:
