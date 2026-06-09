@@ -2,7 +2,7 @@
 title: "Exercices APA pour débuter en douceur"
 description: "Exemples d'exercices d'activité physique adaptée pour maladie chronique ou fatigue : mobilité, renforcement doux, équilibre et dosage."
 pubDate: 'Jun 2 2026'
-heroImage: '../../assets/une_femme_coach_sportive.webp'
+heroImage: '../../assets/women_doing_different_forms_of_exercices.webp'
 relatedPillars:
   - apa
   - maladie-chronique
