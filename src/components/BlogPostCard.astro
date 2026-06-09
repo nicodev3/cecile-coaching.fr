@@ -2,14 +2,14 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
-import { tieFrenchQuestionMark } from '../utils/frenchTypography';
+import { tieFrenchPunctuation } from '../utils/frenchTypography';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
 }
 
 const { post } = Astro.props;
-const cardTitle = tieFrenchQuestionMark(post.data.title);
+const cardTitle = tieFrenchPunctuation(post.data.title);
 const primaryPillar = post.data.relatedPillars?.[0] as PillarKey | undefined;
 const pillarLabel = primaryPillar ? PILLARS_BY_KEY[primaryPillar].shortLabel : 'RE-FLOW';
 ---

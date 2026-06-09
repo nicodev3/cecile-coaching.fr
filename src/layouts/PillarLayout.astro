@@ -7,6 +7,7 @@ import PillarsHub from '../components/PillarsHub.astro';
 import TunnelCtaLink from '../components/TunnelCtaLink.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
+import { tieFrenchPunctuation } from '../utils/frenchTypography';
 
 type StructuredData = Record<string, unknown>;
 
@@ -128,7 +129,7 @@ const faqStructuredData: StructuredData = {
 										class="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
 									>
 										<p class="text-base font-semibold text-slate-900 hover:text-(--plum)">
-											{post.data.title}
+											{tieFrenchPunctuation(post.data.title)}
 										</p>
 										<p class="mt-1 text-sm text-slate-600">
 											<FormattedDate date={post.data.pubDate} />

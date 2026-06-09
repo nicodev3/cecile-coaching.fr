@@ -13,7 +13,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import '../styles/global.css';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
-import { tieFrenchQuestionMark } from '../utils/frenchTypography';
+import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import { COACH_NAME } from '../consts';
 
 type Props = CollectionEntry<'blog'>['data'] & {
@@ -33,7 +33,7 @@ const {
 } = Astro.props;
 
 const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
-const displayTitle = tieFrenchQuestionMark(title);
+const displayTitle = tieFrenchPunctuation(title);
 const seoTitle = `${displayTitle} — RE-FLOW`;
 const seoDescription = description;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();

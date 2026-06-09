@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
-import { tieFrenchQuestionMark } from '../utils/frenchTypography';
+import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import { estimateReadingTime } from '../utils/readingTime';
 
 interface Props {
@@ -28,7 +28,7 @@ function postMeta(post: CollectionEntry<'blog'>) {
 				</h2>
 				<div class="space-y-8">
 					{relatedPosts.map((post) => {
-						const cardTitle = tieFrenchQuestionMark(post.data.title);
+						const cardTitle = tieFrenchPunctuation(post.data.title);
 						return (
 							<a
 								href={`/blog/${post.id}/`}
