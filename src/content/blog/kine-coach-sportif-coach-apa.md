@@ -1,5 +1,6 @@
 ---
-title: "Kiné, coach sportif ou coach APA : qui consulter ?"
+title: "Kiné, coach sportif ou coach APA : comprendre les différences"
+seoTitle: "Kiné, coach sportif ou coach APA : qui consulter ?"
 description: "Kinésithérapeute, coach sportif ou coach APA en ligne : quelles différences et quel accompagnement choisir en maladie chronique ou fatigue ?"
 pubDate: 'Apr 12 2026'
 heroImage: '../../assets/une_femme_coach_sportive.webp'
@@ -132,4 +133,4 @@ Si tu te reconnais dans ce dernier profil, l’accompagnement peut aussi passer 
 
 ---
 
-*Tu veux découvrir le programme à distance ?* Pour un panorama APA sur ce site, voir [Activités physiques adaptées en ligne](/activites-physiques-adaptees/).
+*Tu veux découvrir le programme à distance ?* Découvre l'[accompagnement APA en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, ou pour un panorama APA sur ce site, voir [Activités physiques adaptées en ligne](/activites-physiques-adaptees/).

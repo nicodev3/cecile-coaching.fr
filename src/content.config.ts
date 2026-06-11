@@ -8,6 +8,8 @@ const blog = defineCollection({
 		schema: ({ image }) =>
 		z.object({
 			title: z.string(),
+			/** Title SEO (<title>) si différent du H1 ; utilisé verbatim, sans suffixe de marque */
+			seoTitle: z.string().optional(),
 			description: z.string(),
 			// Transform string to Date object
 			pubDate: z.coerce.date(),

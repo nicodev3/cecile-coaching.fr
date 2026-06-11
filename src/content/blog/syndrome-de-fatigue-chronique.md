@@ -106,4 +106,4 @@ Dans les deux cas, le mouvement adapté peut avoir une place — mais les préca
 - [Je suis fatiguée — est-ce que bouger va vraiment m'aider ?](/blog/fatiguee-bouger-maladie-chronique/)
 - [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 
-Pour un accompagnement en ligne dans ce contexte, une discussion préalable avec Cécile permet de vérifier si le cadre RE-FLOW est adapté à ta situation actuelle : [Prendre contact](/contact/).
+Pour un [accompagnement APA en ligne](/coach-apa-en-ligne/) dans ce contexte, une discussion préalable avec Cécile permet de vérifier si le cadre RE-FLOW est adapté à ta situation actuelle : [Prendre contact](/contact/).

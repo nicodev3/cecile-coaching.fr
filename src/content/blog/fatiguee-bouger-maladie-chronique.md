@@ -80,4 +80,8 @@ C'est exactement ce que propose l'immersion gratuite RE-FLOW : quatre jours en l
 
 ---
 
+Et si tu préfères [être accompagnée pour reprendre une activité physique](/coach-apa-en-ligne/), la page dédiée explique comment se déroule l'accompagnement APA en ligne.
+
+---
+
 *Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : rôle et accompagnement](/blog/coach-apa/)
