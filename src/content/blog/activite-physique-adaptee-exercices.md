@@ -153,6 +153,7 @@ Ces exemples donnent une idée de ce que peut être l'APA en pratique. Mais un p
 Chez **RE-FLOW**, Cécile propose un accompagnement APA en ligne — séances en visio, programme progressif et ajustements semaine après semaine — pour les femmes qui vivent avec une maladie chronique ou une fatigue persistante, partout en France.
 
 Pour comprendre le cadre complet :
+- [Coach APA en ligne : comment se déroule l'accompagnement](/coach-apa-en-ligne/)
 - [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Sport adapté : pour qui et comment commencer ?](/blog/sport-adapte/)
 - [Coach APA en ligne : rôle et fonctionnement](/blog/coach-apa/)

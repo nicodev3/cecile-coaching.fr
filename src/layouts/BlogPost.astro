@@ -23,6 +23,7 @@ type Props = CollectionEntry<'blog'>['data'] & {
 
 const {
 	title,
+	seoTitle: seoTitleOverride,
 	description,
 	pubDate,
 	updatedDate,
@@ -34,7 +35,7 @@ const {
 
 const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
 const displayTitle = tieFrenchPunctuation(title);
-const seoTitle = `${displayTitle} — RE-FLOW`;
+const seoTitle = seoTitleOverride ?? `${displayTitle} — RE-FLOW`;
 const seoDescription = description;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;

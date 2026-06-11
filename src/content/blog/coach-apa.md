@@ -1,5 +1,6 @@
 ---
-title: "Coach APA en ligne : rôle et accompagnement"
+title: "Coach APA : c'est quoi exactement ?"
+seoTitle: "Coach APA : rôle, formation et différence avec un coach sportif"
 description: "Qu'est-ce qu'un coach APA en ligne ? Découvrez son rôle, les différences avec un kinésithérapeute ou un coach sportif, et comment reprendre à distance."
 pubDate: 'Feb 22 2026'
 updatedDate: 'May 24 2026'
@@ -241,4 +242,4 @@ Un **coach APA en ligne** accompagne la reprise du mouvement grâce aux **Activi
 
 L'APA ne remplace ni le médecin, ni le kinésithérapeute. Elle offre un cadre complémentaire pour bouger de façon plus sûre, plus douce et plus durable.
 
-*Tu veux en savoir plus sur cette approche ?* Retrouve la page dédiée [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) ou découvre l'accompagnement RE-FLOW depuis la [page d'accueil](/).
+*Tu veux en savoir plus sur cette approche ?* Retrouve la page dédiée [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) ou découvre concrètement l'accompagnement [coach APA en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW.

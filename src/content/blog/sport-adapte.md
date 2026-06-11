@@ -86,7 +86,7 @@ Oui. L'accompagnement en ligne fonctionne très bien dans le cadre du sport adap
 - **Suivi régulier** pour adapter le programme semaine après semaine
 - **Pas de déplacement** — essentiel quand la fatigue ou la douleur rendent difficile de se rendre dans un cabinet ou une salle
 
-Chez **RE-FLOW**, c'est exactement ce que propose Cécile : un accompagnement en APA à distance, pensé pour les femmes qui vivent avec une maladie chronique ou une fatigue persistante, partout en France.
+Chez **RE-FLOW**, c'est exactement ce que propose Cécile : un accompagnement en APA à distance, pensé pour les femmes qui vivent avec une maladie chronique ou une fatigue persistante, partout en France. La page [activité physique adaptée en ligne](/coach-apa-en-ligne/) détaille le déroulement de cet accompagnement.
 
 ---
 

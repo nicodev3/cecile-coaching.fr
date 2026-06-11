@@ -1,0 +1,301 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Header from '../../components/Header.astro';
+
+const title = 'Coach APA en ligne : activité physique adaptée pour maladie chronique';
+const description =
+	"Un accompagnement APA en ligne pour reprendre une activité physique adaptée malgré la fatigue, les douleurs ou une maladie chronique, à votre rythme.";
+
+const faqs = [
+	{
+		q: 'Qu’est-ce qu’un coach APA ?',
+		a: "Un coach APA est un·e professionnel·le formé·e aux Activités Physiques Adaptées (formation universitaire STAPS mention APA-S). Son rôle est de proposer un mouvement ajusté à l'état de santé, aux symptômes et à l'énergie de chaque personne — sans logique de performance. Il ne pose pas de diagnostic et ne remplace pas un professionnel de santé.",
+	},
+	{
+		q: 'L’activité physique adaptée est-elle possible en ligne ?',
+		a: "Oui. L'APA en ligne se pratique en visio, avec des séances pensées pour ton espace, ton matériel et ton niveau du jour. Ce format évite les déplacements — souvent coûteux en énergie — et permet un accompagnement régulier partout en France, à condition que le cadre reste progressif et sécurisant.",
+	},
+	{
+		q: 'Quelle est la différence entre un coach APA et un coach sportif ?',
+		a: "Un coach sportif accompagne surtout la performance et la remise en forme de personnes globalement en bonne santé. Un coach APA part de la santé : maladie chronique, fatigue, douleurs chroniques, traitements, appréhension du mouvement. Le contenu des séances est construit autour de ces réalités, pas autour d'un programme standard.",
+	},
+	{
+		q: 'Peut-on faire de l’APA avec une fatigue chronique ?',
+		a: "Oui, à condition de doser très progressivement : séances courtes, versions allégées pour les jours difficiles, attention portée à la récupération et au malaise post-effort. En cas de syndrome de fatigue chronique (SFC/EM) ou de pathologie instable, l'avis du médecin reste le point de départ.",
+	},
+	{
+		q: 'L’accompagnement remplace-t-il un suivi médical ?',
+		a: "Non, jamais. L'accompagnement APA ne remplace ni un avis médical, ni un traitement, ni un suivi de santé. Il vient en complément, pour t'aider à reprendre une activité physique compatible avec ta situation. En cas de symptôme nouveau ou de doute, le médecin reste la référence.",
+	},
+	{
+		q: 'Comment commencer si je suis très fatiguée ?',
+		a: "On commence par un échange pour comprendre ta situation, puis par des séances très courtes — parfois quelques minutes — adaptées à ton énergie réelle. Il n'y a pas de niveau minimum requis : le point de départ, c'est ce que ton corps peut faire aujourd'hui, pas ce qu'il « devrait » pouvoir faire.",
+	},
+];
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
+const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
+
+const serviceStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'Service',
+	'@id': `${pageUrl}#service`,
+	name: 'Coach APA en ligne',
+	serviceType: 'Activité physique adaptée en ligne',
+	description,
+	url: pageUrl,
+	provider: { '@id': `${siteUrlNormalized}/#coaching-service` },
+	areaServed: { '@type': 'Country', name: 'France' },
+	audience: {
+		'@type': 'Audience',
+		audienceType:
+			'Femmes vivant avec une maladie chronique, une fatigue chronique ou des douleurs chroniques',
+	},
+};
+
+const faqStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((f) => ({
+		'@type': 'Question',
+		name: f.q,
+		acceptedAnswer: {
+			'@type': 'Answer',
+			text: f.a,
+		},
+	})),
+};
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	structuredData={[serviceStructuredData, faqStructuredData]}
+>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Coach APA en ligne', href: '/coach-apa-en-ligne/' },
+				]}
+			/>
+
+			<section class="text-center">
+				<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">ACCOMPAGNEMENT EN LIGNE</p>
+				<h1 class="mt-3 text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
+					Coach APA en ligne pour femmes vivant avec une maladie chronique
+				</h1>
+				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-800">
+					Reprendre une activité physique quand on vit avec une maladie chronique, une fatigue chronique ou
+					des douleurs, c’est possible — à condition que le cadre soit pensé pour ton corps réel. RE-FLOW
+					propose un accompagnement en ligne d’<strong>activité physique adaptée</strong>, doux, progressif
+					et sans culpabilisation, partout en France.
+				</p>
+				<div class="mt-7">
+					<a
+						href="/contact/"
+						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+					>
+						Échanger sur ta situation
+					</a>
+				</div>
+			</section>
+
+			<div class="pillar-article mt-14 text-base leading-relaxed text-slate-800">
+				<h2>Pour qui est cet accompagnement ?</h2>
+				<p>
+					Cet accompagnement s’adresse aux femmes pour qui le sport classique est devenu trop intense, trop
+					rigide ou trop culpabilisant : <strong>maladie chronique</strong>, fatigue persistante,
+					<strong>douleurs chroniques</strong>, traitements en cours, longue période d’inactivité ou perte de
+					confiance dans le corps.
+				</p>
+				<ul>
+					<li>Tu vis avec une maladie chronique et ton énergie varie d’un jour à l’autre</li>
+					<li>Tu veux reprendre une activité physique sans aggraver ta fatigue ni tes douleurs</li>
+					<li>Tu as déjà essayé des programmes sportifs classiques et tu as abandonné — pas par manque de volonté</li>
+					<li>Tu cherches un cadre doux, sans performance, sans comparaison et sans injonctions</li>
+					<li>Tu préfères un accompagnement en ligne, depuis chez toi, sans déplacement</li>
+				</ul>
+
+				<h2>Qu’est-ce qu’un coach APA ?</h2>
+				<p>
+					Un <strong>coach APA</strong> est formé·e aux Activités Physiques Adaptées, une discipline
+					universitaire (STAPS mention APA-S) dédiée à l’accompagnement des personnes dont la santé demande
+					des ajustements. Contrairement à un coach sportif généraliste, le coach APA part de la pathologie,
+					des symptômes et de l’énergie disponible pour construire un mouvement réaliste et sécurisant.
+				</p>
+				<p>
+					Pour comprendre cette approche en détail, consulte le guide
+					<a href="/activites-physiques-adaptees/">activité physique adaptée : définition, bienfaits et exemples</a>.
+				</p>
+
+				<h2>Activité physique adaptée en ligne : comment ça se passe ?</h2>
+				<p>
+					L’<strong>accompagnement en ligne</strong> se déroule en visio, depuis chez toi. Concrètement :
+				</p>
+				<ul>
+					<li><strong>Un premier échange</strong> pour comprendre ta situation : maladie, fatigue, douleurs, traitements, peurs, objectifs et quotidien</li>
+					<li><strong>Des séances en visio</strong> adaptées à ton espace, ton matériel et ton énergie du jour</li>
+					<li><strong>Des versions modulables</strong> pour les bons jours, les jours moyens et les jours difficiles</li>
+					<li><strong>Des ressources à suivre en autonomie</strong> entre les séances, sans pression</li>
+					<li><strong>Des ajustements semaine après semaine</strong>, selon ce que ton corps exprime réellement</li>
+				</ul>
+				<p>
+					Pour visualiser ce que contiennent les séances, découvre des
+					<a href="/blog/activite-physique-adaptee-exercices/">exemples d’exercices d’activité physique adaptée</a>.
+				</p>
+
+				<h2>Dans quelles situations un coach APA en ligne peut-il aider ?</h2>
+				<p>
+					Le <strong>coach APA en ligne</strong> intervient dans de nombreuses situations où le corps demande
+					un cadre particulier, toujours en complément du suivi médical et avec l’accord du médecin quand la
+					situation le demande :
+				</p>
+				<ul>
+					<li><strong>Fatigue chronique</strong> : doser le mouvement sans déclencher de malaise post-effort — voir le guide <a href="/fatigue-chronique-mouvement/">fatigue chronique et mouvement</a></li>
+					<li><strong>Douleurs chroniques</strong> : bouger sans aggraver, avec des alternatives pour chaque exercice</li>
+					<li><strong>Fibromyalgie</strong> : un rythme très progressif qui respecte les fluctuations de douleur et de sommeil</li>
+					<li><strong>Endométriose</strong> : adapter l’intensité aux cycles, aux douleurs et à la fatigue</li>
+					<li><strong>Cancer et suites de traitement</strong> : entretenir le mouvement pendant ou après les traitements, en lien avec l’équipe soignante</li>
+					<li><strong>Burn-out</strong> : retrouver un contact corporel doux, sans performance ni pression</li>
+					<li><strong>Reprise après un arrêt long</strong> : limiter le déconditionnement et reconstruire pas à pas</li>
+					<li><strong>Maladie chronique</strong> au sens large (auto-immune, cardiovasculaire stabilisée, métabolique…) — voir le guide <a href="/mouvement-maladie-chronique/">mouvement et maladie chronique</a></li>
+				</ul>
+
+				<h2>Coach APA, coach sportif ou kiné : quelle différence ?</h2>
+				<p>
+					Le <strong>kinésithérapeute</strong> est un professionnel de santé : soins, rééducation, douleur
+					aiguë, souvent sur prescription. Le <strong>coach sportif</strong> accompagne la performance et la
+					remise en forme de personnes globalement aptes. Le <strong>coach APA</strong> se situe entre les
+					deux : il accompagne la reprise ou le maintien d’un <strong>sport adapté</strong> au quotidien,
+					quand la santé est fragile ou variable — sans poser de diagnostic ni remplacer les soins.
+				</p>
+				<p>
+					Pour t’orienter selon ta situation, lis l’article
+					<a href="/blog/kine-coach-sportif-coach-apa/">kiné, coach sportif ou coach APA : qui consulter ?</a>.
+				</p>
+
+				<h2>Ce que cet accompagnement peut t’aider à faire</h2>
+				<p>
+					L’activité physique adaptée ne promet pas de guérison et ne constitue pas un traitement médical.
+					Elle peut en revanche, selon ta situation, t’aider à :
+				</p>
+				<ul>
+					<li>Reprendre une activité physique sans te mettre en échec</li>
+					<li>Entretenir ta force musculaire et ta mobilité, sans chercher la performance</li>
+					<li>Rendre certains gestes du quotidien moins coûteux en énergie</li>
+					<li>Réduire la peur de bouger après une période difficile</li>
+					<li>Apprendre à doser l’effort selon les signaux de ton corps</li>
+					<li>Retrouver une relation plus apaisée et plus confiante avec ton corps</li>
+				</ul>
+				<p>
+					Ces bénéfices dépendent de ta situation et ne sont jamais garantis. L’accompagnement ne remplace
+					pas un avis médical ni un suivi de santé : en cas de douleur nouvelle, de symptôme inhabituel ou de
+					maladie instable, le médecin reste la première personne à consulter.
+				</p>
+
+				<h2>La méthode RE-FLOW</h2>
+				<p>L’accompagnement repose sur cinq repères simples :</p>
+				<ul>
+					<li><strong>Douceur</strong> : aucun exercice ne doit te brutaliser ni te mettre en échec</li>
+					<li><strong>Progressivité</strong> : des étapes courtes, répétables et réalistes, jamais de paliers forcés</li>
+					<li><strong>Écoute corporelle</strong> : apprendre à distinguer effort utile, fatigue excessive et signal d’alerte</li>
+					<li><strong>Sécurité</strong> : ne pas forcer quand le corps envoie un signal clair, et respecter les avis médicaux</li>
+					<li><strong>Autonomie</strong> : devenir capable d’adapter toi-même ton mouvement selon l’énergie du jour</li>
+				</ul>
+			</div>
+
+			<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="coach-apa-faq-title">
+				<h2 id="coach-apa-faq-title" class="text-2xl font-semibold text-slate-900">Questions fréquentes</h2>
+				<div class="mt-6 space-y-3">
+					{
+						faqs.map((f) => (
+							<details class="group rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
+								<summary class="cursor-pointer list-none text-base font-semibold text-slate-900 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
+									<span class="flex items-center justify-between gap-3">
+										<span>{f.q}</span>
+										<span
+											class="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-(--sage)/70 text-lg leading-none ring-1 ring-black/5"
+											aria-hidden="true"
+										>
+											<span class="transition group-open:rotate-45">+</span>
+										</span>
+									</span>
+								</summary>
+								<p class="mt-3 text-base leading-relaxed text-slate-700">{f.a}</p>
+							</details>
+						))
+					}
+				</div>
+			</section>
+
+			<div
+				class="mt-12 rounded-3xl bg-(--plum) px-6 py-10 text-center text-white shadow-sm shadow-black/15 sm:px-10"
+			>
+				<h2 class="text-xl font-semibold sm:text-2xl">Envie d’en parler, sans engagement ?</h2>
+				<p class="mt-3 text-base text-white/90">
+					Chaque situation est différente. Écris-moi pour voir ensemble, simplement et sans pression, si cet
+					accompagnement APA en ligne peut te correspondre.
+				</p>
+				<div class="mt-6">
+					<a
+						href="/contact/"
+						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+					>
+						Me contacter
+					</a>
+				</div>
+			</div>
+
+			<style is:global>
+				.pillar-article h2 {
+					margin-top: 2.5rem;
+					margin-bottom: 0.75rem;
+					font-size: 1.5rem;
+					font-weight: 600;
+					line-height: 1.3;
+					color: #0f172a;
+				}
+				.pillar-article h2:first-child {
+					margin-top: 0;
+				}
+				.pillar-article h3 {
+					margin-top: 1.75rem;
+					margin-bottom: 0.5rem;
+					font-size: 1.125rem;
+					font-weight: 600;
+					color: #0f172a;
+				}
+				.pillar-article p {
+					margin: 0 0 1rem;
+				}
+				.pillar-article ul {
+					margin: 0 0 1rem 1.25rem;
+					list-style: disc;
+				}
+				.pillar-article li {
+					margin-bottom: 0.35rem;
+				}
+				.pillar-article a {
+					color: var(--plum);
+					text-decoration: underline;
+					text-underline-offset: 3px;
+				}
+				.pillar-article a:hover {
+					color: var(--plum-ink);
+				}
+				.pillar-article strong {
+					font-weight: 700;
+					color: #0f172a;
+				}
+			</style>
+		</div>
+	</article>
+</BaseLayout>
