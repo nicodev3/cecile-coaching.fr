@@ -1,0 +1,50 @@
+---
+description: Audit SEO avec Ahrefs MCP — corriger les issues dans le code Astro de cecilecoaching.fr
+globs: "**/*.{astro,md,mdx,ts}"
+alwaysApply: false
+---
+
+# SEO & Ahrefs MCP — cecilecoaching.fr
+
+## Domaine et conventions
+
+- **URL canonique** : `https://cecilecoaching.fr` (sans tiret — voir `astro.config.mjs`)
+- **Trailing slash** : toujours (`trailingSlash: 'always'`) — ne pas créer de routes sans `/` final
+- **Marque** : RE-FLOW — titres blog : `seoTitle` ou `{titre} — RE-FLOW` (`BlogPost.astro`)
+
+## Workflow audit Ahrefs
+
+1. Commencer par **« Utilise le MCP Ahrefs »** pour interroger le serveur (pas une recherche web)
+2. Récupérer d'abord le **Site Audit** (score, issues, URLs concernées) du projet `cecilecoaching.fr`
+3. **Prioriser** : erreurs → avertissements → notices ; impact crawl/indexation avant cosmétique
+4. **Mapper chaque issue** à un fichier du repo avant de coder
+
+## Où corriger quoi
+
+| Sujet | Fichier(s) |
+|-------|------------|
+| `<title>`, meta, canonical, OG, JSON-LD | `src/components/BaseHead.astro` |
+| Titre / description site global | `src/consts.ts` |
+| Pages piliers SEO | `src/data/pillars.ts` + `src/pages/*/index.astro` + `src/layouts/PillarLayout.astro` |
+| Articles blog (frontmatter) | `src/content/blog/*` — `title`, `seoTitle`, `description`, `relatedPillars` |
+| Rendu article | `src/layouts/BlogPost.astro` |
+| Sitemap | `@astrojs/sitemap` dans `astro.config.mjs` |
+| robots.txt | `public/robots.txt` |
+| Redirects apex/www | `public/_redirects` (Cloudflare Pages) |
+| Build + IndexNow | `npm run build:deploy` — hébergement **Cloudflare Pages** (`wrangler.toml`) |
+| Fil d'Ariane / maillage interne | `src/components/Breadcrumbs.astro`, liens entre piliers et archives blog |
+| Images (alt, poids) | `src/assets/`, `heroImage` dans le frontmatter blog |
+
+## Règles de correction
+
+- **Ne pas dupliquer** title/H1/description — respecter `seoTitle` optionnel du frontmatter
+- **Canonical** : géré par `BaseHead` via `Astro.url` — vérifier cohérence URL ↔ chemin fichier
+- **Maillage** : lier articles ↔ piliers via `relatedPillars` et hubs (`PillarsHub.astro`)
+- **Typographie française** : utiliser `tieFrenchPunctuation` pour les titres affichés
+- **Structured data** : étendre via prop `structuredData` de `BaseHead`, pas de JSON-LD en double
+- **Corrections minimales** : une issue = un diff ciblé, sans refactor hors scope SEO
+
+## Après correction
+
+- Vérifier que l'URL corrigée respecte le trailing slash et le domaine `cecilecoaching.fr`
+- Résumer : issue Ahrefs → fichier modifié → correction appliquée

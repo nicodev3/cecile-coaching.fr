@@ -1,0 +1,7 @@
+# Cloudflare Pages — https://developers.cloudflare.com/pages/configuration/build-configuration/
+name = "cecilecoaching"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+# Build command (dashboard ou CI) : npm run build:deploy
+# → astro build + soumission IndexNow (scripts/submit-indexnow.mjs)

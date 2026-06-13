@@ -43,7 +43,6 @@ const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl
 
 const primaryPillar = relatedPillars?.[0] as PillarKey | undefined;
 const pillar = primaryPillar ? PILLARS_BY_KEY[primaryPillar] : undefined;
-const breadcrumbLabel = pillar?.shortLabel ?? 'Article';
 
 const allPosts = await getCollection('blog');
 const others = allPosts.filter((p) => p.id !== postId);
@@ -214,10 +213,14 @@ const blogPostingStructuredData = {
 				variant="article"
 				items={[
 					{ name: 'Blog', href: '/blog/' },
-					{
-						name: breadcrumbLabel,
-						href: pillar?.archiveSlug ?? Astro.url.pathname,
-					},
+					...(pillar
+						? [
+								{
+									name: pillar.shortLabel,
+									href: pillar.slug,
+								},
+							]
+						: []),
 				]}
 			/>
 
@@ -226,12 +229,20 @@ const blogPostingStructuredData = {
 					<div class="flex flex-col justify-center md:col-span-8">
 						{
 							pillar && (
-								<a
-									href={pillar.archiveSlug}
-									class="mb-6 inline-flex w-fit rounded-full bg-(--secondary-container) px-3 py-1 text-xs font-medium tracking-wide text-(--on-secondary-container) no-underline transition hover:bg-(--primary-fixed) hover:text-(--primary-container)"
-								>
-									{pillar.shortLabel}
-								</a>
+								<div class="mb-6 flex flex-wrap items-center gap-2">
+									<a
+										href={pillar.slug}
+										class="inline-flex w-fit rounded-full bg-(--secondary-container) px-3 py-1 text-xs font-medium tracking-wide text-(--on-secondary-container) no-underline transition hover:bg-(--primary-fixed) hover:text-(--primary-container)"
+									>
+										Guide {pillar.shortLabel}
+									</a>
+									<a
+										href={pillar.archiveSlug}
+										class="text-xs font-medium text-(--outline) underline underline-offset-2 transition hover:text-(--primary)"
+									>
+										Articles {pillar.shortLabel}
+									</a>
+								</div>
 							)
 						}
 						<h1 class="mb-6 text-4xl leading-tight text-(--primary) sm:text-5xl">{displayTitle}</h1>
@@ -275,6 +286,22 @@ const blogPostingStructuredData = {
 
 				<section class="grid grid-cols-1 gap-12 md:grid-cols-12">
 					<div class="md:col-span-8">
+						{
+							pillar && (
+								<aside class="not-prose mb-8 rounded-2xl border border-(--outline-variant)/60 bg-(--surface-container-low) p-5">
+									<p class="text-sm leading-relaxed text-(--on-surface-variant)">
+										Cet article complète le guide
+										<a
+											href={pillar.slug}
+											class="font-semibold text-(--primary) underline underline-offset-2 hover:text-(--primary-container)"
+										>
+											{pillar.label}
+										</a>
+										. {pillar.tagline}
+									</p>
+								</aside>
+							)
+						}
 						<div class="article-prose">
 							<slot />
 						</div>

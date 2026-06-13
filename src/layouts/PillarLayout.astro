@@ -35,7 +35,15 @@ const crumbs = [
 const allPosts = await getCollection('blog');
 const pillarPosts = allPosts
 	.filter((post) => post.data.relatedPillars?.includes(pillarKey))
-	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+	.sort((a, b) => {
+		const featured = pillar.featuredPostIds ?? [];
+		const aRank = featured.indexOf(a.id);
+		const bRank = featured.indexOf(b.id);
+		if (aRank !== -1 && bRank !== -1) return aRank - bRank;
+		if (aRank !== -1) return -1;
+		if (bRank !== -1) return 1;
+		return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+	});
 
 const faqStructuredData: StructuredData = {
 	'@context': 'https://schema.org',

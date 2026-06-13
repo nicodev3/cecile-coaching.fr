@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "indexnow": "node scripts/submit-indexnow.mjs",
+    "build:deploy": "astro build && npm run indexnow",
     "preview": "astro preview",
     "astro": "astro",
     "generate-favicon": "node scripts/generate-favicon.js"

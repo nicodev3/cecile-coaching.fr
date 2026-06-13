@@ -16,6 +16,8 @@ export interface Pillar {
 	shortLabel: string;
 	/** Tagline (1 phrase) utilisée dans les hubs et cartes */
 	tagline: string;
+	/** Articles blog mis en avant en tête du pilier (ids sans extension) */
+	featuredPostIds?: readonly string[];
 }
 
 export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
@@ -27,6 +29,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		shortLabel: 'APA',
 		tagline:
 			'Comprendre l’APA en ligne, ce qu’elle apporte et pourquoi c’est différent d’un coach sportif classique.',
+		featuredPostIds: ['coach-apa'],
 	},
 	'maladie-chronique': {
 		key: 'maladie-chronique',
@@ -36,6 +39,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		shortLabel: 'Maladie chronique',
 		tagline:
 			'Repères doux pour réinstaller du mouvement à distance quand on vit avec une maladie chronique.',
+		featuredPostIds: ['fatiguee-bouger-maladie-chronique', 'sport-adapte'],
 	},
 	fatigue: {
 		key: 'fatigue',
@@ -45,6 +49,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		shortLabel: 'Fatigue',
 		tagline:
 			'Doser le mouvement chez soi quand l’énergie varie, sans culture de la performance.',
+		featuredPostIds: ['fatigue-chronique-que-faire', 'syndrome-de-fatigue-chronique'],
 	},
 };
 
