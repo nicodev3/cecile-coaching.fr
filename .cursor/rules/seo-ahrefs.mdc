@@ -30,7 +30,7 @@ alwaysApply: false
 | Rendu article | `src/layouts/BlogPost.astro` |
 | Sitemap | `@astrojs/sitemap` dans `astro.config.mjs` |
 | robots.txt | `public/robots.txt` |
-| Redirects apex/www | `public/_redirects` (Cloudflare Pages) |
+| Redirects apex/www | `public/_redirects` (Pages) + **Redirect Rule** Cloudflare pour `www` → apex en 1 hop |
 | Build + IndexNow | `npm run build:deploy` — hébergement **Cloudflare Pages** (`wrangler.toml`) |
 | Fil d'Ariane / maillage interne | `src/components/Breadcrumbs.astro`, liens entre piliers et archives blog |
 | Images (alt, poids) | `src/assets/`, `heroImage` dans le frontmatter blog |
