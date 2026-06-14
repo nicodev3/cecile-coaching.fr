@@ -5,8 +5,42 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
 
 <WhatsAppCtaLink
 	campaign="floating"
-	class="whatsapp-floating-btn fixed bottom-5 right-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-(--whatsapp) text-white shadow-lg transition hover:bg-(--whatsapp-hover) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--whatsapp)"
-	aria-label="Contacter Cécile sur WhatsApp"
+	class="whatsapp-floating-btn group fixed right-4 bottom-4 z-40 inline-flex h-11 min-w-11 items-center justify-center gap-2 rounded-full bg-(--surface-container-lowest) px-3 text-(--whatsapp-hover) ring-1 ring-(--whatsapp)/20 transition hover:bg-(--whatsapp-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--whatsapp) sm:right-5 sm:bottom-5 sm:h-12 sm:px-4"
+	aria-label="Poser une question rapide à Cécile sur WhatsApp"
+	data-whatsapp-floating
 >
-	<WhatsAppIcon class="h-7 w-7" />
+	<WhatsAppIcon class="h-5 w-5 shrink-0" />
+	<span class="hidden text-sm font-semibold sm:inline">Question rapide ?</span>
 </WhatsAppCtaLink>
+
+<script is:inline>
+	(() => {
+		const floatingButton = document.querySelector('[data-whatsapp-floating]');
+		if (!floatingButton || !('IntersectionObserver' in window)) return;
+
+		const targets = [document.getElementById('contact'), document.querySelector('footer')].filter(Boolean);
+		if (!targets.length) return;
+
+		const visibleTargets = new WeakSet();
+		const updateVisibility = () => {
+			const shouldHide = targets.some((target) => visibleTargets.has(target));
+			floatingButton.toggleAttribute('data-hidden', shouldHide);
+		};
+
+		const observer = new IntersectionObserver(
+			(entries) => {
+				for (const entry of entries) {
+					if (entry.isIntersecting) {
+						visibleTargets.add(entry.target);
+					} else {
+						visibleTargets.delete(entry.target);
+					}
+				}
+				updateVisibility();
+			},
+			{ rootMargin: '0px 0px -15% 0px', threshold: 0.08 },
+		);
+
+		targets.forEach((target) => observer.observe(target));
+	})();
+</script>
