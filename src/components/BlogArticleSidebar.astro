@@ -1,6 +1,7 @@
 ---
-import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import { estimateReadingTime } from '../utils/readingTime';
@@ -77,6 +78,13 @@ function postMeta(post: CollectionEntry<'blog'>) {
 		>
 			Réserver un échange en ligne
 		</a>
+		<WhatsAppCtaLink
+			campaign="blog-sidebar"
+			showIcon={true}
+			class="whatsapp-btn mt-3 w-full rounded-full px-6 py-3 text-sm font-semibold"
+		>
+			Écrire sur WhatsApp
+		</WhatsAppCtaLink>
 	</div>
 </aside>
 

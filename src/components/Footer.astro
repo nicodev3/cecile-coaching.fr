@@ -1,8 +1,9 @@
 ---
 import { PILLARS } from '../data/pillars';
+import { SITE_INSTAGRAM } from '../consts';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
 const today = new Date();
-const instagramUrl = 'https://www.instagram.com/cecile.c.oaching/';
 
 const programLinks = [
 	{ href: '/coach-apa-en-ligne/', label: 'Coach APA en ligne' },
@@ -87,10 +88,21 @@ const resourceLinks = [
 		>
 			<p class="text-xs text-(--on-surface-variant)">
 				© {today.getFullYear()} RE-FLOW. Tous droits réservés.
+				<span class="mx-2" aria-hidden="true">·</span>
+				Site par
+				<a
+					href="https://nicodev.fr"
+					class="text-(--primary) transition hover:opacity-70"
+				>
+					nicodev.fr
+				</a>
 			</p>
 			<div class="flex gap-6">
+				<WhatsAppCtaLink campaign="footer" class="whatsapp-link font-medium">
+					WhatsApp
+				</WhatsAppCtaLink>
 				<a
-					href={instagramUrl}
+					href={SITE_INSTAGRAM}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-(--primary) transition hover:opacity-70"

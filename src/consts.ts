@@ -8,6 +8,7 @@ export const SITE_DESCRIPTION =
 	'Reprenez le mouvement en douceur avec un coach APA en ligne, pour femmes vivant avec une maladie chronique ou une fatigue chronique.';
 export const SITE_BRAND = 'RE-FLOW';
 export const SITE_INSTAGRAM = 'https://www.instagram.com/cecile.c.oaching/';
+export const SITE_WHATSAPP = 'https://wa.me/message/6FQL2VZLVY4IC1';
 export const COACH_NAME = 'Cécile';
 export const COACH_EMAIL = 'cecile.c.coach@gmail.com';
 

@@ -1,5 +1,6 @@
 ---
 import TunnelCtaLink from './TunnelCtaLink.astro';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
@@ -26,7 +27,7 @@ const reveal =
 				Choisis une approche douce, progressive et à distance, réellement compatible avec ton quotidien de femme
 				concernée par la maladie chronique, peu importe où tu es en France.
 			</p>
-			<div class="mt-10 flex flex-col justify-center gap-6 sm:flex-row">
+			<div class="mt-10 flex flex-col justify-center gap-6 sm:flex-row sm:flex-wrap">
 				<TunnelCtaLink
 					campaign="final-cta"
 					class="inline-flex items-center justify-center rounded-full bg-(--surface) px-10 py-5 text-lg font-bold text-(--primary) transition hover:bg-(--primary-fixed)"
@@ -39,6 +40,13 @@ const reveal =
 				>
 					Réserver un échange à distance
 				</a>
+				<WhatsAppCtaLink
+					campaign="final-cta"
+					showIcon={true}
+					class="whatsapp-btn rounded-full px-10 py-5 text-lg font-bold"
+				>
+					Écrire sur WhatsApp
+				</WhatsAppCtaLink>
 			</div>
 		</div>
 	</div>

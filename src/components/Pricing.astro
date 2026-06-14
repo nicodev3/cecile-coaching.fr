@@ -1,7 +1,11 @@
 ---
 import { Check } from '@lucide/astro';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
+import { SITE_WHATSAPP } from '../consts';
 
-const columns = [
+type PricingItem = string | { label: string; href: string };
+
+const columns: { title: string; items: PricingItem[] }[] = [
 	{
 		title: 'Ressources fournies',
 		items: [
@@ -16,7 +20,7 @@ const columns = [
 		items: [
 			'1 bilan forme personnalisé au début et à la fin du programme',
 			'Suivi individuel hebdomadaire en visio',
-			'Joignable sur WhatsApp : réponse sous 24h',
+			{ label: 'Joignable sur WhatsApp : réponse sous 24h', href: SITE_WHATSAPP },
 		],
 	},
 	{
@@ -56,7 +60,16 @@ const reveal =
 						{col.items.map((item) => (
 							<li class="flex gap-3">
 								<Check class="mt-0.5 h-4 w-4 shrink-0 text-(--primary)" aria-hidden="true" stroke-width={2} />
-								<span>{item}</span>
+								{typeof item === 'string' ? (
+									<span>{item}</span>
+								) : (
+									<WhatsAppCtaLink
+										campaign="pricing"
+										class="whatsapp-link font-semibold underline-offset-4 hover:underline"
+									>
+										{item.label}
+									</WhatsAppCtaLink>
+								)}
 							</li>
 						))}
 					</ul>
@@ -76,7 +89,21 @@ const reveal =
 
 		<p class="mt-6 text-center text-(--secondary)">
 			Questions avant de te décider ?
-			<a class="font-semibold text-(--primary) underline-offset-4 hover:underline" href="#faq">Voir la FAQ</a>.
+			<a class="font-semibold text-(--primary) underline-offset-4 hover:underline" href="#faq">Voir la FAQ</a>
+			<span aria-hidden="true"> · </span>
+			<WhatsAppCtaLink campaign="pricing" class="whatsapp-link font-semibold underline-offset-4 hover:underline">
+				WhatsApp
+			</WhatsAppCtaLink>
 		</p>
+
+		<div class="mt-8 flex justify-center">
+			<WhatsAppCtaLink
+				campaign="pricing"
+				showIcon={true}
+				class="whatsapp-btn rounded-full px-8 py-3 text-base font-semibold"
+			>
+				Demander le tarif sur WhatsApp
+			</WhatsAppCtaLink>
+		</div>
 	</div>
 </section>

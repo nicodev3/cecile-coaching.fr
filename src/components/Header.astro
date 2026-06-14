@@ -1,5 +1,7 @@
 ---
 import { PILLARS } from '../data/pillars';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
+import WhatsAppIcon from './WhatsAppIcon.astro';
 
 interface NavLink {
 	href: string;
@@ -134,6 +136,13 @@ const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug)
 		</nav>
 
 		<div class="hidden items-center gap-3 lg:flex">
+			<WhatsAppCtaLink
+				campaign="header"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-(--whatsapp-surface) text-(--whatsapp) ring-1 ring-(--whatsapp)/20 transition hover:bg-(--whatsapp) hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--whatsapp)"
+				aria-label="Contacter sur WhatsApp"
+			>
+				<WhatsAppIcon class="h-5 w-5" />
+			</WhatsAppCtaLink>
 			<a
 				href={isHome ? '#contact' : '/#contact'}
 				class="inline-flex items-center justify-center rounded-full bg-(--primary) px-6 py-2.5 text-base text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
@@ -212,6 +221,13 @@ const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug)
 					</div>
 
 					<div class="mt-2 border-t border-(--outline-variant)/40 pt-2">
+						<WhatsAppCtaLink
+							campaign="header-mobile"
+							showIcon={true}
+							class="whatsapp-btn mb-2 w-full rounded-full px-3 py-2.5 text-center text-base font-medium"
+						>
+							Écrire sur WhatsApp
+						</WhatsAppCtaLink>
 						<a
 							href={isHome ? '#contact' : '/#contact'}
 							class="block rounded-full bg-(--primary) px-3 py-2 text-center text-base font-medium text-(--on-primary) hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"

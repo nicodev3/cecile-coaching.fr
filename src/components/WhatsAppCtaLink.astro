@@ -1,0 +1,28 @@
+---
+import { SITE_WHATSAPP } from '../consts';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+interface Props {
+	/** Identifiant pour l'événement Umami */
+	campaign: string;
+	class?: string;
+	/** Affiche l'icône WhatsApp avant le libellé */
+	showIcon?: boolean;
+	'aria-label'?: string;
+}
+
+const { campaign, class: className, showIcon = false, 'aria-label': ariaLabel } = Astro.props;
+const umamiEvent = `whatsapp_cta_${campaign.replace(/[^a-z0-9_-]/gi, '_')}`;
+---
+
+<a
+	href={SITE_WHATSAPP}
+	class={className}
+	target="_blank"
+	rel="noopener noreferrer"
+	data-umami-event={umamiEvent}
+	aria-label={ariaLabel}
+>
+	{showIcon && <WhatsAppIcon class="h-5 w-5 shrink-0" />}
+	<slot />
+</a>

@@ -1,6 +1,7 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppFloatingButton from '../components/WhatsAppFloatingButton.astro';
 
 type StructuredData = Record<string, unknown>;
 
@@ -40,6 +41,8 @@ const {
 
 			<Footer />
 		</div>
+
+		<WhatsAppFloatingButton />
 
 		<script is:inline type="module">
 			// Révélation douce au scroll (IntersectionObserver)

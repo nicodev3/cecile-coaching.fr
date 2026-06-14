@@ -1,5 +1,6 @@
 ---
-import { Phone } from '@lucide/astro';
+import { MessageCircle, Phone } from '@lucide/astro';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
 const formspreeEndpoint = 'https://formspree.io/f/mnjoqddy';
 
@@ -20,17 +21,29 @@ const reveal =
 			<p class="mt-2 text-(--secondary)">Posez vos questions ou démarrez votre accompagnement en ligne.</p>
 		</div>
 
-		<div class="mt-6 flex items-center justify-center gap-2 rounded-xl bg-(--surface-container-low) p-3">
-			<Phone class="h-5 w-5 shrink-0 text-(--secondary)" aria-hidden="true" stroke-width={2} />
-			<span class="text-base text-(--secondary)">Téléphone :</span>
-			<a
-				id="phone-link"
-				href="#"
-				class="text-base font-semibold text-(--primary) hover:underline"
-				aria-label="Téléphone"
-			>
-				<span id="phone-display">Chargement...</span>
-			</a>
+		<div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-6">
+			<div class="flex items-center gap-2 rounded-xl bg-(--surface-container-low) p-3">
+				<Phone class="h-5 w-5 shrink-0 text-(--secondary)" aria-hidden="true" stroke-width={2} />
+				<span class="text-base text-(--secondary)">Téléphone :</span>
+				<a
+					id="phone-link"
+					href="#"
+					class="text-base font-semibold text-(--primary) hover:underline"
+					aria-label="Téléphone"
+				>
+					<span id="phone-display">Chargement...</span>
+				</a>
+			</div>
+			<div class="flex items-center gap-2 rounded-xl bg-(--whatsapp-surface) p-3 ring-1 ring-(--whatsapp)/15">
+				<MessageCircle class="h-5 w-5 shrink-0 text-(--whatsapp)" aria-hidden="true" stroke-width={2} />
+				<span class="text-base text-(--secondary)">WhatsApp :</span>
+				<WhatsAppCtaLink
+					campaign="contact"
+					class="whatsapp-link text-base font-semibold hover:underline"
+				>
+					Écrire un message
+				</WhatsAppCtaLink>
+			</div>
 		</div>
 
 		<form

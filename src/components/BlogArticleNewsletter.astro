@@ -1,5 +1,6 @@
 ---
 import TunnelCtaLink from './TunnelCtaLink.astro';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
 interface Props {
 	tunnelCampaign: string;
@@ -18,7 +19,7 @@ const { tunnelCampaign } = Astro.props;
 			Immersion gratuite de 4 jours, ressources douces et accompagnement APA en ligne adapté à ton énergie —
 			sans pression ni performance.
 		</p>
-		<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+		<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center">
 			<TunnelCtaLink
 				campaign={tunnelCampaign}
 				class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-3 text-sm font-semibold text-(--on-primary) transition hover:bg-(--on-primary-fixed-variant) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--on-primary)"
@@ -31,6 +32,13 @@ const { tunnelCampaign } = Astro.props;
 			>
 				Échanger à distance
 			</a>
+			<WhatsAppCtaLink
+				campaign={tunnelCampaign}
+				showIcon={true}
+				class="whatsapp-btn rounded-full px-8 py-3 text-sm font-semibold"
+			>
+				WhatsApp
+			</WhatsAppCtaLink>
 		</div>
 		<p class="mt-4 text-xs text-(--on-primary-container)/70">
 			Ouverture dans un nouvel onglet pour l'immersion. Réponse sous 48 h pour les messages directs.

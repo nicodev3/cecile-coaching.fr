@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import TunnelCtaLink from './TunnelCtaLink.astro';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import heroImageWebp from '../assets/femme-yoga.webp';
 
 const reveal =
@@ -46,6 +47,13 @@ const reveal =
 				>
 					Immersion gratuite (4 jours)
 				</TunnelCtaLink>
+				<WhatsAppCtaLink
+					campaign="hero"
+					showIcon={true}
+					class="whatsapp-btn rounded-full px-8 py-4 text-base font-medium"
+				>
+					Une question ? WhatsApp
+				</WhatsAppCtaLink>
 			</div>
 			<p class="text-sm leading-relaxed text-(--secondary)">
 				Nouvelle ici ? Commence par

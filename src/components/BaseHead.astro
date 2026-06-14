@@ -5,7 +5,7 @@ import '../styles/global.css';
 import { Font } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/cecile-coach-apa.webp';
-import { COACH_NAME, INDEXNOW_KEY, SITE_INSTAGRAM, SITE_TITLE } from '../consts';
+import { COACH_NAME, INDEXNOW_KEY, SITE_INSTAGRAM, SITE_TITLE, SITE_WHATSAPP } from '../consts';
 
 type StructuredData = Record<string, unknown>;
 
@@ -46,7 +46,7 @@ const coachingStructuredData: StructuredData = {
 		name: COACH_NAME,
 		jobTitle: 'Coach certifiée APA',
 	},
-	sameAs: [SITE_INSTAGRAM],
+	sameAs: [SITE_INSTAGRAM, SITE_WHATSAPP],
 	knowsAbout: [
 		'Activités Physiques Adaptées',
 		'Maladie chronique',

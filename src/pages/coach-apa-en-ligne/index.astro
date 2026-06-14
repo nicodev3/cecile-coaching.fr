@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
+import WhatsAppCtaLink from '../../components/WhatsAppCtaLink.astro';
 
 const title = 'Coach APA en ligne : activité physique adaptée pour maladie chronique';
 const description =
@@ -246,13 +247,20 @@ const faqStructuredData = {
 					Chaque situation est différente. Écris-moi pour voir ensemble, simplement et sans pression, si cet
 					accompagnement APA en ligne peut te correspondre.
 				</p>
-				<div class="mt-6">
+				<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
 					<a
 						href="/contact/"
 						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
 						Me contacter
 					</a>
+					<WhatsAppCtaLink
+						campaign="coach-apa-en-ligne"
+						showIcon={true}
+						class="whatsapp-btn rounded-2xl px-6 py-3 text-base font-semibold"
+					>
+						Écrire sur WhatsApp
+					</WhatsAppCtaLink>
 				</div>
 			</div>
 

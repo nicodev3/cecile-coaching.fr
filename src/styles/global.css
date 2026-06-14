@@ -31,6 +31,11 @@
 	--surface-tint: #546346;
 	--error: #ba1a1a;
 
+	/* WhatsApp brand */
+	--whatsapp: #25d366;
+	--whatsapp-hover: #128c7e;
+	--whatsapp-surface: #e7f8ee;
+
 	/* Alias sémantiques (composants existants) */
 	--ink: var(--on-surface);
 	--accent: var(--primary);
@@ -101,4 +106,52 @@ h6 {
 
 .card-shadow {
 	box-shadow: 0 4px 20px -2px rgba(84, 99, 70, 0.04);
+}
+
+.whatsapp-link {
+	color: var(--whatsapp);
+	transition: color 0.2s ease;
+}
+
+.whatsapp-link:hover {
+	color: var(--whatsapp-hover);
+}
+
+.whatsapp-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	background-color: var(--whatsapp);
+	color: #fff;
+	transition: background-color 0.2s ease;
+}
+
+.whatsapp-btn:hover {
+	background-color: var(--whatsapp-hover);
+	color: #fff;
+}
+
+.whatsapp-btn-outline {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+	border: 1px solid var(--whatsapp);
+	color: var(--whatsapp);
+	background-color: transparent;
+	transition:
+		background-color 0.2s ease,
+		color 0.2s ease;
+}
+
+.whatsapp-btn-outline:hover {
+	background-color: color-mix(in srgb, var(--whatsapp) 10%, transparent);
+	color: var(--whatsapp-hover);
+}
+
+.whatsapp-floating-btn {
+	box-shadow:
+		0 10px 25px -5px color-mix(in srgb, var(--whatsapp) 45%, transparent),
+		0 4px 10px -2px rgba(0, 0, 0, 0.1);
 }

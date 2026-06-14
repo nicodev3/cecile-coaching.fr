@@ -5,6 +5,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Header from '../components/Header.astro';
 import PillarsHub from '../components/PillarsHub.astro';
 import TunnelCtaLink from '../components/TunnelCtaLink.astro';
+import WhatsAppCtaLink from '../components/WhatsAppCtaLink.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
@@ -184,13 +185,20 @@ const faqStructuredData: StructuredData = {
 				<p class="mt-3 text-base text-white/90">
 					Découvre l’immersion gratuite (4 jours) et le programme RE-FLOW en ligne sur l’espace dédié.
 				</p>
-				<div class="mt-6">
+				<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
 					<TunnelCtaLink
 						campaign={tunnelCampaign}
 						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
 						Commencer l’immersion en ligne (4 jours)
 					</TunnelCtaLink>
+					<WhatsAppCtaLink
+						campaign={tunnelCampaign}
+						showIcon={true}
+						class="whatsapp-btn rounded-2xl px-6 py-3 text-base font-semibold"
+					>
+						Poser une question sur WhatsApp
+					</WhatsAppCtaLink>
 				</div>
 			</div>
 		</div>
