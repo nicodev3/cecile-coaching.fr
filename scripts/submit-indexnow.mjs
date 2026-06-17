@@ -11,7 +11,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const DIST = join(__dirname, '..', 'dist');
 const SITE_HOST = 'cecilecoaching.fr';
 const SITE_ORIGIN = `https://${SITE_HOST}`;
-const INDEXNOW_KEY = 'c4e8f2a19b603d7e5f1a8c9b2d4e6f0';
+const INDEXNOW_KEY = 'v8bhbwjyb5vzavsuduxyte81t2pvv2q1';
 const KEY_LOCATION = `${SITE_ORIGIN}/${INDEXNOW_KEY}.txt`;
 
 function extractLocs(xml) {
