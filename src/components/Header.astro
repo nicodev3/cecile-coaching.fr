@@ -7,36 +7,37 @@ import WhatsAppIcon from './WhatsAppIcon.astro';
 interface NavLink {
 	href: string;
 	label: string;
-	type: 'page' | 'anchor';
 }
 
-const rawLinks: NavLink[] = [
-	{ href: '#programme', label: 'Programme', type: 'anchor' },
-	{ href: '#methode', label: 'Méthode', type: 'anchor' },
-	{ href: '/coach-apa-en-ligne/', label: 'Coach APA en ligne', type: 'page' },
-	{ href: '/a-propos/', label: 'À propos', type: 'page' },
-	{ href: '#tarif', label: 'Tarif', type: 'anchor' },
-	{ href: '/blog/', label: 'Blog', type: 'page' },
-	{ href: '#faq', label: 'FAQ', type: 'anchor' },
+const navLinks: NavLink[] = [
+	{ href: '/coach-apa-en-ligne/', label: 'Programme' },
+	{ href: '/a-propos/', label: 'À propos' },
+	{ href: '/blog/', label: 'Blog' },
 ];
 
 const currentPath = Astro.url.pathname;
-const isHome = currentPath === '/';
 
-const isCurrent = (l: NavLink) => {
-	if (l.type === 'anchor') return false;
-	if (l.href === '/blog/') return currentPath.startsWith('/blog');
-	return currentPath.startsWith(l.href);
+const isCurrent = (href: string) => {
+	if (href === '/blog/') return currentPath.startsWith('/blog');
+	return currentPath.startsWith(href);
 };
 
-const links = rawLinks.map((l) => {
-	const href = !isHome && l.type === 'anchor' ? `/${l.href}` : l.href;
-	return { ...l, href, isCurrent: isCurrent(l) };
-});
+const links = navLinks.map((l) => ({ ...l, isCurrent: isCurrent(l.href) }));
 
 const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug));
 const headerTunnelUrl = tunnelEntryUrl('header');
 const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
+
+const linkClass = (active: boolean) =>
+	active
+		? 'pointer-events-none font-semibold text-(--primary)'
+		: 'text-(--secondary) hover:text-(--primary)';
+
+const desktopLinkClass = (active: boolean) =>
+	`text-base transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) ${linkClass(active)}`;
+
+const mobileLinkClass = (active: boolean) =>
+	`block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary) ${active ? 'pointer-events-none font-semibold text-(--primary)' : 'text-(--on-surface) hover:bg-(--surface-container-low)'}`;
 ---
 
 <header class="sticky top-0 z-50 bg-(--surface)/90 shadow-sm backdrop-blur-md">
@@ -50,22 +51,13 @@ const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
 		</a>
 
 		<nav class="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
-			{
-				links.slice(0, 2).map((l) => (
-					<a
-						href={l.isCurrent ? undefined : l.href}
-						aria-current={l.isCurrent ? 'page' : undefined}
-						class:list={[
-							'text-base transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)',
-							l.isCurrent
-								? 'pointer-events-none font-semibold text-(--primary)'
-								: 'text-(--secondary) hover:text-(--primary)',
-						]}
-					>
-						{l.label}
-					</a>
-				))
-			}
+			<a
+				href={links[0].isCurrent ? undefined : links[0].href}
+				aria-current={links[0].isCurrent ? 'page' : undefined}
+				class={desktopLinkClass(links[0].isCurrent)}
+			>
+				{links[0].label}
+			</a>
 
 			<details class="group relative" data-understanding-nav>
 				<summary
@@ -121,16 +113,11 @@ const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
 			</details>
 
 			{
-				links.slice(2).map((l) => (
+				links.slice(1).map((l) => (
 					<a
 						href={l.isCurrent ? undefined : l.href}
 						aria-current={l.isCurrent ? 'page' : undefined}
-						class:list={[
-							'text-base transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)',
-							l.isCurrent
-								? 'pointer-events-none font-semibold text-(--primary)'
-								: 'text-(--secondary) hover:text-(--primary)',
-						]}
+						class={desktopLinkClass(l.isCurrent)}
 					>
 						{l.label}
 					</a>
@@ -169,22 +156,13 @@ const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
 				class="absolute right-0 mt-2 w-[min(92vw,22rem)] overflow-hidden rounded-2xl bg-(--surface-container-lowest) shadow-lg ring-1 ring-(--outline-variant)/40"
 			>
 				<nav class="p-2" aria-label="Menu mobile">
-					{
-						links.slice(0, 2).map((l) => (
-							<a
-								href={l.isCurrent ? undefined : l.href}
-								aria-current={l.isCurrent ? 'page' : undefined}
-								class:list={[
-									'block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)',
-									l.isCurrent
-										? 'pointer-events-none font-semibold text-(--primary)'
-										: 'text-(--on-surface) hover:bg-(--surface-container-low)',
-								]}
-							>
-								{l.label}
-							</a>
-						))
-					}
+					<a
+						href={links[0].isCurrent ? undefined : links[0].href}
+						aria-current={links[0].isCurrent ? 'page' : undefined}
+						class={mobileLinkClass(links[0].isCurrent)}
+					>
+						{links[0].label}
+					</a>
 
 					<div class="mt-2 border-t border-(--outline-variant)/40 pt-2">
 						<p class="px-3 pb-1 text-xs font-semibold tracking-[0.18em] text-(--secondary)">
@@ -209,16 +187,11 @@ const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
 
 					<div class="mt-2 border-t border-(--outline-variant)/40 pt-2">
 						{
-							links.slice(2).map((l) => (
+							links.slice(1).map((l) => (
 								<a
 									href={l.isCurrent ? undefined : l.href}
 									aria-current={l.isCurrent ? 'page' : undefined}
-									class:list={[
-										'block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)',
-										l.isCurrent
-											? 'pointer-events-none font-semibold text-(--primary)'
-											: 'text-(--on-surface) hover:bg-(--surface-container-low)',
-									]}
+									class={mobileLinkClass(l.isCurrent)}
 								>
 									{l.label}
 								</a>

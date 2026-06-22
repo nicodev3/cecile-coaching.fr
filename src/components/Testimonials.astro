@@ -4,12 +4,10 @@ import { ChevronLeft, ChevronRight, Star } from '@lucide/astro';
 const testimonials = [
 	{
 		name: 'Aude',
-		meta: '',
+		meta: 'Accompagnement du surpoids',
 		source: '',
 		quote:
 			"J'en profite pour te remercier pour cette super année avec toi. Ta bonne humeur communicative, la qualité de tes cours, ta gentillesse et ta bienveillance sont très précieux et je me sens chanceuse d'en bénéficier.",
-		initial: 'A',
-		avatarClass: 'bg-(--primary-fixed) text-(--on-primary-fixed-variant)',
 	},
 	{
 		name: 'Martine',
@@ -17,8 +15,6 @@ const testimonials = [
 		source: 'Avis Google',
 		quote:
 			"Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois.",
-		initial: 'M',
-		avatarClass: 'bg-(--primary-container) text-(--on-primary)',
 	},
 	{
 		name: 'Nadia',
@@ -26,8 +22,6 @@ const testimonials = [
 		source: '',
 		quote:
 			"Je n'ai plus cette pression de « performer ». J'avance à mon rythme, et ça change tout pour ma confiance personnelle.",
-		initial: 'N',
-		avatarClass: 'bg-(--secondary) text-(--on-secondary)',
 	},
 	{
 		name: 'Sophie',
@@ -35,8 +29,6 @@ const testimonials = [
 		source: '',
 		quote:
 			"Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
-		initial: 'S',
-		avatarClass: 'bg-(--primary-fixed) text-(--on-primary-fixed-variant)',
 	},
 ];
 
@@ -79,21 +71,10 @@ const reveal =
 								"{t.quote}"
 							</blockquote>
 						</div>
-						<figcaption class="mt-6 flex items-center gap-4">
-							<span
-								class:list={[
-									'flex size-12 shrink-0 items-center justify-center rounded-full text-base font-bold',
-									t.avatarClass,
-								]}
-								aria-hidden="true"
-							>
-								{t.initial}
-							</span>
-							<div>
-								<p class="font-bold text-(--primary)">{t.name}</p>
-								{t.meta && <p class="text-xs text-(--secondary)">{t.meta}</p>}
-								{t.source && <p class="text-xs text-(--secondary)">{t.source}</p>}
-							</div>
+						<figcaption class="mt-6">
+							<p class="font-bold text-(--primary)">{t.name}</p>
+							{t.meta && <p class="text-xs text-(--secondary)">{t.meta}</p>}
+							{t.source && <p class="text-xs text-(--secondary)">{t.source}</p>}
 						</figcaption>
 					</figure>
 				))}
