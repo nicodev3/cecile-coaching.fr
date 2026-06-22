@@ -1,34 +1,31 @@
 {
-  "name": "cecile-coaching-fr",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "indexnow": "node scripts/submit-indexnow.mjs",
-    "build:deploy": "astro build && npm run indexnow",
-    "preview": "astro preview",
-    "astro": "astro",
-    "generate-favicon": "node scripts/generate-favicon.js"
-  },
-  "dependencies": {
-    "@astrojs/check": "^0.9.9",
-    "@astrojs/mdx": "^6.0.3",
-    "@astrojs/rss": "^4.0.18",
-    "@astrojs/sitemap": "^3.7.3",
-    "@fontsource/lato": "^5.2.7",
-    "@fontsource/montserrat": "^5.2.8",
-    "@lucide/astro": "^1.7.0",
-    "@tailwindcss/vite": "^4.1.18",
-    "astro": "^6.4.6",
-    "sharp": "^0.34.3",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
-  },
-  "devDependencies": {
-    "to-ico": "^1.1.5"
-  },
-  "overrides": {
-    "vite": "^7"
-  }
+    "name": "cecile-coaching-fr",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "indexnow": "node scripts/submit-indexnow.mjs",
+        "build:deploy": "astro build && npm run indexnow",
+        "preview": "astro preview",
+        "astro": "astro",
+        "generate-favicon": "node scripts/generate-favicon.js"
+    },
+    "dependencies": {
+        "@astrojs/check": "^0.9.9",
+        "@astrojs/mdx": "^7.0.0",
+        "@astrojs/rss": "^4.0.18",
+        "@astrojs/sitemap": "^3.7.3",
+        "@fontsource/lato": "^5.2.7",
+        "@fontsource/montserrat": "^5.2.8",
+        "@lucide/astro": "^1.7.0",
+        "@tailwindcss/vite": "^4.1.18",
+        "astro": "^7.0.0",
+        "sharp": "^0.34.3",
+        "tailwindcss": "^4.1.18",
+        "typescript": "^5.9.3"
+    },
+    "devDependencies": {
+        "to-ico": "^1.1.5"
+    }
 }
