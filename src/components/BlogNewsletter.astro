@@ -1,4 +1,5 @@
 ---
+import TunnelCtaLink from './TunnelCtaLink.astro';
 ---
 
 <section class="mt-24 px-4 sm:px-10">
@@ -13,12 +14,12 @@
 			</p>
 		</div>
 		<div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
-			<a
-				href="/#programme"
+			<TunnelCtaLink
+				campaign="blog-newsletter"
 				class="inline-flex items-center justify-center rounded-full bg-(--primary-container) px-8 py-3 text-sm font-semibold text-(--on-primary) transition hover:bg-(--primary)"
 			>
 				Découvrir le programme en ligne
-			</a>
+			</TunnelCtaLink>
 			<a
 				href="/contact/"
 				class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) px-8 py-3 text-sm font-semibold text-(--primary) transition hover:bg-(--primary) hover:text-(--on-primary)"

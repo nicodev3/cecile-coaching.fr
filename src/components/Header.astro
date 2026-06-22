@@ -1,5 +1,6 @@
 ---
 import { PILLARS } from '../data/pillars';
+import { tunnelEntryUrl } from '../utils/tunnelUrl';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import WhatsAppIcon from './WhatsAppIcon.astro';
 
@@ -34,6 +35,8 @@ const links = rawLinks.map((l) => {
 });
 
 const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug));
+const headerTunnelUrl = tunnelEntryUrl('header');
+const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
 ---
 
 <header class="sticky top-0 z-50 bg-(--surface)/90 shadow-sm backdrop-blur-md">
@@ -144,7 +147,10 @@ const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug)
 				<WhatsAppIcon class="h-5 w-5" />
 			</WhatsAppCtaLink>
 			<a
-				href={isHome ? '#contact' : '/#contact'}
+				href={headerTunnelUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				data-umami-event="tunnel_cta_header"
 				class="inline-flex items-center justify-center rounded-full bg-(--primary) px-6 py-2.5 text-base text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
 			>
 				Commencer
@@ -229,7 +235,10 @@ const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug)
 							Écrire sur WhatsApp
 						</WhatsAppCtaLink>
 						<a
-							href={isHome ? '#contact' : '/#contact'}
+							href={headerMobileTunnelUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							data-umami-event="tunnel_cta_header-mobile"
 							class="block rounded-full bg-(--primary) px-3 py-2 text-center text-base font-medium text-(--on-primary) hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
 						>
 							Commencer

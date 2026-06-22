@@ -4,11 +4,13 @@ import { tunnelEntryUrl } from '../utils/tunnelUrl';
 interface Props {
 	/** Identifiant UTM `utm_campaign` + suffixe événement Umami */
 	campaign: string;
+	/** Chemin côté tunnel. Par défaut, l’entrée de conversion du tunnel. */
+	path?: string;
 	class?: string;
 }
 
-const { campaign, class: className } = Astro.props;
-const href = tunnelEntryUrl(campaign);
+const { campaign, path, class: className } = Astro.props;
+const href = tunnelEntryUrl(campaign, path);
 const umamiEvent = `tunnel_cta_${campaign.replace(/[^a-z0-9_-]/gi, '_')}`;
 ---
 
