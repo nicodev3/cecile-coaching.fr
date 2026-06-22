@@ -4,38 +4,39 @@ import { ChevronLeft, ChevronRight, Star } from "@lucide/astro";
 const testimonials = [
   {
     name: "Rachel",
-    meta: "",
     source: "",
     quote:
       "Merci infiniment pour toutes ces séances qui m'ont apporté beaucoup, que ce soit pour un mieux-être physique et moral, une reprise de confiance en moi et bien d'autres choses encore.",
   },
   {
     name: "Aude",
-    meta: "Accompagnement du surpoids",
     source: "",
     quote:
       "J'en profite pour te remercier pour cette super année avec toi. Ta bonne humeur communicative, la qualité de tes cours, ta gentillesse et ta bienveillance sont très précieux et je me sens chanceuse d'en bénéficier.",
   },
   {
     name: "Martine",
-    meta: "Accompagnement maladie chronique",
     source: "Avis Google",
     quote:
       "Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois.",
   },
   {
     name: "Nadia",
-    meta: "Fatigue chronique",
     source: "",
     quote:
       "Je n'ai plus cette pression de « performer ». J'avance à mon rythme, et ça change tout pour ma confiance personnelle.",
   },
   {
     name: "Sophie",
-    meta: "Reconnexion corps-esprit",
     source: "",
     quote:
       "Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
+  },
+  {
+    name: "",
+    source: "",
+    quote:
+      "Je souhaite également profiter de ce message pour souligner la grande qualité du travail fourni par Cécile : son application, son attention pour chacun d'entre nous et, plus globalement, sa bienveillance et son professionnalisme que je trouve absolument remarquables. Le groupe compte environ une dizaine de personnes, avec des situations et des niveaux différents. Malgré cela, Cécile parvient toujours à adapter son accompagnement, avec le sourire, un mot juste et une vigilance constante. Même si, je l'avoue, je ne suis pas toujours ravi d'y aller avant le cours, je constate à quel point cette activité m'est bénéfique. C'est suffisamment rare, au regard de certaines expériences passées, pour que je tienne à le souligner.",
   },
 ];
 
@@ -89,13 +90,16 @@ const reveal =
                   "{t.quote}"
                 </blockquote>
               </div>
-              <figcaption class="mt-6">
-                <p class="font-bold text-(--primary)">{t.name}</p>
-                {t.meta && <p class="text-xs text-(--secondary)">{t.meta}</p>}
-                {t.source && (
-                  <p class="text-xs text-(--secondary)">{t.source}</p>
-                )}
-              </figcaption>
+              {(t.name || t.source) && (
+                <figcaption class="mt-6">
+                  {t.name && (
+                    <p class="font-bold text-(--primary)">{t.name}</p>
+                  )}
+                  {t.source && (
+                    <p class="text-xs text-(--secondary)">{t.source}</p>
+                  )}
+                </figcaption>
+              )}
             </figure>
           ))
         }
