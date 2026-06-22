@@ -1,141 +1,174 @@
 ---
-import { ChevronLeft, ChevronRight, Star } from '@lucide/astro';
+import { ChevronLeft, ChevronRight, Star } from "@lucide/astro";
 
 const testimonials = [
-	{
-		name: 'Aude',
-		meta: 'Accompagnement du surpoids',
-		source: '',
-		quote:
-			"J'en profite pour te remercier pour cette super année avec toi. Ta bonne humeur communicative, la qualité de tes cours, ta gentillesse et ta bienveillance sont très précieux et je me sens chanceuse d'en bénéficier.",
-	},
-	{
-		name: 'Martine',
-		meta: 'Accompagnement maladie chronique',
-		source: 'Avis Google',
-		quote:
-			"Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois.",
-	},
-	{
-		name: 'Nadia',
-		meta: 'Fatigue chronique',
-		source: '',
-		quote:
-			"Je n'ai plus cette pression de « performer ». J'avance à mon rythme, et ça change tout pour ma confiance personnelle.",
-	},
-	{
-		name: 'Sophie',
-		meta: 'Reconnexion corps-esprit',
-		source: '',
-		quote:
-			"Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
-	},
+  {
+    name: "Rachel",
+    meta: "",
+    source: "",
+    quote:
+      "Merci infiniment pour toutes ces séances qui m'ont apporté beaucoup, que ce soit pour un mieux-être physique et moral, une reprise de confiance en moi et bien d'autres choses encore.",
+  },
+  {
+    name: "Aude",
+    meta: "Accompagnement du surpoids",
+    source: "",
+    quote:
+      "J'en profite pour te remercier pour cette super année avec toi. Ta bonne humeur communicative, la qualité de tes cours, ta gentillesse et ta bienveillance sont très précieux et je me sens chanceuse d'en bénéficier.",
+  },
+  {
+    name: "Martine",
+    meta: "Accompagnement maladie chronique",
+    source: "Avis Google",
+    quote:
+      "Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois.",
+  },
+  {
+    name: "Nadia",
+    meta: "Fatigue chronique",
+    source: "",
+    quote:
+      "Je n'ai plus cette pression de « performer ». J'avance à mon rythme, et ça change tout pour ma confiance personnelle.",
+  },
+  {
+    name: "Sophie",
+    meta: "Reconnexion corps-esprit",
+    source: "",
+    quote:
+      "Le suivi est précieux : je me sens comprise, et je sais quoi faire même les jours où je suis moins en forme.",
+  },
 ];
 
 const reveal =
-	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
+  "opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0";
 ---
 
 <section
-	id="temoignages"
-	class={`bg-(--surface-container) py-20 sm:px-10 ${reveal}`}
-	data-reveal
-	data-revealed="false"
-	aria-labelledby="testimonials-title"
+  id="temoignages"
+  class={`bg-(--surface-container) py-20 sm:px-10 ${reveal}`}
+  data-reveal
+  data-revealed="false"
+  aria-labelledby="testimonials-title"
 >
-	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
-		<h2 id="testimonials-title" class="mb-16 text-center text-3xl text-(--primary) sm:text-5xl">
-			Elles ont reconnecté avec leur corps
-		</h2>
+  <div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+    <h2
+      id="testimonials-title"
+      class="mb-16 text-center text-3xl text-(--primary) sm:text-5xl"
+    >
+      Elles ont reconnecté avec leur corps
+    </h2>
 
-		<div class="relative" data-testimonials-carousel>
-			<div
-				class="flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-				data-carousel-viewport
-				role="region"
-				aria-label="Témoignages de clientes"
-				tabindex="0"
-			>
-				{testimonials.map((t) => (
-					<figure
-						class="flex w-full shrink-0 snap-center flex-col justify-between rounded-2xl bg-(--surface) p-8 soft-glow md:w-[calc((100%-2rem)/2)] md:snap-start lg:w-[calc((100%-4rem)/3)]"
-						data-carousel-slide
-					>
-						<div>
-							<div class="mb-4 flex gap-0.5" role="img" aria-label="5 étoiles sur 5">
-								{Array.from({ length: 5 }).map(() => (
-									<Star class="size-4 fill-[#fbbc04] text-[#fbbc04]" aria-hidden="true" />
-								))}
-							</div>
-							<blockquote class="text-(--secondary) italic leading-relaxed">
-								"{t.quote}"
-							</blockquote>
-						</div>
-						<figcaption class="mt-6">
-							<p class="font-bold text-(--primary)">{t.name}</p>
-							{t.meta && <p class="text-xs text-(--secondary)">{t.meta}</p>}
-							{t.source && <p class="text-xs text-(--secondary)">{t.source}</p>}
-						</figcaption>
-					</figure>
-				))}
-			</div>
+    <div class="relative" data-testimonials-carousel>
+      <div
+        class="flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        data-carousel-viewport
+        role="region"
+        aria-label="Témoignages de clientes"
+        tabindex="0"
+      >
+        {
+          testimonials.map((t) => (
+            <figure
+              class="flex w-full shrink-0 snap-center flex-col justify-between rounded-2xl bg-(--surface) p-8 soft-glow md:w-[calc((100%-2rem)/2)] md:snap-start lg:w-[calc((100%-4rem)/3)]"
+              data-carousel-slide
+            >
+              <div>
+                <div
+                  class="mb-4 flex gap-0.5"
+                  role="img"
+                  aria-label="5 étoiles sur 5"
+                >
+                  {Array.from({ length: 5 }).map(() => (
+                    <Star
+                      class="size-4 fill-[#fbbc04] text-[#fbbc04]"
+                      aria-hidden="true"
+                    />
+                  ))}
+                </div>
+                <blockquote class="text-(--secondary) italic leading-relaxed">
+                  "{t.quote}"
+                </blockquote>
+              </div>
+              <figcaption class="mt-6">
+                <p class="font-bold text-(--primary)">{t.name}</p>
+                {t.meta && <p class="text-xs text-(--secondary)">{t.meta}</p>}
+                {t.source && (
+                  <p class="text-xs text-(--secondary)">{t.source}</p>
+                )}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
 
-			<button
-				type="button"
-				class="absolute top-1/2 -left-3 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface) text-(--primary) shadow-sm transition hover:bg-(--surface-container-high) disabled:pointer-events-none disabled:opacity-30 sm:-left-5"
-				data-carousel-prev
-				aria-label="Témoignage précédent"
-			>
-				<ChevronLeft class="size-5" aria-hidden="true" />
-			</button>
-			<button
-				type="button"
-				class="absolute top-1/2 -right-3 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface) text-(--primary) shadow-sm transition hover:bg-(--surface-container-high) disabled:pointer-events-none disabled:opacity-30 sm:-right-5"
-				data-carousel-next
-				aria-label="Témoignage suivant"
-			>
-				<ChevronRight class="size-5" aria-hidden="true" />
-			</button>
-		</div>
-	</div>
+      <button
+        type="button"
+        class="absolute top-1/2 -left-3 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface) text-(--primary) shadow-sm transition hover:bg-(--surface-container-high) disabled:pointer-events-none disabled:opacity-30 sm:-left-5"
+        data-carousel-prev
+        aria-label="Témoignage précédent"
+      >
+        <ChevronLeft class="size-5" aria-hidden="true" />
+      </button>
+      <button
+        type="button"
+        class="absolute top-1/2 -right-3 z-10 flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface) text-(--primary) shadow-sm transition hover:bg-(--surface-container-high) disabled:pointer-events-none disabled:opacity-30 sm:-right-5"
+        data-carousel-next
+        aria-label="Témoignage suivant"
+      >
+        <ChevronRight class="size-5" aria-hidden="true" />
+      </button>
+    </div>
+  </div>
 </section>
 
 <script>
-	const carousel = document.querySelector('[data-testimonials-carousel]');
-	if (!carousel) {
-		// noop
-	} else {
-		const viewport = carousel.querySelector<HTMLElement>('[data-carousel-viewport]');
-		const prevBtn = carousel.querySelector<HTMLButtonElement>('[data-carousel-prev]');
-		const nextBtn = carousel.querySelector<HTMLButtonElement>('[data-carousel-next]');
+  const carousel = document.querySelector("[data-testimonials-carousel]");
+  if (!carousel) {
+    // noop
+  } else {
+    const viewport = carousel.querySelector<HTMLElement>(
+      "[data-carousel-viewport]",
+    );
+    const prevBtn = carousel.querySelector<HTMLButtonElement>(
+      "[data-carousel-prev]",
+    );
+    const nextBtn = carousel.querySelector<HTMLButtonElement>(
+      "[data-carousel-next]",
+    );
 
-		const getSlideStep = () => {
-			const slide = viewport?.querySelector<HTMLElement>('[data-carousel-slide]');
-			if (!slide || !viewport) return 0;
-			const gap = Number.parseFloat(getComputedStyle(viewport).columnGap || getComputedStyle(viewport).gap) || 0;
-			return slide.offsetWidth + gap;
-		};
+    const getSlideStep = () => {
+      const slide = viewport?.querySelector<HTMLElement>(
+        "[data-carousel-slide]",
+      );
+      if (!slide || !viewport) return 0;
+      const gap =
+        Number.parseFloat(
+          getComputedStyle(viewport).columnGap ||
+            getComputedStyle(viewport).gap,
+        ) || 0;
+      return slide.offsetWidth + gap;
+    };
 
-		const updateButtons = () => {
-			if (!viewport || !prevBtn || !nextBtn) return;
-			const maxScroll = viewport.scrollWidth - viewport.clientWidth;
-			prevBtn.disabled = viewport.scrollLeft <= 1;
-			nextBtn.disabled = viewport.scrollLeft >= maxScroll - 1;
-			const hideNav = maxScroll <= 1;
-			prevBtn.classList.toggle('hidden', hideNav);
-			nextBtn.classList.toggle('hidden', hideNav);
-		};
+    const updateButtons = () => {
+      if (!viewport || !prevBtn || !nextBtn) return;
+      const maxScroll = viewport.scrollWidth - viewport.clientWidth;
+      prevBtn.disabled = viewport.scrollLeft <= 1;
+      nextBtn.disabled = viewport.scrollLeft >= maxScroll - 1;
+      const hideNav = maxScroll <= 1;
+      prevBtn.classList.toggle("hidden", hideNav);
+      nextBtn.classList.toggle("hidden", hideNav);
+    };
 
-		prevBtn?.addEventListener('click', () => {
-			viewport?.scrollBy({ left: -getSlideStep(), behavior: 'smooth' });
-		});
+    prevBtn?.addEventListener("click", () => {
+      viewport?.scrollBy({ left: -getSlideStep(), behavior: "smooth" });
+    });
 
-		nextBtn?.addEventListener('click', () => {
-			viewport?.scrollBy({ left: getSlideStep(), behavior: 'smooth' });
-		});
+    nextBtn?.addEventListener("click", () => {
+      viewport?.scrollBy({ left: getSlideStep(), behavior: "smooth" });
+    });
 
-		viewport?.addEventListener('scroll', updateButtons, { passive: true });
-		window.addEventListener('resize', updateButtons);
-		updateButtons();
-	}
+    viewport?.addEventListener("scroll", updateButtons, { passive: true });
+    window.addEventListener("resize", updateButtons);
+    updateButtons();
+  }
 </script>
