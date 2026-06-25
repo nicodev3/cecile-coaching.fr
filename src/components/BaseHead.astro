@@ -21,6 +21,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const { title, description, image = FallbackImage, structuredData } = Astro.props;
 const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
 const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
+const ahrefsKey = import.meta.env.PUBLIC_AHREFS_ANALYTICS_KEY;
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
 
@@ -122,6 +123,12 @@ const structuredDataScripts = [coachingStructuredData, webPageStructuredData, ..
 		umamiUrl && (
 			<script defer src={`${umamiUrl}/script.js`} data-website-id={umamiId}></script>
 		)
+}
+
+{
+	ahrefsKey && (
+		<script src="https://analytics.ahrefs.com/analytics.js" data-key={ahrefsKey} async></script>
+	)
 }
 
 {
