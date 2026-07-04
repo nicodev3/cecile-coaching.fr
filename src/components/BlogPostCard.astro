@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
+import FormattedDate from './FormattedDate.astro';
 import { PILLARS_BY_KEY, type PillarKey } from '../data/pillars';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
 
@@ -34,9 +35,14 @@ const pillarLabel = primaryPillar ? PILLARS_BY_KEY[primaryPillar].shortLabel : '
 			}
 		</div>
 		<div class="flex flex-1 flex-col p-8">
-			<span class="inline-flex w-fit rounded-full bg-(--primary-fixed) px-3 py-1 text-xs font-medium tracking-wider text-(--primary-container) uppercase">
-				{pillarLabel}
-			</span>
+			<div class="flex items-center gap-3">
+				<span class="inline-flex w-fit rounded-full bg-(--primary-fixed) px-3 py-1 text-xs font-medium tracking-wider text-(--primary-container) uppercase">
+					{pillarLabel}
+				</span>
+				<span class="text-xs text-(--on-surface-variant)">
+					<FormattedDate date={post.data.pubDate} />
+				</span>
+			</div>
 			<h3 class="mt-4 mb-3 text-2xl text-(--on-surface) transition-colors group-hover:text-(--primary)">
 				{cardTitle}
 			</h3>
