@@ -1,8 +1,7 @@
 # Cloudflare Pages — https://developers.cloudflare.com/pages/configuration/redirects/
-# Syntaxe 301 (sans « ! », spécifique Netlify).
+# Redirections 301 (sans le suffixe « ! »).
 # Note : http://www → https://www est géré par « Always Use HTTPS » avant ce fichier.
-# Pour un seul hop www → apex, ajouter une Redirect Rule Cloudflare (voir README ou doc équipe).
+# Pour un seul hop www → apex, ajouter une Redirect Rule Cloudflare (dashboard).
 
 http://cecilecoaching.fr/*      https://cecilecoaching.fr/:splat  301
 http://www.cecilecoaching.fr/*  https://cecilecoaching.fr/:splat  301
-https://www.cecilecoaching.fr/* https://cecilecoaching.fr/:splat  301

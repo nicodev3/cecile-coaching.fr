@@ -5,6 +5,7 @@ import '../styles/global.css';
 import { Font } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/cecile-coach-apa.webp';
+import { AHREFS_ANALYTICS_KEY, UMAMI_URL, UMAMI_WEBSITE_ID } from '../config/analytics';
 import { COACH_NAME, INDEXNOW_KEY, SITE_INSTAGRAM, SITE_TITLE, SITE_WHATSAPP } from '../consts';
 
 type StructuredData = Record<string, unknown>;
@@ -19,8 +20,6 @@ interface Props {
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
 const { title, description, image = FallbackImage, structuredData } = Astro.props;
-const umamiId = import.meta.env.PUBLIC_UMAMI_WEBSITE_ID;
-const umamiUrl = import.meta.env.PUBLIC_UMAMI_URL;
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
 
@@ -118,10 +117,20 @@ const structuredDataScripts = [coachingStructuredData, webPageStructuredData, ..
 <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
 
 {
-	umamiId &&
-		umamiUrl && (
-			<script defer src={`${umamiUrl}/script.js`} data-website-id={umamiId}></script>
+	UMAMI_WEBSITE_ID &&
+		UMAMI_URL && (
+			<script defer src={`${UMAMI_URL}/script.js`} data-website-id={UMAMI_WEBSITE_ID}></script>
 		)
+}
+
+{
+	AHREFS_ANALYTICS_KEY && (
+		<script
+			src="https://analytics.ahrefs.com/analytics.js"
+			data-key={AHREFS_ANALYTICS_KEY}
+			async
+		></script>
+	)
 }
 
 {
