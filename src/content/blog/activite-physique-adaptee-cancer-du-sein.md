@@ -122,7 +122,7 @@ Pour mieux comprendre cette articulation, voir [kiné, coach sportif ou coach AP
 
 Oui, à condition que le cadre soit clair et progressif. Une séance en visio permet à un·e professionnel·le APA d'observer les mouvements, d'ajuster l'amplitude en temps réel et de proposer des alternatives selon la fatigue ou la sensibilité du bras — sans avoir à se déplacer, ce qui compte particulièrement pendant ou juste après un traitement.
 
-Chez **RE-FLOW**, Cécile accompagne à distance les femmes qui reprennent le mouvement après un cancer ou toute autre maladie chronique, avec des séances en visio et une progression ajustée semaine après semaine. Pour comprendre le déroulement complet, voir la page [coach APA en ligne](/coach-apa-en-ligne/).
+Chez **RE-FLOW par Cécile**, l'accompagnement à distance aide les femmes qui reprennent le mouvement après un cancer ou toute autre maladie chronique, avec des séances en visio et une progression ajustée semaine après semaine. Pour comprendre le déroulement complet, voir la page [coaching sportif adapté en ligne](/coach-apa-en-ligne/) ou [le parcours de Cécile](/a-propos/).
 
 ---
 
@@ -158,4 +158,4 @@ Dans le vécu de beaucoup de femmes accompagnées, c'est même souvent l'inverse
 - [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Mouvement et maladie chronique](/mouvement-maladie-chronique/)
 
-Pour un [accompagnement APA en ligne](/coach-apa-en-ligne/) après un cancer du sein, une discussion préalable avec Cécile permet de voir où tu en es et si le cadre RE-FLOW est adapté à ta situation actuelle : [Prendre contact](/contact/).
+Pour un [coaching sportif adapté en ligne](/coach-apa-en-ligne/) après un cancer du sein, une discussion préalable avec Cécile permet de voir où tu en es et si le cadre RE-FLOW est adapté à ta situation actuelle : [prendre contact](/contact/).

@@ -277,7 +277,7 @@ const blogPostingStructuredData = {
 									width={640}
 									height={640}
 									src={heroImage}
-									alt={`${displayTitle} — article RE-FLOW coach APA`}
+									alt={`${displayTitle} — article RE-FLOW par Cécile`}
 									class="h-full w-full object-cover"
 								/>
 							</div>
@@ -291,14 +291,12 @@ const blogPostingStructuredData = {
 							pillar && (
 								<aside class="not-prose mb-8 rounded-2xl border border-(--outline-variant)/60 bg-(--surface-container-low) p-5">
 									<p class="text-sm leading-relaxed text-(--on-surface-variant)">
-										Cet article complète le guide
-										<a
+										Cet article complète le guide <a
 											href={pillar.slug}
 											class="font-semibold text-(--primary) underline underline-offset-2 hover:text-(--primary-container)"
 										>
 											{pillar.label}
-										</a>
-										. {pillar.tagline}
+										</a>. {pillar.tagline}
 									</p>
 								</aside>
 							)
@@ -311,16 +309,15 @@ const blogPostingStructuredData = {
 						<aside class="mt-10 flex gap-4 rounded-2xl bg-white/80 p-5 ring-1 ring-black/8" aria-label="À propos de l'auteure">
 							<Image
 								src={coachImage}
-								alt={`${COACH_NAME}, coach certifiée APA en ligne`}
+								alt={`${COACH_NAME}, coach sportive BPJEPS en ligne`}
 								class="h-16 w-16 shrink-0 rounded-full object-cover"
 								width={64}
 								height={64}
 							/>
 							<div>
-								<p class="text-sm font-semibold text-slate-900">{COACH_NAME} — Coach certifiée APA en ligne</p>
+								<p class="text-sm font-semibold text-slate-900">{COACH_NAME} — Coach sportive BPJEPS en ligne</p>
 								<p class="mt-1 text-sm leading-relaxed text-slate-600">
-									Spécialisée dans l'accompagnement des femmes vivant avec une maladie chronique, Cécile propose un mouvement adapté, progressif et sans culture de la performance, partout en France.{' '}
-									<a href="/a-propos/" class="text-(--plum) underline underline-offset-2 hover:text-(--plum-ink)">En savoir plus</a>
+									Spécialisée dans l'accompagnement des femmes vivant avec une maladie chronique, Cécile propose un coaching sportif adapté, progressif et sans culture de la performance, partout en France. <a href="/a-propos/" class="text-(--plum) underline underline-offset-2 hover:text-(--plum-ink)">En savoir plus</a>
 								</p>
 							</div>
 						</aside>

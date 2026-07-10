@@ -4,14 +4,14 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
 import WhatsAppCtaLink from '../../components/WhatsAppCtaLink.astro';
 
-const title = 'Coach APA en ligne : activité physique adaptée pour maladie chronique';
+const title = 'Coaching sportif adapté en ligne pour maladie chronique | RE-FLOW';
 const description =
-	"Un accompagnement APA en ligne pour reprendre une activité physique adaptée malgré la fatigue, les douleurs ou une maladie chronique, à votre rythme.";
+	"Un coaching sportif adapté en ligne avec Cécile, coach sportive BPJEPS certifiée APA, pour reprendre une activité physique malgré la fatigue, les douleurs ou une maladie chronique.";
 
 const faqs = [
 	{
 		q: 'Qu’est-ce qu’un coach APA ?',
-		a: "Un coach APA est un·e professionnel·le formé·e aux Activités Physiques Adaptées (formation universitaire STAPS mention APA-S). Son rôle est de proposer un mouvement ajusté à l'état de santé, aux symptômes et à l'énergie de chaque personne — sans logique de performance. Il ne pose pas de diagnostic et ne remplace pas un professionnel de santé.",
+		a: "Dans l'usage courant, on parle parfois de coach APA pour désigner un accompagnement du mouvement adapté à la santé. En France, les enseignant·es en APA ont une formation universitaire STAPS APA-S. RE-FLOW est proposé par Cécile, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA, avec un cadre progressif et adapté, non médical.",
 	},
 	{
 		q: 'L’activité physique adaptée est-elle possible en ligne ?',
@@ -19,7 +19,7 @@ const faqs = [
 	},
 	{
 		q: 'Quelle est la différence entre un coach APA et un coach sportif ?',
-		a: "Un coach sportif accompagne surtout la performance et la remise en forme de personnes globalement en bonne santé. Un coach APA part de la santé : maladie chronique, fatigue, douleurs chroniques, traitements, appréhension du mouvement. Le contenu des séances est construit autour de ces réalités, pas autour d'un programme standard.",
+		a: "Un coach sportif classique accompagne souvent la performance ou la remise en forme de personnes globalement en bonne santé. Un accompagnement inspiré de l'APA part de la santé : maladie chronique, fatigue, douleurs chroniques, traitements, appréhension du mouvement. Le contenu des séances est construit autour de ces réalités, pas autour d'un programme standard.",
 	},
 	{
 		q: 'Peut-on faire de l’APA avec une fatigue chronique ?',
@@ -27,7 +27,7 @@ const faqs = [
 	},
 	{
 		q: 'L’accompagnement remplace-t-il un suivi médical ?',
-		a: "Non, jamais. L'accompagnement APA ne remplace ni un avis médical, ni un traitement, ni un suivi de santé. Il vient en complément, pour t'aider à reprendre une activité physique compatible avec ta situation. En cas de symptôme nouveau ou de doute, le médecin reste la référence.",
+		a: "Non, jamais. Le coaching sportif adapté ne remplace ni un avis médical, ni un traitement, ni un suivi de santé. Il vient en complément, pour t'aider à reprendre une activité physique compatible avec ta situation. En cas de symptôme nouveau ou de doute, le médecin reste la référence.",
 	},
 	{
 		q: 'Comment commencer si je suis très fatiguée ?',
@@ -43,8 +43,8 @@ const serviceStructuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'Service',
 	'@id': `${pageUrl}#service`,
-	name: 'Coach APA en ligne',
-	serviceType: 'Activité physique adaptée en ligne',
+	name: 'Coaching sportif adapté en ligne',
+	serviceType: 'Coaching sportif adapté en ligne',
 	description,
 	url: pageUrl,
 	provider: { '@id': `${siteUrlNormalized}/#coaching-service` },
@@ -84,20 +84,19 @@ const faqStructuredData = {
 			<Breadcrumbs
 				items={[
 					{ name: 'Accueil', href: '/' },
-					{ name: 'Coach APA en ligne', href: '/coach-apa-en-ligne/' },
+					{ name: 'Coaching sportif adapté', href: '/coach-apa-en-ligne/' },
 				]}
 			/>
 
 			<section class="text-center">
 				<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">ACCOMPAGNEMENT EN LIGNE</p>
 				<h1 class="mt-3 text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
-					Coach APA en ligne pour femmes vivant avec une maladie chronique
+					Coaching sportif adapté en ligne pour femmes vivant avec une maladie chronique
 				</h1>
 				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-800">
 					Reprendre une activité physique quand on vit avec une maladie chronique, une fatigue chronique ou
-					des douleurs, c’est possible — à condition que le cadre soit pensé pour ton corps réel. RE-FLOW
-					propose un accompagnement en ligne d’<strong>activité physique adaptée</strong>, doux, progressif
-					et sans culpabilisation, partout en France.
+					des douleurs, c’est possible — à condition que le cadre soit pensé pour ton corps réel. <strong>RE-FLOW par Cécile</strong> propose un accompagnement en ligne doux, progressif
+					et sans culpabilisation, partout en France. Cécile est coach sportive diplômée d’État <strong>BPJEPS Activités de la forme</strong> et <strong>certifiée APA</strong>.
 				</p>
 				<div class="mt-7">
 					<a
@@ -113,8 +112,7 @@ const faqStructuredData = {
 				<h2>Pour qui est cet accompagnement ?</h2>
 				<p>
 					Cet accompagnement s’adresse aux femmes pour qui le sport classique est devenu trop intense, trop
-					rigide ou trop culpabilisant : <strong>maladie chronique</strong>, fatigue persistante,
-					<strong>douleurs chroniques</strong>, traitements en cours, longue période d’inactivité ou perte de
+					rigide ou trop culpabilisant : <strong>maladie chronique</strong>, fatigue persistante,&nbsp;<strong>douleurs chroniques</strong>, traitements en cours, longue période d’inactivité ou perte de
 					confiance dans le corps.
 				</p>
 				<ul>
@@ -125,18 +123,16 @@ const faqStructuredData = {
 					<li>Tu préfères un accompagnement en ligne, depuis chez toi, sans déplacement</li>
 				</ul>
 
-				<h2>Qu’est-ce qu’un coach APA ?</h2>
+				<h2>Coach APA, BPJEPS, activité physique adaptée : comment s’y retrouver ?</h2>
 				<p>
-					Un <strong>coach APA</strong> est formé·e aux Activités Physiques Adaptées, une discipline
-					universitaire (STAPS mention APA-S) dédiée à l’accompagnement des personnes dont la santé demande
-					des ajustements. Contrairement à un coach sportif généraliste, le coach APA part de la pathologie,
-					des symptômes et de l’énergie disponible pour construire un mouvement réaliste et sécurisant.
+					Le terme <strong>coach APA</strong> est souvent utilisé en ligne pour chercher un accompagnement
+					du mouvement adapté à la santé. En France, les <strong>enseignant·es en APA</strong> sont titulaires
+					d’une formation universitaire STAPS mention APA-S. Chez RE-FLOW, l’accompagnement est proposé par <strong>Cécile, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA</strong>, dans un cadre
+					de coaching sportif adapté, progressif et non médical.
 				</p>
 				<p>
-					Pour comprendre cette approche en détail, consulte le
-					<a href="/blog/coach-apa/">guide complet sur le coach APA</a>
-					ou le guide
-					<a href="/activites-physiques-adaptees/">activité physique adaptée : définition, bienfaits et exemples</a>.
+					Pour comprendre l’approche APA en détail, consulte le <a href="/blog/coach-apa/">guide complet sur le coach APA</a>,
+					le guide <a href="/activites-physiques-adaptees/">activité physique adaptée : définition, bienfaits et exemples</a>, ainsi que <a href="/a-propos/">le parcours de Cécile</a>.
 				</p>
 
 				<h2>Activité physique adaptée en ligne : comment ça se passe ?</h2>
@@ -151,15 +147,14 @@ const faqStructuredData = {
 					<li><strong>Des ajustements semaine après semaine</strong>, selon ce que ton corps exprime réellement</li>
 				</ul>
 				<p>
-					Pour visualiser ce que contiennent les séances, découvre des
-					<a href="/blog/activite-physique-adaptee-exercices/">exemples d’exercices d’activité physique adaptée</a>.
+					Pour visualiser ce que contiennent les séances, découvre des&nbsp;<a href="/blog/activite-physique-adaptee-exercices/">exemples d’exercices d’activité physique adaptée</a>.
 				</p>
 
-				<h2>Dans quelles situations un coach APA en ligne peut-il aider ?</h2>
+				<h2>Dans quelles situations ce coaching adapté en ligne peut-il aider ?</h2>
 				<p>
-					Le <strong>coach APA en ligne</strong> intervient dans de nombreuses situations où le corps demande
-					un cadre particulier, toujours en complément du suivi médical et avec l’accord du médecin quand la
-					situation le demande :
+					Un <strong>coaching sportif adapté en ligne</strong> peut aider dans de nombreuses situations où le
+					corps demande un cadre particulier, toujours en complément du suivi médical et avec l’accord du
+					médecin quand la situation le demande :
 				</p>
 				<ul>
 					<li><strong>Fatigue chronique</strong> : doser le mouvement sans déclencher de malaise post-effort — voir le guide <a href="/fatigue-chronique-mouvement/">fatigue chronique et mouvement</a></li>
@@ -176,13 +171,12 @@ const faqStructuredData = {
 				<p>
 					Le <strong>kinésithérapeute</strong> est un professionnel de santé : soins, rééducation, douleur
 					aiguë, souvent sur prescription. Le <strong>coach sportif</strong> accompagne la performance et la
-					remise en forme de personnes globalement aptes. Le <strong>coach APA</strong> se situe entre les
-					deux : il accompagne la reprise ou le maintien d’un <strong>sport adapté</strong> au quotidien,
+					remise en forme de personnes globalement aptes. Un accompagnement de type APA ou sport-santé
+					s’intéresse à la reprise ou au maintien d’un <strong>mouvement adapté</strong> au quotidien,
 					quand la santé est fragile ou variable — sans poser de diagnostic ni remplacer les soins.
 				</p>
 				<p>
-					Pour t’orienter selon ta situation, lis l’article
-					<a href="/blog/kine-coach-sportif-coach-apa/">kiné, coach sportif ou coach APA : qui consulter ?</a>.
+					Pour t’orienter selon ta situation, lis l’article&nbsp;<a href="/blog/kine-coach-sportif-coach-apa/">kiné, coach sportif ou coach APA : qui consulter ?</a>.
 				</p>
 
 				<h2>Ce que cet accompagnement peut t’aider à faire</h2>
@@ -245,7 +239,7 @@ const faqStructuredData = {
 				<h2 class="text-xl font-semibold sm:text-2xl">Envie d’en parler, sans engagement ?</h2>
 				<p class="mt-3 text-base text-white/90">
 					Chaque situation est différente. Écris-moi pour voir ensemble, simplement et sans pression, si cet
-					accompagnement APA en ligne peut te correspondre.
+					accompagnement sportif adapté en ligne peut te correspondre.
 				</p>
 				<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
 					<a

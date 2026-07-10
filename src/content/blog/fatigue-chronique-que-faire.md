@@ -105,7 +105,7 @@ Si tu es en plein questionnement sur ta fatigue chronique, voici un chemin concr
 3. **Identifier le cycle boom-crash** dans tes habitudes actuelles et commencer à le lisser
 4. **Envisager un accompagnement en mouvement adapté** — pas pour "se remettre au sport", mais pour reconstruire une base énergétique progressive et sécurisée
 
-Chez **RE-FLOW**, Cécile accompagne à distance les femmes qui vivent avec une fatigue chronique ou une maladie chronique, partout en France. L'approche est progressive, sans performance, avec des séances en visio ajustables selon l'énergie du jour. Pour découvrir comment ça se passe concrètement, voir la page [accompagnement APA en ligne](/coach-apa-en-ligne/).
+Chez **RE-FLOW par Cécile**, l'accompagnement à distance s'adresse aux femmes qui vivent avec une fatigue chronique ou une maladie chronique, partout en France. L'approche est progressive, sans performance, avec des séances en visio ajustables selon l'énergie du jour. Pour découvrir comment ça se passe concrètement, voir la page [coaching sportif adapté en ligne](/coach-apa-en-ligne/) ou [le parcours de Cécile](/a-propos/).
 
 ---
 

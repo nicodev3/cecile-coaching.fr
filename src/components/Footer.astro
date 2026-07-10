@@ -6,7 +6,8 @@ import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 const today = new Date();
 
 const programLinks = [
-	{ href: '/coach-apa-en-ligne/', label: 'Programme' },
+	{ href: '/coach-apa-en-ligne/', label: 'Coaching en ligne' },
+	{ href: '/a-propos/', label: 'Cécile, coach BPJEPS & APA' },
 	{ href: '/#programme', label: 'Les étapes' },
 	{ href: '/#methode', label: 'Notre approche' },
 	{ href: '/#tarif', label: 'Tarif & modalités' },
@@ -22,6 +23,7 @@ const understandingLinks = PILLARS.map((p) => ({
 const resourceLinks = [
 	{ href: '/blog/', label: 'Blog' },
 	{ href: '/blog/coach-apa/', label: 'Coach APA : c’est quoi ?' },
+	{ href: '/blog/kine-coach-sportif-coach-apa/', label: 'Kiné, coach sportif ou APA' },
 	{ href: '/mentions-legales/', label: 'Mentions légales' },
 	{ href: '/politique-de-confidentialite/', label: 'Confidentialité' },
 ];
@@ -31,10 +33,10 @@ const resourceLinks = [
 	<div class="mx-auto max-w-(--max-width-container)">
 		<div class="grid gap-12 md:grid-cols-4">
 			<div class="space-y-6">
-				<a href="/" class="text-2xl text-(--primary)">RE-FLOW</a>
+				<a href="/" class="text-2xl text-(--primary)">RE-FLOW par Cécile</a>
 				<p class="text-(--secondary)">
-					Programme de reconnexion corporelle en ligne pour les femmes touchées par une maladie chronique,
-					partout en France. Vitalité sans violence.
+					Coaching sportif adapté en ligne pour les femmes touchées par une maladie chronique, partout
+					en France. Vitalité sans violence.
 				</p>
 			</div>
 
@@ -90,8 +92,7 @@ const resourceLinks = [
 			<p class="text-xs text-(--on-surface-variant)">
 				© {today.getFullYear()} RE-FLOW. Tous droits réservés.
 				<span class="mx-2" aria-hidden="true">·</span>
-				Site par
-				<a
+				Site par&nbsp;<a
 					href="https://nicodev.fr"
 					class="text-(--primary) transition hover:opacity-70"
 				>

@@ -80,7 +80,7 @@ C'est exactement ce que propose l'immersion gratuite RE-FLOW : quatre jours en l
 
 ---
 
-Et si tu préfères [être accompagnée pour reprendre une activité physique](/coach-apa-en-ligne/), la page dédiée explique comment se déroule l'accompagnement APA en ligne.
+Et si tu préfères [être accompagnée pour reprendre une activité physique](/coach-apa-en-ligne/), la page dédiée explique comment se déroule le coaching sportif adapté en ligne. Tu peux aussi consulter [le parcours de Cécile](/a-propos/) pour vérifier le cadre de l'accompagnement.
 
 ---
 

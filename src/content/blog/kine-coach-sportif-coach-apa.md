@@ -129,8 +129,8 @@ Quelques questions à te poser (ou à poser au professionnel) :
 
 **Kinésithérapeute** : soins, rééducation, bilan dans un cadre réglementé. **Coach sportif** : entraînement et progression pour un corps globalement apte. **Coach APA en ligne** : activité physique **adaptée** quand la santé est **fragile** ou **variable**, notamment en **maladie chronique**, avec un suivi possible partout en France.
 
-Si tu te reconnais dans ce dernier profil, l’accompagnement peut aussi passer par une méthode structurée comme **RE-FLOW**, pensée en ligne pour **réapprivoiser le mouvement** sans te mettre en échec face à ton énergie du jour.
+Si tu te reconnais dans ce dernier profil, l’accompagnement peut aussi passer par une méthode structurée comme **RE-FLOW par Cécile**, pensée en ligne pour **réapprivoiser le mouvement** sans te mettre en échec face à ton énergie du jour.
 
 ---
 
-*Tu veux découvrir le programme à distance ?* Découvre l'[accompagnement APA en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, ou pour un panorama APA sur ce site, voir [Activités physiques adaptées en ligne](/activites-physiques-adaptees/).
+*Tu veux découvrir le programme à distance ?* Découvre le [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, consulte [le parcours de Cécile](/a-propos/), ou pour un panorama APA sur ce site, vois [Activités physiques adaptées en ligne](/activites-physiques-adaptees/).

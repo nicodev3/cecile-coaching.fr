@@ -150,10 +150,11 @@ La durée totale peut varier de 15 à 40 minutes selon l'état du jour. Un "mauv
 
 Ces exemples donnent une idée de ce que peut être l'APA en pratique. Mais un programme efficace et sécurisé tient compte de **ta maladie précise**, de **tes traitements**, de **tes symptômes**, de **tes contre-indications** et de **tes objectifs du moment**.
 
-Chez **RE-FLOW**, Cécile propose un accompagnement APA en ligne — séances en visio, programme progressif et ajustements semaine après semaine — pour les femmes qui vivent avec une maladie chronique ou une fatigue persistante, partout en France.
+Chez **RE-FLOW par Cécile**, l’accompagnement prend la forme d’un coaching sportif adapté en ligne — séances en visio, programme progressif et ajustements semaine après semaine — pour les femmes qui vivent avec une maladie chronique ou une fatigue persistante, partout en France.
 
 Pour comprendre le cadre complet :
-- [Coach APA en ligne : comment se déroule l'accompagnement](/coach-apa-en-ligne/)
+- [Coaching sportif adapté en ligne : comment se déroule l'accompagnement](/coach-apa-en-ligne/)
+- [Le parcours de Cécile, coach sportive BPJEPS certifiée APA](/a-propos/)
 - [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Sport adapté : pour qui et comment commencer ?](/blog/sport-adapte/)
 - [Coach APA en ligne : rôle et fonctionnement](/blog/coach-apa/)

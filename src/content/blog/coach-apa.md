@@ -1,7 +1,7 @@
 ---
 title: "Coach APA : c'est quoi exactement ?"
 seoTitle: "Coach APA : rôle, formation et différence avec un coach sportif"
-description: "Qu'est-ce qu'un coach APA en ligne ? Découvrez son rôle, les différences avec un kinésithérapeute ou un coach sportif, et comment reprendre à distance."
+description: "Qu'est-ce qu'un coach APA en ligne ? Rôle, formation STAPS APA-S, différences avec un kinésithérapeute ou un coach sportif, et cadre RE-FLOW par Cécile."
 pubDate: 'Feb 22 2026'
 updatedDate: 'May 24 2026'
 heroImage: '../../assets/cecile-coach-apa.webp'
@@ -13,6 +13,8 @@ relatedPillars:
 Un **coach APA en ligne** accompagne la reprise du mouvement lorsque la santé impose des adaptations : maladie chronique, fatigue persistante, douleurs, traitements, perte de confiance dans le corps ou peur de mal faire. Son rôle n'est pas de pousser à la performance, mais de proposer une **activité physique adaptée**, progressive et compatible avec la réalité de la personne, même à distance.
 
 Si tu cherches “coach APA” ou “coach APA autour de moi”, tu veux probablement comprendre ce que signifie APA, à qui ce type d'accompagnement s'adresse, en quoi il diffère d'un coach sportif ou d'un kinésithérapeute, et comment se déroule concrètement une séance en visio. Voici un guide complet pour y voir clair.
+
+> Sur ce site, RE-FLOW est porté par Cécile, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA. Les pages utilisent parfois “coach APA” parce que c’est le terme recherché par les internautes, mais le cadre exact de l’accompagnement est un coaching sportif adapté, non médical, inspiré de la logique de l’activité physique adaptée.
 
 ---
 
@@ -38,6 +40,8 @@ Ce n'est pas du sport de performance. C'est du **mouvement au service de la sant
 ## Que veut dire APA ?
 
 APA signifie **Activités Physiques Adaptées**. En France, cette approche s'appuie sur une formation universitaire qui prépare les professionnel·les à concevoir des séances de mouvement pour des publics dont la santé demande une vigilance particulière.
+
+Les enseignant·es en APA sont généralement titulaires d’une licence ou d’un master STAPS mention APA-S. D’autres professionnel·les du sport, comme les coachs diplômé·es BPJEPS, peuvent proposer un accompagnement sportif adapté à leur champ de compétence, à condition d’être clair sur leur formation, leurs limites et l’absence de prise en charge médicale.
 
 Dans une séance d'APA, l'activité physique n'est pas choisie seulement parce qu'elle “fait travailler”. Elle est choisie parce qu'elle correspond à un objectif précis et à une situation réelle : retrouver du souffle, renforcer sans épuiser, améliorer l'équilibre, remobiliser une zone du corps, entretenir la mobilité, réduire le déconditionnement, ou simplement réapprendre à bouger sans peur.
 
@@ -198,11 +202,13 @@ Si la fatigue est ton premier frein, l'article [je suis fatiguée : est-ce que b
 
 ## Ce que ça veut dire dans l'accompagnement RE-FLOW
 
-Dans le programme RE-FLOW, proposé 100 % en ligne, la certification APA n'est pas un détail sur un CV. C'est la base de toute la méthode.
+Dans le programme RE-FLOW, proposé 100 % en ligne, le cadre repose sur la formation de Cécile : coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA, avec une approche douce, progressive et adaptée aux femmes vivant avec une maladie chronique.
 
 Chaque séance en visio est construite pour respecter les fluctuations de ton énergie. Les exercices sont progressifs, modulables, et pensés pour reconstruire le tonus sans te mettre en échec. L'objectif n'est pas la performance : c'est de **retrouver confiance dans ton corps**, jour après jour.
 
 Si tu te demandes si ce programme est fait pour toi, la réponse courte : si tu vis avec une maladie chronique et que tu veux reprendre le mouvement en douceur, oui.
+
+Pour vérifier le cadre exact de l’accompagnement, tu peux lire la page [à propos de Cécile](/a-propos/) ou découvrir la page dédiée au [coaching sportif adapté en ligne](/coach-apa-en-ligne/).
 
 Le travail se fait autour de trois repères :
 
@@ -242,4 +248,4 @@ Un **coach APA en ligne** accompagne la reprise du mouvement grâce aux **Activi
 
 L'APA ne remplace ni le médecin, ni le kinésithérapeute. Elle offre un cadre complémentaire pour bouger de façon plus sûre, plus douce et plus durable.
 
-*Tu veux en savoir plus sur cette approche ?* Retrouve la page dédiée [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) ou découvre concrètement l'accompagnement [coach APA en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW.
+*Tu veux en savoir plus sur cette approche ?* Retrouve la page dédiée [Activités physiques adaptées (APA)](/activites-physiques-adaptees/), découvre concrètement l'accompagnement [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, ou consulte [le parcours de Cécile](/a-propos/).

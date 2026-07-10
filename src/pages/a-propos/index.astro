@@ -9,8 +9,8 @@ import PillarsHub from '../../components/PillarsHub.astro';
 import TunnelCtaLink from '../../components/TunnelCtaLink.astro';
 import { COACH_NAME, SITE_INSTAGRAM, SITE_WHATSAPP } from '../../consts';
 
-const title = `${COACH_NAME}, coach APA en ligne — À propos | RE-FLOW`;
-const description = `Coach certifiée APA (Activités Physiques Adaptées), ${COACH_NAME} accompagne à distance les femmes touchées par une maladie chronique, partout en France.`;
+const title = `${COACH_NAME}, coach sportive BPJEPS certifiée APA — À propos | RE-FLOW`;
+const description = `${COACH_NAME}, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA, accompagne à distance les femmes touchées par une maladie chronique, partout en France.`;
 
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
@@ -21,12 +21,14 @@ const personStructuredData = {
 	'@type': 'Person',
 	'@id': `${siteUrlNormalized}/a-propos/#cecile`,
 	name: COACH_NAME,
-	jobTitle: 'Coach certifiée APA en ligne — Activités Physiques Adaptées',
+	jobTitle: 'Coach sportive diplômée d’État — BPJEPS Activités de la forme, certifiée APA',
 	url: pageUrl,
 	image: new URL(coachImage.src, Astro.site).toString(),
 	worksFor: { '@id': `${siteUrlNormalized}/#coaching-service` },
 	knowsAbout: [
 		'Activités Physiques Adaptées',
+		'Certification APA',
+		'BPJEPS Activités de la forme',
 		'Maladie chronique',
 		'Fatigue chronique',
 		'Reconnexion corporelle',
@@ -59,7 +61,7 @@ const personStructuredData = {
 					<div class="relative rounded-full p-1 ring-4 ring-white/80 shadow-lg shadow-black/10">
 						<Image
 							src={coachImage}
-							alt={`${COACH_NAME}, coach certifiée APA — Activités Physiques Adaptées`}
+							alt={`${COACH_NAME}, coach sportive BPJEPS — accompagnement sportif adapté`}
 							class="h-32 w-32 rounded-full object-cover sm:h-40 sm:w-40"
 							loading="eager"
 							decoding="async"
@@ -69,24 +71,23 @@ const personStructuredData = {
 
 				<div class="inline-flex items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
 					<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
-					<span>Coach certifiée APA en ligne — Activités Physiques Adaptées</span>
+					<span>Coach sportive diplômée d’État — BPJEPS Activités de la forme, certifiée APA</span>
 				</div>
 
 				<h1 class="mt-6 text-3xl font-semibold text-slate-900 sm:text-4xl">
-					{COACH_NAME}, coach APA en ligne pour femmes en maladie chronique
+					{COACH_NAME}, coach sportive en ligne pour femmes en maladie chronique
 				</h1>
 			</div>
 
 			<div class="mt-10 space-y-5 text-base leading-relaxed text-slate-800">
 				<p>
-					Je m’appelle <strong>{COACH_NAME}</strong>, je suis <strong>coach sportive certifiée
-					APA</strong> (Activités Physiques Adaptées). J’accompagne à distance les femmes touchées par une
-					<strong>maladie chronique</strong> à <strong>retrouver une relation apaisée avec leur
+					Je m’appelle <strong>{COACH_NAME}</strong>, je suis <strong>coach sportive diplômée d’État
+					BPJEPS Activités de la forme</strong> et <strong>certifiée APA</strong>. J’accompagne à distance les femmes touchées par une <strong>maladie chronique</strong> à <strong>retrouver une relation apaisée avec leur
 					corps</strong>, par le mouvement, peu importe où elles vivent en France.
 				</p>
 				<p>
-					Mon approche n’est pas celle d’un coach sportif classique. L’APA part toujours de la
-					<strong>réalité du corps</strong> : la maladie, les traitements, la fatigue, les
+					Mon approche n’est pas celle d’un coaching sportif classique. Elle s’inspire de la logique de
+					l’<a href="/activites-physiques-adaptees/">activité physique adaptée</a> : partir de la <strong>réalité du corps</strong> : la maladie, les traitements, la fatigue, les
 					fluctuations d’énergie. Pas de pression, pas de culture de la performance, pas de plan
 					unique imposé. À la place : une <strong>progression douce</strong>, des séances en visio
 					modulables et un cadre qui accueille les bons jours comme les jours plus difficiles.
@@ -94,8 +95,7 @@ const personStructuredData = {
 				<p>
 					Pourquoi ce parti pris ? Parce qu’un programme générique met souvent en échec celles qui
 					vivent avec une pathologie chronique : on aggrave la fatigue, on déclenche des poussées,
-					on culpabilise, et on finit par décrocher. L’APA inverse cette logique en cherchant la
-					<strong>régularité</strong> et la <strong>confiance</strong> plutôt que l’intensité.
+					on culpabilise, et on finit par décrocher. L’accompagnement sportif adapté inverse cette logique en cherchant la <strong>régularité</strong> et la <strong>confiance</strong> plutôt que l’intensité.
 				</p>
 
 				<h2 class="mt-10 text-2xl font-semibold text-slate-900">Ma promesse</h2>
@@ -120,10 +120,8 @@ const personStructuredData = {
 
 				<h2 class="mt-10 text-2xl font-semibold text-slate-900">Approche & spécialités</h2>
 				<p>
-					Je travaille sur le <strong>déconditionnement physique</strong> lié à l’inactivité, la
-					<strong>peur de bouger</strong>, la <strong>fatigue chronique</strong> et la
-					<strong>reconnexion corporelle</strong> après des mois (ou des années) où le corps est
-					devenu un terrain hostile. Pour aller plus loin, voir les guides dédiés ci-dessous.
+					Je travaille sur le <strong>déconditionnement physique</strong> lié à l’inactivité, la <strong>peur de bouger</strong>, la <strong>fatigue chronique</strong> et la <strong>reconnexion corporelle</strong> après des mois (ou des années) où le corps est
+					devenu un terrain hostile. Pour comprendre le programme, consulte aussi la page <a href="/coach-apa-en-ligne/">coaching sportif adapté en ligne</a>.
 				</p>
 			</div>
 
