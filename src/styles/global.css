@@ -2,8 +2,8 @@
 
 :root {
 	/* Palette « force douce » */
-	--sage: #d7e2d2;
-	--plum: #7b4e8c;
+	--sage: #B7C0A6;
+	--plum: #60406A;
 	/* Teinte plum plus foncée pour le texte sur fond clair (contraste WCAG AA) */
 	--plum-ink: #4a2d57;
 	--ink: #111827;
