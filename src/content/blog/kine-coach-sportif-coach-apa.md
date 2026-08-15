@@ -68,7 +68,7 @@ C’est pertinent si :
 
 ## Le coach APA : le mouvement adapté à la maladie et à la fragilité
 
-**APA** signifie **Activités Physiques Adaptées**. Un·e **coach APA** est formé·e pour proposer du **mouvement en tenant compte des pathologies**, des traitements, des fluctuations de symptômes (fatigue, douleur) et du **vécu** lié à la maladie. Cet accompagnement peut se faire en ligne, avec des séances en visio et des ajustements adaptés à ton espace.
+**APA** signifie **Activité Physique Adaptée**. Un·e **coach APA** est formé·e pour proposer du **mouvement en tenant compte des pathologies**, des traitements, des fluctuations de symptômes (fatigue, douleur) et du **vécu** lié à la maladie. Cet accompagnement peut se faire en ligne, avec des séances en visio et des ajustements adaptés à ton espace.
 
 ### Quand consulter un·e coach APA ?
 
@@ -133,4 +133,4 @@ Si tu te reconnais dans ce dernier profil, l’accompagnement peut aussi passer 
 
 ---
 
-*Tu veux découvrir le programme à distance ?* Découvre le [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, consulte [le parcours de Cécile](/a-propos/), ou pour un panorama APA sur ce site, vois [Activités physiques adaptées en ligne](/activites-physiques-adaptees/).
+*Tu veux découvrir le programme à distance ?* Découvre le [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, consulte [le parcours de Cécile](/a-propos/), ou pour un panorama APA sur ce site, vois [Activité physique adaptée en ligne](/activites-physiques-adaptees/).

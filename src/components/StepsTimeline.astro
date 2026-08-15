@@ -3,21 +3,25 @@ const steps = [
 	{
 		title: 'Reconnexion & sécurité',
 		desc: 'Remettre le corps en mouvement en douceur, installer des pratiques sécuritaires.',
+		benefit: 'Tu prends du temps pour toi et tu réinvestis ton corps.',
 		badgeClass: 'bg-(--primary) text-(--on-primary)',
 	},
 	{
 		title: 'Force & progressivité',
-		desc: 'Construire force, stabilité, équilibre et endurance en respectant la fatigue.',
+		desc: 'Construire force, stabilité, équilibre et endurance de manière progressive en respectant la fatigue.',
+		benefit: 'Tu te sens plus forte dans les mouvements du quotidien.',
 		badgeClass: 'bg-(--primary-fixed-dim) text-(--on-primary-fixed-variant)',
 	},
 	{
 		title: 'Vitalité & énergie',
-		desc: "Retrouver plus d'élan et d'endurance, tout en restant à l'écoute de son corps.",
+		desc: "C'est le moment d'augmenter l'intensité, tout en restant à l'écoute de son corps.",
+		benefit: "Tu as davantage d'énergie, tu te sens plus endurante.",
 		badgeClass: 'bg-(--primary-container) text-(--on-primary)',
 	},
 	{
 		title: 'Confiance & autonomie',
-		desc: 'Stabiliser les progrès et installer une routine durable et joyeuse.',
+		desc: 'Stabiliser les progrès et installer une routine durable, reprendre confiance dans ses capacités physiques. .',
+		benefit: 'Tu es devenue autonome dans ta pratique.',
 		badgeClass: 'bg-(--secondary) text-(--on-secondary)',
 	},
 ];
@@ -43,14 +47,14 @@ const reveal =
 
 		<ol class="relative mx-auto max-w-3xl space-y-16">
 			<div
-				class="absolute top-0 bottom-0 left-6 hidden w-px bg-(--outline-variant)/50 md:left-1/2 md:block"
+				class="absolute top-6 bottom-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-(--primary)/30 md:block"
 				aria-hidden="true"
 			/>
 			{
 				steps.map((s, idx) => (
 					<li
 						class:list={[
-							'relative flex flex-col items-center gap-8 md:flex-row',
+							'relative flex flex-col items-center gap-8 md:flex-row md:items-start',
 							idx % 2 === 1 && 'md:flex-row-reverse',
 						]}
 					>
@@ -65,14 +69,24 @@ const reveal =
 						</div>
 						<div
 							class:list={[
-								'z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold',
+								'z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-base font-bold md:self-center',
 								s.badgeClass,
 							]}
 							aria-hidden="true"
 						>
 							{idx + 1}
 						</div>
-						<div class="hidden flex-1 md:block" aria-hidden="true" />
+						<div
+							class:list={[
+								'flex-1 text-(--primary)',
+								idx % 2 === 0 ? 'text-left' : 'text-left md:text-right',
+							]}
+						>
+							<h3 class="hidden text-2xl md:block md:invisible" aria-hidden="true">
+								{s.title}
+							</h3>
+							<p class="mt-2">{s.benefit}</p>
+						</div>
 					</li>
 				))
 			}

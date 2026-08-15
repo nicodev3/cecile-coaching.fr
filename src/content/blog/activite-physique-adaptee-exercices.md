@@ -155,6 +155,6 @@ Chez **RE-FLOW par Cécile**, l’accompagnement prend la forme d’un coaching 
 Pour comprendre le cadre complet :
 - [Coaching sportif adapté en ligne : comment se déroule l'accompagnement](/coach-apa-en-ligne/)
 - [Le parcours de Cécile, coach sportive BPJEPS certifiée APA](/a-propos/)
-- [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
+- [Activité physique adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Sport adapté : pour qui et comment commencer ?](/blog/sport-adapte/)
 - [Coach APA en ligne : rôle et fonctionnement](/blog/coach-apa/)

@@ -20,7 +20,7 @@ Si tu cherches “coach APA” ou “coach APA autour de moi”, tu veux probabl
 
 ## Coach APA : définition simple
 
-Un **coach APA** est un·e professionnel·le formé·e aux **Activités Physiques Adaptées**. L'APA désigne des pratiques corporelles pensées pour des personnes dont l'état de santé, les capacités physiques ou le niveau d'énergie nécessitent un cadre particulier. Cet accompagnement peut aussi se faire **en ligne**, avec des séances en visio et des ressources guidées à suivre chez soi.
+Un **coach APA** est un·e professionnel·le formé·e à l'**activité physique adaptée**. L'APA désigne des pratiques corporelles pensées pour des personnes dont l'état de santé, les capacités physiques ou le niveau d'énergie nécessitent un cadre particulier. Cet accompagnement peut aussi se faire **en ligne**, avec des séances en visio et des ressources guidées à suivre chez soi.
 
 L'idée centrale est simple : **le mouvement peut soutenir la santé, à condition d'être bien dosé**. On ne part pas d'un programme standard à appliquer à tout le monde. On part de la personne : son histoire médicale, ses symptômes, son niveau de fatigue, ses douleurs, ses appréhensions, ses objectifs et son quotidien.
 
@@ -39,7 +39,7 @@ Ce n'est pas du sport de performance. C'est du **mouvement au service de la sant
 
 ## Que veut dire APA ?
 
-APA signifie **Activités Physiques Adaptées**. En France, cette approche s'appuie sur une formation universitaire qui prépare les professionnel·les à concevoir des séances de mouvement pour des publics dont la santé demande une vigilance particulière.
+APA signifie **Activité Physique Adaptée**. En France, cette approche s'appuie sur une formation universitaire qui prépare les professionnel·les à concevoir des séances de mouvement pour des publics dont la santé demande une vigilance particulière.
 
 Les enseignant·es en APA sont généralement titulaires d’une licence ou d’un master STAPS mention APA-S. D’autres professionnel·les du sport, comme les coachs diplômé·es BPJEPS, peuvent proposer un accompagnement sportif adapté à leur champ de compétence, à condition d’être clair sur leur formation, leurs limites et l’absence de prise en charge médicale.
 
@@ -244,8 +244,8 @@ Cherche un accompagnement qui parle d'adaptation, d'écoute, de progressivité e
 
 ## À retenir
 
-Un **coach APA en ligne** accompagne la reprise du mouvement grâce aux **Activités Physiques Adaptées**. Son rôle est particulièrement utile quand la santé rend le sport classique difficile : maladie chronique, fatigue, douleurs, perte de confiance, peur de se blesser ou énergie variable.
+Un **coach APA en ligne** accompagne la reprise du mouvement grâce à l'**activité physique adaptée**. Son rôle est particulièrement utile quand la santé rend le sport classique difficile : maladie chronique, fatigue, douleurs, perte de confiance, peur de se blesser ou énergie variable.
 
 L'APA ne remplace ni le médecin, ni le kinésithérapeute. Elle offre un cadre complémentaire pour bouger de façon plus sûre, plus douce et plus durable.
 
-*Tu veux en savoir plus sur cette approche ?* Retrouve la page dédiée [Activités physiques adaptées (APA)](/activites-physiques-adaptees/), découvre concrètement l'accompagnement [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, ou consulte [le parcours de Cécile](/a-propos/).
+*Tu veux en savoir plus sur cette approche ?* Retrouve la page dédiée [Activité physique adaptée (APA)](/activites-physiques-adaptees/), découvre concrètement l'accompagnement [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, ou consulte [le parcours de Cécile](/a-propos/).

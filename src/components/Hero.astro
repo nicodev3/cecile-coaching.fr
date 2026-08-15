@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 import TunnelCtaLink from './TunnelCtaLink.astro';
-import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import heroImageWebp from '../assets/femme-yoga.webp';
 
 const reveal =
@@ -22,59 +21,53 @@ const reveal =
 	<div class="relative z-10 mx-auto grid w-full max-w-container grid-cols-1 items-center gap-12 md:grid-cols-2">
 		<div class="space-y-8">
 			<p class="text-sm font-semibold tracking-[0.2em] text-(--primary-container) uppercase">
-				RE-FLOW par Cécile — coach sportive BPJEPS certifiée APA
+				RE-FLOW par Cécile — coach sportive certifiée APA
 			</p>
 			<h1
 				id="hero-title"
 				class="text-4xl leading-tight text-(--primary) sm:text-5xl lg:text-[3rem] lg:leading-[1.15]"
 			>
-				Coaching sportif adapté pour femmes en maladie chronique : quand le corps redevient un allié
+				Programme d'activité physique adaptée pour femmes touchées par une maladie chronique
 			</h1>
 			<p class="max-w-xl text-lg leading-relaxed text-(--secondary)">
 				Le programme de reconnexion corporelle à distance avec Cécile, coach sportive diplômée d’État
 				et certifiée APA, avec des séances en visio et des ressources à suivre chez toi, partout en France.
 			</p>
-			<div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-				<a
-					href="#programme"
-					class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-4 text-base font-medium text-(--on-primary) soft-glow transition hover:bg-(--primary-container)"
-				>
-					Découvrir le programme en ligne
-				</a>
+			<div class="flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
 				<TunnelCtaLink
 					campaign="hero"
-					class="inline-flex items-center justify-center rounded-full border border-(--outline-variant) px-8 py-4 text-center text-base font-medium text-(--primary) transition hover:bg-(--surface-container)"
+					class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-4 text-base font-medium text-(--on-primary) soft-glow transition hover:bg-(--primary-container)"
 				>
 					Immersion gratuite (4 jours)
 				</TunnelCtaLink>
-				<WhatsAppCtaLink
-					campaign="hero"
-					showIcon={true}
-					class="whatsapp-btn rounded-full px-8 py-4 text-base font-medium"
+				<a
+					href="#programme"
+					class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-8 py-4 text-base font-medium text-(--primary) soft-glow transition hover:bg-(--surface-container)"
 				>
-					Une question ? WhatsApp
-				</WhatsAppCtaLink>
+					Découvrir le programme
+				</a>
 			</div>
 			<p class="text-sm leading-relaxed text-(--secondary)">
-				Nouvelle ici ? Commence par
+				Nouvelle ici ? Commence par{' '}
 				<a
 					href="/blog/coach-apa/"
 					class="font-semibold text-(--primary) underline underline-offset-4 transition hover:text-(--primary-container)"
 				>
 					comprendre le rôle d’un coach APA
 				</a>
-				, puis découvre
+				, puis découvre{' '}
 				<a
 					href="/a-propos/"
 					class="font-semibold text-(--primary) underline underline-offset-4 transition hover:text-(--primary-container)"
 				>
 					le parcours de Cécile
-				</a> et le guide sur les
+				</a>
+				{' '}et le guide sur les{' '}
 				<a
 					href="/activites-physiques-adaptees/"
 					class="font-semibold text-(--primary) underline underline-offset-4 transition hover:text-(--primary-container)"
 				>
-					activités physiques adaptées (APA)
+					activité physique adaptée (APA)
 				</a>
 				.
 			</p>
@@ -91,7 +84,7 @@ const reveal =
 				fetchpriority="high"
 				loading="eager"
 				decoding="async"
-				class="relative h-auto w-full rounded-4xl object-contain soft-glow md:h-[min(600px,70vh)] md:object-cover"
+				class="relative h-auto w-full rounded-4xl object-contain md:h-[min(600px,70vh)] md:object-cover"
 			/>
 		</div>
 	</div>

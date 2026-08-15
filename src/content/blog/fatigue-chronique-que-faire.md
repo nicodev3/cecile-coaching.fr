@@ -80,7 +80,7 @@ C'est là qu'intervient le cadre APA. Contrairement à ce qu'on pourrait penser,
 
 ## Comment lutter contre la fatigue chronique avec le mouvement adapté
 
-Le mouvement adapté, encadré par un·e enseignant·e en **Activités Physiques Adaptées (APA)**, vise à interrompre le cercle du déconditionnement sans déclencher de malaise post-effort.
+Le mouvement adapté, encadré par un·e enseignant·e en **Activité Physique Adaptée (APA)**, vise à interrompre le cercle du déconditionnement sans déclencher de malaise post-effort.
 
 Concrètement, ça passe par :
 
@@ -110,4 +110,4 @@ Chez **RE-FLOW par Cécile**, l'accompagnement à distance s'adresse aux femmes 
 ---
 
 *Pour aller plus loin :*
-[Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) · [Syndrome de fatigue chronique (SFC/EM) : ce qu'il faut savoir](/blog/syndrome-de-fatigue-chronique/) · [Je suis fatiguée — est-ce que bouger va m'aider ?](/blog/fatiguee-bouger-maladie-chronique/) · [Activités physiques adaptées : définition](/activites-physiques-adaptees/)
+[Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) · [Syndrome de fatigue chronique (SFC/EM) : ce qu'il faut savoir](/blog/syndrome-de-fatigue-chronique/) · [Je suis fatiguée — est-ce que bouger va m'aider ?](/blog/fatiguee-bouger-maladie-chronique/) · [Activité physique adaptée : définition](/activites-physiques-adaptees/)

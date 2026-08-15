@@ -30,13 +30,13 @@ Ce que le sport adapté n'est **pas** : une version allégée du sport pour ceux
 
 ## Sport adapté et APA : deux termes pour une même réalité ?
 
-En France, le cadre professionnel qui correspond au sport adapté s'appelle les **Activités Physiques Adaptées**, ou **APA**. C'est une formation universitaire spécifique (licence ou master STAPS mention APA-S) qui habilite à accompagner les personnes fragilisées par la maladie ou le handicap.
+En France, le cadre professionnel qui correspond au sport adapté s'appelle l'**activité physique adaptée**, ou **APA**. C'est une formation universitaire spécifique (licence ou master STAPS mention APA-S) qui habilite à accompagner les personnes fragilisées par la maladie ou le handicap.
 
 Un·e **enseignant·e en APA** n'est ni un coach sportif généraliste, ni un kinésithérapeute. C'est un·e professionnel·le du mouvement formé·e à travailler avec des pathologies, des symptômes fluctuants et des contre-indications — et à adapter la séance en conséquence.
 
 > Si tu cherches un **sport adapté à ta maladie** ou à ta situation de santé, l'APA est la réponse structurée à cette recherche.
 
-Pour aller plus loin : [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/).
+Pour aller plus loin : [Activité physique adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/).
 
 ---
 
@@ -103,7 +103,7 @@ Si tu envisages de commencer un sport adapté, voici les étapes recommandées :
 
 ## Ressources pour aller plus loin
 
-- [Activités physiques adaptées : définition, bienfaits, accompagnement](/activites-physiques-adaptees/)
+- [Activité physique adaptée : définition, bienfaits, accompagnement](/activites-physiques-adaptees/)
 - [Coach APA en ligne : rôle, formation et différences avec un coach sportif](/blog/coach-apa/)
 - [Kiné, coach sportif ou coach APA : qui consulter ?](/blog/kine-coach-sportif-coach-apa/)
 - [Fatiguée et maladie chronique : peut-on vraiment bouger ?](/blog/fatiguee-bouger-maladie-chronique/)

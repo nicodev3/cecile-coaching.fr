@@ -62,7 +62,7 @@ Ce que ces trois versions ont en commun : **elles comptent toutes**. Il n'y a pa
 
 ## Ce qui change quand le cadre est adapté
 
-La plupart des femmes qui reprennent le mouvement dans un cadre APA (Activités Physiques Adaptées), y compris à distance, décrivent la même chose après quelques semaines : **elles dorment un peu mieux, elles se sentent un peu moins essoufflées dans les gestes du quotidien, et elles ont un peu plus confiance en leur corps.**
+La plupart des femmes qui reprennent le mouvement dans un cadre APA (Activité Physique Adaptée), y compris à distance, décrivent la même chose après quelques semaines : **elles dorment un peu mieux, elles se sentent un peu moins essoufflées dans les gestes du quotidien, et elles ont un peu plus confiance en leur corps.**
 
 Pas une guérison. Pas un avant/après spectaculaire. Mais une qualité de vie qui s'améliore progressivement — et une relation au corps qui devient moins anxieuse.
 
@@ -84,4 +84,4 @@ Et si tu préfères [être accompagnée pour reprendre une activité physique](/
 
 ---
 
-*Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Activités physiques adaptées (APA)](/activites-physiques-adaptees/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : rôle et accompagnement](/blog/coach-apa/)
+*Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Activité physique adaptée (APA)](/activites-physiques-adaptees/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : rôle et accompagnement](/blog/coach-apa/)

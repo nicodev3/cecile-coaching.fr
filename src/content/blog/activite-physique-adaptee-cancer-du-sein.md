@@ -155,7 +155,7 @@ Dans le vécu de beaucoup de femmes accompagnées, c'est même souvent l'inverse
 - [Coach APA en ligne : rôle et accompagnement](/blog/coach-apa/)
 - [Exemples d'exercices d'activité physique adaptée](/blog/activite-physique-adaptee-exercices/)
 - [Kiné, coach sportif ou coach APA : qui consulter ?](/blog/kine-coach-sportif-coach-apa/)
-- [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
+- [Activité physique adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Mouvement et maladie chronique](/mouvement-maladie-chronique/)
 
 Pour un [coaching sportif adapté en ligne](/coach-apa-en-ligne/) après un cancer du sein, une discussion préalable avec Cécile permet de voir où tu en es et si le cadre RE-FLOW est adapté à ta situation actuelle : [prendre contact](/contact/).

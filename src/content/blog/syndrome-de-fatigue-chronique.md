@@ -104,6 +104,6 @@ Dans les deux cas, le mouvement adapté peut avoir une place — mais les préca
 - [Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) — la page pilier de RE-FLOW sur ce sujet
 - [Fatigue chronique : que faire concrètement ?](/blog/fatigue-chronique-que-faire/)
 - [Je suis fatiguée — est-ce que bouger va vraiment m'aider ?](/blog/fatiguee-bouger-maladie-chronique/)
-- [Activités physiques adaptées : définition et accompagnement en ligne](/activites-physiques-adaptees/)
+- [Activité physique adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 
 Pour un [coaching sportif adapté en ligne](/coach-apa-en-ligne/) dans ce contexte, une discussion préalable avec Cécile permet de vérifier si le cadre RE-FLOW est adapté à ta situation actuelle. Tu peux aussi consulter [son parcours](/a-propos/) avant de [prendre contact](/contact/).

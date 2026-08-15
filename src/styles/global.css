@@ -2,7 +2,7 @@
 
 :root {
 	/* Palette « force douce » */
-	--sage: #B7C0A6;
+	--sage: #c4d6b7;
 	--plum: #60406A;
 	/* Teinte plum plus foncée pour le texte sur fond clair (contraste WCAG AA) */
 	--plum-ink: #4a2d57;
@@ -15,7 +15,7 @@
 	--primary-container: #8b6b95;
 	--on-primary-container: #ffffff;
 	--primary-fixed: var(--sage);
-	--primary-fixed-dim: #b7c0a6;
+	--primary-fixed-dim: var(--sage);
 	--on-primary-fixed-variant: var(--plum-ink);
 	--on-primary-fixed: var(--ink);
 	--secondary: rgb(107, 107, 107);
@@ -35,7 +35,7 @@
 	--outline-variant: rgb(245, 246, 243);
 	--on-surface: var(--ink);
 	--on-surface-variant: rgb(107, 107, 107);
-	--inverse-primary: #b7c0a6;
+	--inverse-primary: var(--sage);
 	--surface-tint: var(--plum);
 	--error: #ba1a1a;
 
@@ -47,10 +47,10 @@
 	/* Compatibilité avec les composants existants */
 	--accent: var(--plum);
 	--accent-dark: #8b6b95;
-	--accent-sage: #b7c0a6;
+	--accent-sage: var(--sage);
 	--plum-deep: var(--plum-ink);
 	--plum-light: #8b6b95;
-	--rose-dust: #b7c0a6;
+	--rose-dust: var(--sage);
 	--sage-accent: #8b6b95;
 	--sage-wash: #f5f6f3;
 	--surface-cream: var(--paper);
@@ -59,7 +59,7 @@
 	--gray: 107, 107, 107;
 	--gray-light: 245, 246, 243;
 	--gray-dark: 96, 64, 106;
-	--gray-gradient: rgba(183, 192, 166, 50%), #fff;
+	--gray-gradient: rgba(196, 214, 183, 50%), #fff;
 	--box-shadow:
 		0 2px 6px rgba(96, 64, 106, 25%), 0 8px 24px rgba(96, 64, 106, 33%), 0 16px 32px
 		rgba(96, 64, 106, 33%);
