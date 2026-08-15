@@ -52,18 +52,8 @@ const reveal =
 			/>
 			{
 				steps.map((s, idx) => (
-					<li
-						class:list={[
-							'relative flex flex-col items-center gap-8 md:flex-row md:items-start',
-							idx % 2 === 1 && 'md:flex-row-reverse',
-						]}
-					>
-						<div
-							class:list={[
-								'flex-1',
-								idx % 2 === 0 ? 'text-left md:text-right' : 'text-left',
-							]}
-						>
+					<li class="relative flex flex-col items-center gap-8 md:flex-row md:items-start">
+						<div class="flex-1 text-left">
 							<h3 class="text-2xl text-(--primary)">{s.title}</h3>
 							<p class="mt-2 text-(--secondary)">{s.desc}</p>
 						</div>
@@ -76,12 +66,7 @@ const reveal =
 						>
 							{idx + 1}
 						</div>
-						<div
-							class:list={[
-								'flex-1 text-(--primary)',
-								idx % 2 === 0 ? 'text-left' : 'text-left md:text-right',
-							]}
-						>
+						<div class="flex-1 text-left text-(--primary)">
 							<h3 class="hidden text-2xl md:block md:invisible" aria-hidden="true">
 								{s.title}
 							</h3>
