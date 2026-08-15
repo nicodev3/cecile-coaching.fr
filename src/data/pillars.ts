@@ -25,7 +25,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		key: 'apa',
 		slug: '/activites-physiques-adaptees/',
 		archiveSlug: '/blog/apa/',
-		label: 'Activité physique adaptée',
+		label: 'Activité Physique Adaptée',
 		shortLabel: 'APA',
 		tagline:
 			'Comprendre l’APA en ligne, ce qu’elle apporte et pourquoi c’est différent d’un coach sportif classique.',

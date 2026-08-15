@@ -1,6 +1,6 @@
 ---
 title: "Exercices APA pour débuter en douceur"
-description: "Exemples d'exercices d'activité physique adaptée pour maladie chronique ou fatigue : mobilité, renforcement doux, équilibre et dosage."
+description: "Exemples d'exercices d'Activité Physique Adaptée pour maladie chronique ou fatigue : mobilité, renforcement doux, équilibre et dosage."
 pubDate: 'Jun 2 2026'
 heroImage: '../../assets/women_doing_different_forms_of_exercices.webp'
 relatedPillars:
@@ -9,7 +9,7 @@ relatedPillars:
   - fatigue
 ---
 
-Tu veux voir à quoi ressemble concrètement une **activité physique adaptée** ? Quels exercices, à quelle intensité, comment les modifier les jours difficiles ? Cette page propose des exemples — pas un programme clé en main, mais des repères pour comprendre la logique de l'APA en pratique.
+Tu veux voir à quoi ressemble concrètement une **Activité Physique Adaptée** ? Quels exercices, à quelle intensité, comment les modifier les jours difficiles ? Cette page propose des exemples — pas un programme clé en main, mais des repères pour comprendre la logique de l'APA en pratique.
 
 > **Avant de commencer** : si ta maladie est instable, si tu as eu un événement médical récent ou si tu as des douleurs nouvelles, l'avis médical reste le point de départ. Ces exercices sont des exemples généraux, pas une prescription personnalisée.
 
@@ -17,7 +17,7 @@ Tu veux voir à quoi ressemble concrètement une **activité physique adaptée**
 
 ## La logique des exercices en APA : doser, pas performer
 
-Ce qui distingue les exercices d'activité physique adaptée des exercices sportifs classiques, ce n'est pas leur forme — c'est leur **dosage** et leur **modularité**.
+Ce qui distingue les exercices d'Activité Physique Adaptée des exercices sportifs classiques, ce n'est pas leur forme — c'est leur **dosage** et leur **modularité**.
 
 Chaque exercice proposé en APA peut être :
 - **réduit en amplitude** (moins loin, moins haut, moins profond)
@@ -136,7 +136,7 @@ La respiration est souvent oubliée dans les programmes sportifs classiques. En 
 
 ## Comment organiser ces exercices en séance
 
-Une séance d'activité physique adaptée n'est pas une liste d'exercices à cocher. Elle a une **logique de progression interne** :
+Une séance d'Activité Physique Adaptée n'est pas une liste d'exercices à cocher. Elle a une **logique de progression interne** :
 
 1. **Échauffement** (5 min) — mobilité douce, respiration, attention au corps du jour
 2. **Partie principale** (10 à 20 min) — 2 à 4 exercices adaptés à l'énergie du jour
@@ -155,6 +155,6 @@ Chez **RE-FLOW par Cécile**, l’accompagnement prend la forme d’un coaching 
 Pour comprendre le cadre complet :
 - [Coaching sportif adapté en ligne : comment se déroule l'accompagnement](/coach-apa-en-ligne/)
 - [Le parcours de Cécile, coach sportive BPJEPS certifiée APA](/a-propos/)
-- [Activité physique adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
+- [Activité Physique Adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Sport adapté : pour qui et comment commencer ?](/blog/sport-adapte/)
 - [Coach APA en ligne : rôle et fonctionnement](/blog/coach-apa/)

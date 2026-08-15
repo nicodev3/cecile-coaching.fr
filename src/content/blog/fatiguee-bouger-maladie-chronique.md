@@ -84,4 +84,4 @@ Et si tu préfères [être accompagnée pour reprendre une activité physique](/
 
 ---
 
-*Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Activité physique adaptée (APA)](/activites-physiques-adaptees/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : rôle et accompagnement](/blog/coach-apa/)
+*Pour aller plus loin :* [Fatigue chronique et mouvement](/fatigue-chronique-mouvement/) · [Activité Physique Adaptée (APA)](/activites-physiques-adaptees/) · [Mouvement et maladie chronique](/mouvement-maladie-chronique/) · [Coach APA : rôle et accompagnement](/blog/coach-apa/)

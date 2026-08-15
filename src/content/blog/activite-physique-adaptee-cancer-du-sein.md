@@ -1,7 +1,7 @@
 ---
-title: "Activité physique adaptée après un cancer du sein"
-seoTitle: "Activité physique adaptée et cancer du sein : reprendre le mouvement"
-description: "Activité physique adaptée après un cancer du sein : bienfaits psychologiques (anxiété, image du corps, confiance), précautions physiques et exercices adaptés."
+title: "Activité Physique Adaptée après un cancer du sein"
+seoTitle: "Activité Physique Adaptée et cancer du sein : reprendre le mouvement"
+description: "Activité Physique Adaptée après un cancer du sein : bienfaits psychologiques (anxiété, image du corps, confiance), précautions physiques et exercices adaptés."
 pubDate: 'Jul 4 2026'
 heroImage: '../../assets/cancer-sein.webp'
 relatedPillars:
@@ -10,9 +10,9 @@ relatedPillars:
   - fatigue
 ---
 
-Tu sors d'un cancer du sein — ou tu es encore en cours de traitement — et tu te demandes si tu peux (ou dois) reprendre une activité physique. La question revient souvent, avec son lot d'inquiétudes : la peur de mal faire, la fatigue qui ne ressemble à aucune autre, le bras opéré qu'on n'ose plus trop bouger — mais aussi une question plus discrète : comment se sentir de nouveau chez soi dans un corps qui a tant changé. Cette page fait le point sur ce que peut apporter l'**activité physique adaptée (APA)** dans ce contexte précis — souvent davantage sur le plan psychologique que beaucoup ne l'imaginent — et les précautions qui le rendent différent d'une reprise de sport classique.
+Tu sors d'un cancer du sein — ou tu es encore en cours de traitement — et tu te demandes si tu peux (ou dois) reprendre une activité physique. La question revient souvent, avec son lot d'inquiétudes : la peur de mal faire, la fatigue qui ne ressemble à aucune autre, le bras opéré qu'on n'ose plus trop bouger — mais aussi une question plus discrète : comment se sentir de nouveau chez soi dans un corps qui a tant changé. Cette page fait le point sur ce que peut apporter l'**Activité Physique Adaptée (APA)** dans ce contexte précis — souvent davantage sur le plan psychologique que beaucoup ne l'imaginent — et les précautions qui le rendent différent d'une reprise de sport classique.
 
-> **Important** : cette page ne remplace pas l'avis de ton oncologue, de ton chirurgien ou de ton kinésithérapeute. Chaque situation (type de traitement, chirurgie, curage ganglionnaire, phase en cours) est différente et doit être validée médicalement avant toute reprise. L'accompagnement en activité physique adaptée n'est ni un dispositif médical ni un soin : il ne se substitue ni au suivi oncologique, ni à la rééducation kinésithérapique. Il vient en complément, une fois ces étapes engagées ou validées par ton équipe médicale.
+> **Important** : cette page ne remplace pas l'avis de ton oncologue, de ton chirurgien ou de ton kinésithérapeute. Chaque situation (type de traitement, chirurgie, curage ganglionnaire, phase en cours) est différente et doit être validée médicalement avant toute reprise. L'accompagnement en Activité Physique Adaptée n'est ni un dispositif médical ni un soin : il ne se substitue ni au suivi oncologique, ni à la rééducation kinésithérapique. Il vient en complément, une fois ces étapes engagées ou validées par ton équipe médicale.
 
 ---
 
@@ -28,17 +28,17 @@ Ce n'est pas une promesse de guérison ni un substitut aux traitements. C'est un
 
 ## Les bienfaits psychologiques : souvent le premier moteur du mouvement
 
-On parle beaucoup de fatigue, de mobilité de l'épaule ou de précautions à respecter — et c'est nécessaire. Mais dans le vécu de nombreuses femmes après un cancer du sein, ce que l'activité physique adaptée change le plus profondément, c'est le **rapport à soi**.
+On parle beaucoup de fatigue, de mobilité de l'épaule ou de précautions à respecter — et c'est nécessaire. Mais dans le vécu de nombreuses femmes après un cancer du sein, ce que l'Activité Physique Adaptée change le plus profondément, c'est le **rapport à soi**.
 
 - **Anxiété et symptômes dépressifs** : plusieurs méta-analyses récentes montrent une réduction significative de l'anxiété et des symptômes dépressifs chez les femmes qui pratiquent une activité physique régulière après un cancer du sein — avec un effet plus marqué quand la séance combine endurance douce et renforcement léger plutôt qu'un seul type d'effort.
 - **Image du corps et féminité** : cicatrices, reconstruction, perte de cheveux, changement de silhouette... le corps a changé, parfois brutalement, et le regard qu'on porte dessus aussi. Bouger — même un peu — aide à se réapproprier ce corps plutôt qu'à le subir ou à l'éviter.
 - **Estime de soi et sentiment de compétence** : retrouver la capacité de faire, de tenir un effort, de progresser à son rythme, contribue à restaurer une confiance souvent mise à mal par la maladie et les traitements.
-- **Peur de la récidive** : cette peur touche une grande majorité des femmes après un cancer du sein, parfois plusieurs années après la fin des traitements. Plusieurs travaux associent une pratique régulière d'activité physique adaptée à une diminution sensible de cette peur.
+- **Peur de la récidive** : cette peur touche une grande majorité des femmes après un cancer du sein, parfois plusieurs années après la fin des traitements. Plusieurs travaux associent une pratique régulière d'Activité Physique Adaptée à une diminution sensible de cette peur.
 - **Isolement et lien social** : le cancer coupe souvent du quotidien professionnel et social. Un rendez-vous régulier — même en visio — recrée un point d'ancrage et un contact humain dans une période où l'isolement est fréquent.
 
 Ces bénéfices ne sont pas un supplément d'âme à côté du « vrai » travail physique. Pour beaucoup de femmes, c'est précisément cette dimension — se sentir de nouveau capable, de nouveau chez soi dans son corps — qui compte le plus, avant même les progrès mesurables de force ou d'endurance.
 
-Des structures spécialisées dans l'activité physique en oncologie, comme [CAMI Sport & Cancer](https://sportetcancer.com/), documentent cette double dimension physique et psychologique et plaident pour une place plus systématique de l'activité physique adaptée dans les parcours de soins — toujours en complément des traitements et du suivi médical, jamais en substitut.
+Des structures spécialisées dans l'activité physique en oncologie, comme [CAMI Sport & Cancer](https://sportetcancer.com/), documentent cette double dimension physique et psychologique et plaident pour une place plus systématique de l'Activité Physique Adaptée dans les parcours de soins — toujours en complément des traitements et du suivi médical, jamais en substitut.
 
 ---
 
@@ -68,7 +68,7 @@ Au-delà des bienfaits psychologiques détaillés plus haut, cela se traduit tr�
 
 ---
 
-## L'activité physique adaptée : une réponse pensée pour cette étape
+## L'Activité Physique Adaptée : une réponse pensée pour cette étape
 
 L'**APA** est justement construite pour ce type de situation : adapter le mouvement à une santé qui a des règles particulières, plutôt que d'imposer un programme standard. Dans le cas d'un cancer du sein, cela veut dire :
 
@@ -89,7 +89,7 @@ Ce sont des repères de vigilance généraux, pas un protocole médical : chaque
 - **Attendre le feu vert médical**, notamment après une chirurgie récente ou en cours de traitement actif.
 - **Ne pas porter de charges lourdes** du côté opéré dans les premiers mois, en particulier en cas de curage ganglionnaire — sauf indication contraire de ton chirurgien.
 - **Surveiller le bras** : un gonflement, une sensation de lourdeur ou une rougeur doivent être signalés au médecin sans attendre, pas gérés par l'activité physique.
-- **Laisser la rééducation de l'épaule au kiné** : la récupération de la mobilité après chirurgie relève de la kinésithérapie ; l'activité physique adaptée prend le relais une fois cette phase engagée ou terminée avec lui, pas avant.
+- **Laisser la rééducation de l'épaule au kiné** : la récupération de la mobilité après chirurgie relève de la kinésithérapie ; l'Activité Physique Adaptée prend le relais une fois cette phase engagée ou terminée avec lui, pas avant.
 - **S'échauffer plus longuement** que d'habitude, en particulier si les articulations sont raidies par un traitement hormonal.
 - **Adapter selon la fatigue du jour** : une séance prévue peut devenir une version courte si l'énergie n'est pas là — ce n'est pas un échec.
 
@@ -97,14 +97,14 @@ Ce sont des repères de vigilance généraux, pas un protocole médical : chaque
 
 ## Exemples d'adaptations d'exercices
 
-La logique est la même que pour toute activité physique adaptée : doser, moduler, ne jamais forcer. Dans les premières semaines post-opératoires, la récupération de la mobilité de l'épaule relève de la rééducation kinésithérapique — les exemples ci-dessous concernent la suite : une activité physique plus globale, une fois cette phase engagée ou terminée avec le kiné, et toujours en cohérence avec ses indications si un suivi est en cours.
+La logique est la même que pour toute Activité Physique Adaptée : doser, moduler, ne jamais forcer. Dans les premières semaines post-opératoires, la récupération de la mobilité de l'épaule relève de la rééducation kinésithérapique — les exemples ci-dessous concernent la suite : une activité physique plus globale, une fois cette phase engagée ou terminée avec le kiné, et toujours en cohérence avec ses indications si un suivi est en cours.
 
 - **Mobilité douce du bras et de l'épaule**, en complément du travail du kiné : petits mouvements circulaires, bras le long du corps puis légèrement écarté, sans chercher l'amplitude maximale et sans dépasser ce que le kiné a validé.
 - **Renforcement léger sans charge** au départ (mouvements à poids du corps), puis avec de très petites charges seulement quand l'amplitude est revenue et validée par le chirurgien ou le kiné.
 - **Marche et endurance douce** : un excellent point de départ, peu coûteux en énergie et sans risque pour le bras.
 - **Respiration et retour au calme** : particulièrement utiles pour gérer la fatigue et l'anxiété liées au parcours de soins.
 
-Pour des exemples plus détaillés (mobilité, renforcement doux, équilibre), voir [exercices d'activité physique adaptée](/blog/activite-physique-adaptee-exercices/).
+Pour des exemples plus détaillés (mobilité, renforcement doux, équilibre), voir [exercices d'Activité Physique Adaptée](/blog/activite-physique-adaptee-exercices/).
 
 ---
 
@@ -146,16 +146,16 @@ Plusieurs travaux en oncologie vont dans ce sens, à condition que l'activité r
 
 ### Est-ce que ça aide vraiment moralement, ou seulement le corps ?
 
-Dans le vécu de beaucoup de femmes accompagnées, c'est même souvent l'inverse : l'effet le plus net se situe sur le plan psychologique — anxiété, image du corps, confiance — avant les progrès physiques mesurables. Les deux se renforcent mutuellement, mais si le moral est ta priorité, ce n'est pas secondaire par rapport au travail physique : c'est souvent le cœur de ce que l'activité physique adaptée peut apporter.
+Dans le vécu de beaucoup de femmes accompagnées, c'est même souvent l'inverse : l'effet le plus net se situe sur le plan psychologique — anxiété, image du corps, confiance — avant les progrès physiques mesurables. Les deux se renforcent mutuellement, mais si le moral est ta priorité, ce n'est pas secondaire par rapport au travail physique : c'est souvent le cœur de ce que l'Activité Physique Adaptée peut apporter.
 
 ---
 
 ## Ressources pour aller plus loin
 
 - [Coach APA en ligne : rôle et accompagnement](/blog/coach-apa/)
-- [Exemples d'exercices d'activité physique adaptée](/blog/activite-physique-adaptee-exercices/)
+- [Exemples d'exercices d'Activité Physique Adaptée](/blog/activite-physique-adaptee-exercices/)
 - [Kiné, coach sportif ou coach APA : qui consulter ?](/blog/kine-coach-sportif-coach-apa/)
-- [Activité physique adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
+- [Activité Physique Adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Mouvement et maladie chronique](/mouvement-maladie-chronique/)
 
 Pour un [coaching sportif adapté en ligne](/coach-apa-en-ligne/) après un cancer du sein, une discussion préalable avec Cécile permet de voir où tu en es et si le cadre RE-FLOW est adapté à ta situation actuelle : [prendre contact](/contact/).

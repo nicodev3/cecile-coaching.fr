@@ -92,7 +92,7 @@ Concrètement, ça passe par :
 
 Sur plusieurs semaines, ce type d'accompagnement peut améliorer progressivement l'endurance aux activités du quotidien, réduire la sensation d'effort sur les gestes simples, et restaurer une relation moins anxieuse avec le corps.
 
-> Pour voir à quoi ressemblent concrètement ces exercices : [Exemples d'exercices d'activité physique adaptée](/blog/activite-physique-adaptee-exercices/).
+> Pour voir à quoi ressemblent concrètement ces exercices : [Exemples d'exercices d'Activité Physique Adaptée](/blog/activite-physique-adaptee-exercices/).
 
 ---
 
@@ -110,4 +110,4 @@ Chez **RE-FLOW par Cécile**, l'accompagnement à distance s'adresse aux femmes 
 ---
 
 *Pour aller plus loin :*
-[Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) · [Syndrome de fatigue chronique (SFC/EM) : ce qu'il faut savoir](/blog/syndrome-de-fatigue-chronique/) · [Je suis fatiguée — est-ce que bouger va m'aider ?](/blog/fatiguee-bouger-maladie-chronique/) · [Activité physique adaptée : définition](/activites-physiques-adaptees/)
+[Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) · [Syndrome de fatigue chronique (SFC/EM) : ce qu'il faut savoir](/blog/syndrome-de-fatigue-chronique/) · [Je suis fatiguée — est-ce que bouger va m'aider ?](/blog/fatiguee-bouger-maladie-chronique/) · [Activité Physique Adaptée : définition](/activites-physiques-adaptees/)

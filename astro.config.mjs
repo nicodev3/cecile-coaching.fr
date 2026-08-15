@@ -23,13 +23,13 @@ export default defineConfig({
       fallbacks: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
     },
     {
-      name: 'Libre Caslon Text',
+      name: 'Montserrat',
       cssVariable: '--font-title',
       provider: fontProviders.fontsource(),
-      weights: [400, 700],
+      weights: [500, 600, 700],
       styles: ['normal'],
       subsets: ['latin'],
-      fallbacks: ['Georgia', 'Times New Roman', 'serif'],
+      fallbacks: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
     },
   ],
 

@@ -133,4 +133,4 @@ Si tu te reconnais dans ce dernier profil, l’accompagnement peut aussi passer 
 
 ---
 
-*Tu veux découvrir le programme à distance ?* Découvre le [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, consulte [le parcours de Cécile](/a-propos/), ou pour un panorama APA sur ce site, vois [Activité physique adaptée en ligne](/activites-physiques-adaptees/).
+*Tu veux découvrir le programme à distance ?* Découvre le [coaching sportif adapté en ligne](/coach-apa-en-ligne/) proposé par RE-FLOW, consulte [le parcours de Cécile](/a-propos/), ou pour un panorama APA sur ce site, vois [Activité Physique Adaptée en ligne](/activites-physiques-adaptees/).

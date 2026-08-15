@@ -10,8 +10,7 @@ const columns: { title: string; items: PricingItem[] }[] = [
 		title: 'Ressources fournies',
 		items: [
 			'Plateforme en ligne avec 3 vidéos par semaine',
-			'Journal de suivi du niveau de forme et des progrès',
-			'Une séance zoom collective tous les 15 jours à suivre en live ou en Replay',
+			'Une séance zoom collective tous les 15 jours à suivre en live ou en replay',
 			'Un kit « mauvais jour » de séances express de 5-10 minutes',
 		],
 	},
@@ -19,7 +18,7 @@ const columns: { title: string; items: PricingItem[] }[] = [
 		title: 'Rendez-vous de coaching',
 		items: [
 			'1 bilan forme personnalisé au début et à la fin du programme',
-			'Suivi individuel hebdomadaire en visio',
+			'Suivi individuel hebdomadaire en visio pour faire le point',
 			{ label: 'Joignable sur WhatsApp : réponse sous 24h', href: SITE_WHATSAPP },
 		],
 	},
@@ -81,19 +80,15 @@ const reveal =
 			Durée du programme : 4 mois (16 semaines)
 		</p>
 		<p class="mt-4 text-center text-(--secondary)">
-			Pour connaître le tarif et les modalités de paiement,
+			Pour connaître le tarif et les modalités de paiement,{' '}
 			<a class="font-semibold text-(--primary) underline-offset-4 hover:underline" href="#contact">
-				demande un échange à distance
+				contacte-moi directement sur WhatsApp
 			</a>.
 		</p>
 
 		<p class="mt-6 text-center text-(--secondary)">
-			Questions avant de te décider ?
+			Questions avant de te décider ?{' '}
 			<a class="font-semibold text-(--primary) underline-offset-4 hover:underline" href="#faq">Voir la FAQ</a>
-			<span aria-hidden="true"> · </span>
-			<WhatsAppCtaLink campaign="pricing" class="whatsapp-link font-semibold underline-offset-4 hover:underline">
-				WhatsApp
-			</WhatsAppCtaLink>
 		</p>
 
 		<div class="mt-8 flex justify-center">
