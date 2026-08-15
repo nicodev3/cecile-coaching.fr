@@ -17,7 +17,7 @@ const pillarLabel = primaryPillar ? PILLARS_BY_KEY[primaryPillar].shortLabel : '
 
 <article class="card-shadow group cursor-pointer overflow-hidden rounded-xl bg-(--surface-container-lowest) transition-transform duration-300 hover:-translate-y-1 motion-reduce:hover:translate-y-0">
 	<a href={`/blog/${post.id}/`} class="flex h-full flex-col no-underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)">
-		<div class="aspect-[16/10] overflow-hidden bg-(--surface-container)">
+		<div class="aspect-16/10 overflow-hidden bg-(--surface-container)">
 			{
 				post.data.heroImage ? (
 					<Image
@@ -25,10 +25,10 @@ const pillarLabel = primaryPillar ? PILLARS_BY_KEY[primaryPillar].shortLabel : '
 						height={400}
 						src={post.data.heroImage}
 						alt={cardTitle}
-						class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:group-hover:scale-100"
+						class="size-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:group-hover:scale-100"
 					/>
 				) : (
-					<div class="flex h-full w-full items-center justify-center bg-(--primary-fixed-dim)/20" aria-hidden="true">
+					<div class="flex size-full items-center justify-center bg-(--primary-fixed-dim)/20" aria-hidden="true">
 						<span class="text-4xl text-(--primary-container)">RE-FLOW</span>
 					</div>
 				)

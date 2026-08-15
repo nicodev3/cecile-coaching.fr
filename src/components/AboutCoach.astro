@@ -19,7 +19,7 @@ const reveal =
 	data-revealed="false"
 	aria-labelledby="coach-title"
 >
-	<div class="mx-auto flex max-w-(--max-width-container) flex-col items-center gap-16 px-4 sm:px-6 md:flex-row lg:px-8">
+	<div class="mx-auto flex max-w-container flex-col items-center gap-16 px-4 sm:px-6 md:flex-row lg:px-8">
 		<div class="relative w-full md:w-1/2">
 			<div
 				class="pointer-events-none absolute -inset-4 -z-10 rotate-3 rounded-2xl border-2 border-(--primary-fixed-dim)"
@@ -62,7 +62,7 @@ const reveal =
 					class="relative aspect-video overflow-hidden rounded-2xl bg-black shadow-lg ring-1 ring-(--outline-variant)/30"
 				>
 					<iframe
-						class="absolute inset-0 hidden h-full w-full border-0 lg:block"
+						class="absolute inset-0 hidden size-full border-0 lg:block"
 						src={ytEmbedUrl}
 						title="Vidéo de présentation - Cécile, coach APA en ligne"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
@@ -73,7 +73,7 @@ const reveal =
 					<img
 						src={`https://i.ytimg.com/vi/${ytVideoId}/hqdefault.jpg`}
 						alt="Cécile, coach sportive BPJEPS - accompagnement sportif adapté"
-						class="coach-yt-poster absolute inset-0 z-0 h-full w-full object-cover lg:hidden"
+						class="coach-yt-poster absolute inset-0 z-0 size-full object-cover lg:hidden"
 						loading="lazy"
 						decoding="async"
 					/>
@@ -90,7 +90,7 @@ const reveal =
 						</button>
 					</div>
 					<iframe
-						class="coach-yt-mobile pointer-events-none absolute inset-0 z-5 h-full w-full border-0 opacity-0 transition-opacity duration-200 lg:hidden"
+						class="coach-yt-mobile pointer-events-none absolute inset-0 z-5 size-full border-0 opacity-0 transition-opacity duration-200 lg:hidden"
 						data-src={ytEmbedUrlAutoplay}
 						title="Vidéo de présentation - Cécile, coach APA en ligne"
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"

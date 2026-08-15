@@ -1,23 +1,29 @@
 ---
-description: Classes Tailwind en syntaxe canonique (v4+) — éviter suggestCanonicalClasses
+description: Classes Tailwind en syntaxe canonique — éviter suggestCanonicalClasses et les valeurs arbitraires inutiles
 globs: "**/*.{astro,tsx,jsx,vue,html,css}"
 alwaysApply: false
 ---
 
 # Classes Tailwind : syntaxe canonique
 
-- Utiliser **la syntaxe officielle de la version installée** du projet (`tailwindcss` / `@tailwindcss/*` dans `package.json`), alignée sur la [doc Tailwind CSS](https://tailwindcss.com/docs) actuelle.
-- **Objectif** : aucun avertissement du langage Tailwind / IntelliSense de type **`suggestCanonicalClasses`** (classes non canoniques ou anciennes formes).
-- Lors de l’écriture ou la modification de classes dans `class`, `className`, attributs utilitaires ou `@apply` :
-  - **Appliquer la suggestion proposée** par l’outil (nom de classe canonique) plutôt que la variante dépréciée ou alias.
-  - Ne pas mélanger intentionnellement anciennes et nouvelles formes pour la même intention.
+Suivre la [doc Tailwind](https://tailwindcss.com/docs) de la **version installée** (`tailwindcss` dans `package.json`). Objectif : aucun diagnostic `suggestCanonicalClasses`.
 
-## Exemples fréquents (à confirmer selon la version)
+Quand tu écris ou modifies `class` / `className` / `@apply` :
 
-| À éviter si l’outil signale une forme canonique | Forme à privilégier |
-|------------------------------------------------|----------------------|
-| utilitaires « historiques » ou alias | nom canonique affiché par la suggestion |
-| `flex-grow` / `flex-shrink` quand la doc v4 recommande autre chose | `grow` / `shrink` (si c’est ce que propose la suggestion) |
-| `w-*` + `h-*` identiques quand `size-*` est canonique pour ce cas | `size-*` (si adapté) |
+1. **Appliquer la suggestion exacte** de l’IntelliSense plutôt qu’une forme arbitraire ou un alias.
+2. **Ne pas inventer `[Npx]` / `[Nrem]`** s’il existe une utilité d’échelle.
+3. **Ne pas mélanger** anciennes et nouvelles formes pour la même intention.
 
-En cas de doute, **suivre la suggestion de correction exacte** du diagnostic plutôt que de tenir une forme obsolète.
+## Conversions fréquentes (v4, 1 = 0,25rem = 4px)
+
+| Éviter | Préférer |
+|--------|----------|
+| `h-[600px]` | `h-150` |
+| `min-h-[280px]` | `min-h-70` |
+| `h-[18px] w-[18px]` / `h-4 w-4` | `size-4.5` / `size-4` |
+| `rounded-[3rem]` | `rounded-12` |
+| `text-[3rem]` | `text-5xl` |
+| `max-w-(--max-width-container)` si `@theme { --max-width-container }` | `max-w-container` |
+| `flex-grow` / `flex-shrink` | `grow` / `shrink` |
+
+Garder une valeur arbitraire **seulement** s’il n’existe pas d’équivalent (`min-h-[90vh]`, `tracking-[0.2em]`, `blur-[120px]`, `w-[min(92vw,22rem)]`).

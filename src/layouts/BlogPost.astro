@@ -209,7 +209,7 @@ const blogPostingStructuredData = {
 
 	<body class="min-h-screen bg-(--background) text-(--on-surface) antialiased">
 		<Header />
-		<main class="mx-auto max-w-(--max-width-container) px-4 pb-24 sm:px-10">
+		<main class="mx-auto max-w-container px-4 pb-24 sm:px-10">
 			<Breadcrumbs
 				variant="article"
 				items={[
@@ -249,19 +249,19 @@ const blogPostingStructuredData = {
 						<h1 class="mb-6 text-4xl leading-tight text-(--primary) sm:text-5xl">{displayTitle}</h1>
 						<div class="flex flex-wrap items-center gap-3 text-sm text-(--outline)">
 							<span class="inline-flex items-center gap-1.5">
-								<Clock class="h-[18px] w-[18px]" aria-hidden="true" />
+								<Clock class="size-4.5" aria-hidden="true" />
 								{readingTime} min de lecture
 							</span>
-							<span class="h-1 w-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
+							<span class="size-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
 							<span>Par {COACH_NAME}</span>
-							<span class="h-1 w-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
+							<span class="size-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
 							<time datetime={pubDate.toISOString()}>
 								<FormattedDate date={pubDate} />
 							</time>
 							{
 								updatedDate && (
 									<>
-										<span class="h-1 w-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
+										<span class="size-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
 										<span class="italic">
 											Mise à jour le <FormattedDate date={updatedDate} />
 										</span>
@@ -272,13 +272,13 @@ const blogPostingStructuredData = {
 					</div>
 					{
 						heroImage && (
-							<div class="relative aspect-square overflow-hidden rounded-xl shadow-sm md:col-span-4 md:aspect-auto md:min-h-[280px]">
+							<div class="relative aspect-square overflow-hidden rounded-xl shadow-sm md:col-span-4 md:aspect-auto md:min-h-70">
 								<Image
 									width={640}
 									height={640}
 									src={heroImage}
 									alt={`${displayTitle} - article RE-FLOW par Cécile`}
-									class="h-full w-full object-cover"
+									class="size-full object-cover"
 								/>
 							</div>
 						)
@@ -310,7 +310,7 @@ const blogPostingStructuredData = {
 							<Image
 								src={coachImage}
 								alt={`${COACH_NAME}, coach sportive BPJEPS en ligne`}
-								class="h-16 w-16 shrink-0 rounded-full object-cover"
+								class="size-16 shrink-0 rounded-full object-cover"
 								width={64}
 								height={64}
 							/>

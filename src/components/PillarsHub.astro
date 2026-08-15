@@ -34,7 +34,7 @@ const reveal = compact
 	{...(compact ? {} : { 'data-reveal': true, 'data-revealed': 'false' })}
 	aria-labelledby="pillars-hub-title"
 >
-	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-container px-4 sm:px-6 lg:px-8">
 		{
 			!compact && (
 				<div class="mx-auto max-w-3xl text-center">
@@ -68,15 +68,15 @@ const reveal = compact
 							class="group flex h-full flex-col rounded-2xl bg-(--surface-container-lowest) p-6 soft-glow transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
 						>
 							<div class="mb-3 flex items-center gap-3">
-								<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed)">
-									<Icon class="h-5 w-5 text-(--primary)" aria-hidden="true" stroke-width={1.7} />
+								<span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed)">
+									<Icon class="size-5 text-(--primary)" aria-hidden="true" stroke-width={1.7} />
 								</span>
 								<p class="font-semibold text-(--primary)">{p.label}</p>
 							</div>
 							<p class="text-sm leading-relaxed text-(--secondary)">{p.tagline}</p>
 							<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-(--primary) transition group-hover:gap-2">
 								Lire le guide
-								<ArrowRight class="h-4 w-4" aria-hidden="true" stroke-width={2} />
+								<ArrowRight class="size-4" aria-hidden="true" stroke-width={2} />
 							</span>
 						</a>
 					);

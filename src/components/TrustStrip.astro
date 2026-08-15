@@ -29,15 +29,15 @@ const reveal =
 	data-revealed="false"
 	aria-label="Éléments de confiance"
 >
-	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-container px-4 sm:px-6 lg:px-8">
 		<div class="grid gap-8 md:grid-cols-3">
 			{items.map((it) => (
 				<div class="bento-card space-y-4 rounded-xl bg-(--surface-container-lowest) p-10 text-center soft-glow">
 					<div
-						class="mx-auto mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-(--primary-fixed-dim)/30"
+						class="mx-auto mb-6 flex size-12 items-center justify-center rounded-full bg-(--primary-fixed-dim)/30"
 						aria-hidden="true"
 					>
-						<it.icon class="h-6 w-6 text-(--primary)" stroke-width={1.5} />
+						<it.icon class="size-6 text-(--primary)" stroke-width={1.5} />
 					</div>
 					<h3 class="text-2xl text-(--primary)">{it.title}</h3>
 					<p class="text-(--secondary)">{it.desc}</p>

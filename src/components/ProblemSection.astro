@@ -54,7 +54,7 @@ const reveal =
 	data-revealed="false"
 	aria-labelledby="problem-title"
 >
-	<div class="mx-auto max-w-(--max-width-container) px-4 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-container px-4 sm:px-6 lg:px-8">
 		<div class="mb-16 space-y-4 text-center">
 			<h2 id="problem-title" class="text-3xl text-(--primary) sm:text-5xl">
 				Sortir de l'engrenage
@@ -71,7 +71,7 @@ const reveal =
 				<div class="relative rounded-2xl border-2 border-dashed border-(--primary)/30 px-4 py-5 sm:px-6 sm:py-6">
 					<div class="flex items-stretch gap-4 sm:gap-6">
 						<div class="flex w-5 shrink-0 flex-col items-center text-(--primary)" aria-hidden="true">
-							<ArrowUp class="h-5 w-5 shrink-0" stroke-width={2.5} />
+							<ArrowUp class="size-5 shrink-0" stroke-width={2.5} />
 							<div class="mt-0.5 w-0.5 flex-1 rounded-full bg-(--primary-container)"></div>
 						</div>
 						<ol
@@ -82,10 +82,10 @@ const reveal =
 								cycle.map((item) => (
 									<li class="flex items-start gap-4 rounded-lg border border-(--outline-variant)/30 bg-(--surface)/50 p-5">
 										<div
-											class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-(--primary)/10"
+											class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-(--primary)/10"
 											aria-hidden="true"
 										>
-											<item.icon class="h-7 w-7 text-(--primary-container)" stroke-width={1.75} />
+											<item.icon class="size-7 text-(--primary-container)" stroke-width={1.75} />
 										</div>
 										<div class="min-w-0 pt-0.5">
 											<p class="text-base font-bold text-(--primary)">{item.title}</p>
@@ -97,7 +97,7 @@ const reveal =
 						</ol>
 						<div class="flex w-5 shrink-0 flex-col items-center text-(--primary)" aria-hidden="true">
 							<div class="mb-0.5 w-0.5 flex-1 rounded-full bg-(--primary-container)"></div>
-							<ArrowDown class="h-5 w-5 shrink-0" stroke-width={2.5} />
+							<ArrowDown class="size-5 shrink-0" stroke-width={2.5} />
 						</div>
 					</div>
 				</div>
@@ -122,7 +122,7 @@ const reveal =
 					</a>
 				</div>
 				<div
-					class="pointer-events-none absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-(--primary-container)/30 blur-[80px]"
+					class="pointer-events-none absolute -right-20 -bottom-20 size-80 rounded-full bg-(--primary-container)/30 blur-[80px]"
 					aria-hidden="true"
 				/>
 			</div>

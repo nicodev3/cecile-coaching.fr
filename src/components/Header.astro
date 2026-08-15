@@ -41,7 +41,7 @@ const mobileLinkClass = (active: boolean) =>
 ---
 
 <header class="sticky top-0 z-50 bg-(--surface)/90 shadow-sm backdrop-blur-md">
-	<div class="mx-auto flex max-w-(--max-width-container) items-center justify-between gap-4 px-4 py-6 sm:px-10">
+	<div class="mx-auto flex max-w-container items-center justify-between gap-4 px-4 py-6 sm:px-10">
 		<a
 			href="/"
 			class="text-2xl tracking-tight text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
@@ -72,7 +72,7 @@ const mobileLinkClass = (active: boolean) =>
 					<span class="inline-flex items-center gap-1.5">
 						Comprendre
 						<svg
-							class="h-3.5 w-3.5 transition group-open:rotate-180"
+							class="size-3.5 transition group-open:rotate-180"
 							viewBox="0 0 20 20"
 							fill="currentColor"
 							aria-hidden="true"
@@ -128,10 +128,10 @@ const mobileLinkClass = (active: boolean) =>
 		<div class="hidden items-center gap-3 lg:flex">
 			<WhatsAppCtaLink
 				campaign="header"
-				class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-(--whatsapp-surface) text-(--whatsapp) ring-1 ring-(--whatsapp)/20 transition hover:bg-(--whatsapp) hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--whatsapp)"
+				class="inline-flex size-10 items-center justify-center rounded-full bg-(--whatsapp-surface) text-(--whatsapp) ring-1 ring-(--whatsapp)/20 transition hover:bg-(--whatsapp) hover:text-white focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--whatsapp)"
 				aria-label="Contacter sur WhatsApp"
 			>
-				<WhatsAppIcon class="h-5 w-5" />
+				<WhatsAppIcon class="size-5" />
 			</WhatsAppCtaLink>
 			<a
 				href={headerTunnelUrl}
