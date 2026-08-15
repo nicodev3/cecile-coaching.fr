@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, BookOpen, Compass, HeartPulse } from '@lucide/astro';
+import { ArrowRight, BatteryLow, HeartPulse, PersonStanding } from '@lucide/astro';
 import { PILLARS, type PillarKey } from '../data/pillars';
 
 interface Props {
@@ -12,16 +12,16 @@ interface Props {
 const {
 	exclude,
 	title = 'Comprendre, à ton rythme',
-	intro = "Trois guides pédagogiques pour poser les bons repères avant — ou pendant — l'accompagnement.",
+	intro = "Trois guides pédagogiques pour poser les bons repères avant ou pendant l'accompagnement.",
 	compact = false,
 } = Astro.props;
 
 const pillars = PILLARS.filter((p) => p.key !== exclude);
 
 const iconByKey = {
-	apa: BookOpen,
-	'maladie-chronique': HeartPulse,
-	fatigue: Compass,
+	apa: HeartPulse,
+	'maladie-chronique': PersonStanding,
+	fatigue: BatteryLow,
 } as const;
 
 const reveal = compact
@@ -68,7 +68,7 @@ const reveal = compact
 							class="group flex h-full flex-col rounded-2xl bg-(--surface-container-lowest) p-6 soft-glow transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
 						>
 							<div class="mb-3 flex items-center gap-3">
-								<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed-dim)/30">
+								<span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed)">
 									<Icon class="h-5 w-5 text-(--primary)" aria-hidden="true" stroke-width={1.7} />
 								</span>
 								<p class="font-semibold text-(--primary)">{p.label}</p>

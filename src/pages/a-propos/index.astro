@@ -9,7 +9,7 @@ import PillarsHub from '../../components/PillarsHub.astro';
 import TunnelCtaLink from '../../components/TunnelCtaLink.astro';
 import { COACH_NAME, SITE_INSTAGRAM, SITE_WHATSAPP } from '../../consts';
 
-const title = `${COACH_NAME}, coach sportive BPJEPS certifiée APA — À propos | RE-FLOW`;
+const title = `${COACH_NAME}, coach sportive BPJEPS certifiée APA - À propos | RE-FLOW`;
 const description = `${COACH_NAME}, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA, accompagne à distance les femmes touchées par une maladie chronique, partout en France.`;
 
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
@@ -21,7 +21,7 @@ const personStructuredData = {
 	'@type': 'Person',
 	'@id': `${siteUrlNormalized}/a-propos/#cecile`,
 	name: COACH_NAME,
-	jobTitle: 'Coach sportive diplômée d’État — BPJEPS Activités de la forme, certifiée APA',
+	jobTitle: 'Coach sportive diplômée d’État - BPJEPS Activités de la forme, certifiée APA',
 	url: pageUrl,
 	image: new URL(coachImage.src, Astro.site).toString(),
 	worksFor: { '@id': `${siteUrlNormalized}/#coaching-service` },
@@ -61,7 +61,7 @@ const personStructuredData = {
 					<div class="relative rounded-full p-1 ring-4 ring-white/80 shadow-lg shadow-black/10">
 						<Image
 							src={coachImage}
-							alt={`${COACH_NAME}, coach sportive BPJEPS — accompagnement sportif adapté`}
+							alt={`${COACH_NAME}, coach sportive BPJEPS - accompagnement sportif adapté`}
 							class="h-32 w-32 rounded-full object-cover sm:h-40 sm:w-40"
 							loading="eager"
 							decoding="async"
@@ -71,7 +71,7 @@ const personStructuredData = {
 
 				<div class="inline-flex items-center gap-2 rounded-xl bg-(--plum)/10 px-3 py-1.5 text-sm font-semibold text-(--plum-ink) ring-1 ring-(--plum)/20">
 					<Check class="h-4 w-4 shrink-0 text-(--plum)" aria-hidden="true" stroke-width={2} />
-					<span>Coach sportive diplômée d’État — BPJEPS Activités de la forme, certifiée APA</span>
+					<span>Coach sportive diplômée d’État - BPJEPS Activités de la forme, certifiée APA</span>
 				</div>
 
 				<h1 class="mt-6 text-3xl font-semibold text-slate-900 sm:text-4xl">

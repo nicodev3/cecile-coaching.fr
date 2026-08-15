@@ -3,7 +3,7 @@
 
 export { TUNNEL_ORIGIN, tunnelEntryUrl } from './utils/tunnelUrl';
 
-export const SITE_TITLE = 'RE-FLOW par Cécile — coaching sportif adapté en ligne';
+export const SITE_TITLE = 'RE-FLOW par Cécile - coaching sportif adapté en ligne';
 export const SITE_DESCRIPTION =
 	'Reprenez le mouvement en douceur avec Cécile, coach sportive BPJEPS et certifiée APA, pour femmes vivant avec une maladie chronique ou une fatigue chronique.';
 export const SITE_BRAND = 'RE-FLOW';
@@ -12,5 +12,5 @@ export const SITE_WHATSAPP = 'https://wa.me/message/6FQL2VZLVY4IC1';
 export const COACH_NAME = 'Cécile';
 export const COACH_EMAIL = 'cecile.c.coach@gmail.com';
 
-/** Clé IndexNow — fichier public /{INDEXNOW_KEY}.txt */
+/** Clé IndexNow - fichier public /{INDEXNOW_KEY}.txt */
 export const INDEXNOW_KEY = 'c4e8f2a19b603d7e5f1a8c9b2d4e6f0';

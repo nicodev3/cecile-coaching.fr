@@ -17,15 +17,15 @@ relatedPillars:
 
 ### Missions principales
 
-- **Kinésithérapeute** — soins, rééducation, bilan
-- **Coach sportif** — performance, forme, objectifs sportifs
-- **Coach APA en ligne** — mouvement adapté à la santé et aux pathologies, avec séances en visio
+- **Kinésithérapeute** - soins, rééducation, bilan
+- **Coach sportif** - performance, forme, objectifs sportifs
+- **Coach APA en ligne** - mouvement adapté à la santé et aux pathologies, avec séances en visio
 
 ### Public accompagné
 
-- **Kinésithérapeute** — personnes avec blessure, douleur aiguë, suites d’opération, prescription
-- **Coach sportif** — personnes en bonne santé ou sportives
-- **Coach APA en ligne** — personnes fragiles, atteintes de maladies chroniques ou très éloignées de la pratique sportive, partout en France
+- **Kinésithérapeute** - personnes avec blessure, douleur aiguë, suites d’opération, prescription
+- **Coach sportif** - personnes en bonne santé ou sportives
+- **Coach APA en ligne** - personnes fragiles, atteintes de maladies chroniques ou très éloignées de la pratique sportive, partout en France
 
 Cette synthèse est volontairement simplifiée : en pratique, les frontières peuvent se croiser (par exemple un coach sportif spécialisé seniors). L’important est de **faire correspondre ton besoin** avec la **compétence réelle** du professionnel, pas seulement avec le titre sur la carte de visite.
 
@@ -48,7 +48,7 @@ Le kiné travaille souvent en **lien direct avec le médecin** et peut être **r
 
 ### Ce qu’un kiné n’est pas
 
-Ce n’est généralement **pas** son rôle de te faire suivre un **programme sportif loisir sur plusieurs mois** ou de piloter ta **remise en forme globale** une fois la rééducation terminée — sauf orientation spécifique dans le cadre de sa pratique. Pour du **coaching d’activité physique** dans la durée, d’autres professionnels entrent en jeu.
+Ce n’est généralement **pas** son rôle de te faire suivre un **programme sportif loisir sur plusieurs mois** ou de piloter ta **remise en forme globale** une fois la rééducation terminée - sauf orientation spécifique dans le cadre de sa pratique. Pour du **coaching d’activité physique** dans la durée, d’autres professionnels entrent en jeu.
 
 ---
 
@@ -80,7 +80,7 @@ C’est souvent le bon interlocuteur si :
 - tu cherches un **accompagnement dans la durée**, avec des **ajustements** semaine après semaine.
 - tu souhaites être accompagnée **à distance**, sans dépendre d'un cabinet proche de chez toi.
 
-L’APA n’est **pas** de la kinésithérapie : pas de diagnostic médical, pas de soins curatifs au sens kiné du terme. Ce n’est **pas** non plus, par essence, de la **préparation physique** « haute intensité » — même si l’intensité peut évoluer avec le temps et l’avis médical. À distance, le cadre doit rester simple, progressif et sécurisant.
+L’APA n’est **pas** de la kinésithérapie : pas de diagnostic médical, pas de soins curatifs au sens kiné du terme. Ce n’est **pas** non plus, par essence, de la **préparation physique** « haute intensité » - même si l’intensité peut évoluer avec le temps et l’avis médical. À distance, le cadre doit rester simple, progressif et sécurisant.
 
 Pour aller plus loin sur la définition : [Coach APA en ligne : rôle et accompagnement](/blog/coach-apa/).
 

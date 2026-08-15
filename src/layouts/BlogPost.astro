@@ -36,7 +36,7 @@ const {
 
 const tunnelCampaign = `blog_${postId.replace(/[^a-z0-9_-]/gi, '_')}`;
 const displayTitle = tieFrenchPunctuation(title);
-const seoTitle = seoTitleOverride ?? `${displayTitle} — RE-FLOW`;
+const seoTitle = seoTitleOverride ?? `${displayTitle} - RE-FLOW`;
 const seoDescription = description;
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
@@ -277,7 +277,7 @@ const blogPostingStructuredData = {
 									width={640}
 									height={640}
 									src={heroImage}
-									alt={`${displayTitle} — article RE-FLOW par Cécile`}
+									alt={`${displayTitle} - article RE-FLOW par Cécile`}
 									class="h-full w-full object-cover"
 								/>
 							</div>
@@ -315,7 +315,7 @@ const blogPostingStructuredData = {
 								height={64}
 							/>
 							<div>
-								<p class="text-sm font-semibold text-slate-900">{COACH_NAME} — Coach sportive BPJEPS en ligne</p>
+								<p class="text-sm font-semibold text-slate-900">{COACH_NAME} - Coach sportive BPJEPS en ligne</p>
 								<p class="mt-1 text-sm leading-relaxed text-slate-600">
 									Spécialisée dans l'accompagnement des femmes vivant avec une maladie chronique, Cécile propose un coaching sportif adapté, progressif et sans culture de la performance, partout en France. <a href="/a-propos/" class="text-(--plum) underline underline-offset-2 hover:text-(--plum-ink)">En savoir plus</a>
 								</p>

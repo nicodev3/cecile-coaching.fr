@@ -1,5 +1,5 @@
 /**
- * Pages piliers SEO (vitrine) — chemins avec slash final pour cohérence sitemap.
+ * Pages piliers SEO (vitrine) - chemins avec slash final pour cohérence sitemap.
  * Source de vérité unique pour la nav, le footer, les hubs et les archives blog.
  */
 export type PillarKey = 'apa' | 'maladie-chronique' | 'fatigue';

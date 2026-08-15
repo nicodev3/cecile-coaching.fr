@@ -24,7 +24,7 @@ Dans le langage courant, "sport adapté" regroupe toutes les pratiques d'activit
 - une **reprise après traitement** (chimiothérapie, chirurgie, corticothérapie longue…)
 - une **douleur chronique** ou une appréhension du mouvement
 
-Ce que le sport adapté n'est **pas** : une version allégée du sport pour ceux qui "ne font pas d'efforts". C'est un cadre professionnel avec des ajustements précis — intensité, durée, posture, récupération — pour que le mouvement soit utile sans être délétère.
+Ce que le sport adapté n'est **pas** : une version allégée du sport pour ceux qui "ne font pas d'efforts". C'est un cadre professionnel avec des ajustements précis - intensité, durée, posture, récupération - pour que le mouvement soit utile sans être délétère.
 
 ---
 
@@ -32,7 +32,7 @@ Ce que le sport adapté n'est **pas** : une version allégée du sport pour ceux
 
 En France, le cadre professionnel qui correspond au sport adapté s'appelle l'**Activité Physique Adaptée**, ou **APA**. C'est une formation universitaire spécifique (licence ou master STAPS mention APA-S) qui habilite à accompagner les personnes fragilisées par la maladie ou le handicap.
 
-Un·e **enseignant·e en APA** n'est ni un coach sportif généraliste, ni un kinésithérapeute. C'est un·e professionnel·le du mouvement formé·e à travailler avec des pathologies, des symptômes fluctuants et des contre-indications — et à adapter la séance en conséquence.
+Un·e **enseignant·e en APA** n'est ni un coach sportif généraliste, ni un kinésithérapeute. C'est un·e professionnel·le du mouvement formé·e à travailler avec des pathologies, des symptômes fluctuants et des contre-indications - et à adapter la séance en conséquence.
 
 > Si tu cherches un **sport adapté à ta maladie** ou à ta situation de santé, l'APA est la réponse structurée à cette recherche.
 
@@ -46,7 +46,7 @@ Le sport adapté s'adresse à toutes les personnes pour lesquelles un programme 
 
 ### Maladie chronique
 
-Lupus, polyarthrite, sclérose en plaques, fibromyalgie, diabète, insuffisance cardiaque, BPCO, maladies inflammatoires… Les maladies chroniques ne sont pas des contre-indications au mouvement — elles en redéfinissent les règles. L'Activité Physique Adaptée intègre les poussées, les traitements et les variations d'énergie dans la construction même du programme.
+Lupus, polyarthrite, sclérose en plaques, fibromyalgie, diabète, insuffisance cardiaque, BPCO, maladies inflammatoires… Les maladies chroniques ne sont pas des contre-indications au mouvement - elles en redéfinissent les règles. L'Activité Physique Adaptée intègre les poussées, les traitements et les variations d'énergie dans la construction même du programme.
 
 ### Fatigue chronique
 
@@ -64,7 +64,7 @@ Chimiothérapie, corticothérapie longue, chirurgie : les traitements laissent d
 
 ## Pourquoi le sport "classique" ne suffit pas
 
-Un programme sportif générique ne tient compte ni de ta maladie, ni de tes traitements, ni de ta fatigue du jour. Il repose sur une progression linéaire — "faire plus chaque semaine" — qui n'est pas compatible avec une santé fluctuante.
+Un programme sportif générique ne tient compte ni de ta maladie, ni de tes traitements, ni de ta fatigue du jour. Il repose sur une progression linéaire - "faire plus chaque semaine" - qui n'est pas compatible avec une santé fluctuante.
 
 Les conséquences concrètes quand on essaie de s'y tenir malgré tout :
 
@@ -84,7 +84,7 @@ Oui. L'accompagnement en ligne fonctionne très bien dans le cadre du sport adap
 - **Séances en visio** avec un·e professionnel·le qui voit comment tu te déplaces et ajuste en temps réel
 - **Ressources autonomes** pour les jours entre les séances
 - **Suivi régulier** pour adapter le programme semaine après semaine
-- **Pas de déplacement** — essentiel quand la fatigue ou la douleur rendent difficile de se rendre dans un cabinet ou une salle
+- **Pas de déplacement** - essentiel quand la fatigue ou la douleur rendent difficile de se rendre dans un cabinet ou une salle
 
 Chez **RE-FLOW**, c'est exactement ce que propose Cécile : un accompagnement en APA à distance, pensé pour les femmes qui vivent avec une maladie chronique ou une fatigue persistante, partout en France. La page [Activité Physique Adaptée en ligne](/coach-apa-en-ligne/) détaille le déroulement de cet accompagnement.
 
@@ -94,7 +94,7 @@ Chez **RE-FLOW**, c'est exactement ce que propose Cécile : un accompagnement en
 
 Si tu envisages de commencer un sport adapté, voici les étapes recommandées :
 
-1. **Parler à ton médecin** en premier lieu, pour s'assurer que la reprise est adaptée à ton état actuel — surtout si ta maladie est instable ou si un événement médical est récent.
+1. **Parler à ton médecin** en premier lieu, pour s'assurer que la reprise est adaptée à ton état actuel - surtout si ta maladie est instable ou si un événement médical est récent.
 2. **Choisir un·e professionnel·le formé·e en APA** plutôt qu'un coach sportif généraliste, pour bénéficier d'un cadre réellement adapté à ta santé.
 3. **Commencer doucement et progressivement**, sans chercher à reproduire ce que tu pouvais faire avant.
 4. **Accepter les jours "moins bien"** comme faisant partie du processus, pas comme des échecs.

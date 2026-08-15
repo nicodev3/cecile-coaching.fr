@@ -80,7 +80,7 @@ L'accompagnement APA ne remplace pas un suivi médical. Il vient en complément,
 
 ## Coach APA et maladie chronique : pourquoi c'est particulièrement utile
 
-Beaucoup de femmes touchées par une maladie chronique ont déjà essayé de reprendre une activité physique. Et beaucoup ont abandonné — non pas par manque de volonté, mais parce que le cadre n'était pas adapté.
+Beaucoup de femmes touchées par une maladie chronique ont déjà essayé de reprendre une activité physique. Et beaucoup ont abandonné - non pas par manque de volonté, mais parce que le cadre n'était pas adapté.
 
 Un programme générique peut aggraver la fatigue, provoquer des poussées, ou simplement être impossible à tenir sur la durée. Le résultat : de la culpabilité, du découragement, et l'impression que "le sport, c'est pas pour moi".
 
