@@ -9,19 +9,29 @@ interface Props {
 	title?: string;
 	description?: string;
 	structuredData?: StructuredData | StructuredData[];
+	noindex?: boolean;
+	includeCanonical?: boolean;
 }
 
 const {
 	title = 'RE-FLOW',
 	description = 'Le programme de reconnexion corporelle en ligne pour les femmes touchées par une maladie chronique, partout en France.',
 	structuredData,
+	noindex,
+	includeCanonical,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="fr" class="scroll-smooth">
 	<head>
-		<BaseHead title={title} description={description} structuredData={structuredData} />
+		<BaseHead
+			title={title}
+			description={description}
+			structuredData={structuredData}
+			{noindex}
+			{includeCanonical}
+		/>
 	</head>
 
 	<body class="min-h-screen bg-(--background) text-(--on-surface) antialiased overflow-x-hidden">

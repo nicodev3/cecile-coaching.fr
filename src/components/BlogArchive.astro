@@ -7,9 +7,10 @@ interface Props {
 	title: string;
 	description: string;
 	intro: string;
+	contextualLink?: { href: string; label: string; text: string };
 }
 
-const { pillarKey, title, description, intro } = Astro.props;
+const { pillarKey, title, description, intro, contextualLink } = Astro.props;
 const pillar = PILLARS_BY_KEY[pillarKey];
 ---
 
@@ -20,4 +21,5 @@ const pillar = PILLARS_BY_KEY[pillarKey];
 	heroTitle={`Articles ${pillar.shortLabel}`}
 	heroIntro={intro}
 	guideLink={{ href: pillar.slug, label: `Guide complet : ${pillar.label}` }}
+	{contextualLink}
 />

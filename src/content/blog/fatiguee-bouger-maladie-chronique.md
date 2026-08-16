@@ -2,6 +2,7 @@
 title: "Fatigue chronique : bouger ou se reposer ?"
 description: "Fatigue chronique et activité physique : faut-il bouger ou se reposer ? Comprendre l'inactivité et le mouvement adapté sans s'épuiser."
 pubDate: 'May 18 2026'
+updatedDate: 'Aug 16 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
 relatedPillars:
   - fatigue
@@ -16,6 +17,8 @@ C'est la question que beaucoup de femmes vivant avec une maladie chronique se po
 Et pourtant, quelque chose dans le fond te dit que rester immobile ne règle rien non plus. Tu as peut-être essayé de reprendre une activité physique, et tu as abandonné - pas parce que tu manquais de volonté, mais parce que le cadre n'était pas fait pour toi.
 
 Alors, est-ce que bouger peut vraiment t'aider quand tu es fatiguée ? La réponse courte : **oui, mais pas n'importe comment.**
+
+Cet article répond à cette question très concrète. Pour prendre d'abord du recul sur les causes possibles, le pacing et les autres leviers du quotidien, lis aussi [que faire face à une fatigue qui dure](/blog/fatigue-chronique-que-faire/).
 
 ---
 

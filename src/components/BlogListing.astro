@@ -16,6 +16,7 @@ interface Props {
 	heroIntro?: string;
 	breadcrumbItems?: { name: string; href: string }[];
 	guideLink?: { href: string; label: string };
+	contextualLink?: { href: string; label: string; text: string };
 }
 
 const {
@@ -28,6 +29,7 @@ const {
 		'Des ressources douces pour comprendre et bouger avec la maladie chronique, avec une approche APA à distance pensée pour le quotidien.',
 	breadcrumbItems,
 	guideLink,
+	contextualLink,
 } = Astro.props;
 
 const allPosts = await getCollection('blog');
@@ -65,6 +67,19 @@ const breadcrumbs = breadcrumbItems ?? defaultBreadcrumbs;
 				<div class="max-w-2xl">
 					<h1 class="mb-4 text-4xl text-(--on-surface) sm:text-5xl">{heroTitle}</h1>
 					<p class="text-lg leading-relaxed text-(--on-surface-variant)">{heroIntro}</p>
+					{
+						contextualLink && (
+							<p class="mt-4 text-base leading-relaxed text-(--on-surface-variant)">
+								{contextualLink.text}{' '}
+								<a
+									href={contextualLink.href}
+									class="font-semibold text-(--primary) underline underline-offset-2 hover:text-(--primary-container)"
+								>
+									{contextualLink.label}
+								</a>.
+							</p>
+						)
+					}
 					{
 						guideLink && (
 							<p class="mt-4">

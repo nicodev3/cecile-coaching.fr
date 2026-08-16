@@ -8,7 +8,7 @@ const description =
 	"La page que vous cherchez n'existe pas ou a été déplacée. Voici quelques liens pour retrouver votre chemin sur RE-FLOW.";
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} noindex={true} includeCanonical={false}>
 	<Fragment slot="header">
 		<Header />
 	</Fragment>
