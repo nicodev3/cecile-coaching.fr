@@ -2,6 +2,7 @@
 title: "Fatigue chronique : que faire quand ça persiste ?"
 description: "Fatigue chronique : comprendre pourquoi elle persiste, ce qui aide vraiment, ce qui aggrave, et la place possible du mouvement adapté."
 pubDate: 'Jun 2 2026'
+updatedDate: 'Aug 16 2026'
 heroImage: '../../assets/a_tired_adult_sitting.png'
 relatedPillars:
   - fatigue
@@ -12,6 +13,8 @@ relatedPillars:
 Tu cherches quoi faire face à ta fatigue chronique - et tu as l'impression d'avoir déjà tout essayé. Dormir plus, te reposer, ralentir. Parfois ça soulage un peu. Souvent, ça ne change rien. Et les conseils génériques du type "mange mieux et dors 8 heures" ne semblent pas faits pour toi.
 
 Cette page ne promet pas de solution miracle. Elle propose des repères concrets sur ce qui aide, ce qui n'aide pas, et pourquoi la fatigue chronique demande une approche différente de la fatigue ordinaire.
+
+Elle donne une vue d'ensemble. Pour approfondir uniquement le dosage entre activité et récupération, consulte le guide [fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/). Et si ta question immédiate est « est-ce que je dois bouger aujourd'hui ? », l'article [bouger ou se reposer quand on est fatiguée](/blog/fatiguee-bouger-maladie-chronique/) y répond de façon plus pratique.
 
 ---
 
