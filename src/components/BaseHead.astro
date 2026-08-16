@@ -16,11 +16,21 @@ interface Props {
 	image?: ImageMetadata;
 	structuredData?: StructuredData | StructuredData[];
 	ogType?: 'website' | 'article';
+	noindex?: boolean;
+	includeCanonical?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = FallbackImage, structuredData, ogType = 'website' } = Astro.props;
+const {
+	title,
+	description,
+	image = FallbackImage,
+	structuredData,
+	ogType = 'website',
+	noindex = false,
+	includeCanonical = true,
+} = Astro.props;
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
 const siteUrlNormalized = siteUrl.endsWith('/') ? siteUrl.slice(0, -1) : siteUrl;
 
@@ -74,7 +84,9 @@ const extraStructuredData = Array.isArray(structuredData)
 	: structuredData
 		? [structuredData]
 		: [];
-const structuredDataScripts = [coachingStructuredData, webPageStructuredData, ...extraStructuredData];
+const structuredDataScripts = noindex
+	? []
+	: [coachingStructuredData, webPageStructuredData, ...extraStructuredData];
 ---
 
 <Font cssVariable="--font-body" />
@@ -98,7 +110,8 @@ const structuredDataScripts = [coachingStructuredData, webPageStructuredData, ..
 <meta name="indexnow" content={INDEXNOW_KEY} />
 
 <!-- Canonical URL -->
-<link rel="canonical" href={canonicalURL} />
+{includeCanonical && <link rel="canonical" href={canonicalURL} />}
+{noindex && <meta name="robots" content="noindex, follow" />}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
