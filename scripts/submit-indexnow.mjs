@@ -12,7 +12,7 @@ const DIST = join(__dirname, '..', 'dist');
 const SITE_HOST = 'cecilecoaching.fr';
 const SITE_ORIGIN = `https://${SITE_HOST}`;
 // Doit rester identique à INDEXNOW_KEY dans src/consts.ts.
-const INDEXNOW_KEY = 'c4e8f2a19b603d7e5f1a8c9b2d4e6f0';
+const INDEXNOW_KEY = 'xvb8ghfpe5h4a1574133fd84cfp4xzju';
 const KEY_LOCATION = `${SITE_ORIGIN}/${INDEXNOW_KEY}.txt`;
 
 function extractLocs(xml) {

@@ -1,5 +1,16 @@
 ---
-import { ArrowDown, ArrowUp, BatteryLow, Frown, PersonStanding, TrendingDown } from '@lucide/astro';
+import {
+	ArrowDown,
+	ArrowUp,
+	BatteryLow,
+	CircleGauge,
+	Frown,
+	PersonStanding,
+	Sprout,
+	TrendingDown,
+	Waypoints,
+	Wind,
+} from '@lucide/astro';
 
 const cycle = [
 	{
@@ -28,18 +39,22 @@ const pillars = [
 	{
 		title: 'Selon ton énergie',
 		desc: 'Des versions plus douces quand tu en as besoin.',
+		icon: Wind,
 	},
 	{
 		title: 'Progressivement',
 		desc: 'Reconstruire la confiance sans brusquer le corps.',
+		icon: Sprout,
 	},
 	{
 		title: 'Cadre clair',
 		desc: 'Savoir quoi faire pour ne pas se mettre en échec.',
+		icon: CircleGauge,
 	},
 	{
 		title: "L'objectif",
 		desc: 'Refaire une place au mouvement durablement.',
+		icon: Waypoints,
 	},
 ];
 
@@ -103,14 +118,25 @@ const reveal =
 				</div>
 			</div>
 
-			<div class="relative overflow-hidden rounded-xl bg-(--primary) p-8 text-(--on-primary) sm:p-10">
+			<div class="group relative overflow-hidden rounded-xl bg-linear-to-br from-(--primary) via-(--primary) to-(--primary-container) p-8 text-(--on-primary) shadow-lg shadow-(--primary)/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-(--primary)/20 sm:p-10">
+				<div
+					class="pointer-events-none absolute -top-24 right-0 size-64 rounded-full bg-(--primary-fixed)/10 blur-3xl transition duration-500 group-hover:scale-125"
+					aria-hidden="true"
+				/>
 				<div class="relative z-10 flex h-full flex-col">
 					<h3 class="text-3xl text-(--on-primary) sm:text-4xl">La solution RE-FLOW</h3>
-					<div class="my-10 grid flex-1 auto-rows-fr gap-x-8 gap-y-6 sm:grid-cols-2">
+					<div class="my-8 grid gap-3 sm:grid-cols-2 sm:gap-4">
 						{pillars.map((pillar) => (
-							<div class="flex flex-col justify-center border-t border-(--primary-fixed)/25 pt-4">
-								<h4 class="text-lg text-(--primary-fixed)">{pillar.title}</h4>
-								<p class="mt-2 leading-relaxed text-(--on-primary-container)">{pillar.desc}</p>
+							<div class="rounded-xl border border-(--primary-fixed)/20 bg-(--on-primary)/6 p-3 backdrop-blur-sm transition duration-300 hover:bg-(--on-primary)/12 sm:p-4">
+								<div class="flex min-w-0 items-center gap-2.5 sm:gap-3">
+									<div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-(--primary-fixed)/15 text-(--primary-fixed)">
+										<pillar.icon class="size-5" stroke-width={1.9} />
+									</div>
+									<h4 class="min-w-0 break-words text-sm leading-snug font-semibold text-(--primary-fixed)">
+										{pillar.title}
+									</h4>
+								</div>
+								<p class="mt-3 text-sm leading-relaxed text-(--on-primary-container)">{pillar.desc}</p>
 							</div>
 						))}
 					</div>

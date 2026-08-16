@@ -13,4 +13,4 @@ export const COACH_NAME = 'Cécile';
 export const COACH_EMAIL = 'cecile.c.coach@gmail.com';
 
 /** Clé IndexNow - fichier public /{INDEXNOW_KEY}.txt */
-export const INDEXNOW_KEY = 'c4e8f2a19b603d7e5f1a8c9b2d4e6f0';
+export const INDEXNOW_KEY = 'xvb8ghfpe5h4a1574133fd84cfp4xzju';
