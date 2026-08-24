@@ -49,7 +49,12 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		shortLabel: 'Fatigue',
 		tagline:
 			'Doser le mouvement chez soi quand l’énergie varie, sans culture de la performance.',
-		featuredPostIds: ['fatigue-chronique-que-faire', 'syndrome-de-fatigue-chronique'],
+		featuredPostIds: [
+			'fatigue-chronique-que-faire',
+			'fatigue-chronique-symptomes',
+			'fatigue-chronique-tests-examens',
+			'syndrome-de-fatigue-chronique',
+		],
 	},
 };
 

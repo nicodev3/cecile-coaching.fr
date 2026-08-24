@@ -1,8 +1,9 @@
 ---
 title: "Fatigue chronique : que faire quand ça persiste ?"
-description: "Fatigue chronique : comprendre pourquoi elle persiste, ce qui aide vraiment, ce qui aggrave, et la place possible du mouvement adapté."
+seoTitle: "Fatigue chronique : que faire, causes et prise en charge"
+description: "Fatigue chronique : causes possibles, ce qui aggrave, ce qui aide, prise en charge et place du mouvement adapté quand la fatigue ne passe pas."
 pubDate: 'Jun 2 2026'
-updatedDate: 'Aug 16 2026'
+updatedDate: 'Aug 24 2026'
 heroImage: '../../assets/a_tired_adult_sitting.png'
 relatedPillars:
   - fatigue
@@ -15,6 +16,8 @@ Tu cherches quoi faire face à une fatigue qui ne passe pas - et tu as l'impress
 **La réponse courte : lorsqu'une fatigue inhabituelle persiste, la première étape est d'en parler à un professionnel de santé pour en rechercher la cause.** Les stratégies utiles dépendent ensuite de cette cause, de ton état de santé et de ce qui aggrave ou soulage ta fatigue. Cette page ne promet pas de solution miracle : elle propose des repères concrets pour observer la situation et, lorsque le cadre médical le permet, adapter le quotidien et le mouvement.
 
 Elle donne une vue d'ensemble. Pour approfondir uniquement le dosage entre activité et récupération, consulte le guide [fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/). Et si ta question immédiate est « est-ce que je dois bouger aujourd'hui ? », l'article [bouger ou se reposer quand on est fatiguée](/blog/fatiguee-bouger-maladie-chronique/) y répond de façon plus pratique.
+
+Si tu en es encore à mettre des mots sur ce que tu ressens, commence plutôt par les [symptômes de la fatigue chronique](/blog/fatigue-chronique-symptomes/). Et si ta question porte sur les examens, elle est traitée dans l'article sur les [tests et bilans en cas de fatigue chronique](/blog/fatigue-chronique-tests-examens/).
 
 ---
 
@@ -37,6 +40,28 @@ Dans tous les cas, ce que tu ressens n'est pas un manque de courage. Mais le mot
 Une fatigue inhabituelle, importante ou qui persiste malgré le repos mérite une évaluation médicale, surtout si elle apparaît sans explication claire, gêne les activités quotidiennes ou s'accompagne d'autres symptômes. Le médecin traitant est généralement le premier interlocuteur : il peut rechercher une cause et orienter vers un autre professionnel si nécessaire.
 
 Cette consultation ne signifie pas qu'il faut imaginer le pire. Elle évite simplement de traiter comme un problème de motivation ou de mode de vie une fatigue qui nécessite d'abord d'être comprise.
+
+---
+
+## Quelles sont les causes possibles d'une fatigue qui dure ?
+
+Il n'y a pas une cause de la fatigue chronique, mais un éventail large - c'est précisément pourquoi l'évaluation médicale précède tout le reste. Parmi les causes régulièrement retrouvées :
+
+- **Une carence en fer ou une anémie**, fréquente chez les femmes ayant des règles abondantes, et l'une des causes les plus courantes de fatigue durable.
+- **Un trouble de la thyroïde**, en particulier une thyroïde peu active.
+- **Un trouble du sommeil**, notamment l'apnée du sommeil - souvent sous-diagnostiquée chez les femmes, dont les symptômes diffèrent du tableau classique du ronflement.
+- **Une dépression ou un trouble anxieux**, qui provoquent une fatigue bien réelle et qui se traitent.
+- **Un effet secondaire de médicament** : certains traitements courants fatiguent, y compris pris depuis longtemps sans lien apparent.
+- **Une maladie chronique** connue ou non encore diagnostiquée : maladie auto-immune, inflammatoire, métabolique, cardiaque, rénale.
+- **Les suites d'une infection**, avec une récupération qui s'étire au-delà de l'épisode aigu.
+- **Une douleur chronique**, qui consomme de l'énergie en continu et perturbe le sommeil.
+- **Un syndrome de fatigue chronique (EM/SFC)**, lorsque les critères cliniques sont réunis et que les autres causes ont été écartées.
+
+Deux précisions utiles. D'abord, **plusieurs causes se cumulent souvent** : une carence en fer et un sommeil de mauvaise qualité, par exemple, s'additionnent. Traiter l'une sans l'autre ne suffit pas toujours à retrouver de l'énergie.
+
+Ensuite, une **cause psychologique n'exclut pas une cause organique**, et l'inverse est vrai aussi. Le fait de traverser une période difficile ne dispense pas de chercher ce qui pourrait, en plus, être corrigé.
+
+La démarche d'examens qui permet d'explorer ces hypothèses est détaillée dans l'article sur les [tests et examens en cas de fatigue chronique](/blog/fatigue-chronique-tests-examens/).
 
 ---
 
@@ -76,6 +101,36 @@ Il n'existe ni réponse unique ni remède universel à une fatigue persistante. 
 Le **pacing**, ou gestion de l'énergie, peut aider certaines personnes à répartir leurs activités et leur récupération en tenant compte de leurs limites réelles. Son objectif et ses modalités ne sont pas identiques pour tout le monde, en particulier en présence d'un malaise post-effort.
 
 Enfin, vivre avec un manque d'énergie durable peut peser psychologiquement. Demander du soutien pour mieux vivre cette situation ne signifie pas que la fatigue est « dans la tête ».
+
+---
+
+## Existe-t-il un traitement de la fatigue chronique ?
+
+C'est une question fréquente, et la réponse dépend entièrement de ce qui provoque la fatigue.
+
+**Il n'existe pas de traitement de « la fatigue chronique » en tant que telle**, parce que la fatigue est un symptôme et non une maladie. Ce qui se traite, c'est la cause - lorsqu'elle est identifiée.
+
+### Quand une cause est trouvée
+
+La prise en charge suit alors le diagnostic : supplémentation en cas de carence en fer, traitement d'un trouble thyroïdien, appareillage d'une apnée du sommeil, ajustement d'un médicament en cause, traitement d'une maladie sous-jacente ou d'un trouble anxio-dépressif. L'amélioration n'est pas toujours immédiate, et le délai avant de ressentir un changement peut être long.
+
+### Quand aucune cause n'est trouvée
+
+La prise en charge devient symptomatique et se construit avec les professionnels qui te suivent. Selon les situations, elle peut porter sur :
+
+- **le sommeil**, lorsqu'il est perturbé, avec le professionnel approprié ;
+- **la douleur**, si elle est présente et entretient l'épuisement ;
+- **la gestion de l'énergie** (pacing), pour répartir activités et récupération selon des limites réelles ;
+- **le soutien psychologique**, non pas parce que la fatigue serait imaginaire, mais parce que vivre avec un manque d'énergie durable est éprouvant ;
+- **l'adaptation du quotidien** : aménagements professionnels, réorganisation des tâches, aides éventuelles.
+
+### En cas d'EM/SFC
+
+Il n'existe pas à ce jour de traitement curatif du syndrome de fatigue chronique. La prise en charge vise à limiter les rechutes et à préserver la qualité de vie, en s'appuyant principalement sur le pacing. Les programmes d'exercice gradué à progression imposée ne sont plus recommandés par le NICE depuis 2021.
+
+### Sur les compléments alimentaires
+
+Une supplémentation a un intérêt démontré lorsqu'elle corrige une carence documentée - en fer ou en vitamine B12, par exemple. En dehors de ce cadre, les produits « anti-fatigue » vendus sans diagnostic n'ont pas d'efficacité établie, peuvent interagir avec des traitements en cours, et retardent parfois la recherche d'une cause. Signale à ton médecin ce que tu prends, y compris en automédication.
 
 ---
 
@@ -119,6 +174,14 @@ Le médecin traitant est généralement le premier interlocuteur. Il peut réali
 
 Pas dans toutes les situations. Une activité physique adaptée peut être utile pour certaines personnes, selon la cause de la fatigue et l'avis des professionnels de santé. En cas d'EM/SFC ou de malaise post-effort, une progression sportive standard peut aggraver les symptômes et nécessite des précautions spécifiques.
 
+### Quel est le traitement de la fatigue chronique ?
+
+Il n'y a pas de traitement de la fatigue elle-même : c'est la cause qui se traite, une fois identifiée. Lorsqu'aucune cause n'est retrouvée, la prise en charge porte sur les symptômes - sommeil, douleur, gestion de l'énergie, soutien psychologique - et se construit avec les professionnels qui te suivent.
+
+### Quelles sont les causes d'une fatigue qui ne passe pas ?
+
+Elles sont nombreuses : carence en fer, trouble thyroïdien, apnée du sommeil, dépression ou anxiété, effet secondaire d'un médicament, maladie chronique, suites d'une infection, douleur chronique, ou syndrome de fatigue chronique. Plusieurs causes se cumulent souvent, ce qui justifie une évaluation médicale plutôt qu'une auto-interprétation.
+
 ### Quelle différence entre fatigue chronique et syndrome de fatigue chronique ?
 
 La fatigue chronique décrit un symptôme persistant qui peut avoir de nombreuses causes. Le syndrome de fatigue chronique, ou EM/SFC, est une maladie distincte dont le malaise post-effort est une caractéristique centrale.
@@ -132,4 +195,4 @@ La fatigue chronique décrit un symptôme persistant qui peut avoir de nombreuse
 - [NICE - Recommandations sur le diagnostic et la prise en charge de l'EM/SFC](https://www.nice.org.uk/guidance/ng206/chapter/recommendations) (en anglais)
 
 *Pour aller plus loin :*
-[Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) · [Syndrome de fatigue chronique (SFC/EM) : ce qu'il faut savoir](/blog/syndrome-de-fatigue-chronique/) · [Je suis fatiguée - est-ce que bouger va m'aider ?](/blog/fatiguee-bouger-maladie-chronique/) · [Activité Physique Adaptée : définition](/activites-physiques-adaptees/)
+[Fatigue chronique et mouvement adapté](/fatigue-chronique-mouvement/) · [Symptômes de la fatigue chronique](/blog/fatigue-chronique-symptomes/) · [Quels tests et examens ?](/blog/fatigue-chronique-tests-examens/) · [Syndrome de fatigue chronique (SFC/EM) : ce qu'il faut savoir](/blog/syndrome-de-fatigue-chronique/) · [Je suis fatiguée - est-ce que bouger va m'aider ?](/blog/fatiguee-bouger-maladie-chronique/) · [Activité Physique Adaptée : définition](/activites-physiques-adaptees/)
