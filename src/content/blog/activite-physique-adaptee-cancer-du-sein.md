@@ -1,7 +1,7 @@
 ---
 title: "Activité Physique Adaptée après un cancer du sein"
-seoTitle: "Activité Physique Adaptée et cancer du sein : reprendre le mouvement"
-description: "Activité Physique Adaptée après un cancer du sein : bienfaits psychologiques (anxiété, image du corps, confiance), précautions physiques et exercices adaptés."
+seoTitle: "Sport et cancer du sein : reprendre le mouvement avec l'APA"
+description: "Sport et cancer du sein : bienfaits psychologiques, précautions après chirurgie et exercices d'Activité Physique Adaptée pour reprendre en douceur."
 pubDate: 'Jul 4 2026'
 heroImage: '../../assets/cancer-sein.webp'
 relatedPillars:
