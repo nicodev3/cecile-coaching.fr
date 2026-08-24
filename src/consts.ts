@@ -5,7 +5,7 @@ export { TUNNEL_ORIGIN, tunnelEntryUrl } from './utils/tunnelUrl';
 
 export const SITE_TITLE = 'RE-FLOW par Cécile - coaching sportif adapté en ligne';
 export const SITE_DESCRIPTION =
-	'Reprenez le mouvement en douceur avec Cécile, coach sportive BPJEPS et certifiée APA, pour femmes vivant avec une maladie chronique ou une fatigue chronique.';
+	'Reprenez le mouvement en douceur avec Cécile, coach sportive BPJEPS certifiée APA, pour les femmes vivant avec une maladie ou une fatigue chronique.';
 export const SITE_BRAND = 'RE-FLOW';
 export const SITE_INSTAGRAM = 'https://www.instagram.com/cecile.c.oaching/';
 export const SITE_WHATSAPP = 'https://wa.me/message/6FQL2VZLVY4IC1';
