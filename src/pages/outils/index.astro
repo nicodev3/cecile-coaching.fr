@@ -1,0 +1,115 @@
+---
+import { ArrowRight, ClipboardList } from '@lucide/astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Header from '../../components/Header.astro';
+import { TOOLS } from '../../data/tools';
+
+const title = 'Outils d’auto-évaluation gratuits | RE-FLOW';
+const description =
+	'Des outils simples et gratuits pour situer ton niveau d’activité physique et mieux comprendre ton rapport au mouvement. Sans inscription, rien n’est enregistré.';
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+const origin = Astro.site?.origin ?? Astro.url.origin;
+
+const collectionStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'CollectionPage',
+	'@id': `${pageUrl}#collection`,
+	name: 'Outils d’auto-évaluation',
+	description,
+	url: pageUrl,
+	mainEntity: {
+		'@type': 'ItemList',
+		itemListElement: TOOLS.filter((t) => t.available).map((t, i) => ({
+			'@type': 'ListItem',
+			position: i + 1,
+			name: t.label,
+			url: new URL(t.slug, origin).href,
+		})),
+	},
+};
+---
+
+<BaseLayout title={title} description={description} structuredData={collectionStructuredData}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Outils', href: '/outils/' },
+				]}
+			/>
+
+			<section class="text-center">
+				<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">
+					AUTO-ÉVALUATION
+				</p>
+				<h1 class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
+					Outils gratuits pour faire le point sur ton activité physique
+				</h1>
+				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
+					Des questionnaires courts, à faire depuis ton téléphone ou ton ordinateur, pour situer où tu en
+					es aujourd’hui — sans jugement et sans objectif à atteindre. Aucune inscription, aucune donnée
+					enregistrée : tout se calcule dans ton navigateur.
+				</p>
+			</section>
+
+			<div class="mt-12 grid gap-4 sm:grid-cols-2">
+				{
+					TOOLS.map((tool) =>
+						tool.available ? (
+							<a
+								href={tool.slug}
+								class="group flex h-full flex-col rounded-2xl bg-(--surface-container-lowest) p-6 soft-glow transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
+							>
+								<div class="mb-3 flex items-center gap-3">
+									<span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed)">
+										<ClipboardList
+											class="size-5 text-(--primary)"
+											aria-hidden="true"
+											stroke-width={1.7}
+										/>
+									</span>
+									<p class="font-semibold text-(--primary)">{tool.label}</p>
+								</div>
+								<p class="text-sm leading-relaxed text-(--secondary)">{tool.tagline}</p>
+								<p class="mt-3 text-xs text-(--outline)">{tool.duration}</p>
+								<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-(--primary) transition group-hover:gap-2 motion-reduce:transition-none">
+									Faire le test
+									<ArrowRight class="size-4" aria-hidden="true" stroke-width={2} />
+								</span>
+							</a>
+						) : (
+							<div class="flex h-full flex-col rounded-2xl bg-(--surface-container-lowest)/60 p-6 ring-1 ring-(--outline-variant)">
+								<div class="mb-3 flex items-center gap-3">
+									<span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-(--surface-container-high)">
+										<ClipboardList
+											class="size-5 text-(--secondary)"
+											aria-hidden="true"
+											stroke-width={1.7}
+										/>
+									</span>
+									<p class="font-semibold text-(--secondary)">{tool.label}</p>
+								</div>
+								<p class="text-sm leading-relaxed text-(--secondary)">{tool.tagline}</p>
+								<p class="mt-4 text-xs font-semibold tracking-[0.18em] text-(--outline)">BIENTÔT</p>
+							</div>
+						),
+					)
+				}
+			</div>
+
+			<p class="mt-10 text-sm leading-relaxed text-(--secondary)">
+				Ces outils sont des repères d’auto-évaluation. Ils ne remplacent ni un avis médical, ni un
+				bilan, ni un suivi de santé. Si tu vis avec une maladie chronique ou une fatigue importante,
+				ton médecin reste la première personne à consulter avant de modifier ton niveau d’activité
+				physique.
+			</p>
+		</div>
+	</article>
+</BaseLayout>
