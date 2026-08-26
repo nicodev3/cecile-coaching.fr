@@ -40,7 +40,7 @@ export interface SectionLevel {
 	upTo: number;
 	/** Ce que ce niveau veut dire, en clair */
 	label: string;
-	/** Teinte reprise de la jauge principale : gris, sauge, prune */
+	/** Teinte sémantique du niveau : faible, intermédiaire, favorable */
 	tone: 'low' | 'mid' | 'high';
 }
 
