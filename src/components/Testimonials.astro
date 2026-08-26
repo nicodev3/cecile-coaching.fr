@@ -4,8 +4,6 @@ import { ChevronLeft, ChevronRight, Star, X } from "@lucide/astro";
 const testimonials = [
   {
     name: "Anne Sandrine Blanc",
-    profileUrl:
-      "https://www.google.com/maps/contrib/107619725618809412818/reviews?hl=fr-FR",
     source: "Avis Google",
     quote:
       "Cécile a développé pour moi un programme parfaitement adapté et personnalisé qui répond absolument à mes attentes. Elle a pris le temps de m’écouter et de rechercher pour moi les exercices les plus pertinents. Le soin qu’elle a mis à la préparation du programme est très important. J’ai à ma disposition plusieurs modules que je peux effectuer séparément ou combinés selon le temps que je peux consacrer et ce que j’ai décidé de travailler. Cécile est venue à la maison me montrer chaque exercice en détail et les vidéos de support sont très bien faites, faciles à utiliser et permettent de réaliser les exercices en suivant chaque mouvement à l’écran. C’est extrêmement bien fait et les différents liens sont super fluides pour ne pas perdre de temps à chercher ce que l’on veut visionner. On peut suivre la séance entière à l’écran si on veut. Le support pdf permet en plus de se repérer à l’avance et faire son choix au coup par coup ou pour la semaine si on veut. J’adore son dynamisme qui donne de l’énergie et sa présence virtuelle avec sa voix qui encourage est vraiment sympa :) Un grand merci à Cécile !",
@@ -146,7 +144,6 @@ const reveal =
                     data-review-opener
                     data-review-author={t.name}
                     data-review-quote={t.quote}
-                    data-review-profile-url={t.profileUrl}
                     aria-haspopup="dialog"
                   >
                     Lire la suite de l’avis
@@ -155,18 +152,7 @@ const reveal =
               </div>
               {t.name && (
                 <figcaption class="mt-6">
-                  {t.profileUrl ? (
-                    <a
-                      href={t.profileUrl}
-                      class="font-bold text-(--primary) underline decoration-(--primary)/30 underline-offset-4 transition hover:decoration-(--primary)"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {t.name}
-                    </a>
-                  ) : (
-                    <p class="font-bold text-(--primary)">{t.name}</p>
-                  )}
+                  <p class="font-bold text-(--primary)">{t.name}</p>
                 </figcaption>
               )}
             </figure>
@@ -227,14 +213,6 @@ const reveal =
           class="text-(--secondary) italic leading-relaxed"
           data-review-content
         ></blockquote>
-        <a
-          class="mt-6 hidden font-semibold text-(--primary) underline decoration-(--primary)/30 underline-offset-4 transition hover:decoration-(--primary)"
-          data-review-profile-link
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Voir l’avis sur Google
-        </a>
       </div>
     </dialog>
   </div>
@@ -300,22 +278,12 @@ const reveal =
   const reviewContent = reviewDialog?.querySelector<HTMLElement>(
     "[data-review-content]",
   );
-  const reviewProfileLink = reviewDialog?.querySelector<HTMLAnchorElement>(
-    "[data-review-profile-link]",
-  );
-
   document.querySelectorAll<HTMLButtonElement>("[data-review-opener]").forEach(
     (opener) => {
       opener.addEventListener("click", () => {
         if (!reviewDialog || !reviewTitle || !reviewContent) return;
         reviewTitle.textContent = opener.dataset.reviewAuthor || "Avis client";
         reviewContent.textContent = `“${opener.dataset.reviewQuote || ""}”`;
-
-        const profileUrl = opener.dataset.reviewProfileUrl;
-        if (reviewProfileLink) {
-          reviewProfileLink.href = profileUrl || "";
-          reviewProfileLink.classList.toggle("hidden", !profileUrl);
-        }
 
         reviewDialog.showModal();
       });
