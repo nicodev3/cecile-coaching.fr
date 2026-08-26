@@ -30,6 +30,20 @@ export interface Question {
 	options: readonly Option[];
 }
 
+/**
+ * Niveau qualitatif d'un sous-score. Dans les trois sections, un score élevé
+ * traduit toujours plus de mouvement : 5/5 en sédentarité signifie « peu de
+ * temps assis », pas « très sédentaire ». D'où ces libellés explicites.
+ */
+export interface SectionLevel {
+	/** Ratio maximal (score / maxScore) couvert par ce niveau, inclus */
+	upTo: number;
+	/** Ce que ce niveau veut dire, en clair */
+	label: string;
+	/** Teinte reprise de la jauge principale : gris, sauge, prune */
+	tone: 'low' | 'mid' | 'high';
+}
+
 export interface Section {
 	key: SectionKey;
 	/** Libellé tel qu'il figure dans le questionnaire original */
@@ -38,26 +52,48 @@ export interface Section {
 	shortLabel: string;
 	/** Score maximal de la section */
 	maxScore: number;
+	/** Ce que mesure la section, en une phrase */
+	caption: string;
+	/** Niveaux qualitatifs, du plus bas au plus haut */
+	levels: readonly SectionLevel[];
 }
 
 export const SECTIONS: readonly Section[] = [
 	{
 		key: 'sedentarite',
 		label: 'Comportements sédentaires',
-		shortLabel: 'Sédentarité',
+		shortLabel: 'Temps assis',
 		maxScore: 5,
+		caption: 'Le temps passé en position assise dans une journée',
+		levels: [
+			{ upTo: 0.4, label: 'Beaucoup de temps assis', tone: 'low' },
+			{ upTo: 0.75, label: 'Temps assis modéré', tone: 'mid' },
+			{ upTo: 1, label: 'Peu de temps assis', tone: 'high' },
+		],
 	},
 	{
 		key: 'loisir',
 		label: 'Activités physiques de loisir (dont sports)',
-		shortLabel: 'Loisir',
+		shortLabel: 'Activité de loisir',
 		maxScore: 20,
+		caption: 'La pratique choisie : sport, marche loisir, cours, séances',
+		levels: [
+			{ upTo: 0.4, label: 'Peu ou pas de pratique', tone: 'low' },
+			{ upTo: 0.75, label: 'Pratique modérée', tone: 'mid' },
+			{ upTo: 1, label: 'Pratique soutenue', tone: 'high' },
+		],
 	},
 	{
 		key: 'quotidien',
 		label: 'Activités physiques quotidiennes',
-		shortLabel: 'Quotidien',
+		shortLabel: 'Activité quotidienne',
 		maxScore: 20,
+		caption: 'Le mouvement subi ou utile : travail, ménage, marche, escaliers',
+		levels: [
+			{ upTo: 0.4, label: 'Quotidien peu actif', tone: 'low' },
+			{ upTo: 0.75, label: 'Quotidien moyennement actif', tone: 'mid' },
+			{ upTo: 1, label: 'Quotidien très actif', tone: 'high' },
+		],
 	},
 ];
 
