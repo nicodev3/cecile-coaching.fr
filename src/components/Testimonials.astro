@@ -1,7 +1,15 @@
 ---
-import { ChevronLeft, ChevronRight, Star } from "@lucide/astro";
+import { ChevronLeft, ChevronRight, Star, X } from "@lucide/astro";
 
 const testimonials = [
+  {
+    name: "Anne Sandrine Blanc",
+    profileUrl:
+      "https://www.google.com/maps/contrib/107619725618809412818/reviews?hl=fr-FR",
+    source: "Avis Google",
+    quote:
+      "Cécile a développé pour moi un programme parfaitement adapté et personnalisé qui répond absolument à mes attentes. Elle a pris le temps de m’écouter et de rechercher pour moi les exercices les plus pertinents. Le soin qu’elle a mis à la préparation du programme est très important. J’ai à ma disposition plusieurs modules que je peux effectuer séparément ou combinés selon le temps que je peux consacrer et ce que j’ai décidé de travailler. Cécile est venue à la maison me montrer chaque exercice en détail et les vidéos de support sont très bien faites, faciles à utiliser et permettent de réaliser les exercices en suivant chaque mouvement à l’écran. C’est extrêmement bien fait et les différents liens sont super fluides pour ne pas perdre de temps à chercher ce que l’on veut visionner. On peut suivre la séance entière à l’écran si on veut. Le support pdf permet en plus de se repérer à l’avance et faire son choix au coup par coup ou pour la semaine si on veut. J’adore son dynamisme qui donne de l’énergie et sa présence virtuelle avec sa voix qui encourage est vraiment sympa :) Un grand merci à Cécile !",
+  },
   {
     name: "Rachel",
     source: "",
@@ -121,13 +129,44 @@ const reveal =
                     </p>
                   )}
                 </div>
-                <blockquote class="text-(--secondary) italic leading-relaxed">
+                <blockquote
+                  class="text-(--secondary) italic leading-relaxed"
+                  style={
+                    t.quote.length > 380
+                      ? "display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 7;"
+                      : undefined
+                  }
+                >
                   "{t.quote}"
                 </blockquote>
+                {t.quote.length > 380 && (
+                  <button
+                    type="button"
+                    class="mt-4 font-semibold text-(--primary) underline decoration-(--primary)/30 underline-offset-4 transition hover:decoration-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+                    data-review-opener
+                    data-review-author={t.name}
+                    data-review-quote={t.quote}
+                    data-review-profile-url={t.profileUrl}
+                    aria-haspopup="dialog"
+                  >
+                    Lire la suite de l’avis
+                  </button>
+                )}
               </div>
               {t.name && (
                 <figcaption class="mt-6">
-                  <p class="font-bold text-(--primary)">{t.name}</p>
+                  {t.profileUrl ? (
+                    <a
+                      href={t.profileUrl}
+                      class="font-bold text-(--primary) underline decoration-(--primary)/30 underline-offset-4 transition hover:decoration-(--primary)"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t.name}
+                    </a>
+                  ) : (
+                    <p class="font-bold text-(--primary)">{t.name}</p>
+                  )}
                 </figcaption>
               )}
             </figure>
@@ -152,6 +191,52 @@ const reveal =
         <ChevronRight class="size-5" aria-hidden="true" />
       </button>
     </div>
+
+    <dialog
+      class="m-auto w-[min(42rem,calc(100%-2rem))] max-h-[calc(100dvh-2rem)] rounded-2xl border border-(--outline-variant) bg-(--surface) p-0 text-(--primary) shadow-2xl backdrop:bg-black/45"
+      data-review-dialog
+      aria-labelledby="review-dialog-title"
+    >
+      <div class="p-6 sm:p-8">
+        <div class="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <div
+              class="mb-3 flex gap-0.5"
+              role="img"
+              aria-label="5 étoiles sur 5"
+            >
+              {Array.from({ length: 5 }).map(() => (
+                <Star
+                  class="size-4 fill-[#fbbc04] text-[#fbbc04]"
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
+            <h3 id="review-dialog-title" class="text-2xl" data-review-title></h3>
+          </div>
+          <button
+            type="button"
+            class="flex size-10 shrink-0 items-center justify-center rounded-full text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
+            data-review-close
+            aria-label="Fermer l’avis"
+          >
+            <X class="size-5" aria-hidden="true" />
+          </button>
+        </div>
+        <blockquote
+          class="text-(--secondary) italic leading-relaxed"
+          data-review-content
+        ></blockquote>
+        <a
+          class="mt-6 hidden font-semibold text-(--primary) underline decoration-(--primary)/30 underline-offset-4 transition hover:decoration-(--primary)"
+          data-review-profile-link
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Voir l’avis sur Google
+        </a>
+      </div>
+    </dialog>
   </div>
 </section>
 
@@ -205,4 +290,44 @@ const reveal =
     window.addEventListener("resize", updateButtons);
     updateButtons();
   }
+
+  const reviewDialog = document.querySelector<HTMLDialogElement>(
+    "[data-review-dialog]",
+  );
+  const reviewTitle = reviewDialog?.querySelector<HTMLElement>(
+    "[data-review-title]",
+  );
+  const reviewContent = reviewDialog?.querySelector<HTMLElement>(
+    "[data-review-content]",
+  );
+  const reviewProfileLink = reviewDialog?.querySelector<HTMLAnchorElement>(
+    "[data-review-profile-link]",
+  );
+
+  document.querySelectorAll<HTMLButtonElement>("[data-review-opener]").forEach(
+    (opener) => {
+      opener.addEventListener("click", () => {
+        if (!reviewDialog || !reviewTitle || !reviewContent) return;
+        reviewTitle.textContent = opener.dataset.reviewAuthor || "Avis client";
+        reviewContent.textContent = `“${opener.dataset.reviewQuote || ""}”`;
+
+        const profileUrl = opener.dataset.reviewProfileUrl;
+        if (reviewProfileLink) {
+          reviewProfileLink.href = profileUrl || "";
+          reviewProfileLink.classList.toggle("hidden", !profileUrl);
+        }
+
+        reviewDialog.showModal();
+      });
+    },
+  );
+
+  reviewDialog?.querySelector<HTMLButtonElement>("[data-review-close]")?.addEventListener(
+    "click",
+    () => reviewDialog.close(),
+  );
+
+  reviewDialog?.addEventListener("click", (event) => {
+    if (event.target === reviewDialog) reviewDialog.close();
+  });
 </script>
