@@ -5,7 +5,8 @@
  * Rendu serveur : les 9 questions sont dans le HTML (SEO + fonctionne sans JS).
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
-import { Armchair, Dumbbell, Footprints, RotateCcw } from '@lucide/astro';
+import { Armchair, Dumbbell, Footprints, Frown, Meh, RotateCcw, Smile } from '@lucide/astro';
+import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import {
 	MAX_SCORE,
 	MIN_SCORE,
@@ -179,7 +180,7 @@ const bands = PROFILES.map((p) => ({
 
 	{/* ---------- Résultat ---------- */}
 	<section data-rg-result hidden aria-labelledby="rg-result-title">
-		<div class="text-center">
+		<div class="text-center" data-rg-result-summary>
 			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON RÉSULTAT</p>
 			<h2
 				id="rg-result-title"
@@ -260,6 +261,14 @@ const bands = PROFILES.map((p) => ({
 										<Icon class="size-4.5" aria-hidden="true" stroke-width={1.7} />
 									</span>
 									<p class="text-sm leading-snug font-medium text-(--on-surface)">{s.shortLabel}</p>
+									<span
+										class="rg-sentiment ml-auto grid size-9 shrink-0 place-items-center rounded-full"
+										aria-hidden="true"
+									>
+										<Frown class="size-5" data-rg-sentiment data-tone="low" hidden stroke-width={1.8} />
+										<Meh class="size-5" data-rg-sentiment data-tone="mid" hidden stroke-width={1.8} />
+										<Smile class="size-5" data-rg-sentiment data-tone="high" hidden stroke-width={1.8} />
+									</span>
 								</div>
 
 								<p class="mt-3 text-2xl font-semibold text-(--primary)">
@@ -296,23 +305,26 @@ const bands = PROFILES.map((p) => ({
 		</div>
 
 		{/* Interprétation */}
-		{
-			PROFILES.map((p) => (
-				<div
-					class="mt-8"
-					data-rg-profile={p.key}
-					data-label={p.label}
-					data-min={String(p.min)}
-					data-max={String(p.max)}
-					hidden
-				>
-					<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
-					{p.advice.map((a) => (
-						<p class="mt-4 text-base leading-relaxed text-(--secondary)">{a}</p>
-					))}
-				</div>
-			))
-		}
+		<div class="mt-8">
+			<h3 class="text-lg font-semibold text-(--on-surface)">L’interprétation de ton score</h3>
+			{
+				PROFILES.map((p) => (
+					<div
+						class="mt-4"
+						data-rg-profile={p.key}
+						data-label={p.label}
+						data-min={String(p.min)}
+						data-max={String(p.max)}
+						hidden
+					>
+						<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
+						{p.advice.map((a) => (
+							<p class="mt-4 text-base leading-relaxed text-(--secondary)">{a}</p>
+						))}
+					</div>
+				))
+			}
+		</div>
 
 		{/* Rappel non médical */}
 		<p
@@ -332,6 +344,26 @@ const bands = PROFILES.map((p) => ({
 				<RotateCcw class="size-4" aria-hidden="true" stroke-width={2} />
 				Refaire le test
 			</button>
+		</div>
+
+		<div class="mt-10 rounded-3xl bg-(--plum) px-6 py-10 text-center text-white shadow-sm shadow-black/15 sm:px-10">
+			<h3 class="text-xl font-semibold sm:text-2xl">Envie d’en parler, sans engagement ?</h3>
+			<p class="mt-3 text-base text-white/90">Parlons de ce qui te convient aujourd’hui.</p>
+			<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
+				<a
+					href="/contact/"
+					class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none"
+				>
+					Me contacter
+				</a>
+				<WhatsAppCtaLink
+					campaign="outil-ricci-gagnon"
+					showIcon={true}
+					class="whatsapp-btn rounded-2xl px-6 py-3 text-base font-semibold"
+				>
+					Écrire sur WhatsApp
+				</WhatsAppCtaLink>
+			</div>
 		</div>
 	</section>
 
@@ -357,6 +389,10 @@ const bands = PROFILES.map((p) => ({
 	.rg-section .rg-bar {
 		background: rgb(107 107 107 / 0.55);
 	}
+	.rg-section .rg-sentiment {
+		background: rgb(107 107 107 / 0.12);
+		color: var(--secondary);
+	}
 	.rg-section[data-tone='mid'] .rg-chip {
 		background: var(--secondary-container);
 		color: var(--on-secondary-container);
@@ -364,12 +400,60 @@ const bands = PROFILES.map((p) => ({
 	.rg-section[data-tone='mid'] .rg-bar {
 		background: var(--secondary-container);
 	}
+	.rg-section[data-tone='mid'] .rg-sentiment {
+		background: var(--secondary-container);
+		color: var(--on-secondary-container);
+	}
 	.rg-section[data-tone='high'] .rg-chip {
 		background: var(--primary-container);
 		color: var(--on-primary-container);
 	}
 	.rg-section[data-tone='high'] .rg-bar {
 		background: var(--primary-container);
+	}
+	.rg-section[data-tone='high'] .rg-sentiment {
+		background: var(--primary-container);
+		color: var(--on-primary-container);
+	}
+
+	[data-rg-result][data-revealed='true'] [data-rg-result-summary] {
+		animation: rg-result-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
+	}
+	[data-rg-result][data-revealed='false'] [data-rg-result-summary],
+	[data-rg-result][data-revealed='false'] [data-rg-badge] {
+		opacity: 0;
+	}
+	[data-rg-result][data-revealed='true'] [data-rg-badge] {
+		animation: rg-result-badge 480ms 180ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+	}
+
+	@keyframes rg-result-rise {
+		from {
+			opacity: 0;
+			transform: translateY(18px) scale(0.97);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	@keyframes rg-result-badge {
+		from {
+			opacity: 0;
+			transform: translateY(8px) scale(0.78);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		[data-rg-result][data-revealed='true'] [data-rg-result-summary],
+		[data-rg-result][data-revealed='true'] [data-rg-badge] {
+			animation: none;
+		}
 	}
 </style>
 
@@ -511,7 +595,9 @@ const bands = PROFILES.map((p) => ({
 				bySection.set(section, (bySection.get(section) ?? 0) + points);
 			});
 
-			result.querySelector<HTMLElement>('[data-rg-score]')!.textContent = String(totalScore);
+			const score = result.querySelector<HTMLElement>('[data-rg-score]')!;
+			score.textContent = '0';
+			const barUpdates: Array<{ bar: HTMLElement; width: string; delay: string }> = [];
 
 			result.querySelectorAll<HTMLElement>('[data-rg-section]').forEach((card) => {
 				const key = card.dataset.rgSection ?? '';
@@ -529,9 +615,18 @@ const bands = PROFILES.map((p) => ({
 					l.hidden = l !== level;
 				});
 				card.dataset.tone = level?.dataset.tone ?? 'low';
+				card.querySelectorAll<SVGElement>('[data-rg-sentiment]').forEach((icon) => {
+					icon.toggleAttribute('hidden', icon.dataset.tone !== card.dataset.tone);
+				});
 
 				const bar = card.querySelector<HTMLElement>('.rg-bar');
-				if (bar) bar.style.width = `${ratio * 100}%`;
+				if (bar) {
+					barUpdates.push({
+						bar,
+						width: `${ratio * 100}%`,
+						delay: `${180 + barUpdates.length * 120}ms`,
+					});
+				}
 			});
 
 			const blocks = Array.from(result.querySelectorAll<HTMLElement>('[data-rg-profile]'));
@@ -545,13 +640,42 @@ const bands = PROFILES.map((p) => ({
 			result.querySelector<HTMLElement>('[data-rg-badge]')!.textContent = match?.dataset.label ?? '';
 
 			const ratio = (totalScore - minScore) / Math.max(1, maxScore - minScore);
-			result.querySelector<HTMLElement>('[data-rg-marker]')!.style.left =
-				`${Math.min(100, Math.max(0, ratio * 100))}%`;
+			const marker = result.querySelector<HTMLElement>('[data-rg-marker]')!;
+			const markerPosition = `${Math.min(100, Math.max(0, ratio * 100))}%`;
 
 			form.hidden = true;
 			progress.hidden = true;
 			result.hidden = false;
+			result.dataset.revealed = 'false';
+			document.querySelector<HTMLElement>('[data-rg-info]')?.setAttribute('hidden', '');
+			const revealResult = () => {
+				result.dataset.revealed = 'true';
+				window.requestAnimationFrame(() => {
+					barUpdates.forEach(({ bar, width, delay }) => {
+						bar.style.transitionDelay = delay;
+						bar.style.width = width;
+					});
+					marker.style.left = markerPosition;
+
+					if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+						score.textContent = String(totalScore);
+						return;
+					}
+
+					const duration = 700;
+					const startedAt = performance.now();
+					const updateScore = (now: number) => {
+						const progress = Math.min(1, (now - startedAt) / duration);
+						const eased = 1 - Math.pow(1 - progress, 3);
+						score.textContent = String(Math.round(totalScore * eased));
+						if (progress < 1) window.requestAnimationFrame(updateScore);
+					};
+					window.requestAnimationFrame(updateScore);
+				});
+			};
 			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) revealResult();
+			else window.setTimeout(revealResult, 520);
 			result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
 
 			const umami = (window as unknown as { umami?: { track?: (n: string, d?: unknown) => void } })
@@ -613,6 +737,14 @@ const bands = PROFILES.map((p) => ({
 			wasSkipping = false;
 			syncSkipped();
 			result.hidden = true;
+			result.removeAttribute('data-revealed');
+			result.querySelector<HTMLElement>('[data-rg-score]')!.textContent = '—';
+			result.querySelector<HTMLElement>('[data-rg-marker]')!.style.left = '0%';
+			result.querySelectorAll<HTMLElement>('.rg-bar').forEach((bar) => {
+				bar.style.width = '0%';
+				bar.style.transitionDelay = '';
+			});
+			document.querySelector<HTMLElement>('[data-rg-info]')?.removeAttribute('hidden');
 			form.hidden = false;
 			progress.hidden = false;
 			goTo(0);
