@@ -186,6 +186,7 @@ const bands = PROFILES.map((p) => ({
 				id="rg-result-title"
 				class="mt-3 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl"
 				tabindex="-1"
+				data-rg-total
 			>
 				<span data-rg-score>—</span><span class="text-(--secondary)">&nbsp;/&nbsp;{MAX_SCORE}</span>
 			</h2>
@@ -206,11 +207,7 @@ const bands = PROFILES.map((p) => ({
 							<div
 								class:list={[
 									'h-full',
-									i === 0
-										? 'bg-(--outline)/25'
-										: i === 1
-											? 'bg-(--secondary-container)'
-											: 'bg-(--primary-container)',
+									i === 0 ? 'rg-band-low' : i === 1 ? 'rg-band-mid' : 'rg-band-high',
 								]}
 								style={`width: ${b.width}%`}
 							/>
@@ -382,38 +379,71 @@ const bands = PROFILES.map((p) => ({
 
 	/* Teintes des sous-scores : mêmes trois tons que la jauge principale,
 	   pour qu'on n'ait qu'une seule échelle à apprendre. */
+	.rg-band-low {
+		background: #e9b8b0;
+	}
+	.rg-band-mid {
+		background: #f4d49a;
+	}
+	.rg-band-high {
+		background: #a8d7be;
+	}
+	[data-rg-total][data-tone='low'] {
+		color: #b9473b;
+	}
+	[data-rg-total][data-tone='mid'] {
+		color: #a56508;
+	}
+	[data-rg-total][data-tone='high'] {
+		color: #2f805e;
+	}
+	[data-rg-badge][data-tone='low'],
+	[data-rg-marker][data-tone='low'] {
+		background: #b9473b;
+		color: white;
+	}
+	[data-rg-badge][data-tone='mid'],
+	[data-rg-marker][data-tone='mid'] {
+		background: #a56508;
+		color: white;
+	}
+	[data-rg-badge][data-tone='high'],
+	[data-rg-marker][data-tone='high'] {
+		background: #2f805e;
+		color: white;
+	}
 	.rg-section .rg-chip {
-		background: rgb(107 107 107 / 0.12);
-		color: var(--secondary);
+		background: #f8e1dd;
+		color: #9b342c;
 	}
 	.rg-section .rg-bar {
-		background: rgb(107 107 107 / 0.55);
+		background: #c35649;
 	}
 	.rg-section .rg-sentiment {
-		background: rgb(107 107 107 / 0.12);
-		color: var(--secondary);
+		background: #f8e1dd;
+		color: #9b342c;
 	}
 	.rg-section[data-tone='mid'] .rg-chip {
-		background: var(--secondary-container);
-		color: var(--on-secondary-container);
+		background: #f8ecd2;
+		color: #8d5a0a;
 	}
 	.rg-section[data-tone='mid'] .rg-bar {
-		background: var(--secondary-container);
+		background: #c78113;
 	}
 	.rg-section[data-tone='mid'] .rg-sentiment {
-		background: var(--secondary-container);
-		color: var(--on-secondary-container);
+		background: #f8ecd2;
+		color: #8d5a0a;
 	}
 	.rg-section[data-tone='high'] .rg-chip {
-		background: var(--primary-container);
-		color: var(--on-primary-container);
+		background: #dcefe4;
+		color: #2e7959;
 	}
 	.rg-section[data-tone='high'] .rg-bar {
-		background: var(--primary-container);
+		background: #45956d;
 	}
 	.rg-section[data-tone='high'] .rg-sentiment {
-		background: var(--primary-container);
-		color: var(--on-primary-container);
+		background: #dcefe4;
+		color: #2e7959;
 	}
 
 	[data-rg-result][data-revealed='true'] [data-rg-result-summary] {
@@ -637,11 +667,21 @@ const bands = PROFILES.map((p) => ({
 			blocks.forEach((b) => {
 				b.hidden = b !== match;
 			});
-			result.querySelector<HTMLElement>('[data-rg-badge]')!.textContent = match?.dataset.label ?? '';
+			const overallTone =
+				match?.dataset.rgProfile === 'inactif'
+					? 'low'
+					: match?.dataset.rgProfile === 'actif'
+						? 'mid'
+						: 'high';
+			const badge = result.querySelector<HTMLElement>('[data-rg-badge]')!;
+			badge.textContent = match?.dataset.label ?? '';
+			badge.dataset.tone = overallTone;
+			result.querySelector<HTMLElement>('[data-rg-total]')!.dataset.tone = overallTone;
 
 			const ratio = (totalScore - minScore) / Math.max(1, maxScore - minScore);
 			const marker = result.querySelector<HTMLElement>('[data-rg-marker]')!;
 			const markerPosition = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+			marker.dataset.tone = overallTone;
 
 			form.hidden = true;
 			progress.hidden = true;
