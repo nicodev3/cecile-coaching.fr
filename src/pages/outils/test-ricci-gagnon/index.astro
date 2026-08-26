@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Header from '../../../components/Header.astro';
+import RicciGagnonTest from '../../../components/RicciGagnonTest.astro';
+import WhatsAppCtaLink from '../../../components/WhatsAppCtaLink.astro';
+import { MAX_SCORE, MIN_SCORE, TOTAL_QUESTIONS } from '../../../data/ricciGagnon';
+
+const title = 'Test de Ricci et Gagnon en ligne : calcule ton score | RE-FLOW';
+const description =
+	'Fais le test de Ricci et Gagnon en ligne gratuitement : 9 questions, score automatique et profil inactif, actif ou très actif. Sans inscription, rien n’est enregistré.';
+
+const faqs = [
+	{
+		q: 'Qu’est-ce que le test de Ricci et Gagnon ?',
+		a: 'C’est un questionnaire d’auto-évaluation du niveau d’activité physique, développé par J. Ricci et L. Gagnon à l’Université de Montréal, puis modifié par F. Laureyns et J.-M. Séné. Il comporte 9 questions réparties en trois volets : les comportements sédentaires, les activités physiques de loisir et les activités physiques quotidiennes. Chaque réponse vaut de 1 à 5 points.',
+	},
+	{
+		q: 'Comment interpréter mon score ?',
+		a: 'Le score total va de 9 à 45 points. En dessous de 18 points, le profil est dit « inactif ». Entre 18 et 35 points, il est dit « actif ». Au-dessus de 35 points, il est dit « très actif ». Ces seuils donnent un repère général : ils ne tiennent compte ni de ton état de santé, ni de ta fatigue, ni de tes douleurs.',
+	},
+	{
+		q: 'Le test de Ricci et Gagnon est-il fiable ?',
+		a: 'C’est un outil de repérage rapide, très utilisé en sport-santé pour ouvrir la discussion sur le niveau d’activité physique. Il repose entièrement sur ce que la personne déclare, sans mesure objective, et ne prend pas en compte la qualité du mouvement ni la tolérance à l’effort. C’est un point de départ de conversation, pas un examen.',
+	},
+	{
+		q: 'Ce test remplace-t-il un avis médical ?',
+		a: 'Non, jamais. Le test de Ricci et Gagnon ne pose aucun diagnostic et ne remplace ni un bilan, ni un suivi de santé. En cas de maladie chronique, de fatigue importante, de douleurs ou de traitement en cours, l’avis du médecin reste le point de départ avant de modifier ton niveau d’activité physique.',
+	},
+	{
+		q: 'Mes réponses sont-elles enregistrées ?',
+		a: 'Non. Le calcul se fait entièrement dans ton navigateur : aucune réponse n’est envoyée à un serveur, enregistrée ou associée à ton identité. Si tu recharges la page, le test repart de zéro.',
+	},
+	{
+		q: 'Que faire si mon score est bas ?',
+		a: 'Un score bas décrit une période, pas une personne, et il s’explique souvent par une situation de santé — maladie chronique, fatigue, douleurs, traitement, travail assis. Ce qui fait évoluer ce score, ce sont les petits gestes répétés : quelques minutes de marche, se lever plus souvent, une mobilisation douce. Un accompagnement adapté peut aider à construire cette progression sans se mettre en échec.',
+	},
+];
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const appStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'WebApplication',
+	'@id': `${pageUrl}#app`,
+	name: 'Test de Ricci et Gagnon en ligne',
+	description,
+	url: pageUrl,
+	applicationCategory: 'HealthApplication',
+	operatingSystem: 'Web',
+	browserRequirements: 'Nécessite JavaScript pour le calcul automatique du score.',
+	inLanguage: 'fr-FR',
+	isAccessibleForFree: true,
+	offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+};
+
+const faqStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((f) => ({
+		'@type': 'Question',
+		name: f.q,
+		acceptedAnswer: { '@type': 'Answer', text: f.a },
+	})),
+};
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	structuredData={[appStructuredData, faqStructuredData]}
+>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Outils', href: '/outils/' },
+					{ name: 'Test de Ricci et Gagnon', href: '/outils/test-ricci-gagnon/' },
+				]}
+			/>
+
+			<section class="text-center">
+				<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">
+					AUTO-ÉVALUATION
+				</p>
+				<h1 class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
+					Test de Ricci et Gagnon en ligne
+				</h1>
+				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
+					{TOTAL_QUESTIONS} questions, deux minutes, et un score sur {MAX_SCORE} pour situer ton niveau
+					d’activité physique réel — celui de tes séances comme celui de ton quotidien. Gratuit, sans
+					inscription, et rien n’est enregistré.
+				</p>
+			</section>
+
+			<div class="mt-10">
+				<RicciGagnonTest />
+			</div>
+
+			<div class="mt-16">
+				<h2 class="text-2xl font-semibold text-(--on-surface)">
+					À quoi sert le test de Ricci et Gagnon ?
+				</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Ce questionnaire a été mis au point par <strong class="font-semibold text-(--on-surface)"
+						>J. Ricci et L. Gagnon</strong
+					>, à l’Université de Montréal, puis modifié par F. Laureyns et J.-M. Séné. Il est largement
+					utilisé en sport-santé comme premier repère : plutôt que de demander « faites-vous du sport ? »,
+					il regarde le mouvement là où il se joue vraiment, c’est-à-dire dans l’ensemble d’une journée.
+				</p>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					C’est ce qui fait sa valeur. Beaucoup de personnes qui ne pratiquent aucun sport ont une vie
+					quotidienne très active ; d’autres s’entraînent plusieurs fois par semaine mais passent le
+					reste du temps assises. Les {TOTAL_QUESTIONS} questions couvrent donc trois dimensions distinctes :
+					le temps passé assis, les activités de loisir, et les activités physiques du quotidien — travail,
+					tâches domestiques, marche, escaliers.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Comment lire ton score</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Chaque réponse vaut de 1 à 5 points, ce qui donne un total compris entre {MIN_SCORE} et {
+						MAX_SCORE
+					} points :
+				</p>
+				<ul class="mt-3 ml-5 list-disc space-y-1.5 text-base leading-relaxed text-(--secondary)">
+					<li>
+						<strong class="font-semibold text-(--on-surface)">Moins de 18 points : inactif.</strong> Le
+						mouvement occupe peu de place dans la journée, souvent avec beaucoup de temps assis.
+					</li>
+					<li>
+						<strong class="font-semibold text-(--on-surface)">Entre 18 et 35 points : actif.</strong> Une
+						base d’activité existe, dans les loisirs, le quotidien, ou les deux.
+					</li>
+					<li>
+						<strong class="font-semibold text-(--on-surface)">Plus de 35 points : très actif.</strong> Le
+						niveau d’activité est élevé, à la fois dans la pratique et dans la vie de tous les jours.
+					</li>
+				</ul>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Les trois sous-scores sont souvent plus parlants que le total. Un score de loisir élevé
+					associé à un score de sédentarité bas, par exemple, raconte une histoire très différente d’un
+					score équilibré — et n’appelle pas les mêmes ajustements.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Ce que ce test ne dit pas</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Le test repose uniquement sur ce que tu déclares, sans aucune mesure. Il ne dit rien de ta
+					condition physique, de la qualité de tes mouvements, de ta récupération, ni de ce que l’effort
+					te coûte réellement. Surtout, il ne tient aucun compte de ton état de santé.
+				</p>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					C’est une limite importante quand on vit avec une <a
+						href="/mouvement-maladie-chronique/"
+						class="text-(--primary) underline underline-offset-2 hover:text-(--tertiary)"
+						>maladie chronique</a
+					> ou une <a
+						href="/fatigue-chronique-mouvement/"
+						class="text-(--primary) underline underline-offset-2 hover:text-(--tertiary)"
+						>fatigue chronique</a
+					>. Un score bas ne signifie pas un manque de volonté : il reflète souvent une énergie
+					disponible réduite, des douleurs, un traitement en cours ou une période de convalescence. À
+					l’inverse, un score élevé peut cacher un rythme qui n’est pas soutenable, et parfois un
+					malaise post-effort.
+				</p>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Autrement dit : ce score est une photo, pas un jugement. Ce qui compte ensuite, c’est le sens
+					qu’on lui donne et la façon dont on construit la suite — progressivement, à partir de ce que
+					ton corps peut faire aujourd’hui.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Et après le test ?</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Si ton score t’a surprise, ou s’il confirme quelque chose que tu ressentais déjà, la question
+					suivante n’est pas « comment faire plus ? » mais « comment reprendre sans me mettre en échec ? ».
+					C’est exactement ce que propose l’<a
+						href="/activites-physiques-adaptees/"
+						class="text-(--primary) underline underline-offset-2 hover:text-(--tertiary)"
+						>Activité Physique Adaptée</a
+					> : un cadre progressif, construit autour de ta situation réelle plutôt qu’autour d’un programme
+					standard. Tu peux découvrir en détail <a
+						href="/coach-apa-en-ligne/"
+						class="text-(--primary) underline underline-offset-2 hover:text-(--tertiary)"
+						>comment se passe le coaching sportif adapté en ligne</a
+					>.
+				</p>
+			</div>
+
+			<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="ricci-faq-title">
+				<h2 id="ricci-faq-title" class="text-2xl font-semibold text-(--on-surface)">
+					Questions fréquentes
+				</h2>
+				<div class="mt-6 space-y-3">
+					{
+						faqs.map((f) => (
+							<details class="group rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
+								<summary class="cursor-pointer list-none text-base font-semibold text-(--on-surface) outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
+									<span class="flex items-center justify-between gap-3">
+										<span>{f.q}</span>
+										<span
+											class="grid size-8 shrink-0 place-items-center rounded-xl bg-(--sage)/70 text-lg leading-none ring-1 ring-black/5"
+											aria-hidden="true"
+										>
+											<span class="transition group-open:rotate-45 motion-reduce:transition-none">
+												+
+											</span>
+										</span>
+									</span>
+								</summary>
+								<p class="mt-3 text-base leading-relaxed text-(--secondary)">{f.a}</p>
+							</details>
+						))
+					}
+				</div>
+			</section>
+
+			<div
+				class="mt-12 rounded-3xl bg-(--plum) px-6 py-10 text-center text-white shadow-sm shadow-black/15 sm:px-10"
+			>
+				<h2 class="text-xl font-semibold sm:text-2xl">Envie d’en parler, sans engagement ?</h2>
+				<p class="mt-3 text-base text-white/90">
+					Un score ne dit pas quoi faire ensuite. Écris-moi pour voir ensemble, simplement et sans
+					pression, ce qui serait réaliste pour toi en ce moment.
+				</p>
+				<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
+					<a
+						href="/contact/"
+						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none"
+					>
+						Me contacter
+					</a>
+					<WhatsAppCtaLink
+						campaign="outil-ricci-gagnon"
+						showIcon={true}
+						class="whatsapp-btn rounded-2xl px-6 py-3 text-base font-semibold"
+					>
+						Écrire sur WhatsApp
+					</WhatsAppCtaLink>
+				</div>
+			</div>
+		</div>
+	</article>
+</BaseLayout>

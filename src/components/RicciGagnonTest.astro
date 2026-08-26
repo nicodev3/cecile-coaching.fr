@@ -1,0 +1,538 @@
+---
+/**
+ * Test de Ricci et Gagnon - questionnaire interactif.
+ *
+ * Rendu serveur : les 9 questions sont dans le HTML (SEO + fonctionne sans JS).
+ * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
+ */
+import { RotateCcw } from '@lucide/astro';
+import {
+	MAX_SCORE,
+	MIN_SCORE,
+	PROFILES,
+	QUESTIONS,
+	SECTIONS,
+	SECTIONS_BY_KEY,
+	SKIPPED_QUESTION_IDS,
+	SKIP_TRIGGER_POINTS,
+	SKIP_TRIGGER_QUESTION_ID,
+	TOTAL_QUESTIONS,
+} from '../data/ricciGagnon';
+
+const scoreSpan = MAX_SCORE - MIN_SCORE + 1;
+const bands = PROFILES.map((p) => ({
+	key: p.key,
+	label: p.label,
+	width: ((p.max - p.min + 1) / scoreSpan) * 100,
+}));
+---
+
+<div
+	class="scroll-mt-28 rounded-3xl bg-(--surface-container-low) p-4 ring-1 ring-(--outline-variant)/60 sm:p-8"
+	data-rg-root
+	data-skip-trigger={SKIP_TRIGGER_QUESTION_ID}
+	data-skip-ids={SKIPPED_QUESTION_IDS.join(',')}
+	data-skip-points={String(SKIP_TRIGGER_POINTS)}
+	data-total={String(TOTAL_QUESTIONS)}
+	data-min={String(MIN_SCORE)}
+	data-max={String(MAX_SCORE)}
+>
+	{/* ---------- Progression (activée par le script) ---------- */}
+	<div class="mb-6" data-rg-progress hidden>
+		<div class="flex items-baseline justify-between gap-4">
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)" data-rg-progress-label>
+				QUESTION 1 SUR {TOTAL_QUESTIONS}
+			</p>
+			<p class="text-sm text-(--secondary)" data-rg-progress-section>{SECTIONS[0].label}</p>
+		</div>
+		<div
+			class="mt-3 h-2 overflow-hidden rounded-full bg-(--surface-container-high)"
+			role="progressbar"
+			aria-valuemin="1"
+			aria-valuemax={TOTAL_QUESTIONS}
+			aria-valuenow="1"
+			aria-label="Progression dans le questionnaire"
+			data-rg-progressbar
+		>
+			<div
+				class="h-full rounded-full bg-(--primary) transition-[width] duration-500 ease-out motion-reduce:transition-none"
+				style="width: 11%"
+				data-rg-progress-fill
+			>
+			</div>
+		</div>
+		<p class="sr-only" aria-live="polite" data-rg-live></p>
+	</div>
+
+	{/* ---------- Questionnaire ---------- */}
+	<form data-rg-form novalidate>
+		{
+			QUESTIONS.map((q) => (
+				<fieldset
+					class="rg-step border-0 p-0"
+					data-rg-step
+					data-qid={q.id}
+					data-number={String(q.number)}
+					data-section={q.section}
+					data-section-label={SECTIONS_BY_KEY[q.section].label}
+				>
+					<legend
+						class="mb-1 w-full rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
+						tabindex="-1"
+					>
+						<span class="mr-2 text-(--primary-container)">{q.number}.</span>
+						{q.label}
+					</legend>
+
+					{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{q.hint}</p>}
+
+					{q.id === 'travail' && (
+						<p
+							class="mt-3 rounded-xl bg-(--secondary-container)/40 px-4 py-3 text-sm leading-relaxed text-(--on-secondary-container)"
+							data-rg-skip-note
+							hidden
+						>
+							Tu as répondu « Non » à la question 2 : les questions 3 à 5, qui portent sur une pratique
+							régulière, ont été passées et comptent 1 point chacune.
+						</p>
+					)}
+
+					<div class="mt-5 grid gap-2.5">
+						{q.options.map((o) => (
+							<label class="group relative flex cursor-pointer items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-[:checked]:bg-(--primary-fixed)/35 has-[:checked]:ring-2 has-[:checked]:ring-(--primary) has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-(--primary) motion-reduce:transition-none">
+								<input
+									type="radio"
+									class="sr-only"
+									name={q.id}
+									value={String(o.points)}
+									data-section={q.section}
+									data-skip={
+										q.id === SKIP_TRIGGER_QUESTION_ID && o.points === SKIP_TRIGGER_POINTS
+											? 'true'
+											: undefined
+									}
+								/>
+								<span
+									class="grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-[:checked]:ring-2 group-has-[:checked]:ring-(--primary) motion-reduce:transition-none"
+									aria-hidden="true"
+								>
+									<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-[:checked]:opacity-100 motion-reduce:transition-none" />
+								</span>
+								<span class="text-base leading-snug text-(--on-surface) group-has-[:checked]:font-semibold">
+									{o.label}
+								</span>
+							</label>
+						))}
+					</div>
+				</fieldset>
+			))
+		}
+
+		{/* ---------- Navigation (activée par le script) ---------- */}
+		<div class="mt-7 flex items-center justify-between gap-3" data-rg-nav hidden>
+			<button
+				type="button"
+				class="inline-flex items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-5 py-2.5 text-base font-medium text-(--secondary) transition hover:text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none"
+				data-rg-prev
+			>
+				Précédent
+			</button>
+			<button
+				type="button"
+				class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none"
+				data-rg-next
+				disabled
+			>
+				Suivant
+			</button>
+		</div>
+
+		{/* ---------- Repli sans JavaScript ---------- */}
+		<div
+			class="mt-7 rounded-2xl bg-(--surface-container-lowest) px-5 py-4 text-sm leading-relaxed text-(--secondary) ring-1 ring-(--outline-variant)"
+			data-rg-nojs
+		>
+			<p class="font-semibold text-(--on-surface)">Calculer votre score à la main</p>
+			<p class="mt-2">
+				JavaScript est désactivé : le calcul automatique n’est pas disponible. Dans chaque question, les
+				réponses sont classées de la moins active (1 point) à la plus active (5 points), de haut en bas.
+				Additionnez les points de vos {TOTAL_QUESTIONS} réponses pour obtenir un score compris entre {MIN_SCORE}
+				 et {MAX_SCORE}.
+			</p>
+			<ul class="mt-2 ml-5 list-disc">
+				{
+					PROFILES.map((p) => (
+						<li>
+							Score {p.range} : <strong class="text-(--on-surface)">{p.label}</strong>
+						</li>
+					))
+				}
+			</ul>
+		</div>
+	</form>
+
+	{/* ---------- Résultat ---------- */}
+	<section data-rg-result hidden aria-labelledby="rg-result-title">
+		<div class="text-center">
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON RÉSULTAT</p>
+			<h2
+				id="rg-result-title"
+				class="mt-3 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl"
+				tabindex="-1"
+			>
+				<span data-rg-score>—</span><span class="text-(--secondary)">&nbsp;/&nbsp;{MAX_SCORE}</span>
+			</h2>
+			<p class="mt-4">
+				<span
+					class="inline-flex items-center rounded-full bg-(--primary) px-5 py-2 text-base font-semibold text-(--on-primary)"
+					data-rg-badge>—</span
+				>
+			</p>
+		</div>
+
+		{/* Jauge */}
+		<div class="mt-8">
+			<div class="relative">
+				<div class="flex h-3 overflow-hidden rounded-full" aria-hidden="true">
+					{
+						bands.map((b, i) => (
+							<div
+								class:list={[
+									'h-full',
+									i === 0
+										? 'bg-(--outline)/25'
+										: i === 1
+											? 'bg-(--secondary-container)'
+											: 'bg-(--primary-container)',
+								]}
+								style={`width: ${b.width}%`}
+							/>
+						))
+					}
+				</div>
+				<span
+					class="absolute top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-(--surface-container-low) bg-(--primary) shadow transition-[left] duration-700 ease-out motion-reduce:transition-none"
+					style="left: 0%"
+					data-rg-marker
+					aria-hidden="true"></span>
+			</div>
+			<div class="mt-2 flex text-xs text-(--secondary)" aria-hidden="true">
+				{
+					bands.map((b, i) => (
+						<span
+							class:list={[i === 0 ? 'text-left' : i === bands.length - 1 ? 'text-right' : 'text-center']}
+							style={`width: ${b.width}%`}
+						>
+							{b.label}
+						</span>
+					))
+				}
+			</div>
+		</div>
+
+		{/* Sous-scores */}
+		<div class="mt-8 grid gap-3 sm:grid-cols-3">
+			{
+				SECTIONS.map((s) => (
+					<div class="rounded-2xl bg-(--surface-container-lowest) p-5 soft-glow">
+						<p class="text-sm text-(--secondary)">{s.shortLabel}</p>
+						<p class="mt-1 text-2xl font-semibold text-(--primary)">
+							<span data-rg-section-score={s.key}>—</span>
+							<span class="text-base font-normal text-(--secondary)">&nbsp;/&nbsp;{s.maxScore}</span>
+						</p>
+					</div>
+				))
+			}
+		</div>
+
+		{/* Interprétation */}
+		{
+			PROFILES.map((p) => (
+				<div
+					class="mt-8"
+					data-rg-profile={p.key}
+					data-label={p.label}
+					data-min={String(p.min)}
+					data-max={String(p.max)}
+					hidden
+				>
+					<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
+					{p.advice.map((a) => (
+						<p class="mt-4 text-base leading-relaxed text-(--secondary)">{a}</p>
+					))}
+				</div>
+			))
+		}
+
+		{/* Rappel non médical */}
+		<p
+			class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)"
+		>
+			<strong>Ce test est un repère, pas un diagnostic.</strong> Il ne remplace ni un avis médical, ni un
+			bilan, ni un suivi de santé. Si tu vis avec une maladie chronique, une fatigue importante ou des
+			douleurs, parles-en à ton médecin avant de modifier ton niveau d’activité physique.
+		</p>
+
+		<div class="mt-8 text-center">
+			<button
+				type="button"
+				class="inline-flex items-center justify-center gap-2 rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-6 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) motion-reduce:transition-none"
+				data-rg-restart
+			>
+				<RotateCcw class="size-4" aria-hidden="true" stroke-width={2} />
+				Refaire le test
+			</button>
+		</div>
+	</section>
+
+	<p class="mt-6 text-center text-xs leading-relaxed text-(--secondary)">
+		Questionnaire d’après J. Ricci et L. Gagnon, Université de Montréal, modifié par F. Laureyns et
+		J.-M. Séné. Aucune réponse n’est enregistrée ni transmise : tout le calcul se fait dans ton
+		navigateur.
+	</p>
+</div>
+
+<style>
+	/* Mode « une question à la fois » : activé uniquement quand le script a démarré. */
+	[data-rg-root][data-js='on'] .rg-step:not([data-current]) {
+		display: none;
+	}
+</style>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-rg-root]').forEach((root) => {
+		const form = root.querySelector<HTMLFormElement>('[data-rg-form]');
+		const result = root.querySelector<HTMLElement>('[data-rg-result]');
+		const nav = root.querySelector<HTMLElement>('[data-rg-nav]');
+		const progress = root.querySelector<HTMLElement>('[data-rg-progress]');
+		const nojs = root.querySelector<HTMLElement>('[data-rg-nojs]');
+		if (!form || !result || !nav || !progress || !nojs) return;
+
+		const steps = Array.from(root.querySelectorAll<HTMLFieldSetElement>('[data-rg-step]'));
+		if (steps.length === 0) return;
+
+		const prevBtn = nav.querySelector<HTMLButtonElement>('[data-rg-prev]')!;
+		const nextBtn = nav.querySelector<HTMLButtonElement>('[data-rg-next]')!;
+		const progressLabel = progress.querySelector<HTMLElement>('[data-rg-progress-label]')!;
+		const progressSection = progress.querySelector<HTMLElement>('[data-rg-progress-section]')!;
+		const progressBar = progress.querySelector<HTMLElement>('[data-rg-progressbar]')!;
+		const progressFill = progress.querySelector<HTMLElement>('[data-rg-progress-fill]')!;
+		const live = progress.querySelector<HTMLElement>('[data-rg-live]')!;
+		const skipNote = root.querySelector<HTMLElement>('[data-rg-skip-note]');
+
+		const total = Number(root.dataset.total) || steps.length;
+		const minScore = Number(root.dataset.min) || steps.length;
+		const maxScore = Number(root.dataset.max) || steps.length * 5;
+		const skipPoints = Number(root.dataset.skipPoints) || 1;
+		const skipIds = (root.dataset.skipIds ?? '').split(',').filter(Boolean);
+
+		let current = 0;
+		const autoAdvanced = new Set<number>();
+		let lastPointerAt = 0;
+
+		const radiosOf = (step: HTMLFieldSetElement) =>
+			Array.from(step.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
+
+		const isSkipping = () => {
+			const trigger = form.querySelector<HTMLInputElement>('input[data-skip="true"]');
+			return Boolean(trigger?.checked);
+		};
+
+		const isSkipped = (step: HTMLFieldSetElement) =>
+			isSkipping() && skipIds.includes(step.dataset.qid ?? '');
+
+		const isActive = (i: number) => !isSkipped(steps[i]);
+
+		const isAnswered = (step: HTMLFieldSetElement) => radiosOf(step).some((r) => r.checked);
+
+		let wasSkipping = false;
+
+		/**
+		 * Coche (ou décoche) automatiquement les questions sautées quand Q2 = « Non ».
+		 * On n'agit que sur les bascules : sans cela, la moindre modification d'une
+		 * autre réponse effacerait les réponses déjà données aux questions 3 à 5.
+		 */
+		const syncSkipped = () => {
+			const skipping = isSkipping();
+			if (skipping !== wasSkipping) {
+				wasSkipping = skipping;
+				steps.forEach((step) => {
+					if (!skipIds.includes(step.dataset.qid ?? '')) return;
+					const radios = radiosOf(step);
+					if (skipping) {
+						const fallback = radios.find((r) => Number(r.value) === skipPoints);
+						if (fallback) fallback.checked = true;
+					} else {
+						radios.forEach((r) => {
+							r.checked = false;
+						});
+					}
+				});
+			}
+			if (skipNote) skipNote.hidden = !skipping;
+		};
+
+		/**
+		 * Ne défile que si la question est masquée par le header collant ou sortie
+		 * de l'écran : sinon on laisse la page où l'utilisatrice l'a mise.
+		 */
+		const ensureVisible = (step: HTMLFieldSetElement) => {
+			const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+			const stepTop = step.getBoundingClientRect().top;
+			const rootTop = root.getBoundingClientRect().top;
+			// scroll-mt-28 (112px) repose le haut du widget sous le header : la
+			// condition reste vraie après le défilement, donc pas d'oscillation.
+			if (stepTop > headerHeight + 8 && rootTop >= headerHeight + 8) return;
+			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+		};
+
+		const findNext = (from: number, dir: 1 | -1) => {
+			let i = from + dir;
+			while (i >= 0 && i < steps.length && !isActive(i)) i += dir;
+			return i;
+		};
+
+		const render = (focus: boolean) => {
+			steps.forEach((step, i) => {
+				if (i === current) step.setAttribute('data-current', '');
+				else step.removeAttribute('data-current');
+			});
+
+			const step = steps[current];
+			const number = Number(step.dataset.number) || current + 1;
+			progressLabel.textContent = `QUESTION ${number} SUR ${total}`;
+			progressSection.textContent = step.dataset.sectionLabel ?? '';
+			progressBar.setAttribute('aria-valuenow', String(number));
+			progressFill.style.width = `${(number / total) * 100}%`;
+			live.textContent = `Question ${number} sur ${total}.`;
+
+			prevBtn.disabled = findNext(current, -1) < 0;
+			nextBtn.disabled = !isAnswered(step);
+			nextBtn.textContent =
+				findNext(current, 1) >= steps.length ? 'Voir mon résultat' : 'Suivant';
+
+			if (!focus) return;
+			// On garde la main sur le défilement : le focus ne doit pas faire glisser
+			// la question sous le header collant.
+			step.querySelector<HTMLElement>('legend')?.focus({ preventScroll: true });
+			ensureVisible(step);
+		};
+
+		const goTo = (i: number, focus = true) => {
+			if (i < 0 || i >= steps.length) return;
+			current = i;
+			render(focus);
+		};
+
+		const showResult = () => {
+			let totalScore = 0;
+			const bySection = new Map<string, number>();
+
+			steps.forEach((step) => {
+				const checked = radiosOf(step).find((r) => r.checked);
+				if (!checked) return;
+				const points = Number(checked.value) || 0;
+				totalScore += points;
+				const section = checked.dataset.section ?? '';
+				bySection.set(section, (bySection.get(section) ?? 0) + points);
+			});
+
+			result.querySelector<HTMLElement>('[data-rg-score]')!.textContent = String(totalScore);
+			result.querySelectorAll<HTMLElement>('[data-rg-section-score]').forEach((el) => {
+				const key = el.dataset.rgSectionScore ?? '';
+				el.textContent = String(bySection.get(key) ?? 0);
+			});
+
+			const blocks = Array.from(result.querySelectorAll<HTMLElement>('[data-rg-profile]'));
+			const match =
+				blocks.find(
+					(b) => totalScore >= Number(b.dataset.min) && totalScore <= Number(b.dataset.max),
+				) ?? blocks[blocks.length - 1];
+			blocks.forEach((b) => {
+				b.hidden = b !== match;
+			});
+			result.querySelector<HTMLElement>('[data-rg-badge]')!.textContent = match?.dataset.label ?? '';
+
+			const ratio = (totalScore - minScore) / Math.max(1, maxScore - minScore);
+			result.querySelector<HTMLElement>('[data-rg-marker]')!.style.left =
+				`${Math.min(100, Math.max(0, ratio * 100))}%`;
+
+			form.hidden = true;
+			progress.hidden = true;
+			result.hidden = false;
+			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
+
+			const umami = (window as unknown as { umami?: { track?: (n: string, d?: unknown) => void } })
+				.umami;
+			umami?.track?.('outil_ricci_resultat', {
+				score: totalScore,
+				profil: match?.dataset.label ?? '',
+			});
+		};
+
+		const goNext = () => {
+			if (!isAnswered(steps[current])) return;
+			const next = findNext(current, 1);
+			if (next >= steps.length) showResult();
+			else goTo(next);
+		};
+
+		form.addEventListener('pointerdown', () => {
+			lastPointerAt = Date.now();
+		});
+
+		form.addEventListener('change', (e) => {
+			const target = e.target;
+			if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
+			syncSkipped();
+			render(false);
+			// Avance automatique au premier choix d'une étape seulement, pour ne pas
+			// piéger quelqu'un qui revient en arrière relire sa réponse.
+			if (autoAdvanced.has(current)) return;
+			// Et uniquement au clic / toucher : au clavier, les flèches font défiler
+			// les options une à une, il ne faut pas avancer dès la première.
+			if (Date.now() - lastPointerAt > 500) return;
+			autoAdvanced.add(current);
+			window.setTimeout(() => {
+				if (steps[current].contains(target)) goNext();
+			}, 260);
+		});
+
+		nextBtn.addEventListener('click', goNext);
+
+		// Le formulaire n'a pas de bouton submit (pour qu'aucune soumission ne soit
+		// possible sans JavaScript) : on gère « Entrée » nous-mêmes.
+		form.addEventListener('keydown', (e) => {
+			if (e.key !== 'Enter') return;
+			// Sur un bouton, « Entrée » doit déclencher ce bouton, pas avancer.
+			if (e.target instanceof HTMLButtonElement) return;
+			e.preventDefault();
+			goNext();
+		});
+
+		prevBtn.addEventListener('click', () => {
+			const prev = findNext(current, -1);
+			if (prev >= 0) goTo(prev);
+		});
+
+		result.querySelector<HTMLButtonElement>('[data-rg-restart]')?.addEventListener('click', () => {
+			form.reset();
+			autoAdvanced.clear();
+			wasSkipping = false;
+			syncSkipped();
+			result.hidden = true;
+			form.hidden = false;
+			progress.hidden = false;
+			goTo(0);
+		});
+
+		// Activation du mode pas-à-pas.
+		nojs.hidden = true;
+		nav.hidden = false;
+		progress.hidden = false;
+		root.dataset.js = 'on';
+		syncSkipped();
+		render(false);
+	});
+</script>
