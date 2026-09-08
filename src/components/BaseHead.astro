@@ -10,6 +10,7 @@ import {
 	COACH_FAMILY_NAME,
 	COACH_FIRST_NAME,
 	COACH_NAME,
+	COACH_SIRET,
 	INDEXNOW_KEY,
 	SITE_INSTAGRAM,
 	SITE_TITLE,
@@ -48,8 +49,13 @@ const coachingStructuredData: StructuredData = {
 	'@context': 'https://schema.org',
 	'@type': 'ProfessionalService',
 	'@id': `${siteUrlNormalized}/#coaching-service`,
-	name: 'RE-FLOW par Cécile',
-	alternateName: 'RE-FLOW - Coaching sportif adapté en ligne',
+	name: 'RE-FLOW par Cécile Cichosz',
+	alternateName: [
+		'RE-FLOW',
+		'RE-FLOW par Cécile',
+		'Coaching sportif adapté en ligne',
+	],
+	legalName: COACH_NAME,
 	description:
 		'Programme de reconnexion corporelle en ligne pour femmes touchées par une maladie chronique, avec coaching sportif adapté et certification APA à distance.',
 	url: siteUrlNormalized,
@@ -61,10 +67,17 @@ const coachingStructuredData: StructuredData = {
 	},
 	founder: {
 		'@type': 'Person',
+		'@id': `${siteUrlNormalized}/a-propos/#cecile`,
 		name: COACH_NAME,
 		givenName: COACH_FIRST_NAME,
 		familyName: COACH_FAMILY_NAME,
+		url: `${siteUrlNormalized}/a-propos/`,
 		jobTitle: 'Coach sportive diplômée d’État - BPJEPS Activités de la forme, certifiée APA',
+	},
+	identifier: {
+		'@type': 'PropertyValue',
+		name: 'SIRET',
+		value: COACH_SIRET,
 	},
 	sameAs: [SITE_INSTAGRAM, SITE_WHATSAPP],
 	knowsAbout: [
@@ -129,6 +142,8 @@ const structuredDataScripts = noindex
 <meta name="description" content={description} />
 
 <!-- Open Graph / Facebook -->
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:site_name" content="RE-FLOW par Cécile Cichosz" />
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
