@@ -2,11 +2,21 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
-import { COACH_EMAIL, COACH_NAME } from '../../consts';
+import {
+	COACH_ADDRESS,
+	COACH_APE,
+	COACH_APE_LABEL,
+	COACH_EMAIL,
+	COACH_LEGAL_FORM,
+	COACH_NAME,
+	COACH_SIREN_DISPLAY,
+	COACH_SIRET_DISPLAY,
+} from '../../consts';
 
 const title = 'Mentions légales | RE-FLOW';
 const description =
-	"Mentions légales du site cecilecoaching.fr - éditeur, hébergeur, propriété intellectuelle et conditions d'utilisation.";
+	"Mentions légales du site cecilecoaching.fr — éditeur, hébergeur, propriété intellectuelle et conditions d'utilisation.";
+
 ---
 
 <BaseLayout title={title} description={description}>
@@ -25,26 +35,37 @@ const description =
 
 			<div class="legal-content text-base leading-relaxed text-slate-800">
 				<h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Mentions légales</h1>
-				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : à compléter.</p>
+				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : 8 septembre 2026.</p>
 
 				<h2>1. Éditeur du site</h2>
 				<p>
-					Le présent site <strong>cecilecoaching.fr</strong> est édité par {COACH_NAME}, en
-					qualité de coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA proposant un
-					accompagnement en ligne.
+					Le présent site <strong>cecilecoaching.fr</strong> est édité par {COACH_NAME}, {COACH_LEGAL_FORM.toLowerCase()},
+					coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA. L’activité
+					proposée est un <strong>accompagnement sportif adapté exclusivement en ligne</strong>, accessible
+					partout en France. Aucun accueil du public n’est assuré à l’adresse du siège.
 				</p>
 				<ul>
-					<li><strong>Nom / Raison sociale</strong> : {COACH_NAME} - <em>à compléter (statut juridique)</em></li>
-					<li><strong>Adresse</strong> : <em>à compléter</em></li>
-					<li><strong>SIREN / SIRET</strong> : <em>à compléter</em></li>
-					<li><strong>Numéro de TVA intracommunautaire</strong> : <em>à compléter (le cas échéant)</em></li>
+					<li><strong>Nom</strong> : {COACH_NAME}</li>
+					<li><strong>Immatriculation Sirene</strong> : Cécile Cichosz (Sueur)</li>
+					<li><strong>Forme juridique</strong> : {COACH_LEGAL_FORM}</li>
+					<li><strong>SIREN</strong> : {COACH_SIREN_DISPLAY}</li>
+					<li><strong>SIRET</strong> : {COACH_SIRET_DISPLAY}</li>
+					<li>
+						<strong>Code APE / NAF</strong> : {COACH_APE} — {COACH_APE_LABEL}
+					</li>
+					<li><strong>Siège (adresse administrative)</strong> : {COACH_ADDRESS}</li>
+					<li>
+						<strong>TVA</strong> : non applicable, article 293 B du Code général des impôts
+					</li>
 					<li><strong>Directrice de la publication</strong> : {COACH_NAME}</li>
-					<li><strong>Email</strong> : <a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a></li>
+					<li>
+						<strong>Email</strong> : <a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a>
+					</li>
 				</ul>
 
 				<h2>2. Hébergeur</h2>
 				<p>
-					Le site est hébergé par <strong>Cloudflare, Inc.</strong> - 101 Townsend St, San Francisco,
+					Le site est hébergé par <strong>Cloudflare, Inc.</strong> — 101 Townsend St, San Francisco,
 					CA 94107, États-Unis. Site web :
 					<a href="https://www.cloudflare.com" target="_blank" rel="noopener noreferrer">cloudflare.com</a>.
 				</p>

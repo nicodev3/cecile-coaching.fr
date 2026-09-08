@@ -1,13 +1,13 @@
 ---
 import { PILLARS } from '../data/pillars';
-import { SITE_INSTAGRAM } from '../consts';
+import { COACH_NAME, SITE_INSTAGRAM } from '../consts';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
 const today = new Date();
 
 const programLinks = [
 	{ href: '/coach-apa-en-ligne/', label: 'Coaching en ligne' },
-	{ href: '/a-propos/', label: 'Cécile, coach BPJEPS & APA' },
+	{ href: '/a-propos/', label: `${COACH_NAME}, coach BPJEPS & APA` },
 	{ href: '/#programme', label: 'Les étapes' },
 	{ href: '/#methode', label: 'Notre approche' },
 	{ href: '/#tarif', label: 'Tarif & modalités' },

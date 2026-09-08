@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
-import { COACH_EMAIL, COACH_NAME } from '../../consts';
+import { COACH_ADDRESS, COACH_EMAIL, COACH_NAME, COACH_SIRET_DISPLAY } from '../../consts';
 
 const title = 'Politique de confidentialité | RE-FLOW';
 const description =
@@ -25,7 +25,7 @@ const description =
 
 			<div class="legal-content text-base leading-relaxed text-slate-800">
 				<h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Politique de confidentialité</h1>
-				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : 25 juin 2026.</p>
+				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : 8 septembre 2026.</p>
 
 				<p>
 					La présente politique décrit la façon dont {COACH_NAME} (ci-après « <em>nous</em> »)
@@ -36,7 +36,9 @@ const description =
 
 				<h2>1. Responsable du traitement</h2>
 				<p>
-					Le responsable du traitement est {COACH_NAME}. Pour toute question relative à vos
+					Le responsable du traitement est {COACH_NAME}, entrepreneur individuel, SIRET {COACH_SIRET_DISPLAY},
+					siège administratif : {COACH_ADDRESS}. L’activité concernée est un accompagnement sportif
+					adapté exclusivement en ligne, partout en France. Pour toute question relative à vos
 					données personnelles, vous pouvez écrire à{' '}
 					<a href={`mailto:${COACH_EMAIL}`}>{COACH_EMAIL}</a>.
 				</p>

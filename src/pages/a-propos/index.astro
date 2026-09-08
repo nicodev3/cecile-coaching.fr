@@ -7,7 +7,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
 import PillarsHub from '../../components/PillarsHub.astro';
 import TunnelCtaLink from '../../components/TunnelCtaLink.astro';
-import { COACH_NAME, SITE_INSTAGRAM, SITE_WHATSAPP } from '../../consts';
+import { COACH_FAMILY_NAME, COACH_FIRST_NAME, COACH_NAME, SITE_INSTAGRAM, SITE_WHATSAPP } from '../../consts';
 
 const title = `${COACH_NAME}, coach sportive BPJEPS certifiée APA - À propos | RE-FLOW`;
 const description = `${COACH_NAME}, coach sportive diplômée d’État BPJEPS et certifiée APA, accompagne à distance les femmes vivant avec une maladie chronique, partout en France.`;
@@ -21,6 +21,9 @@ const personStructuredData = {
 	'@type': 'Person',
 	'@id': `${siteUrlNormalized}/a-propos/#cecile`,
 	name: COACH_NAME,
+	givenName: COACH_FIRST_NAME,
+	familyName: COACH_FAMILY_NAME,
+	alternateName: [COACH_FIRST_NAME, `${COACH_NAME} (Sueur)`],
 	jobTitle: 'Coach sportive diplômée d’État - BPJEPS Activités de la forme, certifiée APA',
 	url: pageUrl,
 	image: new URL(coachImage.src, Astro.site).toString(),

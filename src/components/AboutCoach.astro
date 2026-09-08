@@ -1,5 +1,6 @@
 ---
 import coachImage from '../assets/cecile-coach-apa.webp';
+import { COACH_NAME } from '../consts';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
 const ytVideoId = 'tT4GFMTYE4k';
@@ -29,7 +30,7 @@ const reveal =
 				src={coachImage.src}
 				width={coachImage.width}
 				height={coachImage.height}
-				alt="Cécile, coach sportive BPJEPS - accompagnement sportif adapté"
+				alt={`${COACH_NAME}, coach sportive BPJEPS - accompagnement sportif adapté`}
 				loading="lazy"
 				decoding="async"
 				class="w-full rounded-2xl object-cover shadow-xl soft-glow"
@@ -38,7 +39,7 @@ const reveal =
 
 		<div class="w-full space-y-6 md:w-1/2">
 			<p class="text-sm font-semibold tracking-[0.2em] text-(--primary-container) uppercase">Qui suis-je ?</p>
-			<h2 id="coach-title" class="text-3xl text-(--primary) sm:text-5xl">Cécile</h2>
+			<h2 id="coach-title" class="text-3xl text-(--primary) sm:text-5xl">{COACH_NAME}</h2>
 			<p class="text-lg leading-relaxed text-(--secondary)">
 				Coach sportive diplômée d’État (BPJEPS Activités de la forme) et certifiée APA, je suis aussi professeur de Yoga et de Pilates.
 			</p>
@@ -64,7 +65,7 @@ const reveal =
 					<iframe
 						class="absolute inset-0 hidden size-full border-0 lg:block"
 						src={ytEmbedUrl}
-						title="Vidéo de présentation - Cécile, coach APA en ligne"
+						title={`Vidéo de présentation - ${COACH_NAME}, coach APA en ligne`}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
 						referrerpolicy="strict-origin-when-cross-origin"
 						allowfullscreen
@@ -72,7 +73,7 @@ const reveal =
 					/>
 					<img
 						src={`https://i.ytimg.com/vi/${ytVideoId}/hqdefault.jpg`}
-						alt="Cécile, coach sportive BPJEPS - accompagnement sportif adapté"
+						alt={`${COACH_NAME}, coach sportive BPJEPS - accompagnement sportif adapté`}
 						class="coach-yt-poster absolute inset-0 z-0 size-full object-cover lg:hidden"
 						loading="lazy"
 						decoding="async"
@@ -92,7 +93,7 @@ const reveal =
 					<iframe
 						class="coach-yt-mobile pointer-events-none absolute inset-0 z-5 size-full border-0 opacity-0 transition-opacity duration-200 lg:hidden"
 						data-src={ytEmbedUrlAutoplay}
-						title="Vidéo de présentation - Cécile, coach APA en ligne"
+						title={`Vidéo de présentation - ${COACH_NAME}, coach APA en ligne`}
 						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
 						referrerpolicy="strict-origin-when-cross-origin"
 						allowfullscreen
