@@ -2,7 +2,7 @@
  * Outils interactifs (auto-évaluations) - chemins avec slash final pour cohérence sitemap.
  * Source de vérité unique pour la nav, le footer et le hub /outils/.
  */
-export type ToolKey = 'ricci-gagnon';
+export type ToolKey = 'reflow';
 
 export interface Tool {
 	key: ToolKey;
@@ -21,16 +21,16 @@ export interface Tool {
 }
 
 export const TOOLS_BY_KEY: Record<ToolKey, Tool> = {
-	'ricci-gagnon': {
-		key: 'ricci-gagnon',
-		slug: '/outils/test-ricci-gagnon/',
-		label: 'Test de Ricci et Gagnon',
-		shortLabel: 'Ricci & Gagnon',
+	reflow: {
+		key: 'reflow',
+		slug: '/outils/auto-evaluation-re-flow/',
+		label: 'Auto-évaluation Re-flow',
+		shortLabel: 'Re-flow',
 		tagline:
-			'9 questions pour situer ton niveau d’activité physique réel, entre sédentarité et mouvement quotidien.',
+			'10 questions pour situer ton déconditionnement physique et son incidence sur le quotidien.',
 		duration: '2 minutes',
 		available: true,
 	},
 };
 
-export const TOOLS: readonly Tool[] = [TOOLS_BY_KEY['ricci-gagnon']];
+export const TOOLS: readonly Tool[] = [TOOLS_BY_KEY.reflow];

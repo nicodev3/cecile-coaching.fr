@@ -1,16 +1,17 @@
 ---
 /**
- * Test de Ricci et Gagnon - questionnaire interactif.
+ * Auto-évaluation Re-flow — questionnaire interactif.
  *
- * Rendu serveur : les 9 questions sont dans le HTML (SEO + fonctionne sans JS).
+ * Rendu serveur : les 10 questions sont dans le HTML (SEO + fonctionne sans JS).
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
-import { Armchair, CircleCheck, Dumbbell, Footprints, Frown, Lock, Meh, RotateCcw, Smile } from '@lucide/astro';
+import { Battery, CircleCheck, Compass, Frown, Heart, Lock, Meh, Move, RotateCcw, Smile } from '@lucide/astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import { COACH_FIRST_NAME, SITE_BRAND } from '../consts';
 import {
 	MAX_SCORE,
 	MIN_SCORE,
+	PERCENT_MAX,
 	PROFILES,
 	QUESTIONS,
 	SECTIONS,
@@ -19,18 +20,20 @@ import {
 	SKIP_TRIGGER_POINTS,
 	SKIP_TRIGGER_QUESTION_ID,
 	TOTAL_QUESTIONS,
-} from '../data/ricciGagnon';
+} from '../data/reflow';
 
 const sectionIcons = {
-	sedentarite: Armchair,
-	loisir: Dumbbell,
-	quotidien: Footprints,
+	endurance: Battery,
+	capacites: Move,
+	quotidien: Heart,
+	reprise: Compass,
 } as const;
 
-const scoreSpan = MAX_SCORE - MIN_SCORE + 1;
+const scoreSpan = PERCENT_MAX - MIN_SCORE + 1;
 const bands = PROFILES.map((p) => ({
 	key: p.key,
 	label: p.label,
+	tone: p.tone,
 	width: ((p.max - p.min + 1) / scoreSpan) * 100,
 }));
 ---
@@ -64,7 +67,7 @@ const bands = PROFILES.map((p) => ({
 		>
 			<div
 				class="h-full rounded-full bg-(--primary) transition-[width] duration-500 ease-out motion-reduce:transition-none"
-				style="width: 11%"
+				style="width: 10%"
 				data-rg-progress-fill
 			>
 			</div>
@@ -93,17 +96,6 @@ const bands = PROFILES.map((p) => ({
 					</legend>
 
 					{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{q.hint}</p>}
-
-					{q.id === 'travail' && (
-						<p
-							class="mt-3 rounded-xl bg-(--secondary-container)/40 px-4 py-3 text-sm leading-relaxed text-(--on-secondary-container)"
-							data-rg-skip-note
-							hidden
-						>
-							Tu as répondu « Non » à la question 2 : les questions 3 à 5, qui portent sur une pratique
-							régulière, ont été passées et comptent 1 point chacune.
-						</p>
-					)}
 
 					<div class="mt-5 grid gap-2.5">
 						{q.options.map((o) => (
@@ -160,18 +152,19 @@ const bands = PROFILES.map((p) => ({
 			class="mt-7 rounded-2xl bg-(--surface-container-lowest) px-5 py-4 text-sm leading-relaxed text-(--secondary) ring-1 ring-(--outline-variant)"
 			data-rg-nojs
 		>
-			<p class="font-semibold text-(--on-surface)">Calculer votre score à la main</p>
+			<p class="font-semibold text-(--on-surface)">Calculer ton résultat à la main</p>
 			<p class="mt-2">
 				JavaScript est désactivé : le calcul automatique n’est pas disponible. Dans chaque question, les
-				réponses sont classées de la moins active (1 point) à la plus active (5 points), de haut en bas.
-				Additionnez les points de vos {TOTAL_QUESTIONS} réponses pour obtenir un score compris entre {MIN_SCORE}
-				 et {MAX_SCORE}.
+				réponses vont de 0 (Pas du tout) à 4 (Énormément). Additionnez les points de tes {
+					TOTAL_QUESTIONS
+				} réponses, puis calculez (total / {MAX_SCORE}) × 100 pour obtenir un pourcentage de
+				déconditionnement.
 			</p>
 			<ul class="mt-2 ml-5 list-disc">
 				{
 					PROFILES.map((p) => (
 						<li>
-							Score {p.range} : <strong class="text-(--on-surface)">{p.label}</strong>
+							{p.range} : <strong class="text-(--on-surface)">{p.label}</strong>
 						</li>
 					))
 				}
@@ -189,7 +182,7 @@ const bands = PROFILES.map((p) => ({
 				tabindex="-1"
 				data-rg-total
 			>
-				<span data-rg-score>—</span><span class="text-(--secondary)">&nbsp;/&nbsp;{MAX_SCORE}</span>
+				<span data-rg-score>—</span><span class="text-(--secondary)">&nbsp;%</span>
 			</h2>
 			<p class="mt-4">
 				<span
@@ -204,11 +197,11 @@ const bands = PROFILES.map((p) => ({
 			<div class="relative">
 				<div class="flex h-3 overflow-hidden rounded-full" aria-hidden="true">
 					{
-						bands.map((b, i) => (
+						bands.map((b) => (
 							<div
 								class:list={[
 									'h-full',
-									i === 0 ? 'rg-band-low' : i === 1 ? 'rg-band-mid' : 'rg-band-high',
+									b.tone === 'low' ? 'rg-band-low' : b.tone === 'mid' ? 'rg-band-mid' : 'rg-band-high',
 								]}
 								style={`width: ${b.width}%`}
 							/>
@@ -237,7 +230,7 @@ const bands = PROFILES.map((p) => ({
 
 		{/* Interprétation */}
 		<div class="mt-8">
-			<h3 class="text-lg font-semibold text-(--on-surface)">L’interprétation de ton score</h3>
+			<h3 class="text-lg font-semibold text-(--on-surface)">L’interprétation de ton résultat</h3>
 			{
 				PROFILES.map((p) => (
 					<div
@@ -246,9 +239,17 @@ const bands = PROFILES.map((p) => ({
 						data-label={p.label}
 						data-min={String(p.min)}
 						data-max={String(p.max)}
+						data-tone={p.tone}
 						hidden
 					>
 						<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
+						{
+							SECTIONS.map((s) => (
+								<p class="mt-3 text-base leading-relaxed text-(--on-surface)" data-rg-dimension={s.key} hidden>
+									{s.resultCopy}
+								</p>
+							))
+						}
 						<div class="relative mt-4 max-h-80 overflow-hidden rounded-2xl">
 							<div
 								class="pointer-events-none select-none blur-[6px]"
@@ -256,6 +257,15 @@ const bands = PROFILES.map((p) => ({
 							>
 								{p.advice.map((a) => (
 									<p class="mt-4 text-base leading-relaxed text-(--on-surface) first:mt-0">{a}</p>
+								))}
+								{SECTIONS.map((s) => (
+									<p
+										class="mt-4 text-base leading-relaxed text-(--on-surface)"
+										data-rg-blur-dimension={s.key}
+										hidden
+									>
+										{s.advice}
+									</p>
 								))}
 							</div>
 							<div
@@ -299,6 +309,17 @@ const bands = PROFILES.map((p) => ({
 					<h4 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
 						Réserve ton bilan et découvre tes points d’amélioration
 					</h4>
+					{
+						SECTIONS.map((s) => (
+							<p
+								class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)"
+								data-rg-transition={s.key}
+								hidden
+							>
+								{s.transitionCopy}
+							</p>
+						))
+					}
 					<ul class="mx-auto mt-5 max-w-lg space-y-3 text-left text-sm leading-relaxed text-(--secondary)">
 						<li class="flex gap-3">
 							<CircleCheck
@@ -310,7 +331,7 @@ const bands = PROFILES.map((p) => ({
 								<strong class="font-semibold text-(--on-surface)"
 									>Un bilan offert avec {COACH_FIRST_NAME}</strong
 								>{' '}
-								pour lire tes résultats et comprendre ce qui bloque le mouvement
+								pour lire tes résultats et voir comment reconstruire progressivement ta condition physique
 							</span>
 						</li>
 						<li class="flex gap-3">
@@ -343,14 +364,14 @@ const bands = PROFILES.map((p) => ({
 
 		{/* Sous-scores */}
 		<div class="mt-10">
-			<h3 class="text-lg font-semibold text-(--on-surface)">Le détail, volet par volet</h3>
+			<h3 class="text-lg font-semibold text-(--on-surface)">Le détail, dimension par dimension</h3>
 			<p class="mt-1 text-sm leading-relaxed text-(--secondary)">
-				Dans les trois volets, <strong class="font-semibold text-(--on-surface)"
-					>plus le score est élevé, plus il traduit du mouvement</strong
-				>. Un 5 sur 5 en temps assis signifie donc que tu passes peu de temps assise, pas l’inverse.
+				Le pourcentage représente le{' '}
+				<strong class="font-semibold text-(--on-surface)">niveau de déconditionnement actuel</strong>
+				. 0&nbsp;% : plutôt limité. 100&nbsp;% : très important.
 			</p>
 
-			<div class="mt-5 grid gap-3 sm:grid-cols-3">
+			<div class="mt-5 grid gap-3 sm:grid-cols-2">
 				{
 					SECTIONS.map((s) => {
 						const Icon = sectionIcons[s.key];
@@ -369,17 +390,21 @@ const bands = PROFILES.map((p) => ({
 										class="rg-sentiment ml-auto grid size-9 shrink-0 place-items-center rounded-full"
 										aria-hidden="true"
 									>
-										<Frown class="size-5" data-rg-sentiment data-tone="low" hidden stroke-width={1.8} />
-										<Meh class="size-5" data-rg-sentiment data-tone="mid" hidden stroke-width={1.8} />
-										<Smile class="size-5" data-rg-sentiment data-tone="high" hidden stroke-width={1.8} />
+										<span data-rg-sentiment data-tone="low" hidden>
+											<Frown class="size-5" stroke-width={1.8} />
+										</span>
+										<span data-rg-sentiment data-tone="mid" hidden>
+											<Meh class="size-5" stroke-width={1.8} />
+										</span>
+										<span data-rg-sentiment data-tone="high" hidden>
+											<Smile class="size-5" stroke-width={1.8} />
+										</span>
 									</span>
 								</div>
 
 								<p class="mt-3 text-2xl font-semibold text-(--primary)">
 									<span data-rg-section-score={s.key}>—</span>
-									<span class="text-base font-normal text-(--secondary)">
-										&nbsp;/&nbsp;{s.maxScore}
-									</span>
+									<span class="text-base font-normal text-(--secondary)">&nbsp;%</span>
 								</p>
 
 								<div
@@ -401,6 +426,13 @@ const bands = PROFILES.map((p) => ({
 								</p>
 
 								<p class="mt-2 text-xs leading-relaxed text-(--outline)">{s.caption}</p>
+								<p
+									class="mt-2 text-xs font-semibold text-(--primary)"
+									data-rg-dominant-label
+									hidden
+								>
+									Déconditionnement le plus marqué
+								</p>
 							</div>
 						);
 					})
@@ -412,9 +444,10 @@ const bands = PROFILES.map((p) => ({
 		<p
 			class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)"
 		>
-			<strong>Ce test est un repère, pas un diagnostic.</strong> Il ne remplace ni un avis médical, ni un
-			bilan, ni un suivi de santé. Si tu vis avec une maladie chronique, une fatigue importante ou des
-			douleurs, parles-en à ton médecin avant de modifier ton niveau d’activité physique.
+			<strong>Cette auto-évaluation est un outil de réflexion et ne constitue pas un diagnostic médical.</strong>{' '}
+			Elle évalue le déconditionnement physique, pas la maladie. Elle ne
+			remplace ni un avis médical, ni un bilan, ni un suivi de santé. Les seuils utilisés ici sont
+			propres à l’expérience Re-flow.
 		</p>
 
 		<div class="mt-8 text-center">
@@ -439,7 +472,7 @@ const bands = PROFILES.map((p) => ({
 					Me contacter
 				</a>
 				<WhatsAppCtaLink
-					campaign="outil-ricci-gagnon"
+					campaign="outil-re-flow"
 					showIcon={true}
 					class="whatsapp-btn rounded-2xl px-6 py-3 text-base font-semibold"
 				>
@@ -450,9 +483,8 @@ const bands = PROFILES.map((p) => ({
 	</section>
 
 	<p class="mt-6 text-center text-xs leading-relaxed text-(--secondary)">
-		Questionnaire d’après J. Ricci et L. Gagnon, Université de Montréal, modifié par F. Laureyns et
-		J.-M. Séné. Aucune réponse n’est enregistrée ni transmise : tout le calcul se fait dans ton
-		navigateur.
+		Cette auto-évaluation est un outil de réflexion et ne constitue pas un diagnostic médical. Aucune
+		réponse n’est enregistrée ni transmise : tout le calcul se fait dans ton navigateur.
 	</p>
 </div>
 
@@ -573,6 +605,11 @@ const bands = PROFILES.map((p) => ({
 </style>
 
 <script>
+	const trackUmami = (name: string) => {
+		const umami = (window as unknown as { umami?: { track?: (n: string) => void } }).umami;
+		umami?.track?.(name);
+	};
+
 	document.querySelectorAll<HTMLElement>('[data-rg-root]').forEach((root) => {
 		const form = root.querySelector<HTMLFormElement>('[data-rg-form]');
 		const result = root.querySelector<HTMLElement>('[data-rg-result]');
@@ -594,14 +631,16 @@ const bands = PROFILES.map((p) => ({
 		const skipNote = root.querySelector<HTMLElement>('[data-rg-skip-note]');
 
 		const total = Number(root.dataset.total) || steps.length;
-		const minScore = Number(root.dataset.min) || steps.length;
-		const maxScore = Number(root.dataset.max) || steps.length * 5;
-		const skipPoints = Number(root.dataset.skipPoints) || 1;
+		const minScore = root.dataset.min === undefined ? 0 : Number(root.dataset.min);
+		const maxScore = Number(root.dataset.max) || steps.length * 4;
+		const skipPoints = Number(root.dataset.skipPoints) || 0;
 		const skipIds = (root.dataset.skipIds ?? '').split(',').filter(Boolean);
 
 		let current = 0;
 		const autoAdvanced = new Set<number>();
 		let lastPointerAt = 0;
+		let startedTracked = false;
+		let resultShown = false;
 
 		const radiosOf = (step: HTMLFieldSetElement) =>
 			Array.from(step.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
@@ -621,9 +660,8 @@ const bands = PROFILES.map((p) => ({
 		let wasSkipping = false;
 
 		/**
-		 * Coche (ou décoche) automatiquement les questions sautées quand Q2 = « Non ».
-		 * On n'agit que sur les bascules : sans cela, la moindre modification d'une
-		 * autre réponse effacerait les réponses déjà données aux questions 3 à 5.
+		 * Coche (ou décoche) automatiquement les questions sautées.
+		 * Conservé comme no-op : cette auto-évaluation n'a plus de questions sautées.
 		 */
 		const syncSkipped = () => {
 			const skipping = isSkipping();
@@ -697,42 +735,64 @@ const bands = PROFILES.map((p) => ({
 			render(focus);
 		};
 
+		const showDimension = (attr: string, key: string) => {
+			result.querySelectorAll<HTMLElement>(`[${attr}]`).forEach((el) => {
+				el.hidden = el.getAttribute(attr) !== key;
+			});
+		};
+
 		const showResult = () => {
+			if (resultShown) return;
+			resultShown = true;
 			let totalScore = 0;
 			const bySection = new Map<string, number>();
 
 			steps.forEach((step) => {
 				const checked = radiosOf(step).find((r) => r.checked);
 				if (!checked) return;
-				const points = Number(checked.value) || 0;
-				totalScore += points;
+				const points = Number(checked.value);
+				const value = Number.isFinite(points) ? points : 0;
+				totalScore += value;
 				const section = checked.dataset.section ?? '';
-				bySection.set(section, (bySection.get(section) ?? 0) + points);
+				bySection.set(section, (bySection.get(section) ?? 0) + value);
 			});
 
+			const percent = Math.round((totalScore / Math.max(1, maxScore)) * 100);
 			const score = result.querySelector<HTMLElement>('[data-rg-score]')!;
 			score.textContent = '0';
 			const barUpdates: Array<{ bar: HTMLElement; width: string; delay: string }> = [];
 
+			let dominantKey = '';
+			let dominantRatio = -1;
 			result.querySelectorAll<HTMLElement>('[data-rg-section]').forEach((card) => {
 				const key = card.dataset.rgSection ?? '';
 				const max = Number(card.dataset.max) || 1;
 				const value = bySection.get(key) ?? 0;
 				const ratio = Math.min(1, Math.max(0, value / max));
+				const sectionPercent = Math.round(ratio * 100);
+				const levelRatio = sectionPercent / 100;
+
+				if (ratio > dominantRatio) {
+					dominantRatio = ratio;
+					dominantKey = key;
+				}
 
 				const scoreEl = card.querySelector<HTMLElement>('[data-rg-section-score]');
-				if (scoreEl) scoreEl.textContent = String(value);
+				if (scoreEl) scoreEl.textContent = String(sectionPercent);
 
 				const levels = Array.from(card.querySelectorAll<HTMLElement>('[data-rg-level]'));
 				const level =
-					levels.find((l) => ratio <= Number(l.dataset.upTo)) ?? levels[levels.length - 1];
+					levels.find((l) => levelRatio <= Number(l.dataset.upTo)) ?? levels[levels.length - 1];
 				levels.forEach((l) => {
 					l.hidden = l !== level;
 				});
 				card.dataset.tone = level?.dataset.tone ?? 'low';
-				card.querySelectorAll<SVGElement>('[data-rg-sentiment]').forEach((icon) => {
+				card.querySelectorAll<HTMLElement>('[data-rg-sentiment]').forEach((icon) => {
 					icon.toggleAttribute('hidden', icon.dataset.tone !== card.dataset.tone);
 				});
+
+				const dominantLabel = card.querySelector<HTMLElement>('[data-rg-dominant-label]');
+				if (dominantLabel) dominantLabel.hidden = true;
 
 				const bar = card.querySelector<HTMLElement>('.rg-bar');
 				if (bar) {
@@ -744,26 +804,30 @@ const bands = PROFILES.map((p) => ({
 				}
 			});
 
+			if (dominantKey) {
+				const dominantCard = result.querySelector<HTMLElement>(`[data-rg-section="${dominantKey}"]`);
+				const dominantLabel = dominantCard?.querySelector<HTMLElement>('[data-rg-dominant-label]');
+				if (dominantLabel) dominantLabel.hidden = false;
+				showDimension('data-rg-dimension', dominantKey);
+				showDimension('data-rg-blur-dimension', dominantKey);
+				showDimension('data-rg-transition', dominantKey);
+			}
+
 			const blocks = Array.from(result.querySelectorAll<HTMLElement>('[data-rg-profile]'));
 			const match =
 				blocks.find(
-					(b) => totalScore >= Number(b.dataset.min) && totalScore <= Number(b.dataset.max),
+					(b) => percent >= Number(b.dataset.min) && percent <= Number(b.dataset.max),
 				) ?? blocks[blocks.length - 1];
 			blocks.forEach((b) => {
 				b.hidden = b !== match;
 			});
-			const overallTone =
-				match?.dataset.rgProfile === 'inactif'
-					? 'low'
-					: match?.dataset.rgProfile === 'actif'
-						? 'mid'
-						: 'high';
+			const overallTone = match?.dataset.tone ?? 'mid';
 			const badge = result.querySelector<HTMLElement>('[data-rg-badge]')!;
 			badge.textContent = match?.dataset.label ?? '';
 			badge.dataset.tone = overallTone;
 			result.querySelector<HTMLElement>('[data-rg-total]')!.dataset.tone = overallTone;
 
-			const ratio = (totalScore - minScore) / Math.max(1, maxScore - minScore);
+			const ratio = (percent - minScore) / Math.max(1, 100 - minScore);
 			const marker = result.querySelector<HTMLElement>('[data-rg-marker]')!;
 			const markerPosition = `${Math.min(100, Math.max(0, ratio * 100))}%`;
 			marker.dataset.tone = overallTone;
@@ -804,7 +868,7 @@ const bands = PROFILES.map((p) => ({
 					marker.style.left = markerPosition;
 
 					if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-						score.textContent = String(totalScore);
+						score.textContent = String(percent);
 						return;
 					}
 
@@ -813,7 +877,7 @@ const bands = PROFILES.map((p) => ({
 					const updateScore = (now: number) => {
 						const progress = Math.min(1, (now - startedAt) / duration);
 						const eased = 1 - Math.pow(1 - progress, 3);
-						score.textContent = String(Math.round(totalScore * eased));
+						score.textContent = String(Math.round(percent * eased));
 						if (progress < 1) window.requestAnimationFrame(updateScore);
 					};
 					window.requestAnimationFrame(updateScore);
@@ -824,12 +888,7 @@ const bands = PROFILES.map((p) => ({
 			else window.setTimeout(revealResult, 520);
 			result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
 
-			const umami = (window as unknown as { umami?: { track?: (n: string, d?: unknown) => void } })
-				.umami;
-			umami?.track?.('outil_ricci_resultat', {
-				score: totalScore,
-				profil: match?.dataset.label ?? '',
-			});
+			trackUmami('quiz_completed');
 		};
 
 		const goNext = () => {
@@ -846,6 +905,10 @@ const bands = PROFILES.map((p) => ({
 		form.addEventListener('change', (e) => {
 			const target = e.target;
 			if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
+			if (!startedTracked) {
+				startedTracked = true;
+				trackUmami('quiz_started');
+			}
 			syncSkipped();
 			render(false);
 			// Avance automatique au premier choix d'une étape seulement, pour ne pas
@@ -867,6 +930,7 @@ const bands = PROFILES.map((p) => ({
 			if (!trigger) return;
 			const booking = result.querySelector<HTMLElement>('[data-rg-booking]');
 			if (!booking) return;
+			trackUmami('appointment_clicked');
 			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 			booking.scrollIntoView({
 				block: 'start',
@@ -893,6 +957,8 @@ const bands = PROFILES.map((p) => ({
 			form.reset();
 			autoAdvanced.clear();
 			wasSkipping = false;
+			startedTracked = false;
+			resultShown = false;
 			syncSkipped();
 			result.hidden = true;
 			result.removeAttribute('data-revealed');

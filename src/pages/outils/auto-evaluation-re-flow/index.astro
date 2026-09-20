@@ -1,0 +1,209 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Header from '../../../components/Header.astro';
+import ReflowAssessment from '../../../components/ReflowAssessment.astro';
+import { MAX_SCORE, TOTAL_QUESTIONS } from '../../../data/reflow';
+
+const title = 'Évalue tes capacités physiques | RE-FLOW';
+const description =
+	'Auto-évaluation Re-flow : quelques questions pour situer ton déconditionnement physique et son incidence sur le quotidien. Gratuit, sans inscription, rien n’est enregistré.';
+
+const faqs = [
+	{
+		q: 'Qu’est-ce que l’auto-évaluation Re-flow ?',
+		a: 'C’est un questionnaire court pour situer ta condition physique actuelle : niveau de déconditionnement (endurance, capacités, mouvement) et incidence sur le quotidien. Il s’adresse aux personnes touchées par une maladie chronique. Il ne s’agit pas d’un diagnostic, ni d’un test médical, ni d’un questionnaire clinique validé.',
+	},
+	{
+		q: 'Comment interpréter mon résultat ?',
+		a: 'Le score global est un pourcentage de déconditionnement, de 0 % (plutôt limité) à 100 % (très important). Quatre dimensions sont aussi calculées. Les seuils 0–33 %, 34–66 % et 67–100 % sont propres à l’expérience Re-flow : ils ne correspondent à aucun seuil clinique validé.',
+	},
+	{
+		q: 'Cette auto-évaluation remplace-t-elle un avis médical ?',
+		a: 'Non, jamais. C’est un outil de réflexion. Elle ne pose aucun diagnostic, n’évalue pas la gravité d’une maladie et ne remplace ni un bilan, ni un suivi de santé. En cas de doute, l’avis de ton médecin reste le point de départ.',
+	},
+	{
+		q: 'Est-ce que Re-flow agit sur ma maladie ou mes symptômes ?',
+		a: 'Non. Re-flow n’agit ni sur la maladie, ni sur les symptômes. Il agit sur le déconditionnement physique qui peut s’installer quand on bouge moins : perte d’endurance, de force, de mobilité, et quotidien plus coûteux. L’accompagnement vise à reconstruire progressivement une condition physique compatible avec tes journées.',
+	},
+	{
+		q: 'Mes réponses sont-elles enregistrées ?',
+		a: 'Non. Le calcul se fait entièrement dans ton navigateur : aucune réponse, aucun score et aucun détail n’est envoyé à un serveur, enregistré ou associé à ton identité. Si tu recharges la page, l’auto-évaluation repart de zéro.',
+	},
+	{
+		q: 'Que faire après l’auto-évaluation ?',
+		a: 'Le résultat sert à identifier où ta condition physique pèse le plus en ce moment. Tu peux ensuite réserver un bilan pour en parler, sans engagement, et voir si l’accompagnement Re-flow peut t’aider à limiter le déconditionnement.',
+	},
+	{
+		q: 'Les pourcentages mesurent-ils la gravité de ma maladie ?',
+		a: 'Non. Un pourcentage élevé ne décrit pas une maladie « plus grave ». Il indique seulement que, d’après tes réponses du moment, le déconditionnement physique et son incidence sur le quotidien apparaissent importants. L’inverse est vrai aussi : un pourcentage plus bas ne minimise pas ce que tu vis.',
+	},
+];
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
+
+const appStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'WebApplication',
+	'@id': `${pageUrl}#app`,
+	name: 'Auto-évaluation Re-flow',
+	description,
+	url: pageUrl,
+	applicationCategory: 'LifestyleApplication',
+	operatingSystem: 'Web',
+	browserRequirements: 'Nécessite JavaScript pour le calcul automatique du résultat.',
+	inLanguage: 'fr-FR',
+	isAccessibleForFree: true,
+	offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+};
+
+const faqStructuredData = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: faqs.map((f) => ({
+		'@type': 'Question',
+		name: f.q,
+		acceptedAnswer: { '@type': 'Answer', text: f.a },
+	})),
+};
+---
+
+<BaseLayout
+	title={title}
+	description={description}
+	structuredData={[appStructuredData, faqStructuredData]}
+>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<article class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 pt-4 pb-12 sm:px-6 sm:py-12 lg:px-8">
+			<Breadcrumbs
+				items={[
+					{ name: 'Accueil', href: '/' },
+					{ name: 'Outils', href: '/outils/' },
+					{ name: 'Auto-évaluation Re-flow', href: '/outils/auto-evaluation-re-flow/' },
+				]}
+			/>
+
+			<section class="text-center" data-rg-intro>
+				<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">
+					AUTO-ÉVALUATION
+				</p>
+				<h1 class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
+					Évalue tes capacités physiques
+				</h1>
+				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-(--on-surface)">
+					Où en est ta condition physique aujourd’hui, et quelle incidence a-t-elle sur ton
+					quotidien&nbsp;?
+				</p>
+				<p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-(--secondary)">
+					{TOTAL_QUESTIONS} questions pour situer ton déconditionnement physique : endurance, capacités
+					et gestes du quotidien.
+				</p>
+			</section>
+
+			<div class="mt-10">
+				<ReflowAssessment />
+			</div>
+
+			<div class="mt-16" data-rg-info>
+				<h2 class="text-2xl font-semibold text-(--on-surface)">
+					À quoi sert l’auto-évaluation Re-flow&nbsp;?
+				</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Quand on vit avec une maladie chronique, on bouge souvent moins. Avec le temps, le corps peut
+					perdre de l’endurance, de la force et de la mobilité : c’est le déconditionnement physique.
+					Cette auto-évaluation propose un temps d’arrêt pour situer où tu en es, et à quel point
+					cela pèse sur tes journées.
+				</p>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Re-flow n’agit pas sur la maladie ni sur les symptômes. Il agit sur ce déconditionnement :
+					retrouver progressivement une condition physique compatible avec le quotidien.
+				</p>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Les {TOTAL_QUESTIONS} questions couvrent quatre dimensions. Chaque réponse va de 0 (pas du
+					tout) à 4 (énormément). Le résultat s’exprime en pourcentage de déconditionnement, sur un
+					total de {MAX_SCORE} points.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Comment lire ton résultat</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Le pourcentage global, et celui de chaque dimension, représentent le déconditionnement actuel
+					:
+				</p>
+				<ul class="mt-3 ml-5 list-disc space-y-1.5 text-base leading-relaxed text-(--secondary)">
+					<li>
+						<strong class="font-semibold text-(--on-surface)">0 à 33&nbsp;% :</strong> déconditionnement
+						actuellement plutôt limité.
+					</li>
+					<li>
+						<strong class="font-semibold text-(--on-surface)">34 à 66&nbsp;% :</strong> déconditionnement
+						significatif, avec une incidence réelle sur le quotidien.
+					</li>
+					<li>
+						<strong class="font-semibold text-(--on-surface)">67 à 100&nbsp;% :</strong> déconditionnement
+						important, qui pèse nettement sur les journées.
+					</li>
+				</ul>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Ces seuils sont propres à l’expérience Re-flow. Ils ne correspondent pas à des seuils
+					cliniques validés. La dimension la plus haute est souvent plus parlante que le total : c’est
+					elle qui oriente le message de restitution.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">
+					Ce que cette auto-évaluation ne dit pas
+				</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Elle ne pose pas de diagnostic, n’évalue pas la gravité d’une maladie et ne dit rien de ce
+					que tu «&nbsp;devrais&nbsp;» faire. Elle repose uniquement sur ce que tu déclares, à un
+					instant donné.
+				</p>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					Un pourcentage élevé ne signifie pas que quelque chose ne va pas chez toi. Il indique que,
+					d’après tes réponses du moment, le déconditionnement physique semble peser fortement sur
+					certains aspects de ton quotidien. Un pourcentage plus bas ne minimise pas non plus ce que
+					tu vis.
+				</p>
+
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Et après&nbsp;?</h2>
+				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					L’objectif de Re-flow n’est pas de te demander d’en faire plus, ni d’agir sur la maladie.
+					C’est de t’aider à reconstruire progressivement ta condition physique, à partir de ce
+					que ton corps peut faire aujourd’hui. Tu peux réserver un bilan pour relire ton
+					résultat ensemble, sans engagement.
+				</p>
+			</div>
+
+			<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="reflow-faq-title">
+				<h2 id="reflow-faq-title" class="text-2xl font-semibold text-(--on-surface)">
+					Questions fréquentes
+				</h2>
+				<div class="mt-6 space-y-3">
+					{
+						faqs.map((f) => (
+							<details class="group rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
+								<summary class="cursor-pointer list-none text-base font-semibold text-(--on-surface) outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
+									<span class="flex items-center justify-between gap-3">
+										<span>{f.q}</span>
+										<span
+											class="grid size-8 shrink-0 place-items-center rounded-xl bg-(--sage)/70 text-lg leading-none ring-1 ring-black/5"
+											aria-hidden="true"
+										>
+											<span class="transition group-open:rotate-45 motion-reduce:transition-none">
+												+
+											</span>
+										</span>
+									</span>
+								</summary>
+								<p class="mt-3 text-base leading-relaxed text-(--secondary)">{f.a}</p>
+							</details>
+						))
+					}
+				</div>
+			</section>
+		</div>
+	</article>
+</BaseLayout>
