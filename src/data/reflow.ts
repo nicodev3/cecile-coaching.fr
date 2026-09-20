@@ -195,6 +195,20 @@ export const QUESTIONS: readonly Question[] = [
 			'Je dois adapter, reporter ou simplifier des activités du quotidien à cause de mon niveau d\'énergie actuel.',
 		options: SCALE,
 	},
+	{
+		id: 'rythme-reprise',
+		number: 9,
+		section: 'reprise',
+		label: 'J’ai du mal à savoir à quel rythme reprendre une activité physique sans en faire trop.',
+		options: SCALE,
+	},
+	{
+		id: 'confiance-reprise',
+		number: 10,
+		section: 'reprise',
+		label: 'J’ai du mal à me projeter dans une reprise du mouvement à partir de mes capacités actuelles.',
+		options: SCALE,
+	},
 ];
 
 export const TOTAL_QUESTIONS = QUESTIONS.length;
