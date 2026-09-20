@@ -5,7 +5,7 @@
  * Rendu serveur : les 9 questions sont dans le HTML (SEO + fonctionne sans JS).
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
-import { Armchair, Dumbbell, Footprints, Frown, Meh, RotateCcw, Smile } from '@lucide/astro';
+import { Armchair, Dumbbell, Footprints, Frown, Lock, Meh, RotateCcw, Smile } from '@lucide/astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import {
 	MAX_SCORE,
@@ -234,6 +234,62 @@ const bands = PROFILES.map((p) => ({
 			</div>
 		</div>
 
+		{/* Interprétation */}
+		<div class="mt-8">
+			<h3 class="text-lg font-semibold text-(--on-surface)">L’interprétation de ton score</h3>
+			{
+				PROFILES.map((p) => (
+					<div
+						class="mt-4"
+						data-rg-profile={p.key}
+						data-label={p.label}
+						data-min={String(p.min)}
+						data-max={String(p.max)}
+						hidden
+					>
+						<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
+						<div class="relative mt-4 max-h-80 overflow-hidden rounded-2xl">
+							<div
+								class="pointer-events-none select-none blur-[6px]"
+								aria-hidden="true"
+							>
+								{p.advice.map((a) => (
+									<p class="mt-4 text-base leading-relaxed text-(--on-surface) first:mt-0">{a}</p>
+								))}
+							</div>
+							<div
+								class="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-(--surface-container-low)/25 to-(--surface-container-low)/70"
+								aria-hidden="true"
+							>
+							</div>
+							<div class="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
+								<button
+									type="button"
+									class="flex cursor-pointer flex-col items-center rounded-2xl bg-white/80 px-5 py-5 shadow-lg ring-1 ring-black/8 backdrop-blur-md transition hover:bg-white hover:ring-(--primary)/30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) motion-reduce:transition-none"
+									data-rg-scroll-booking
+								>
+									<span
+										class="mx-auto grid size-12 place-items-center rounded-full bg-(--primary)/10 text-(--primary)"
+									>
+										<Lock class="size-5" aria-hidden="true" stroke-width={1.8} />
+									</span>
+									<span class="mt-3 block text-base font-semibold text-(--on-surface)">
+										Tes points d’amélioration sont identifiés
+									</span>
+									<span class="mt-1 block text-sm leading-relaxed text-(--secondary)">
+										Réserve ton bilan pour les découvrir{' '}
+										<span aria-hidden="true">👇</span>
+									</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				))
+			}
+
+			<div class="mt-6 min-h-150 scroll-mt-28" data-rg-booking-mount></div>
+		</div>
+
 		{/* Sous-scores */}
 		<div class="mt-10">
 			<h3 class="text-lg font-semibold text-(--on-surface)">Le détail, volet par volet</h3>
@@ -299,28 +355,6 @@ const bands = PROFILES.map((p) => ({
 					})
 				}
 			</div>
-		</div>
-
-		{/* Interprétation */}
-		<div class="mt-8">
-			<h3 class="text-lg font-semibold text-(--on-surface)">L’interprétation de ton score</h3>
-			{
-				PROFILES.map((p) => (
-					<div
-						class="mt-4"
-						data-rg-profile={p.key}
-						data-label={p.label}
-						data-min={String(p.min)}
-						data-max={String(p.max)}
-						hidden
-					>
-						<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
-						{p.advice.map((a) => (
-							<p class="mt-4 text-base leading-relaxed text-(--secondary)">{a}</p>
-						))}
-					</div>
-				))
-			}
 		</div>
 
 		{/* Rappel non médical */}
@@ -687,7 +721,28 @@ const bands = PROFILES.map((p) => ({
 			progress.hidden = true;
 			result.hidden = false;
 			result.dataset.revealed = 'false';
+			document.querySelector<HTMLElement>('[data-rg-intro]')?.setAttribute('hidden', '');
 			document.querySelector<HTMLElement>('[data-rg-info]')?.setAttribute('hidden', '');
+			const bookingMount = result.querySelector<HTMLElement>('[data-rg-booking-mount]');
+			if (bookingMount && !bookingMount.querySelector('iframe')) {
+				const iframe = document.createElement('iframe');
+				iframe.id = 'dJzUTOt5Rfugql6aVt4K_1789894663085';
+				iframe.src = 'https://api.leadconnectorhq.com/widget/booking/dJzUTOt5Rfugql6aVt4K';
+				iframe.title = 'Réservation d’un bilan';
+				iframe.allow = 'payment';
+				iframe.setAttribute('scrolling', 'no');
+				iframe.style.width = '100%';
+				iframe.style.border = 'none';
+				iframe.style.overflow = 'hidden';
+				iframe.style.minHeight = '600px';
+				bookingMount.appendChild(iframe);
+
+				const embed = document.createElement('script');
+				embed.src = 'https://link.msgsndr.com/js/form_embed.js';
+				embed.async = true;
+				embed.dataset.rgBookingEmbed = '';
+				bookingMount.appendChild(embed);
+			}
 			const revealResult = () => {
 				result.dataset.revealed = 'true';
 				window.requestAnimationFrame(() => {
@@ -756,6 +811,18 @@ const bands = PROFILES.map((p) => ({
 
 		nextBtn.addEventListener('click', goNext);
 
+		root.addEventListener('click', (e) => {
+			const trigger = (e.target as HTMLElement).closest('[data-rg-scroll-booking]');
+			if (!trigger) return;
+			const bookingMount = result.querySelector<HTMLElement>('[data-rg-booking-mount]');
+			if (!bookingMount) return;
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			bookingMount.scrollIntoView({
+				block: 'start',
+				behavior: reduceMotion ? 'auto' : 'smooth',
+			});
+		});
+
 		// Le formulaire n'a pas de bouton submit (pour qu'aucune soumission ne soit
 		// possible sans JavaScript) : on gère « Entrée » nous-mêmes.
 		form.addEventListener('keydown', (e) => {
@@ -784,6 +851,7 @@ const bands = PROFILES.map((p) => ({
 				bar.style.width = '0%';
 				bar.style.transitionDelay = '';
 			});
+			document.querySelector<HTMLElement>('[data-rg-intro]')?.removeAttribute('hidden');
 			document.querySelector<HTMLElement>('[data-rg-info]')?.removeAttribute('hidden');
 			form.hidden = false;
 			progress.hidden = false;
