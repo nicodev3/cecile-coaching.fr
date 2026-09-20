@@ -5,8 +5,9 @@
  * Rendu serveur : les 9 questions sont dans le HTML (SEO + fonctionne sans JS).
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
-import { Armchair, Dumbbell, Footprints, Frown, Lock, Meh, RotateCcw, Smile } from '@lucide/astro';
+import { Armchair, CircleCheck, Dumbbell, Footprints, Frown, Lock, Meh, RotateCcw, Smile } from '@lucide/astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
+import { COACH_FIRST_NAME, SITE_BRAND } from '../consts';
 import {
 	MAX_SCORE,
 	MIN_SCORE,
@@ -287,7 +288,57 @@ const bands = PROFILES.map((p) => ({
 				))
 			}
 
-			<div class="mt-6 min-h-150 scroll-mt-28" data-rg-booking-mount></div>
+			<div
+				class="mt-6 scroll-mt-28 rounded-2xl border-2 border-(--error) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
+				data-rg-booking
+			>
+				<div class="text-center">
+					<p class="text-xs font-semibold tracking-[0.18em] text-(--error) uppercase">
+						Bilan offert — {SITE_BRAND}
+					</p>
+					<h4 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
+						Réserve ton bilan et découvre tes points d’amélioration
+					</h4>
+					<ul class="mx-auto mt-5 max-w-lg space-y-3 text-left text-sm leading-relaxed text-(--secondary)">
+						<li class="flex gap-3">
+							<CircleCheck
+								class="mt-0.5 size-5 shrink-0 text-(--error)"
+								aria-hidden="true"
+								stroke-width={1.8}
+							/>
+							<span>
+								<strong class="font-semibold text-(--on-surface)"
+									>Un bilan offert avec {COACH_FIRST_NAME}</strong
+								>{' '}
+								pour lire tes résultats et comprendre ce qui bloque le mouvement
+							</span>
+						</li>
+						<li class="flex gap-3">
+							<CircleCheck
+								class="mt-0.5 size-5 shrink-0 text-(--error)"
+								aria-hidden="true"
+								stroke-width={1.8}
+							/>
+							<span>
+								<strong class="font-semibold text-(--on-surface)">Un plan d’action clair</strong>{' '}
+								pour avancer à partir de ce que ton corps peut faire aujourd’hui
+							</span>
+						</li>
+						<li class="flex gap-3">
+							<CircleCheck
+								class="mt-0.5 size-5 shrink-0 text-(--error)"
+								aria-hidden="true"
+								stroke-width={1.8}
+							/>
+							<span>
+								<strong class="font-semibold text-(--on-surface)">On regarde ensemble</strong> si
+								l’accompagnement {SITE_BRAND} est fait pour toi
+							</span>
+						</li>
+					</ul>
+				</div>
+				<div class="mt-6 min-h-150" data-rg-booking-mount></div>
+			</div>
 		</div>
 
 		{/* Sous-scores */}
@@ -814,10 +865,10 @@ const bands = PROFILES.map((p) => ({
 		root.addEventListener('click', (e) => {
 			const trigger = (e.target as HTMLElement).closest('[data-rg-scroll-booking]');
 			if (!trigger) return;
-			const bookingMount = result.querySelector<HTMLElement>('[data-rg-booking-mount]');
-			if (!bookingMount) return;
+			const booking = result.querySelector<HTMLElement>('[data-rg-booking]');
+			if (!booking) return;
 			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			bookingMount.scrollIntoView({
+			booking.scrollIntoView({
 				block: 'start',
 				behavior: reduceMotion ? 'auto' : 'smooth',
 			});
