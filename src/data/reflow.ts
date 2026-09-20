@@ -140,7 +140,7 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'fatigue-effort',
 		number: 1,
 		section: 'endurance',
-		label: 'Je me fatigue plus vite qu’avant dès que je fais un effort physique.',
+		label: 'Je suis rapidement fatiguée dès que je fais un effort physique.',
 		options: SCALE,
 	},
 	{
@@ -148,7 +148,7 @@ export const QUESTIONS: readonly Question[] = [
 		number: 2,
 		section: 'endurance',
 		label:
-			'Des efforts courants (marcher un peu plus longtemps, monter des étages, porter un sac) me demandent davantage qu’avant.',
+			'Des efforts courants (marcher, monter des escaliers, porter un sac de courses) me demandent plus d\'efforts qu\'avant.',
 		options: SCALE,
 	},
 	{
@@ -169,7 +169,7 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'activites-reduites',
 		number: 5,
 		section: 'capacites',
-		label: 'J’ai réduit ou arrêté des activités physiques que je faisais avant.',
+		label: 'J’ai réduit ou arrêté des activités que je faisais avant (sport, jouer avec mes enfants, balades, etc.).',
 		options: SCALE,
 	},
 	{
@@ -177,7 +177,7 @@ export const QUESTIONS: readonly Question[] = [
 		number: 6,
 		section: 'quotidien',
 		label:
-			'Certaines tâches du quotidien (ménage, courses, se déplacer) me demandent plus d’effort physique qu’avant.',
+			'Certaines tâches du quotidien (ménage, courses, jardinage, travail etc.) me demandent plus d’efforts.',
 		options: SCALE,
 	},
 	{
@@ -192,22 +192,7 @@ export const QUESTIONS: readonly Question[] = [
 		number: 8,
 		section: 'quotidien',
 		label:
-			'Je dois adapter, reporter ou simplifier des activités du quotidien à cause de mon état physique actuel.',
-		options: SCALE,
-	},
-	{
-		id: 'rythme-mouvement',
-		number: 9,
-		section: 'reprise',
-		label: 'Je ne sais plus vraiment à quel rythme je peux bouger sans m’épuiser.',
-		options: SCALE,
-	},
-	{
-		id: 'projection-reprise',
-		number: 10,
-		section: 'reprise',
-		label:
-			'J’ai du mal à me projeter dans une reprise du mouvement, à partir de là où j’en suis aujourd’hui.',
+			'Je dois adapter, reporter ou simplifier des activités du quotidien à cause de mon niveau d\'énergie actuel.',
 		options: SCALE,
 	},
 ];
