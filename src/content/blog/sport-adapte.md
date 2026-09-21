@@ -183,7 +183,7 @@ Oui, à condition que le cadre soit construit avec un·e professionnel·le : sé
 ## Ressources pour aller plus loin
 
 - [Activité Physique Adaptée : définition, bienfaits, accompagnement](/activites-physiques-adaptees/)
-- [Coach APA en ligne : rôle, formation et différences avec un coach sportif](/blog/coach-apa/)
+- [Coach APA : rôle et différences avec un coach sportif](/blog/coach-apa/)
 - [Kiné, coach sportif ou coach APA : qui consulter ?](/blog/kine-coach-sportif-coach-apa/)
 - [Fatiguée et maladie chronique : peut-on vraiment bouger ?](/blog/fatiguee-bouger-maladie-chronique/)
 - [Exemples d'exercices d'Activité Physique Adaptée](/blog/activite-physique-adaptee-exercices/)

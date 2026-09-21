@@ -6,7 +6,6 @@
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
 import { Battery, CircleCheck, Compass, Frown, Heart, Lock, Meh, Move, RotateCcw, Smile } from '@lucide/astro';
-import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import { COACH_FIRST_NAME, SITE_BRAND } from '../consts';
 import {
 	MAX_SCORE,
@@ -459,26 +458,6 @@ const bands = PROFILES.map((p) => ({
 				<RotateCcw class="size-4" aria-hidden="true" stroke-width={2} />
 				Refaire le test
 			</button>
-		</div>
-
-		<div class="mt-10 rounded-3xl bg-(--plum) px-6 py-10 text-center text-white shadow-sm shadow-black/15 sm:px-10">
-			<h3 class="text-xl font-semibold sm:text-2xl">Envie d’en parler, sans engagement ?</h3>
-			<p class="mt-3 text-base text-white/90">Parlons de ce qui te convient aujourd’hui.</p>
-			<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
-				<a
-					href="/contact/"
-					class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white motion-reduce:transition-none"
-				>
-					Me contacter
-				</a>
-				<WhatsAppCtaLink
-					campaign="outil-re-flow"
-					showIcon={true}
-					class="whatsapp-btn rounded-2xl px-6 py-3 text-base font-semibold"
-				>
-					Écrire sur WhatsApp
-				</WhatsAppCtaLink>
-			</div>
 		</div>
 	</section>
 

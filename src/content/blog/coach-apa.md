@@ -1,18 +1,20 @@
 ---
 title: "Coach APA : c'est quoi exactement ?"
-seoTitle: "Coach APA : rôle, formation et différences | RE-FLOW"
-description: "Coach APA : rôle, formation STAPS APA-S, différences avec un kiné ou un coach sportif, et cadre RE-FLOW par Cécile Cichosz, en ligne partout en France."
+seoTitle: "Coach APA : rôle et différences | RE-FLOW"
+description: "Coach APA : rôle, différences avec un kiné ou un coach sportif, et cadre RE-FLOW par Cécile Cichosz, partout en France."
 pubDate: 'Feb 22 2026'
-updatedDate: 'Sep 8 2026'
+updatedDate: 'Sep 21 2026'
 heroImage: '../../assets/cecile-coach-apa.webp'
 relatedPillars:
   - apa
   - maladie-chronique
 ---
 
-Un **coach APA en ligne** accompagne la reprise du mouvement lorsque la santé impose des adaptations : maladie chronique, fatigue persistante, douleurs, traitements, perte de confiance dans le corps ou peur de mal faire. Son rôle n'est pas de pousser à la performance, mais de proposer une **Activité Physique Adaptée**, progressive et compatible avec la réalité de la personne, même à distance.
+Un **coach APA** accompagne la reprise du mouvement lorsque la santé impose des adaptations : maladie chronique, fatigue persistante, douleurs, traitements, perte de confiance dans le corps ou peur de mal faire. Son rôle n'est pas de pousser à la performance, mais de proposer une **Activité Physique Adaptée**, progressive et compatible avec la réalité de la personne. Cet accompagnement peut aussi se faire à distance, en visio.
 
-Si tu cherches “coach APA” ou “coach APA autour de moi”, tu veux probablement comprendre ce que signifie APA, à qui ce type d'accompagnement s'adresse, en quoi il diffère d'un coach sportif ou d'un kinésithérapeute, et comment se déroule concrètement une séance en visio. Voici un guide complet pour y voir clair.
+Si tu cherches “coach APA” ou “coach APA autour de moi”, tu veux probablement comprendre ce que signifie APA, à qui ce type d'accompagnement s'adresse, et en quoi il diffère d'un coach sportif ou d'un kinésithérapeute. Voici un guide pour y voir clair.
+
+Tu cherches à être accompagnée en visio, partout en France ? Découvre le [coaching APA en ligne](/coach-apa-en-ligne/).
 
 > Sur ce site, RE-FLOW est porté par Cécile Cichosz, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA. Les pages utilisent parfois “coach APA” parce que c’est le terme recherché par les internautes, mais le cadre exact de l’accompagnement est un coaching sportif adapté, non médical, inspiré de la logique de l’Activité Physique Adaptée.
 
@@ -244,7 +246,7 @@ Cherche un accompagnement qui parle d'adaptation, d'écoute, de progressivité e
 
 ## À retenir
 
-Un **coach APA en ligne** accompagne la reprise du mouvement grâce à l'**Activité Physique Adaptée**. Son rôle est particulièrement utile quand la santé rend le sport classique difficile : maladie chronique, fatigue, douleurs, perte de confiance, peur de se blesser ou énergie variable.
+Un **coach APA** accompagne la reprise du mouvement grâce à l'**Activité Physique Adaptée**. Son rôle est particulièrement utile quand la santé rend le sport classique difficile : maladie chronique, fatigue, douleurs, perte de confiance, peur de se blesser ou énergie variable.
 
 L'APA ne remplace ni le médecin, ni le kinésithérapeute. Elle offre un cadre complémentaire pour bouger de façon plus sûre, plus douce et plus durable.
 

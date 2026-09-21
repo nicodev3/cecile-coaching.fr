@@ -1,5 +1,6 @@
 ---
 title: "Exercices APA pour débuter en douceur"
+seoTitle: "Exercices APA : exemples pour débuter | RE-FLOW"
 description: "Exemples d'exercices d'Activité Physique Adaptée pour maladie chronique ou fatigue : mobilité, renforcement doux, équilibre et dosage."
 pubDate: 'Jun 2 2026'
 heroImage: '../../assets/women_doing_different_forms_of_exercices.webp'
@@ -157,4 +158,4 @@ Pour comprendre le cadre complet :
 - [Le parcours de Cécile, coach sportive BPJEPS certifiée APA](/a-propos/)
 - [Activité Physique Adaptée : définition et accompagnement en ligne](/activites-physiques-adaptees/)
 - [Sport adapté : pour qui et comment commencer ?](/blog/sport-adapte/)
-- [Coach APA en ligne : rôle et fonctionnement](/blog/coach-apa/)
+- [Coach APA : rôle et fonctionnement](/blog/coach-apa/)
