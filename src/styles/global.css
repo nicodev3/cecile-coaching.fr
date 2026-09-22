@@ -41,7 +41,10 @@
 
 	/* WhatsApp brand */
 	--whatsapp: #25d366;
+	/* Encre AA (≥ 4.5:1 vs blanc et vs --surface-container) pour texte / boutons */
+	--whatsapp-ink: #0b6b3a;
 	--whatsapp-hover: #128c7e;
+	--whatsapp-btn-hover: #075e54;
 	--whatsapp-surface: #e7f8ee;
 
 	/* Compatibilité avec les composants existants */
@@ -113,7 +116,7 @@ h6 {
 }
 
 .whatsapp-link {
-	color: var(--whatsapp);
+	color: var(--whatsapp-ink);
 	transition: color 0.2s ease;
 }
 
@@ -126,13 +129,13 @@ h6 {
 	align-items: center;
 	justify-content: center;
 	gap: 0.5rem;
-	background-color: var(--whatsapp);
+	background-color: var(--whatsapp-ink);
 	color: #fff;
 	transition: background-color 0.2s ease;
 }
 
 .whatsapp-btn:hover {
-	background-color: var(--whatsapp-hover);
+	background-color: var(--whatsapp-btn-hover);
 	color: #fff;
 }
 

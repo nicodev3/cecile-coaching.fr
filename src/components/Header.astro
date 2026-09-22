@@ -46,14 +46,14 @@ const mobileLinkClass = (active: boolean) =>
 		<a
 			href="/"
 			class="text-2xl tracking-tight text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
-			aria-label="Aller à l'accueil"
+			aria-label="RE-FLOW, aller à l'accueil"
 		>
 			RE-FLOW
 		</a>
 
 		<nav class="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
 			<a
-				href={links[0].isCurrent ? undefined : links[0].href}
+				href={links[0].href}
 				aria-current={links[0].isCurrent ? 'page' : undefined}
 				class={desktopLinkClass(links[0].isCurrent)}
 			>
@@ -116,7 +116,7 @@ const mobileLinkClass = (active: boolean) =>
 			{
 				links.slice(1).map((l) => (
 					<a
-						href={l.isCurrent ? undefined : l.href}
+						href={l.href}
 						aria-current={l.isCurrent ? 'page' : undefined}
 						class={desktopLinkClass(l.isCurrent)}
 					>
@@ -158,7 +158,7 @@ const mobileLinkClass = (active: boolean) =>
 			>
 				<nav class="p-2" aria-label="Menu mobile">
 					<a
-						href={links[0].isCurrent ? undefined : links[0].href}
+						href={links[0].href}
 						aria-current={links[0].isCurrent ? 'page' : undefined}
 						class={mobileLinkClass(links[0].isCurrent)}
 					>
@@ -190,7 +190,7 @@ const mobileLinkClass = (active: boolean) =>
 						{
 							links.slice(1).map((l) => (
 								<a
-									href={l.isCurrent ? undefined : l.href}
+									href={l.href}
 									aria-current={l.isCurrent ? 'page' : undefined}
 									class={mobileLinkClass(l.isCurrent)}
 								>
