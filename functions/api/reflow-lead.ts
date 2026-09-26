@@ -18,8 +18,8 @@ const GHL_VERSION = '2021-07-28';
 const SOURCE = 'Auto-évaluation RE-FLOW';
 const MAX_BODY = 20_000;
 
-const json = (status: number, error?: 'invalid' | 'unavailable') =>
-	new Response(JSON.stringify(error ? { ok: false, error } : { ok: true }), {
+const json = (status: number, error?: 'invalid' | 'unavailable', detail?: string) =>
+	new Response(JSON.stringify(error ? { ok: false, error, ...(detail ? { detail } : {}) } : { ok: true }), {
 		status,
 		headers: {
 			'Content-Type': 'application/json; charset=utf-8',
@@ -94,13 +94,25 @@ const ghlFetch = (token: string, path: string, body: unknown) =>
 	fetch(`${GHL_BASE}${path}`, {
 		method: 'POST',
 		headers: {
-			Authorization: `Bearer ${token}`,
+			Authorization: `Bearer ${token.trim()}`,
 			Version: GHL_VERSION,
 			Accept: 'application/json',
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify(body),
 	});
+
+const quizCustomField = (fieldRef: string, value: string) => {
+	const ref = fieldRef.trim().replace(/^contact\./, '');
+	const looksLikeId = /^[A-Za-z0-9]{15,}$/.test(ref) && !ref.includes('_');
+	if (looksLikeId) return { id: ref, fieldValue: value };
+	return { key: ref, fieldValue: value };
+};
+
+const readUpstreamError = async (response: Response) => {
+	const text = await response.text();
+	return text.replace(/\s+/g, ' ').slice(0, 180);
+};
 
 export const onRequestPost = async (context: {
 	request: Request;
@@ -144,50 +156,44 @@ export const onRequestPost = async (context: {
 
 	const quizText = formatQuizResult(result);
 	const tags = ['quiz-reflow', `quiz-${result.profile.key}`, `quiz-${result.dominant.key}`];
-	const fieldRef = resultFieldId.trim();
-	const customField = fieldRef.includes('.')
-		? { key: fieldRef, field_value: quizText }
-		: fieldRef.includes('_')
-			? { key: `contact.${fieldRef}`, field_value: quizText }
-			: { id: fieldRef, field_value: quizText };
 
 	let contactId = '';
 	try {
 		const upsert = await ghlFetch(token, '/contacts/upsert', {
-			locationId,
+			locationId: locationId.trim(),
 			firstName,
 			lastName,
 			email,
 			phone,
 			source: SOURCE,
 			tags,
-			customFields: [customField],
+			customFields: [quizCustomField(resultFieldId, quizText)],
 		});
 		if (!upsert.ok) {
-			console.error('reflow-lead: upsert refusé', upsert.status);
-			return json(502, 'unavailable');
+			const detail = await readUpstreamError(upsert);
+			console.error('reflow-lead: upsert refusé', upsert.status, detail);
+			return json(500, 'unavailable', detail);
 		}
-		const created = (await upsert.json()) as { contact?: { id?: string } };
-		contactId = created.contact?.id ?? '';
+		const created = (await upsert.json()) as { contact?: { id?: string } } | null;
+		contactId = created?.contact?.id ?? '';
 	} catch (error) {
 		console.error('reflow-lead: upsert impossible', error);
-		return json(502, 'unavailable');
+		return json(500, 'unavailable');
 	}
 
 	if (!contactId) {
 		console.error('reflow-lead: contact sans identifiant');
-		return json(502, 'unavailable');
+		return json(500, 'unavailable');
 	}
 
 	try {
 		const note = await ghlFetch(token, `/contacts/${contactId}/notes`, { body: quizText });
 		if (!note.ok) {
-			console.error('reflow-lead: note refusée', note.status);
-			return json(502, 'unavailable');
+			const detail = await readUpstreamError(note);
+			console.error('reflow-lead: note refusée', note.status, detail);
 		}
 	} catch (error) {
 		console.error('reflow-lead: note impossible', error);
-		return json(502, 'unavailable');
 	}
 
 	return json(200);
