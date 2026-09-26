@@ -296,3 +296,103 @@ export function scoreToProfile(percent: number): Profile {
 	if (percent <= 66) return PROFILES_BY_KEY.significatif;
 	return PROFILES_BY_KEY.important;
 }
+
+export interface SubmittedAnswer {
+	id: string;
+	points: number;
+}
+
+export interface DimensionScore {
+	key: SectionKey;
+	label: string;
+	score: number;
+	maxScore: number;
+	percent: number;
+	levelLabel: string;
+}
+
+export interface ScoredAnswer {
+	id: string;
+	number: number;
+	label: string;
+	points: number;
+	optionLabel: string;
+	section: SectionKey;
+}
+
+export interface ScoredQuiz {
+	totalScore: number;
+	percent: number;
+	profile: Profile;
+	dimensions: readonly DimensionScore[];
+	dominant: Section;
+	answers: readonly ScoredAnswer[];
+}
+
+/**
+ * Recalcule le résultat à partir des 10 réponses.
+ * En cas d'égalité de ratio, la première dimension de SECTIONS l'emporte,
+ * comme le parcours affiché dans le navigateur.
+ * Retourne null si les réponses sont incomplètes ou incohérentes.
+ */
+export function scoreQuiz(raw: readonly SubmittedAnswer[]): ScoredQuiz | null {
+	if (raw.length !== QUESTIONS.length) return null;
+
+	const pointsById = new Map<string, number>();
+	for (const item of raw) {
+		if (!item || typeof item.id !== 'string') return null;
+		if (!Number.isInteger(item.points) || item.points < 0 || item.points > 4) return null;
+		if (pointsById.has(item.id)) return null;
+		pointsById.set(item.id, item.points);
+	}
+
+	let totalScore = 0;
+	const sectionScores = new Map<SectionKey, number>();
+	const answers: ScoredAnswer[] = [];
+
+	for (const question of QUESTIONS) {
+		const points = pointsById.get(question.id);
+		if (points === undefined) return null;
+		const option = question.options.find((entry) => entry.points === points);
+		if (!option) return null;
+		totalScore += points;
+		sectionScores.set(question.section, (sectionScores.get(question.section) ?? 0) + points);
+		answers.push({
+			id: question.id,
+			number: question.number,
+			label: question.label,
+			points,
+			optionLabel: option.label,
+			section: question.section,
+		});
+	}
+
+	const percent = toPercent(totalScore);
+	const profile = scoreToProfile(percent);
+	let dominant: Section = SECTIONS[0];
+	let dominantRatio = -1;
+
+	const dimensions: DimensionScore[] = SECTIONS.map((section) => {
+		const score = sectionScores.get(section.key) ?? 0;
+		const ratio = section.maxScore > 0 ? score / section.maxScore : 0;
+		if (ratio > dominantRatio) {
+			dominantRatio = ratio;
+			dominant = section;
+		}
+		const sectionPercent = Math.round(Math.min(1, Math.max(0, ratio)) * 100);
+		const levelRatio = sectionPercent / 100;
+		const level =
+			section.levels.find((entry) => levelRatio <= entry.upTo) ??
+			section.levels[section.levels.length - 1];
+		return {
+			key: section.key,
+			label: section.label,
+			score,
+			maxScore: section.maxScore,
+			percent: sectionPercent,
+			levelLabel: level.label,
+		};
+	});
+
+	return { totalScore, percent, profile, dimensions, dominant, answers };
+}

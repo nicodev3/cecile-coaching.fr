@@ -5,7 +5,7 @@
  * Rendu serveur : les 10 questions sont dans le HTML (SEO + fonctionne sans JS).
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
-import { Battery, CircleCheck, Compass, Frown, Heart, Lock, Meh, Move, RotateCcw, Smile } from '@lucide/astro';
+import { Battery, CircleCheck, Compass, Frown, Heart, Meh, Move, RotateCcw, Smile } from '@lucide/astro';
 import { COACH_FIRST_NAME, SITE_BRAND } from '../consts';
 import {
 	MAX_SCORE,
@@ -171,6 +171,128 @@ const bands = PROFILES.map((p) => ({
 		</div>
 	</form>
 
+	{/* ---------- Déblocage du résultat ---------- */}
+	<section data-rg-gate hidden aria-labelledby="rg-gate-title">
+		<div class="text-center">
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON RÉSULTAT</p>
+			<h2
+				id="rg-gate-title"
+				class="mt-3 rounded-lg text-3xl font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-4xl"
+				tabindex="-1"
+			>
+				Il est prêt
+			</h2>
+			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
+				Le score, l’interprétation et le détail par dimension s’affichent juste après. Tes coordonnées
+				servent à te montrer ce résultat, à préparer le bilan et à écrire à {COACH_FIRST_NAME}.
+			</p>
+		</div>
+
+		<form class="mx-auto mt-8 max-w-lg space-y-4" data-rg-lead-form novalidate>
+			<div class="sr-only" aria-hidden="true">
+				<label for="rg-lead-company">Ne pas remplir</label>
+				<input
+					type="text"
+					id="rg-lead-company"
+					name="company"
+					tabindex="-1"
+					autocomplete="off"
+				/>
+			</div>
+
+			<div class="grid gap-4 sm:grid-cols-2">
+				<div class="space-y-2">
+					<label for="rg-lead-first-name" class="text-sm font-semibold text-(--on-surface)">
+						Prénom <span class="text-(--secondary)">*</span>
+					</label>
+					<input
+						type="text"
+						id="rg-lead-first-name"
+						name="firstName"
+						autocomplete="given-name"
+						required
+						maxlength="80"
+						class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition focus:ring-2 focus:ring-(--primary) focus:outline-none"
+					/>
+				</div>
+				<div class="space-y-2">
+					<label for="rg-lead-last-name" class="text-sm font-semibold text-(--on-surface)">
+						Nom <span class="text-(--secondary)">*</span>
+					</label>
+					<input
+						type="text"
+						id="rg-lead-last-name"
+						name="lastName"
+						autocomplete="family-name"
+						required
+						maxlength="80"
+						class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition focus:ring-2 focus:ring-(--primary) focus:outline-none"
+					/>
+				</div>
+			</div>
+
+			<div class="space-y-2">
+				<label for="rg-lead-email" class="text-sm font-semibold text-(--on-surface)">
+					Email <span class="text-(--secondary)">*</span>
+				</label>
+				<input
+					type="email"
+					id="rg-lead-email"
+					name="email"
+					autocomplete="email"
+					required
+					maxlength="254"
+					class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition focus:ring-2 focus:ring-(--primary) focus:outline-none"
+				/>
+			</div>
+
+			<div class="space-y-2">
+				<label for="rg-lead-phone" class="text-sm font-semibold text-(--on-surface)">
+					Téléphone <span class="text-(--secondary)">*</span>
+				</label>
+				<input
+					type="tel"
+					id="rg-lead-phone"
+					name="phone"
+					autocomplete="tel"
+					inputmode="tel"
+					required
+					placeholder="06 12 34 56 78"
+					class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition focus:ring-2 focus:ring-(--primary) focus:outline-none"
+				/>
+			</div>
+
+			<label class="flex items-start gap-3 text-sm leading-relaxed text-(--secondary)">
+				<input
+					type="checkbox"
+					name="consent"
+					required
+					class="mt-1 size-4 shrink-0 accent-(--primary)"
+				/>
+				<span>
+					J’accepte que mes coordonnées et mes réponses soient utilisées pour afficher mon résultat,
+					préparer le bilan et écrire à {COACH_FIRST_NAME}.{' '}
+					<a
+						href="/politique-de-confidentialite/"
+						class="font-semibold text-(--primary) underline underline-offset-2"
+					>
+						Politique de confidentialité
+					</a>
+				</span>
+			</label>
+
+			<p class="text-sm leading-relaxed text-(--error)" data-rg-lead-error hidden role="alert"></p>
+
+			<button
+				type="submit"
+				class="inline-flex w-full items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none"
+				data-rg-lead-submit
+			>
+				Voir mon résultat
+			</button>
+		</form>
+	</section>
+
 	{/* ---------- Résultat ---------- */}
 	<section data-rg-result hidden aria-labelledby="rg-result-title">
 		<div class="text-center" data-rg-result-summary>
@@ -249,50 +371,18 @@ const bands = PROFILES.map((p) => ({
 								</p>
 							))
 						}
-						<div class="relative mt-4 max-h-80 overflow-hidden rounded-2xl">
-							<div
-								class="pointer-events-none select-none blur-[6px]"
-								aria-hidden="true"
-							>
-								{p.advice.map((a) => (
-									<p class="mt-4 text-base leading-relaxed text-(--on-surface) first:mt-0">{a}</p>
-								))}
-								{SECTIONS.map((s) => (
-									<p
-										class="mt-4 text-base leading-relaxed text-(--on-surface)"
-										data-rg-blur-dimension={s.key}
-										hidden
-									>
-										{s.advice}
-									</p>
-								))}
-							</div>
-							<div
-								class="pointer-events-none absolute inset-0 bg-linear-to-b from-transparent via-(--surface-container-low)/25 to-(--surface-container-low)/70"
-								aria-hidden="true"
-							>
-							</div>
-							<div class="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
-								<button
-									type="button"
-									class="flex cursor-pointer flex-col items-center rounded-2xl bg-white/80 px-5 py-5 shadow-lg ring-1 ring-black/8 backdrop-blur-md transition hover:bg-white hover:ring-(--primary)/30 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) motion-reduce:transition-none"
-									data-rg-scroll-booking
-								>
-									<span
-										class="mx-auto grid size-12 place-items-center rounded-full bg-(--primary)/10 text-(--primary)"
-									>
-										<Lock class="size-5" aria-hidden="true" stroke-width={1.8} />
-									</span>
-									<span class="mt-3 block text-base font-semibold text-(--on-surface)">
-										Tes points d’amélioration sont identifiés
-									</span>
-									<span class="mt-1 block text-sm leading-relaxed text-(--secondary)">
-										Réserve ton bilan pour les découvrir{' '}
-										<span aria-hidden="true">👇</span>
-									</span>
-								</button>
-							</div>
-						</div>
+						{
+							p.advice.map((a) => (
+								<p class="mt-4 text-base leading-relaxed text-(--on-surface)">{a}</p>
+							))
+						}
+						{
+							SECTIONS.map((s) => (
+								<p class="mt-4 text-base leading-relaxed text-(--on-surface)" data-rg-advice={s.key} hidden>
+									{s.advice}
+								</p>
+							))
+						}
 					</div>
 				))
 			}
@@ -306,7 +396,7 @@ const bands = PROFILES.map((p) => ({
 						Bilan offert — {SITE_BRAND}
 					</p>
 					<h4 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
-						Réserve ton bilan et découvre tes points d’amélioration
+						Réserve ton bilan pour relire ce résultat ensemble
 					</h4>
 					{
 						SECTIONS.map((s) => (
@@ -462,8 +552,8 @@ const bands = PROFILES.map((p) => ({
 	</section>
 
 	<p class="mt-6 text-center text-xs leading-relaxed text-(--secondary)">
-		Cette auto-évaluation est un outil de réflexion et ne constitue pas un diagnostic médical. Aucune
-		réponse n’est enregistrée ni transmise : tout le calcul se fait dans ton navigateur.
+		Cette auto-évaluation est un outil de réflexion et ne constitue pas un diagnostic médical. Tes
+		réponses ne sont transmises qu’au moment où tu demandes à voir ton résultat.
 	</p>
 </div>
 
@@ -584,6 +674,8 @@ const bands = PROFILES.map((p) => ({
 </style>
 
 <script>
+	import { normalizeFrenchPhone } from '../utils/frenchPhone';
+
 	const trackUmami = (name: string) => {
 		const umami = (window as unknown as { umami?: { track?: (n: string) => void } }).umami;
 		umami?.track?.(name);
@@ -595,7 +687,11 @@ const bands = PROFILES.map((p) => ({
 		const nav = root.querySelector<HTMLElement>('[data-rg-nav]');
 		const progress = root.querySelector<HTMLElement>('[data-rg-progress]');
 		const nojs = root.querySelector<HTMLElement>('[data-rg-nojs]');
-		if (!form || !result || !nav || !progress || !nojs) return;
+		const gate = root.querySelector<HTMLElement>('[data-rg-gate]');
+		const leadForm = root.querySelector<HTMLFormElement>('[data-rg-lead-form]');
+		const leadError = root.querySelector<HTMLElement>('[data-rg-lead-error]');
+		const leadSubmit = root.querySelector<HTMLButtonElement>('[data-rg-lead-submit]');
+		if (!form || !result || !nav || !progress || !nojs || !gate || !leadForm || !leadError || !leadSubmit) return;
 
 		const steps = Array.from(root.querySelectorAll<HTMLFieldSetElement>('[data-rg-step]'));
 		if (steps.length === 0) return;
@@ -620,6 +716,8 @@ const bands = PROFILES.map((p) => ({
 		let lastPointerAt = 0;
 		let startedTracked = false;
 		let resultShown = false;
+		let leadSending = false;
+		let revealResult: (() => void) | null = null;
 
 		const radiosOf = (step: HTMLFieldSetElement) =>
 			Array.from(step.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
@@ -720,6 +818,66 @@ const bands = PROFILES.map((p) => ({
 			});
 		};
 
+		const showLeadError = (message: string) => {
+			leadError.textContent = message;
+			leadError.hidden = false;
+		};
+
+		const clearLeadError = () => {
+			leadError.textContent = '';
+			leadError.hidden = true;
+		};
+
+		const mountCalendar = (lead: {
+			firstName: string;
+			lastName: string;
+			email: string;
+			phone: string;
+		}) => {
+			const bookingMount = result.querySelector<HTMLElement>('[data-rg-booking-mount]');
+			if (!bookingMount || bookingMount.querySelector('iframe')) return;
+			const bookingUrl = new URL('https://api.leadconnectorhq.com/widget/booking/dJzUTOt5Rfugql6aVt4K');
+			bookingUrl.searchParams.set('first_name', lead.firstName);
+			bookingUrl.searchParams.set('last_name', lead.lastName);
+			bookingUrl.searchParams.set('email', lead.email);
+			bookingUrl.searchParams.set('phone', lead.phone);
+
+			const iframe = document.createElement('iframe');
+			iframe.id = 'dJzUTOt5Rfugql6aVt4K_1789894663085';
+			iframe.src = bookingUrl.toString();
+			iframe.title = 'Réservation d’un bilan';
+			iframe.allow = 'payment';
+			iframe.setAttribute('scrolling', 'no');
+			iframe.style.width = '100%';
+			iframe.style.border = 'none';
+			iframe.style.overflow = 'hidden';
+			iframe.style.minHeight = '600px';
+			bookingMount.appendChild(iframe);
+
+			const embed = document.createElement('script');
+			embed.src = 'https://link.msgsndr.com/js/form_embed.js';
+			embed.async = true;
+			embed.dataset.rgBookingEmbed = '';
+			bookingMount.appendChild(embed);
+		};
+
+		const unlockResult = (lead: {
+			firstName: string;
+			lastName: string;
+			email: string;
+			phone: string;
+		}) => {
+			gate.hidden = true;
+			result.hidden = false;
+			mountCalendar(lead);
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			root.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
+			if (reduceMotion) revealResult?.();
+			else window.setTimeout(() => revealResult?.(), 520);
+			result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
+			trackUmami('lead_submitted');
+		};
+
 		const showResult = () => {
 			if (resultShown) return;
 			resultShown = true;
@@ -738,7 +896,6 @@ const bands = PROFILES.map((p) => ({
 
 			const percent = Math.round((totalScore / Math.max(1, maxScore)) * 100);
 			const score = result.querySelector<HTMLElement>('[data-rg-score]')!;
-			score.textContent = '0';
 			const barUpdates: Array<{ bar: HTMLElement; width: string; delay: string }> = [];
 
 			let dominantKey = '';
@@ -788,7 +945,7 @@ const bands = PROFILES.map((p) => ({
 				const dominantLabel = dominantCard?.querySelector<HTMLElement>('[data-rg-dominant-label]');
 				if (dominantLabel) dominantLabel.hidden = false;
 				showDimension('data-rg-dimension', dominantKey);
-				showDimension('data-rg-blur-dimension', dominantKey);
+				showDimension('data-rg-advice', dominantKey);
 				showDimension('data-rg-transition', dominantKey);
 			}
 
@@ -811,34 +968,9 @@ const bands = PROFILES.map((p) => ({
 			const markerPosition = `${Math.min(100, Math.max(0, ratio * 100))}%`;
 			marker.dataset.tone = overallTone;
 
-			form.hidden = true;
-			progress.hidden = true;
-			result.hidden = false;
-			result.dataset.revealed = 'false';
-			document.querySelector<HTMLElement>('[data-rg-intro]')?.setAttribute('hidden', '');
-			document.querySelector<HTMLElement>('[data-rg-info]')?.setAttribute('hidden', '');
-			const bookingMount = result.querySelector<HTMLElement>('[data-rg-booking-mount]');
-			if (bookingMount && !bookingMount.querySelector('iframe')) {
-				const iframe = document.createElement('iframe');
-				iframe.id = 'dJzUTOt5Rfugql6aVt4K_1789894663085';
-				iframe.src = 'https://api.leadconnectorhq.com/widget/booking/dJzUTOt5Rfugql6aVt4K';
-				iframe.title = 'Réservation d’un bilan';
-				iframe.allow = 'payment';
-				iframe.setAttribute('scrolling', 'no');
-				iframe.style.width = '100%';
-				iframe.style.border = 'none';
-				iframe.style.overflow = 'hidden';
-				iframe.style.minHeight = '600px';
-				bookingMount.appendChild(iframe);
-
-				const embed = document.createElement('script');
-				embed.src = 'https://link.msgsndr.com/js/form_embed.js';
-				embed.async = true;
-				embed.dataset.rgBookingEmbed = '';
-				bookingMount.appendChild(embed);
-			}
-			const revealResult = () => {
+			revealResult = () => {
 				result.dataset.revealed = 'true';
+				score.textContent = '0';
 				window.requestAnimationFrame(() => {
 					barUpdates.forEach(({ bar, width, delay }) => {
 						bar.style.transitionDelay = delay;
@@ -862,11 +994,16 @@ const bands = PROFILES.map((p) => ({
 					window.requestAnimationFrame(updateScore);
 				});
 			};
-			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
-			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) revealResult();
-			else window.setTimeout(revealResult, 520);
-			result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
 
+			form.hidden = true;
+			progress.hidden = true;
+			result.hidden = true;
+			result.dataset.revealed = 'false';
+			gate.hidden = false;
+			document.querySelector<HTMLElement>('[data-rg-intro]')?.setAttribute('hidden', '');
+			document.querySelector<HTMLElement>('[data-rg-info]')?.setAttribute('hidden', '');
+			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
 			trackUmami('quiz_completed');
 		};
 
@@ -904,17 +1041,73 @@ const bands = PROFILES.map((p) => ({
 
 		nextBtn.addEventListener('click', goNext);
 
-		root.addEventListener('click', (e) => {
-			const trigger = (e.target as HTMLElement).closest('[data-rg-scroll-booking]');
-			if (!trigger) return;
-			const booking = result.querySelector<HTMLElement>('[data-rg-booking]');
-			if (!booking) return;
-			trackUmami('appointment_clicked');
-			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			booking.scrollIntoView({
-				block: 'start',
-				behavior: reduceMotion ? 'auto' : 'smooth',
+		leadForm.addEventListener('submit', async (event) => {
+			event.preventDefault();
+			if (leadSending || !resultShown) return;
+			clearLeadError();
+
+			const data = new FormData(leadForm);
+			const company = String(data.get('company') ?? '');
+			const firstName = String(data.get('firstName') ?? '').trim();
+			const lastName = String(data.get('lastName') ?? '').trim();
+			const email = String(data.get('email') ?? '').trim();
+			const phoneInput = String(data.get('phone') ?? '');
+			const phone = normalizeFrenchPhone(phoneInput);
+			const consent = data.get('consent') === 'on';
+			const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+			if (company.trim() !== '' || !firstName || !lastName || !emailOk || !phone || !consent) {
+				showLeadError(
+					'Indique ton prénom, ton nom, un email valide, un téléphone français, et coche la case pour continuer.',
+				);
+				return;
+			}
+
+			const answers = steps.flatMap((step) => {
+				const checked = radiosOf(step).find((radio) => radio.checked);
+				if (!checked) return [];
+				return [{ id: step.dataset.qid ?? '', points: Number(checked.value) }];
 			});
+			if (answers.length !== steps.length) {
+				showLeadError('Il manque des réponses. Refais le test, puis réessaie.');
+				return;
+			}
+
+			leadSending = true;
+			leadSubmit.disabled = true;
+			leadSubmit.textContent = 'Envoi…';
+
+			try {
+				const response = await fetch('/api/reflow-lead', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+					body: JSON.stringify({
+						firstName,
+						lastName,
+						email,
+						phone,
+						consent: true,
+						company,
+						answers,
+					}),
+				});
+				if (response.status === 400) {
+					leadSending = false;
+					leadSubmit.disabled = false;
+					leadSubmit.textContent = 'Voir mon résultat';
+					showLeadError(
+						'Indique ton prénom, ton nom, un email valide, un téléphone français, et coche la case pour continuer.',
+					);
+					return;
+				}
+				if (!response.ok) throw new Error('lead');
+				unlockResult({ firstName, lastName, email, phone });
+			} catch {
+				leadSending = false;
+				leadSubmit.disabled = false;
+				leadSubmit.textContent = 'Réessayer';
+				showLeadError('L’envoi n’a pas abouti. Ton résultat reste masqué : tu peux réessayer.');
+			}
 		});
 
 		// Le formulaire n'a pas de bouton submit (pour qu'aucune soumission ne soit
@@ -938,8 +1131,16 @@ const bands = PROFILES.map((p) => ({
 			wasSkipping = false;
 			startedTracked = false;
 			resultShown = false;
+			leadSending = false;
+			revealResult = null;
 			syncSkipped();
 			result.hidden = true;
+			gate.hidden = true;
+			leadForm.reset();
+			clearLeadError();
+			leadSubmit.disabled = false;
+			leadSubmit.textContent = 'Voir mon résultat';
+			result.querySelector<HTMLElement>('[data-rg-booking-mount]')?.replaceChildren();
 			result.removeAttribute('data-revealed');
 			result.querySelector<HTMLElement>('[data-rg-score]')!.textContent = '—';
 			result.querySelector<HTMLElement>('[data-rg-marker]')!.style.left = '0%';

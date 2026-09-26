@@ -5,3 +5,7 @@ pages_build_output_dir = "dist"
 
 # Build command (dashboard ou CI) : npm run build:deploy
 # → astro build + soumission IndexNow (scripts/submit-indexnow.mjs)
+#
+# Secrets Pages (dashboard, jamais dans le dépôt) :
+# GHL_PRIVATE_TOKEN, GHL_LOCATION_ID, GHL_RESULT_FIELD_ID
+# La fonction functions/api/reflow-lead.ts les lit au moment du POST.

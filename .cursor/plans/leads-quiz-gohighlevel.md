@@ -7,13 +7,13 @@ todos:
     status: pending
   - id: pages-function
     content: "Ajouter POST /api/reflow-lead : validation, recalcul, upsert contact, note et champ résultat"
-    status: pending
+    status: completed
   - id: lead-gate
     content: Flouter tout le résultat, le débloquer après le formulaire, puis afficher la solution et le calendrier
-    status: pending
+    status: completed
   - id: legal-copy
     content: Mettre à jour la FAQ du quiz et la politique de confidentialité
-    status: pending
+    status: completed
   - id: verify-flow
     content: Vérifier le flou, le mail, la fiche GoHighLevel, les résultats débloqués et le calendrier
     status: pending
@@ -87,4 +87,4 @@ Parcours : quiz, écran flouté sans chiffre, formulaire incomplet refusé, envo
 
 ## Reprise sur un autre ordinateur
 
-Ouvrir ce dépôt, faire `git pull`, puis dans un nouveau chat Cursor citer ce fichier : `@.cursor/plans/leads-quiz-gohighlevel.md`. Demander d’exécuter le plan. Le code du funnel n’est pas encore écrit.
+Ouvrir ce dépôt, faire `git pull`, puis dans un nouveau chat Cursor citer ce fichier : `@.cursor/plans/leads-quiz-gohighlevel.md`. Le code du funnel est écrit. Il reste le réglage GoHighLevel (jeton, champ, workflow) et les trois secrets Cloudflare avant qu’un envoi réel débloque le résultat.

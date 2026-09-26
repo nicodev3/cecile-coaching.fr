@@ -7,7 +7,7 @@ import { MAX_SCORE, TOTAL_QUESTIONS } from '../../../data/reflow';
 
 const title = 'Évalue tes capacités physiques | RE-FLOW';
 const description =
-	'Auto-évaluation Re-flow : situer le déconditionnement physique et son effet sur le quotidien. Gratuit, sans inscription.';
+	'Auto-évaluation Re-flow : situer le déconditionnement physique et son effet sur le quotidien. Gratuit.';
 
 const faqs = [
 	{
@@ -28,11 +28,11 @@ const faqs = [
 	},
 	{
 		q: 'Mes réponses sont-elles enregistrées ?',
-		a: 'Non. Le calcul se fait entièrement dans ton navigateur : aucune réponse, aucun score et aucun détail n’est envoyé à un serveur, enregistré ou associé à ton identité. Si tu recharges la page, l’auto-évaluation repart de zéro.',
+		a: 'Pendant le questionnaire, le calcul reste dans ton navigateur. Pour afficher le résultat, le site demande ton prénom, ton nom, ton email et ton téléphone. Avec ton accord, ces informations, tes réponses et ton score sont alors envoyés à Cécile et enregistrés dans son outil de suivi, afin d’afficher ton résultat, de préparer le bilan et de lui écrire. Rien n’est transmis avant la validation du formulaire. Si tu recharges la page avant cela, l’auto-évaluation repart de zéro.',
 	},
 	{
 		q: 'Que faire après l’auto-évaluation ?',
-		a: 'Le résultat sert à identifier où ta condition physique pèse le plus en ce moment. Tu peux ensuite réserver un bilan pour en parler, sans engagement, et voir si l’accompagnement Re-flow peut t’aider à limiter le déconditionnement.',
+		a: 'Une fois tes coordonnées envoyées, tu vois ton résultat et la dimension qui pèse le plus. Tu peux ensuite réserver un bilan pour en parler, sans engagement, et voir si l’accompagnement Re-flow peut t’aider à limiter le déconditionnement.',
 	},
 	{
 		q: 'Les pourcentages mesurent-ils la gravité de ma maladie ?',
@@ -172,8 +172,9 @@ const faqStructuredData = {
 				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
 					L’objectif de Re-flow n’est pas de te demander d’en faire plus, ni d’agir sur la maladie.
 					C’est de t’aider à reconstruire progressivement ta condition physique, à partir de ce
-					que ton corps peut faire aujourd’hui. Tu peux réserver un bilan pour relire ton
-					résultat ensemble, sans engagement.
+					que ton corps peut faire aujourd’hui. À la fin du questionnaire, tes coordonnées
+					débloquent le résultat. Tu peux ensuite réserver un bilan pour le relire
+					ensemble, sans engagement.
 				</p>
 			</div>
 

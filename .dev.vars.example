@@ -1,0 +1,4 @@
+# Copier vers .dev.vars pour `wrangler pages dev`. Ne pas y mettre de vrais jetons dans le dépôt.
+GHL_PRIVATE_TOKEN=
+GHL_LOCATION_ID=
+GHL_RESULT_FIELD_ID=
