@@ -59,8 +59,9 @@ La fonction :
 - n’accepte que le POST, avec un champ honeypot vide ;
 - exige nom, prénom, email, téléphone français normalisé en `+33`, consentement, et les 10 réponses (identifiant + points de 0 à 4) ;
 - recalcule score, profil et dimension dominante depuis [src/data/reflow.ts](src/data/reflow.ts) ;
-- appelle `POST https://services.leadconnectorhq.com/contacts/upsert` (en-tête `Version: 2021-07-28`) avec source `Auto-évaluation RE-FLOW`, tags `quiz-reflow`, `quiz-limite` / `quiz-significatif` / `quiz-important`, et un tag de la dimension dominante ;
-- remplit le champ `Résultat quiz` et une note : pourcentage, profil, quatre dimensions, libellé de chaque réponse.
+- appelle `POST https://services.leadconnectorhq.com/contacts/upsert` (en-tête `Version: 2021-07-28`) avec source `Auto-évaluation RE-FLOW` et le champ `Résultat quiz` (sans tags dans l’upsert) ;
+- retire puis réapplique les tags via `DELETE` / `POST /contacts/:id/tags` (`quiz-reflow`, profil, dimension dominante) pour déclencher le workflow « Tag Added » ;
+- ajoute une note : pourcentage, profil, quatre dimensions, libellé de chaque réponse.
 
 Dans [src/components/ReflowAssessment.astro](src/components/ReflowAssessment.astro), `showResult()` n’affiche plus le score ni ne charge l’iframe. À la place, un écran « Ton résultat est prêt » avec le formulaire (nom, prénom, email, téléphone, case vers la politique de confidentialité). Le contenu déjà prévu (score, jauge, interprétation, conseils aujourd’hui floutés dans `data-rg-profile`, sous-scores) reste masqué.
 

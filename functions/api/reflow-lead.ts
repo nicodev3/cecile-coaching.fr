@@ -3,6 +3,8 @@
  *
  * Secrets Cloudflare Pages : GHL_PRIVATE_TOKEN, GHL_LOCATION_ID, GHL_RESULT_FIELD_ID.
  * Le mail vers Cécile est un workflow GoHighLevel déclenché par le tag `quiz-reflow`.
+ * Les tags sont appliqués via POST /contacts/:id/tags (pas dans l’upsert) pour
+ * déclencher correctement « Tag Added », y compris après un nouveau test.
  */
 import { scoreQuiz, type SubmittedAnswer } from '../../src/data/reflow';
 import { normalizeFrenchPhone } from '../../src/utils/frenchPhone';
@@ -16,7 +18,10 @@ interface LeadEnv {
 const GHL_BASE = 'https://services.leadconnectorhq.com';
 const GHL_VERSION = '2021-07-28';
 const SOURCE = 'Auto-évaluation RE-FLOW';
+const TRIGGER_TAG = 'quiz-reflow';
 const MAX_BODY = 20_000;
+/** Pause courte entre retrait et réapplication du tag déclencheur. */
+const TAG_RETRIGGER_MS = 400;
 
 const json = (status: number, error?: 'invalid' | 'unavailable', detail?: string) =>
 	new Response(JSON.stringify(error ? { ok: false, error, ...(detail ? { detail } : {}) } : { ok: true }), {
@@ -95,9 +100,9 @@ const formatQuizResult = (
 	return lines.join('\n');
 };
 
-const ghlFetch = (token: string, path: string, body: unknown) =>
+const ghlFetch = (token: string, path: string, body: unknown, method: 'POST' | 'DELETE' = 'POST') =>
 	fetch(`${GHL_BASE}${path}`, {
-		method: 'POST',
+		method,
 		headers: {
 			Authorization: `Bearer ${token.trim()}`,
 			Version: GHL_VERSION,
@@ -117,6 +122,33 @@ const quizCustomField = (fieldRef: string, value: string) => {
 const readUpstreamError = async (response: Response) => {
 	const text = await response.text();
 	return text.replace(/\s+/g, ' ').slice(0, 180);
+};
+
+const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Retire le tag déclencheur s’il est déjà présent, puis réapplique tous les tags
+ * via l’endpoint dédié — seul moyen fiable de déclencher un workflow « Tag Added ».
+ */
+const applyQuizTags = async (token: string, contactId: string, tags: string[]): Promise<Response | null> => {
+	try {
+		const removed = await ghlFetch(token, `/contacts/${contactId}/tags`, { tags: [TRIGGER_TAG] }, 'DELETE');
+		if (!removed.ok && removed.status !== 404) {
+			const detail = await readUpstreamError(removed);
+			console.error('reflow-lead: retrait tag refusé', removed.status, detail);
+		}
+	} catch (error) {
+		console.error('reflow-lead: retrait tag impossible', error);
+	}
+
+	await wait(TAG_RETRIGGER_MS);
+
+	try {
+		return await ghlFetch(token, `/contacts/${contactId}/tags`, { tags });
+	} catch (error) {
+		console.error('reflow-lead: ajout tags impossible', error);
+		return null;
+	}
 };
 
 export const onRequestPost = async (context: {
@@ -160,10 +192,11 @@ export const onRequestPost = async (context: {
 	if (!result) return json(400, 'invalid');
 
 	const quizText = formatQuizResult(result);
-	const tags = ['quiz-reflow', `quiz-${result.profile.key}`, `quiz-${result.dominant.key}`];
+	const tags = [TRIGGER_TAG, `quiz-${result.profile.key}`, `quiz-${result.dominant.key}`];
 
 	let contactId = '';
 	try {
+		// Sans tags ici : l’upsert ne déclenche pas de façon fiable les workflows « Tag Added ».
 		const upsert = await ghlFetch(token, '/contacts/upsert', {
 			locationId: locationId.trim(),
 			firstName,
@@ -171,7 +204,6 @@ export const onRequestPost = async (context: {
 			email,
 			phone,
 			source: SOURCE,
-			tags,
 			customFields: [quizCustomField(resultFieldId, quizText)],
 		});
 		if (!upsert.ok) {
@@ -189,6 +221,13 @@ export const onRequestPost = async (context: {
 	if (!contactId) {
 		console.error('reflow-lead: contact sans identifiant');
 		return json(500, 'unavailable');
+	}
+
+	const tagged = await applyQuizTags(token, contactId, tags);
+	if (!tagged || !tagged.ok) {
+		const detail = tagged ? await readUpstreamError(tagged) : undefined;
+		if (tagged) console.error('reflow-lead: ajout tags refusé', tagged.status, detail);
+		return json(500, 'unavailable', detail);
 	}
 
 	try {
