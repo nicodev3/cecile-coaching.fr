@@ -82,10 +82,15 @@ const formatQuizResult = (
 				`- ${dimension.label} : ${dimension.percent} % (${dimension.score}/${dimension.maxScore}) — ${dimension.levelLabel}`,
 		),
 		'',
-		'Réponses',
-		...result.answers.map(
-			(answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel} (${answer.points})`,
-		),
+		'Réponses du score',
+		...result.answers
+			.filter((answer) => answer.section)
+			.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel} (${answer.points})`),
+		'',
+		'Hors score',
+		...result.answers
+			.filter((answer) => !answer.section)
+			.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`),
 	];
 	return lines.join('\n');
 };

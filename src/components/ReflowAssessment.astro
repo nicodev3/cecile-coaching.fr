@@ -2,19 +2,35 @@
 /**
  * Auto-évaluation Re-flow — questionnaire interactif.
  *
- * Rendu serveur : les 10 questions sont dans le HTML (SEO + fonctionne sans JS).
+ * Rendu serveur : les questions sont dans le HTML (SEO + fonctionne sans JS).
  * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
  */
-import { Battery, CircleCheck, Compass, Frown, Heart, Meh, Move, RotateCcw, Smile } from '@lucide/astro';
+import {
+	Battery,
+	Briefcase,
+	CircleCheck,
+	Compass,
+	Frown,
+	Heart,
+	House,
+	Meh,
+	Move,
+	PersonStanding,
+	RotateCcw,
+	Smile,
+	Timer,
+	Users,
+} from '@lucide/astro';
 import { COACH_FIRST_NAME, SITE_BRAND } from '../consts';
+import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import {
 	MAX_SCORE,
 	MIN_SCORE,
 	PERCENT_MAX,
 	PROFILES,
 	QUESTIONS,
+	SCORED_QUESTIONS,
 	SECTIONS,
-	SECTIONS_BY_KEY,
 	SKIPPED_QUESTION_IDS,
 	SKIP_TRIGGER_POINTS,
 	SKIP_TRIGGER_QUESTION_ID,
@@ -22,9 +38,14 @@ import {
 } from '../data/reflow';
 
 const sectionIcons = {
-	endurance: Battery,
-	capacites: Move,
-	quotidien: Heart,
+	energie: Battery,
+	mouvements: Move,
+	endurance: Heart,
+	recuperation: Timer,
+	travail: Briefcase,
+	quotidien: House,
+	loisirs: Users,
+	corps: PersonStanding,
 	reprise: Compass,
 } as const;
 
@@ -66,7 +87,7 @@ const bands = PROFILES.map((p) => ({
 		>
 			<div
 				class="h-full rounded-full bg-(--primary) transition-[width] duration-500 ease-out motion-reduce:transition-none"
-				style="width: 10%"
+				style={`width: ${100 / TOTAL_QUESTIONS}%`}
 				data-rg-progress-fill
 			>
 			</div>
@@ -84,26 +105,28 @@ const bands = PROFILES.map((p) => ({
 					data-qid={q.id}
 					data-number={String(q.number)}
 					data-section={q.section}
-					data-section-label={SECTIONS_BY_KEY[q.section].label}
+					data-section-label={q.progressLabel}
+					data-scored={q.section ? 'true' : 'false'}
 				>
 					<legend
 						class="mb-1 w-full rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
 						tabindex="-1"
 					>
 						<span class="mr-2 text-(--primary-container)">{q.number}.</span>
-						{q.label}
+						{tieFrenchPunctuation(q.label)}
 					</legend>
 
-					{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{q.hint}</p>}
+					{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{tieFrenchPunctuation(q.hint)}</p>}
 
 					<div class="mt-5 grid gap-2.5">
 						{q.options.map((o) => (
-							<label class="group relative flex cursor-pointer items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-[:checked]:bg-(--primary-fixed)/35 has-[:checked]:ring-2 has-[:checked]:ring-(--primary) has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-(--primary) motion-reduce:transition-none">
+							<label class="group relative flex cursor-pointer items-start gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-[:checked]:bg-(--primary-fixed)/35 has-[:checked]:ring-2 has-[:checked]:ring-(--primary) has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-(--primary) motion-reduce:transition-none">
 								<input
 									type="radio"
 									class="sr-only"
 									name={q.id}
 									value={String(o.points)}
+									data-label={tieFrenchPunctuation(o.label)}
 									data-section={q.section}
 									data-skip={
 										q.id === SKIP_TRIGGER_QUESTION_ID && o.points === SKIP_TRIGGER_POINTS
@@ -112,13 +135,13 @@ const bands = PROFILES.map((p) => ({
 									}
 								/>
 								<span
-									class="grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-[:checked]:ring-2 group-has-[:checked]:ring-(--primary) motion-reduce:transition-none"
+									class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-[:checked]:ring-2 group-has-[:checked]:ring-(--primary) motion-reduce:transition-none"
 									aria-hidden="true"
 								>
 									<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-[:checked]:opacity-100 motion-reduce:transition-none" />
 								</span>
 								<span class="text-base leading-snug text-(--on-surface) group-has-[:checked]:font-semibold">
-									{o.label}
+									{tieFrenchPunctuation(o.label)}
 								</span>
 							</label>
 						))}
@@ -153,11 +176,12 @@ const bands = PROFILES.map((p) => ({
 		>
 			<p class="font-semibold text-(--on-surface)">Calculer ton résultat à la main</p>
 			<p class="mt-2">
-				JavaScript est désactivé : le calcul automatique n’est pas disponible. Dans chaque question, les
-				réponses vont de 0 (Pas du tout) à 4 (Énormément). Additionnez les points de tes {
-					TOTAL_QUESTIONS
-				} réponses, puis calculez (total / {MAX_SCORE}) × 100 pour obtenir un pourcentage de
-				déconditionnement.
+				JavaScript est désactivé : le calcul automatique n’est pas disponible. Pour les {
+					SCORED_QUESTIONS.length
+				} premières questions, les réponses vont de la situation la plus préservée (0&nbsp;point) à la plus
+				marquée (3&nbsp;points). Additionnez ces points, puis calculez (total / {MAX_SCORE}) × 100. Les
+				trois dernières questions ne s’additionnent pas : elles décrivent ton appréhension, ton besoin et
+				ce que tu aimerais pouvoir dire.
 			</p>
 			<ul class="mt-2 ml-5 list-disc">
 				{
@@ -180,11 +204,10 @@ const bands = PROFILES.map((p) => ({
 				class="mt-3 rounded-lg text-3xl font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-4xl"
 				tabindex="-1"
 			>
-				Il est prêt
+				Est prêt !
 			</h2>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Le score, l’interprétation et le détail par dimension s’affichent juste après. Tes coordonnées
-				servent à te montrer ce résultat, à préparer le bilan et à écrire à {COACH_FIRST_NAME}.
+				Indique tes coordonnées de le voir instantanément. Il sera également envoyé à {COACH_FIRST_NAME}. Tu pourras également réserver un rdv personnalisé avec {COACH_FIRST_NAME}.
 			</p>
 		</div>
 
@@ -387,6 +410,30 @@ const bands = PROFILES.map((p) => ({
 				))
 			}
 
+			<div class="mt-8">
+				<h3 class="text-lg font-semibold text-(--on-surface)">Ce que tu précises</h3>
+				<p class="mt-1 text-sm leading-relaxed text-(--secondary)">
+					Ces trois réponses ne changent pas le pourcentage. Elles disent ce qui compte pour la suite.
+				</p>
+				<div class="mt-4 grid gap-3">
+					{
+						QUESTIONS.filter((q) => !q.section).map((q) => (
+							<div class="rounded-2xl bg-(--surface-container-lowest) p-5">
+								<p class="text-sm font-semibold tracking-wide text-(--primary-container)">
+									{tieFrenchPunctuation(q.resultTitle ?? q.progressLabel)}
+								</p>
+								<p
+									class="mt-2 text-base leading-relaxed text-(--on-surface)"
+									data-rg-open-answer={q.id}
+								>
+									—
+								</p>
+							</div>
+						))
+					}
+				</div>
+			</div>
+
 			<div
 				class="mt-6 scroll-mt-28 rounded-2xl border-2 border-(--error) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
 				data-rg-booking
@@ -462,11 +509,14 @@ const bands = PROFILES.map((p) => ({
 
 			<div class="mt-5 grid gap-3 sm:grid-cols-2">
 				{
-					SECTIONS.map((s) => {
+					SECTIONS.map((s, index) => {
 						const Icon = sectionIcons[s.key];
 						return (
 							<div
-								class="rg-section rounded-2xl bg-(--surface-container-lowest) p-5 soft-glow"
+								class:list={[
+									'rg-section rounded-2xl bg-(--surface-container-lowest) p-5 soft-glow',
+									index === SECTIONS.length - 1 && SECTIONS.length % 2 === 1 && 'sm:col-span-2',
+								]}
 								data-rg-section={s.key}
 								data-max={String(s.maxScore)}
 							>
@@ -707,7 +757,7 @@ const bands = PROFILES.map((p) => ({
 
 		const total = Number(root.dataset.total) || steps.length;
 		const minScore = root.dataset.min === undefined ? 0 : Number(root.dataset.min);
-		const maxScore = Number(root.dataset.max) || steps.length * 4;
+		const maxScore = Number(root.dataset.max) || steps.length * 3;
 		const skipPoints = Number(root.dataset.skipPoints) || 0;
 		const skipIds = (root.dataset.skipIds ?? '').split(',').filter(Boolean);
 
@@ -889,6 +939,13 @@ const bands = PROFILES.map((p) => ({
 				if (!checked) return;
 				const points = Number(checked.value);
 				const value = Number.isFinite(points) ? points : 0;
+				if (step.dataset.scored === 'false') {
+					const slot = result.querySelector<HTMLElement>(
+						`[data-rg-open-answer="${step.dataset.qid}"]`,
+					);
+					if (slot) slot.textContent = checked.dataset.label ?? '';
+					return;
+				}
 				totalScore += value;
 				const section = checked.dataset.section ?? '';
 				bySection.set(section, (bySection.get(section) ?? 0) + value);
