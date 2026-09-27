@@ -337,6 +337,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		const nextBtn = root.querySelector<HTMLButtonElement>('[data-rg-next]')!;
 		const steps = Array.from(root.querySelectorAll<HTMLFieldSetElement>('[data-rg-step]'));
 		const autoAdvanced = new Set<number>();
+		const answeredTracked = new Set<number>();
 		let current = 0;
 		let lastPointerAt = 0;
 		let startedTracked = false;
@@ -448,6 +449,12 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				startedTracked = true;
 				trackUmami('quiz_started');
 			}
+			// Un jalon par question répondue, une seule fois par passage dans le quiz.
+			// Ni le choix, ni le texte de la réponse ne sont envoyés à Umami.
+			if (!answeredTracked.has(current)) {
+				answeredTracked.add(current);
+				trackUmami(`quiz_question_${String(current + 1).padStart(2, '0')}_answered`);
+			}
 			render(false);
 			if (autoAdvanced.has(current) || Date.now() - lastPointerAt > 500) return;
 			autoAdvanced.add(current);
@@ -472,7 +479,10 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			event.preventDefault();
 			if (leadSending || gate.hidden) return;
 			leadError.hidden = true;
-			if (!leadForm.reportValidity()) return;
+			if (!leadForm.reportValidity()) {
+				trackUmami('quiz_lead_invalid');
+				return;
+			}
 			const data = new FormData(leadForm);
 			const firstName = String(data.get('firstName') ?? '').trim();
 			const lastName = String(data.get('lastName') ?? '').trim();
@@ -482,6 +492,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			const consent = data.get('consent') === 'on';
 			if (!firstName || !lastName || !phone || !consent || company.trim()) {
 				showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
+				trackUmami('quiz_lead_invalid');
 				return;
 			}
 			const answers = readAnswers();
@@ -491,6 +502,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				return;
 			}
 			leadSending = true;
+			trackUmami('quiz_lead_attempted');
 			leadSubmit.disabled = true;
 			leadSubmit.textContent = 'Envoi…';
 			try {
@@ -501,6 +513,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				});
 				if (response.status === 400) {
 					showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
+					trackUmami('quiz_lead_invalid');
 					return;
 				}
 				if (!response.ok) throw new Error('lead');
@@ -515,6 +528,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
 				trackUmami('lead_submitted');
 			} catch {
+				trackUmami('quiz_lead_failed');
 				showError(
 					'L’envoi n’a pas abouti. Tes réponses sont conservées sur cette page : tu peux réessayer.',
 				);
@@ -530,6 +544,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			leadForm.reset();
 			result.querySelector<HTMLElement>('[data-rg-booking-mount]')?.replaceChildren();
 			autoAdvanced.clear();
+			answeredTracked.clear();
 			startedTracked = false;
 			lastPointerAt = 0;
 			current = 0;

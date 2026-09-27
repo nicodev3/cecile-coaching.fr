@@ -59,3 +59,41 @@ anciens tags.** Aucun workflow distant n’a été modifié par ce changement.
 `astro dev` utilise un aperçu local : aucune écriture GoHighLevel et aucun
 email. Redémarrer le serveur de développement après cette migration si son
 module serveur conserve l’ancien format de réponses en cache.
+
+## Funnel Umami
+
+Le script Umami est déjà chargé par `BaseHead.astro`. Le quiz envoie les
+événements suivants, dans cet ordre pour un parcours réussi :
+
+| Étape | Événement | Déclenchement |
+| --- | --- | --- |
+| Début | `quiz_started` | Première réponse du questionnaire |
+| Questions | `quiz_question_01_answered` à `quiz_question_12_answered` | Première réponse à chaque question pendant ce passage |
+| Formulaire affiché | `quiz_completed` | Les 12 réponses sont validées et le formulaire de coordonnées apparaît |
+| Envoi tenté | `quiz_lead_attempted` | Formulaire valide, juste avant l’appel API |
+| Résultat affiché | `lead_submitted` | Appel API réussi et résultat affiché |
+
+Les événements de diagnostic `quiz_lead_invalid` et `quiz_lead_failed`
+indiquent respectivement un formulaire invalide (y compris un rejet 400 de
+l’API) et une erreur d’envoi. Ils ne sont pas des étapes du funnel principal.
+Modifier une réponse déjà donnée ou revenir en arrière ne répète pas le jalon
+de cette question. « Refaire le test » ouvre un nouveau passage et réactive
+les jalons. Aucun choix, score ou coordonnée personnelle n’est envoyé à Umami.
+
+Après déploiement, dans le site concerné sur Umami, ouvrir **Insights > Funnel**,
+créer un funnel, puis ajouter des étapes de type **Triggered event** avec les
+noms exacts ci-dessus. Pour une vue rapide : `quiz_started`,
+`quiz_question_04_answered`, `quiz_question_08_answered`,
+`quiz_question_12_answered`, `quiz_completed`, `quiz_lead_attempted`,
+`lead_submitted`. Pour repérer précisément la question où l’on perd des
+participants, créer aussi un funnel avec `quiz_started`, les douze événements
+de questions dans l’ordre, puis `quiz_completed` et `lead_submitted`. Régler
+la fenêtre entre étapes à 60 minutes pour commencer ; l’ajuster si le quiz est
+souvent interrompu puis repris plus tard. Sélectionner une période commençant
+après le déploiement : les nouveaux jalons ne sont pas rétroactifs.
+
+Contrôler dans **Events** qu’un parcours de test produit chaque événement une
+fois et dans le bon ordre. Le funnel compte les visiteurs qui atteignent les
+étapes dans l’ordre ; les événements de diagnostic se consultent séparément
+dans **Events**. Le chargement du widget de réservation ne confirme pas qu’un
+créneau a été réservé : cette conversion doit être mesurée côté GoHighLevel.
