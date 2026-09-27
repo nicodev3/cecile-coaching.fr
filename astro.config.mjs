@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
+import { reflowLeadDevPlugin } from './src/dev/reflowLeadDevPlugin.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -34,6 +35,6 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), reflowLeadDevPlugin()],
   },
 });

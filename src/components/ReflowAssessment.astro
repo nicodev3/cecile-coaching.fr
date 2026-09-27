@@ -1135,7 +1135,7 @@ const bands = PROFILES.map((p) => ({
 			leadSubmit.textContent = 'Envoi…';
 
 			try {
-				const response = await fetch('/api/reflow-lead', {
+				const response = await fetch(import.meta.env.DEV ? '/api/reflow-lead/' : '/api/reflow-lead', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
 					body: JSON.stringify({
