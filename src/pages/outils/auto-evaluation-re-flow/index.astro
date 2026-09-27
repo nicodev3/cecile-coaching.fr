@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import coachPortrait from '../../../assets/cecile-coach-portrait.webp';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Header from '../../../components/Header.astro';
@@ -91,6 +93,19 @@ const faqStructuredData = {
 				<h1 class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
 					Découvre ton profil Re-flow
 				</h1>
+				<div class="mx-auto mt-5 flex max-w-lg items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3 text-left ring-1 ring-(--outline-variant)">
+					<Image
+						src={coachPortrait}
+						alt="Cécile, coach sportive"
+						class="size-14 shrink-0 rounded-full object-cover object-top"
+						width={56}
+						height={56}
+						loading="eager"
+					/>
+					<p class="text-sm leading-relaxed text-(--on-surface)">
+						<span class="font-semibold">Je suis Cécile.</span> Prends ces quelques minutes pour faire le point, à ton rythme.
+					</p>
+				</div>
 				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-(--on-surface)">
 					De quoi as-tu le plus besoin aujourd’hui pour reprendre une activité physique à ton rythme&nbsp;?
 				</p>
