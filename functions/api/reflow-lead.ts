@@ -103,19 +103,19 @@ const formatQuizResult = (result: NonNullable<ReturnType<typeof scoreQuiz>>): st
 	// Ce champ peut servir au mail de résultat : il ne contient aucun score.
 	const profile = result.profile;
 	const lines = [
-		`Votre profil Re-flow : ${profile.label}`,
+		`Ton profil Re-flow : ${profile.label}`,
 		profile.summary,
 		'',
 		...profile.intro,
 		'',
-		'Votre priorité aujourd’hui',
+		'Ta priorité aujourd’hui',
 		profile.priority,
 		...profile.guidance,
 		'',
 		'C’est justement l’approche de Re-flow',
 		...profile.approach,
 		'',
-		'Votre petit pas du jour',
+		'Ton petit pas du jour',
 		...profile.smallStep,
 		'',
 		profile.invitation,

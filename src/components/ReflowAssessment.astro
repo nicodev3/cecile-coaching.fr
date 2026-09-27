@@ -103,23 +103,23 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		</div>
 
 		<p class="mt-7 rounded-2xl bg-(--surface-container-lowest) px-5 py-4 text-sm leading-relaxed text-(--secondary)" data-rg-nojs>
-			Activez JavaScript pour parcourir le questionnaire et découvrir votre profil Re-flow.
+			Active JavaScript pour parcourir le questionnaire et découvrir ton profil Re-flow.
 		</p>
 	</form>
 
 	{/* ---------- Déblocage du résultat ---------- */}
 	<section data-rg-gate hidden aria-labelledby="rg-gate-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">VOTRE PROFIL RE-FLOW</p>
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON PROFIL RE-FLOW</p>
 			<h2
 				id="rg-gate-title"
 				class="mt-3 rounded-lg text-3xl font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-4xl"
 				tabindex="-1"
 			>
-				Votre profil est prêt !
+				Ton profil est prêt !
 			</h2>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Vous avez terminé le questionnaire. Indiquez votre prénom, votre nom, votre email et votre téléphone pour découvrir votre profil Re-flow et recevoir votre résultat. Vous pourrez ensuite réserver un bilan personnalisé avec Cécile.
+				Tu as terminé le questionnaire. Indique ton prénom, ton nom, ton email et ton téléphone pour découvrir ton profil Re-flow et recevoir ton résultat. Tu pourras ensuite réserver un bilan personnalisé avec Cécile.
 			</p>
 		</div>
 
@@ -230,7 +230,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 	{/* ---------- Résultat personnalisé : aucun score affiché ---------- */}
 	<section data-rg-result hidden aria-labelledby="rg-result-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">VOTRE PROFIL RE-FLOW</p>
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON PROFIL RE-FLOW</p>
 			<h2 id="rg-result-title" tabindex="-1" class="mt-3 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl" data-rg-profile-name></h2>
 		</div>
 		{PROFILES.map((profile) => (
@@ -240,14 +240,14 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					{profile.intro.map((text) => <p>{text}</p>)}
 				</div>
 				<div class="mt-8 rounded-2xl bg-(--surface-container-lowest) p-5 sm:p-6">
-					<h3 class="text-lg font-semibold text-(--primary)">Votre priorité aujourd’hui</h3>
+					<h3 class="text-lg font-semibold text-(--primary)">Ta priorité aujourd’hui</h3>
 					<p class="mt-3 text-lg font-semibold text-(--on-surface)">{profile.priority}</p>
 					{profile.guidance.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
 				</div>
 				<h3 class="mt-8 text-xl font-semibold text-(--on-surface)">C’est justement l’approche de Re-flow</h3>
 				{profile.approach.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
 				<div class="mt-8 rounded-2xl bg-(--secondary-container)/40 p-5 text-(--on-secondary-container) sm:p-6">
-					<h3 class="text-lg font-semibold">Votre petit pas du jour</h3>
+					<h3 class="text-lg font-semibold">Ton petit pas du jour</h3>
 					{profile.smallStep.map((text) => <p class="mt-3 leading-relaxed">{text}</p>)}
 				</div>
 				<div class="mt-8 text-center">
@@ -258,11 +258,11 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		))}
 		<div class="mt-10 border-t border-(--outline-variant) pt-8 text-center">
 			<h3 class="text-2xl font-semibold text-(--on-surface)">Et maintenant ?</h3>
-			<p class="mt-4 leading-relaxed text-(--secondary)">Votre résultat met en lumière ce dont vous avez probablement le plus besoin aujourd’hui pour reprendre progressivement une activité physique.</p>
+			<p class="mt-4 leading-relaxed text-(--secondary)">Ton résultat met en lumière ce dont tu as probablement le plus besoin aujourd’hui pour reprendre progressivement une activité physique.</p>
 			<p class="mt-4 leading-relaxed text-(--secondary)">Et c’est précisément l’objectif de Re-flow :</p>
 			<p class="mt-4 text-xl font-semibold text-(--primary)">16 semaines · 3 séances par semaine</p>
 			<p class="mt-2 font-semibold text-(--on-surface)">Pilates · Yoga · Renforcement musculaire · Relaxation</p>
-			<p class="mt-4 leading-relaxed text-(--secondary)">Un accompagnement progressif pour retrouver confiance dans vos capacités physiques, mieux prendre en compte votre énergie et remettre durablement le mouvement dans votre quotidien.</p>
+			<p class="mt-4 leading-relaxed text-(--secondary)">Un accompagnement progressif pour retrouver confiance dans tes capacités physiques, mieux prendre en compte ton énergie et remettre durablement le mouvement dans ton quotidien.</p>
 			<a href="/#programme" class="rg-cta mt-6">Découvrir Re-flow</a>
 		</div>
 		<div
@@ -272,10 +272,10 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			<div class="text-center">
 				<p class="text-xs font-semibold tracking-[0.18em] text-(--error) uppercase">Bilan offert — Re-flow</p>
 				<h3 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
-					Réservez votre bilan pour relire ce résultat ensemble
+					Réserve ton bilan pour relire ce résultat ensemble
 				</h3>
 				<p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)">
-					Un échange personnalisé avec Cécile pour faire le point sur votre profil, identifier votre prochain pas et voir si l’accompagnement Re-flow est fait pour vous, sans engagement.
+					Un échange personnalisé avec Cécile pour faire le point sur ton profil, identifier ton prochain pas et voir si l’accompagnement Re-flow est fait pour toi, sans engagement.
 				</p>
 			</div>
 			<div class="mt-6 min-h-150" data-rg-booking-mount></div>
@@ -290,7 +290,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		</div>
 	</section>
 	<p class="mt-6 text-center text-xs leading-relaxed text-(--secondary)">
-		Ce questionnaire est un outil d’orientation et de réflexion. Vos réponses ne sont transmises qu’au moment où vous demandez à découvrir votre profil.
+		Ce questionnaire est un outil d’orientation et de réflexion. Tes réponses ne sont transmises qu’au moment où tu demandes à découvrir ton profil.
 	</p>
 </div>
 
@@ -481,13 +481,13 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			const company = String(data.get('company') ?? '');
 			const consent = data.get('consent') === 'on';
 			if (!firstName || !lastName || !phone || !consent || company.trim()) {
-				showError('Indiquez votre prénom, votre nom, un email valide, un téléphone français et cochez la case pour continuer.');
+				showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
 				return;
 			}
 			const answers = readAnswers();
 			const scored = scoreQuiz(answers);
 			if (!scored) {
-				showError('Il manque des réponses. Rechargez la page pour recommencer.');
+				showError('Il manque des réponses. Recharge la page pour recommencer.');
 				return;
 			}
 			leadSending = true;
@@ -500,7 +500,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					body: JSON.stringify({ firstName, lastName, email, phone, consent, company, answers }),
 				});
 				if (response.status === 400) {
-					showError('Indiquez votre prénom, votre nom, un email valide, un téléphone français et cochez la case pour continuer.');
+					showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
 					return;
 				}
 				if (!response.ok) throw new Error('lead');
@@ -516,7 +516,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				trackUmami('lead_submitted');
 			} catch {
 				showError(
-					'L’envoi n’a pas abouti. Vos réponses sont conservées sur cette page : vous pouvez réessayer.',
+					'L’envoi n’a pas abouti. Tes réponses sont conservées sur cette page : tu peux réessayer.',
 				);
 			} finally {
 				leadSending = false;
