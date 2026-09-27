@@ -19,18 +19,40 @@ const GHL_BASE = 'https://services.leadconnectorhq.com';
 const GHL_VERSION = '2021-07-28';
 const SOURCE = 'Auto-évaluation RE-FLOW';
 const TRIGGER_TAG = 'quiz-reflow';
+// Un nouveau résultat remplace les anciens profils et dimensions dans le CRM.
+const QUIZ_TAGS = [
+	TRIGGER_TAG,
+	'quiz-reconnexion',
+	'quiz-energie',
+	'quiz-force',
+	'quiz-equilibre',
+	'quiz-limite',
+	'quiz-significatif',
+	'quiz-important',
+	'quiz-mouvements',
+	'quiz-endurance',
+	'quiz-recuperation',
+	'quiz-travail',
+	'quiz-quotidien',
+	'quiz-loisirs',
+	'quiz-corps',
+	'quiz-reprise',
+];
 const MAX_BODY = 20_000;
 /** Pause courte entre retrait et réapplication du tag déclencheur. */
 const TAG_RETRIGGER_MS = 400;
 
 const json = (status: number, error?: 'invalid' | 'unavailable', detail?: string) =>
-	new Response(JSON.stringify(error ? { ok: false, error, ...(detail ? { detail } : {}) } : { ok: true }), {
-		status,
-		headers: {
-			'Content-Type': 'application/json; charset=utf-8',
-			'Cache-Control': 'no-store',
+	new Response(
+		JSON.stringify(error ? { ok: false, error, ...(detail ? { detail } : {}) } : { ok: true }),
+		{
+			status,
+			headers: {
+				'Content-Type': 'application/json; charset=utf-8',
+				'Cache-Control': 'no-store',
+			},
 		},
-	});
+	);
 
 const cleanName = (value: unknown): string | null => {
 	if (typeof value !== 'string') return null;
@@ -52,9 +74,9 @@ const readAnswers = (value: unknown): SubmittedAnswer[] | null => {
 	const answers: SubmittedAnswer[] = [];
 	for (const item of value) {
 		if (!item || typeof item !== 'object') return null;
-		const record = item as { id?: unknown; points?: unknown };
-		if (typeof record.id !== 'string' || typeof record.points !== 'number') return null;
-		answers.push({ id: record.id, points: record.points });
+		const record = item as { id?: unknown; optionIndex?: unknown };
+		if (typeof record.id !== 'string' || typeof record.optionIndex !== 'number') return null;
+		answers.push({ id: record.id, optionIndex: record.optionIndex });
 	}
 	return answers;
 };
@@ -67,35 +89,42 @@ const isAllowedOrigin = (request: Request): boolean => {
 		const host = url.hostname;
 		if (host === 'localhost' || host === '127.0.0.1') return true;
 		if (url.protocol !== 'https:') return false;
-		return host === 'cecilecoaching.fr' || host.endsWith('.cecilecoaching.fr') || host.endsWith('.pages.dev');
+		return (
+			host === 'cecilecoaching.fr' ||
+			host.endsWith('.cecilecoaching.fr') ||
+			host.endsWith('.pages.dev')
+		);
 	} catch {
 		return false;
 	}
 };
 
-const formatQuizResult = (
-	result: NonNullable<ReturnType<typeof scoreQuiz>>,
-): string => {
+const formatQuizResult = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
+	// Ce champ peut servir au mail de résultat : il ne contient aucun score.
+	const profile = result.profile;
 	const lines = [
-		`Score : ${result.percent} %`,
-		`Profil : ${result.profile.label}`,
-		`Dimension dominante : ${result.dominant.label}`,
+		`Votre profil Re-flow : ${profile.label}`,
+		profile.summary,
 		'',
-		'Dimensions',
-		...result.dimensions.map(
-			(dimension) =>
-				`- ${dimension.label} : ${dimension.percent} % (${dimension.score}/${dimension.maxScore}) — ${dimension.levelLabel}`,
-		),
+		...profile.intro,
 		'',
-		'Réponses du score',
-		...result.answers
-			.filter((answer) => answer.section)
-			.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel} (${answer.points})`),
+		'Votre priorité aujourd’hui',
+		profile.priority,
+		...profile.guidance,
 		'',
-		'Hors score',
-		...result.answers
-			.filter((answer) => !answer.section)
-			.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`),
+		'C’est justement l’approche de Re-flow',
+		...profile.approach,
+		'',
+		'Votre petit pas du jour',
+		...profile.smallStep,
+		'',
+		profile.invitation,
+		'Découvrir Re-flow : https://cecilecoaching.fr/#programme',
+		'',
+		'16 semaines · 3 séances par semaine',
+		'Pilates · Yoga · Renforcement musculaire · Relaxation',
+		'',
+		'Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.',
 	];
 	return lines.join('\n');
 };
@@ -130,15 +159,26 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
  * Retire le tag déclencheur s’il est déjà présent, puis réapplique tous les tags
  * via l’endpoint dédié — seul moyen fiable de déclencher un workflow « Tag Added ».
  */
-const applyQuizTags = async (token: string, contactId: string, tags: string[]): Promise<Response | null> => {
+const applyQuizTags = async (
+	token: string,
+	contactId: string,
+	tags: string[],
+): Promise<Response | null> => {
 	try {
-		const removed = await ghlFetch(token, `/contacts/${contactId}/tags`, { tags: [TRIGGER_TAG] }, 'DELETE');
+		const removed = await ghlFetch(
+			token,
+			`/contacts/${contactId}/tags`,
+			{ tags: QUIZ_TAGS },
+			'DELETE',
+		);
 		if (!removed.ok && removed.status !== 404) {
 			const detail = await readUpstreamError(removed);
 			console.error('reflow-lead: retrait tag refusé', removed.status, detail);
+			return null;
 		}
 	} catch (error) {
 		console.error('reflow-lead: retrait tag impossible', error);
+		return null;
 	}
 
 	await wait(TAG_RETRIGGER_MS);
@@ -192,7 +232,7 @@ export const onRequestPost = async (context: {
 	if (!result) return json(400, 'invalid');
 
 	const quizText = formatQuizResult(result);
-	const tags = [TRIGGER_TAG, `quiz-${result.profile.key}`, `quiz-${result.dominant.key}`];
+	const tags = [TRIGGER_TAG, `quiz-${result.profile.key}`];
 
 	let contactId = '';
 	try {
@@ -231,7 +271,16 @@ export const onRequestPost = async (context: {
 	}
 
 	try {
-		const note = await ghlFetch(token, `/contacts/${contactId}/notes`, { body: quizText });
+		const note = await ghlFetch(token, `/contacts/${contactId}/notes`, {
+			body: [
+				quizText,
+				'',
+				'Réponses au questionnaire',
+				...result.answers.map(
+					(answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`,
+				),
+			].join('\n'),
+		});
 		if (!note.ok) {
 			const detail = await readUpstreamError(note);
 			console.error('reflow-lead: note refusée', note.status, detail);

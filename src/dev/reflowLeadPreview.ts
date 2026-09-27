@@ -32,9 +32,9 @@ const readAnswers = (value: unknown): SubmittedAnswer[] | null => {
 	const answers: SubmittedAnswer[] = [];
 	for (const item of value) {
 		if (!item || typeof item !== 'object') return null;
-		const record = item as { id?: unknown; points?: unknown };
-		if (typeof record.id !== 'string' || typeof record.points !== 'number') return null;
-		answers.push({ id: record.id, points: record.points });
+		const record = item as { id?: unknown; optionIndex?: unknown };
+		if (typeof record.id !== 'string' || typeof record.optionIndex !== 'number') return null;
+		answers.push({ id: record.id, optionIndex: record.optionIndex });
 	}
 	return answers;
 };
@@ -49,7 +49,8 @@ export function previewReflowLead(raw: string): LeadPreview {
 		return { status: 400, body: { ok: false, error: 'invalid' } };
 	}
 
-	if (!payload || typeof payload !== 'object') return { status: 400, body: { ok: false, error: 'invalid' } };
+	if (!payload || typeof payload !== 'object')
+		return { status: 400, body: { ok: false, error: 'invalid' } };
 	const body = payload as Record<string, unknown>;
 	if (typeof body.company === 'string' && body.company.trim() !== '') {
 		return { status: 400, body: { ok: false, error: 'invalid' } };
@@ -67,12 +68,11 @@ export function previewReflowLead(raw: string): LeadPreview {
 	const result = scoreQuiz(answers);
 	if (!result) return { status: 400, body: { ok: false, error: 'invalid' } };
 
-	const open = result.answers.filter((answer) => !answer.section);
 	const log = [
 		'[reflow-lead] aperçu local — rien n’est envoyé à GoHighLevel',
 		`${firstName} ${lastName} <${email}> ${phone}`,
-		`Score : ${result.percent} % · ${result.profile.label} · ${result.dominant.label}`,
-		...open.map((answer) => `${answer.number}. ${answer.optionLabel}`),
+		`Profil : ${result.profile.label}`,
+		...result.answers.map((answer) => `${answer.number}. ${answer.optionLabel}`),
 	].join('\n');
 
 	return { status: 200, body: { ok: true }, log };

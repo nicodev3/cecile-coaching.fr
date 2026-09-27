@@ -1,72 +1,13 @@
 ---
-/**
- * Auto-évaluation Re-flow — questionnaire interactif.
- *
- * Rendu serveur : les questions sont dans le HTML (SEO + fonctionne sans JS).
- * Le script transforme ensuite le formulaire en parcours « une question à la fois ».
- */
-import {
-	Battery,
-	Briefcase,
-	CircleCheck,
-	Compass,
-	Frown,
-	Heart,
-	House,
-	Meh,
-	Move,
-	PersonStanding,
-	RotateCcw,
-	Smile,
-	Timer,
-	Users,
-} from '@lucide/astro';
-import { COACH_FIRST_NAME, SITE_BRAND } from '../consts';
+import { RotateCcw } from '@lucide/astro';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
-import {
-	MAX_SCORE,
-	MIN_SCORE,
-	PERCENT_MAX,
-	PROFILES,
-	QUESTIONS,
-	SCORED_QUESTIONS,
-	SECTIONS,
-	SKIPPED_QUESTION_IDS,
-	SKIP_TRIGGER_POINTS,
-	SKIP_TRIGGER_QUESTION_ID,
-	TOTAL_QUESTIONS,
-} from '../data/reflow';
-
-const sectionIcons = {
-	energie: Battery,
-	mouvements: Move,
-	endurance: Heart,
-	recuperation: Timer,
-	travail: Briefcase,
-	quotidien: House,
-	loisirs: Users,
-	corps: PersonStanding,
-	reprise: Compass,
-} as const;
-
-const scoreSpan = PERCENT_MAX - MIN_SCORE + 1;
-const bands = PROFILES.map((p) => ({
-	key: p.key,
-	label: p.label,
-	tone: p.tone,
-	width: ((p.max - p.min + 1) / scoreSpan) * 100,
-}));
+import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 ---
 
 <div
 	class="scroll-mt-28 rounded-3xl bg-(--surface-container-low) p-4 ring-1 ring-(--outline-variant)/60 sm:p-8"
 	data-rg-root
-	data-skip-trigger={SKIP_TRIGGER_QUESTION_ID}
-	data-skip-ids={SKIPPED_QUESTION_IDS.join(',')}
-	data-skip-points={String(SKIP_TRIGGER_POINTS)}
 	data-total={String(TOTAL_QUESTIONS)}
-	data-min={String(MIN_SCORE)}
-	data-max={String(MAX_SCORE)}
 >
 	{/* ---------- Progression (activée par le script) ---------- */}
 	<div class="mb-6" data-rg-progress hidden>
@@ -74,7 +15,7 @@ const bands = PROFILES.map((p) => ({
 			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)" data-rg-progress-label>
 				QUESTION 1 SUR {TOTAL_QUESTIONS}
 			</p>
-			<p class="text-sm text-(--secondary)" data-rg-progress-section>{SECTIONS[0].label}</p>
+			<p class="text-sm text-(--secondary)" data-rg-progress-section>{QUESTIONS[0].progressLabel}</p>
 		</div>
 		<div
 			class="mt-3 h-2 overflow-hidden rounded-full bg-(--surface-container-high)"
@@ -104,9 +45,7 @@ const bands = PROFILES.map((p) => ({
 					data-rg-step
 					data-qid={q.id}
 					data-number={String(q.number)}
-					data-section={q.section}
 					data-section-label={q.progressLabel}
-					data-scored={q.section ? 'true' : 'false'}
 				>
 					<legend
 						class="mb-1 w-full rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
@@ -119,20 +58,14 @@ const bands = PROFILES.map((p) => ({
 					{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{tieFrenchPunctuation(q.hint)}</p>}
 
 					<div class="mt-5 grid gap-2.5">
-						{q.options.map((o) => (
+						{q.options.map((o, optionIndex) => (
 							<label class="group relative flex cursor-pointer items-start gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-[:checked]:bg-(--primary-fixed)/35 has-[:checked]:ring-2 has-[:checked]:ring-(--primary) has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-(--primary) motion-reduce:transition-none">
 								<input
 									type="radio"
 									class="sr-only"
 									name={q.id}
-									value={String(o.points)}
+									value={String(optionIndex)}
 									data-label={tieFrenchPunctuation(o.label)}
-									data-section={q.section}
-									data-skip={
-										q.id === SKIP_TRIGGER_QUESTION_ID && o.points === SKIP_TRIGGER_POINTS
-											? 'true'
-											: undefined
-									}
 								/>
 								<span
 									class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-[:checked]:ring-2 group-has-[:checked]:ring-(--primary) motion-reduce:transition-none"
@@ -169,45 +102,24 @@ const bands = PROFILES.map((p) => ({
 			</button>
 		</div>
 
-		{/* ---------- Repli sans JavaScript ---------- */}
-		<div
-			class="mt-7 rounded-2xl bg-(--surface-container-lowest) px-5 py-4 text-sm leading-relaxed text-(--secondary) ring-1 ring-(--outline-variant)"
-			data-rg-nojs
-		>
-			<p class="font-semibold text-(--on-surface)">Calculer ton résultat à la main</p>
-			<p class="mt-2">
-				JavaScript est désactivé : le calcul automatique n’est pas disponible. Pour les {
-					SCORED_QUESTIONS.length
-				} premières questions, les réponses vont de la situation la plus préservée (0&nbsp;point) à la plus
-				marquée (3&nbsp;points). Additionnez ces points, puis calculez (total / {MAX_SCORE}) × 100. Les
-				trois dernières questions ne s’additionnent pas : elles décrivent ton appréhension, ton besoin et
-				ce que tu aimerais pouvoir dire.
-			</p>
-			<ul class="mt-2 ml-5 list-disc">
-				{
-					PROFILES.map((p) => (
-						<li>
-							{p.range} : <strong class="text-(--on-surface)">{p.label}</strong>
-						</li>
-					))
-				}
-			</ul>
-		</div>
+		<p class="mt-7 rounded-2xl bg-(--surface-container-lowest) px-5 py-4 text-sm leading-relaxed text-(--secondary)" data-rg-nojs>
+			Activez JavaScript pour parcourir le questionnaire et découvrir votre profil Re-flow.
+		</p>
 	</form>
 
 	{/* ---------- Déblocage du résultat ---------- */}
 	<section data-rg-gate hidden aria-labelledby="rg-gate-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON RÉSULTAT</p>
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">VOTRE PROFIL RE-FLOW</p>
 			<h2
 				id="rg-gate-title"
 				class="mt-3 rounded-lg text-3xl font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-4xl"
 				tabindex="-1"
 			>
-				Est prêt !
+				Votre profil est prêt !
 			</h2>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Indique tes coordonnées de le voir instantanément. Il sera également envoyé à {COACH_FIRST_NAME}. Tu pourras également réserver un rdv personnalisé avec {COACH_FIRST_NAME}.
+				Vous avez terminé le questionnaire. Indiquez votre prénom, votre nom, votre email et votre téléphone pour découvrir votre profil Re-flow et recevoir votre résultat. Vous pourrez ensuite réserver un bilan personnalisé avec Cécile.
 			</p>
 		</div>
 
@@ -293,8 +205,7 @@ const bands = PROFILES.map((p) => ({
 					class="mt-1 size-4 shrink-0 accent-(--primary)"
 				/>
 				<span>
-					J’accepte que mes coordonnées et mes réponses soient utilisées pour afficher mon résultat,
-					préparer le bilan et écrire à {COACH_FIRST_NAME}.{' '}
+					J’accepte que mes coordonnées et mes réponses soient utilisées pour afficher mon profil et préparer mon bilan avec Cécile coaching, ainsi que de recevoir mon résultat et des informations de sa part.{' '}
 					<a
 						href="/politique-de-confidentialite/"
 						class="font-semibold text-(--primary) underline underline-offset-2"
@@ -311,419 +222,102 @@ const bands = PROFILES.map((p) => ({
 				class="inline-flex w-full items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none"
 				data-rg-lead-submit
 			>
-				Voir mon résultat
+				Découvrir mon profil
 			</button>
 		</form>
 	</section>
 
-	{/* ---------- Résultat ---------- */}
+	{/* ---------- Résultat personnalisé : aucun score affiché ---------- */}
 	<section data-rg-result hidden aria-labelledby="rg-result-title">
-		<div class="text-center" data-rg-result-summary>
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON RÉSULTAT</p>
-			<h2
-				id="rg-result-title"
-				class="mt-3 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl"
-				tabindex="-1"
-				data-rg-total
-			>
-				<span data-rg-score>—</span><span class="text-(--secondary)">&nbsp;%</span>
-			</h2>
-			<p class="mt-4">
-				<span
-					class="inline-flex items-center rounded-full bg-(--primary) px-5 py-2 text-base font-semibold text-(--on-primary)"
-					data-rg-badge>—</span
-				>
-			</p>
+		<div class="text-center">
+			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">VOTRE PROFIL RE-FLOW</p>
+			<h2 id="rg-result-title" tabindex="-1" class="mt-3 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl" data-rg-profile-name></h2>
 		</div>
-
-		{/* Jauge */}
-		<div class="mt-8">
-			<div class="relative">
-				<div class="flex h-3 overflow-hidden rounded-full" aria-hidden="true">
-					{
-						bands.map((b) => (
-							<div
-								class:list={[
-									'h-full',
-									b.tone === 'low' ? 'rg-band-low' : b.tone === 'mid' ? 'rg-band-mid' : 'rg-band-high',
-								]}
-								style={`width: ${b.width}%`}
-							/>
-						))
-					}
+		{PROFILES.map((profile) => (
+			<div data-rg-profile={profile.key} hidden>
+				<p class="mt-6 text-xl leading-relaxed font-semibold text-(--on-surface)">{profile.summary}</p>
+				<div class="mt-5 space-y-4 text-base leading-relaxed text-(--secondary)">
+					{profile.intro.map((text) => <p>{text}</p>)}
 				</div>
-				<span
-					class="absolute top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-4 border-(--surface-container-low) bg-(--primary) shadow transition-[left] duration-700 ease-out motion-reduce:transition-none"
-					style="left: 0%"
-					data-rg-marker
-					aria-hidden="true"></span>
-			</div>
-			<div class="mt-2 flex text-xs text-(--secondary)" aria-hidden="true">
-				{
-					bands.map((b, i) => (
-						<span
-							class:list={[i === 0 ? 'text-left' : i === bands.length - 1 ? 'text-right' : 'text-center']}
-							style={`width: ${b.width}%`}
-						>
-							{b.label}
-						</span>
-					))
-				}
-			</div>
-		</div>
-
-		{/* Interprétation */}
-		<div class="mt-8">
-			<h3 class="text-lg font-semibold text-(--on-surface)">L’interprétation de ton résultat</h3>
-			{
-				PROFILES.map((p) => (
-					<div
-						class="mt-4"
-						data-rg-profile={p.key}
-						data-label={p.label}
-						data-min={String(p.min)}
-						data-max={String(p.max)}
-						data-tone={p.tone}
-						hidden
-					>
-						<p class="text-lg leading-relaxed font-semibold text-(--on-surface)">{p.summary}</p>
-						{
-							SECTIONS.map((s) => (
-								<p class="mt-3 text-base leading-relaxed text-(--on-surface)" data-rg-dimension={s.key} hidden>
-									{s.resultCopy}
-								</p>
-							))
-						}
-						{
-							p.advice.map((a) => (
-								<p class="mt-4 text-base leading-relaxed text-(--on-surface)">{a}</p>
-							))
-						}
-						{
-							SECTIONS.map((s) => (
-								<p class="mt-4 text-base leading-relaxed text-(--on-surface)" data-rg-advice={s.key} hidden>
-									{s.advice}
-								</p>
-							))
-						}
-					</div>
-				))
-			}
-
-			<div class="mt-8">
-				<h3 class="text-lg font-semibold text-(--on-surface)">Ce que tu précises</h3>
-				<p class="mt-1 text-sm leading-relaxed text-(--secondary)">
-					Ces trois réponses ne changent pas le pourcentage. Elles disent ce qui compte pour la suite.
-				</p>
-				<div class="mt-4 grid gap-3">
-					{
-						QUESTIONS.filter((q) => !q.section).map((q) => (
-							<div class="rounded-2xl bg-(--surface-container-lowest) p-5">
-								<p class="text-sm font-semibold tracking-wide text-(--primary-container)">
-									{tieFrenchPunctuation(q.resultTitle ?? q.progressLabel)}
-								</p>
-								<p
-									class="mt-2 text-base leading-relaxed text-(--on-surface)"
-									data-rg-open-answer={q.id}
-								>
-									—
-								</p>
-							</div>
-						))
-					}
+				<div class="mt-8 rounded-2xl bg-(--surface-container-lowest) p-5 sm:p-6">
+					<h3 class="text-lg font-semibold text-(--primary)">Votre priorité aujourd’hui</h3>
+					<p class="mt-3 text-lg font-semibold text-(--on-surface)">{profile.priority}</p>
+					{profile.guidance.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
+				</div>
+				<h3 class="mt-8 text-xl font-semibold text-(--on-surface)">C’est justement l’approche de Re-flow</h3>
+				{profile.approach.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
+				<div class="mt-8 rounded-2xl bg-(--secondary-container)/40 p-5 text-(--on-secondary-container) sm:p-6">
+					<h3 class="text-lg font-semibold">Votre petit pas du jour</h3>
+					{profile.smallStep.map((text) => <p class="mt-3 leading-relaxed">{text}</p>)}
+				</div>
+				<div class="mt-8 text-center">
+					<p class="text-lg font-semibold text-(--on-surface)">{profile.invitation}</p>
+					<a href="/#programme" class="rg-cta mt-4">Découvrir Re-flow</a>
 				</div>
 			</div>
-
-			<div
-				class="mt-6 scroll-mt-28 rounded-2xl border-2 border-(--error) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
-				data-rg-booking
-			>
-				<div class="text-center">
-					<p class="text-xs font-semibold tracking-[0.18em] text-(--error) uppercase">
-						Bilan offert — {SITE_BRAND}
-					</p>
-					<h4 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
-						Réserve ton bilan pour relire ce résultat ensemble
-					</h4>
-					{
-						SECTIONS.map((s) => (
-							<p
-								class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)"
-								data-rg-transition={s.key}
-								hidden
-							>
-								{s.transitionCopy}
-							</p>
-						))
-					}
-					<ul class="mx-auto mt-5 max-w-lg space-y-3 text-left text-sm leading-relaxed text-(--secondary)">
-						<li class="flex gap-3">
-							<CircleCheck
-								class="mt-0.5 size-5 shrink-0 text-(--error)"
-								aria-hidden="true"
-								stroke-width={1.8}
-							/>
-							<span>
-								<strong class="font-semibold text-(--on-surface)"
-									>Un bilan offert avec {COACH_FIRST_NAME}</strong
-								>{' '}
-								pour lire tes résultats et voir comment reconstruire progressivement ta condition physique
-							</span>
-						</li>
-						<li class="flex gap-3">
-							<CircleCheck
-								class="mt-0.5 size-5 shrink-0 text-(--error)"
-								aria-hidden="true"
-								stroke-width={1.8}
-							/>
-							<span>
-								<strong class="font-semibold text-(--on-surface)">Un plan d’action clair</strong>{' '}
-								pour avancer à partir de ce que ton corps peut faire aujourd’hui
-							</span>
-						</li>
-						<li class="flex gap-3">
-							<CircleCheck
-								class="mt-0.5 size-5 shrink-0 text-(--error)"
-								aria-hidden="true"
-								stroke-width={1.8}
-							/>
-							<span>
-								<strong class="font-semibold text-(--on-surface)">On regarde ensemble</strong> si
-								l’accompagnement {SITE_BRAND} est fait pour toi
-							</span>
-						</li>
-					</ul>
-				</div>
-				<div class="mt-6 min-h-150" data-rg-booking-mount></div>
-			</div>
+		))}
+		<div class="mt-10 border-t border-(--outline-variant) pt-8 text-center">
+			<h3 class="text-2xl font-semibold text-(--on-surface)">Et maintenant ?</h3>
+			<p class="mt-4 leading-relaxed text-(--secondary)">Votre résultat met en lumière ce dont vous avez probablement le plus besoin aujourd’hui pour reprendre progressivement une activité physique.</p>
+			<p class="mt-4 leading-relaxed text-(--secondary)">Et c’est précisément l’objectif de Re-flow :</p>
+			<p class="mt-4 text-xl font-semibold text-(--primary)">16 semaines · 3 séances par semaine</p>
+			<p class="mt-2 font-semibold text-(--on-surface)">Pilates · Yoga · Renforcement musculaire · Relaxation</p>
+			<p class="mt-4 leading-relaxed text-(--secondary)">Un accompagnement progressif pour retrouver confiance dans vos capacités physiques, mieux prendre en compte votre énergie et remettre durablement le mouvement dans votre quotidien.</p>
+			<a href="/#programme" class="rg-cta mt-6">Découvrir Re-flow</a>
 		</div>
-
-		{/* Sous-scores */}
-		<div class="mt-10">
-			<h3 class="text-lg font-semibold text-(--on-surface)">Le détail, dimension par dimension</h3>
-			<p class="mt-1 text-sm leading-relaxed text-(--secondary)">
-				Le pourcentage représente le{' '}
-				<strong class="font-semibold text-(--on-surface)">niveau de déconditionnement actuel</strong>
-				. 0&nbsp;% : plutôt limité. 100&nbsp;% : très important.
-			</p>
-
-			<div class="mt-5 grid gap-3 sm:grid-cols-2">
-				{
-					SECTIONS.map((s, index) => {
-						const Icon = sectionIcons[s.key];
-						return (
-							<div
-								class:list={[
-									'rg-section rounded-2xl bg-(--surface-container-lowest) p-5 soft-glow',
-									index === SECTIONS.length - 1 && SECTIONS.length % 2 === 1 && 'sm:col-span-2',
-								]}
-								data-rg-section={s.key}
-								data-max={String(s.maxScore)}
-							>
-								<div class="flex items-center gap-2.5">
-									<span class="rg-chip flex size-9 shrink-0 items-center justify-center rounded-xl">
-										<Icon class="size-4.5" aria-hidden="true" stroke-width={1.7} />
-									</span>
-									<p class="text-sm leading-snug font-medium text-(--on-surface)">{s.shortLabel}</p>
-									<span
-										class="rg-sentiment ml-auto grid size-9 shrink-0 place-items-center rounded-full"
-										aria-hidden="true"
-									>
-										<span data-rg-sentiment data-tone="low" hidden>
-											<Frown class="size-5" stroke-width={1.8} />
-										</span>
-										<span data-rg-sentiment data-tone="mid" hidden>
-											<Meh class="size-5" stroke-width={1.8} />
-										</span>
-										<span data-rg-sentiment data-tone="high" hidden>
-											<Smile class="size-5" stroke-width={1.8} />
-										</span>
-									</span>
-								</div>
-
-								<p class="mt-3 text-2xl font-semibold text-(--primary)">
-									<span data-rg-section-score={s.key}>—</span>
-									<span class="text-base font-normal text-(--secondary)">&nbsp;%</span>
-								</p>
-
-								<div
-									class="mt-2 h-1.5 overflow-hidden rounded-full bg-(--outline)/12"
-									aria-hidden="true"
-								>
-									<div
-										class="rg-bar h-full rounded-full transition-[width] duration-700 ease-out motion-reduce:transition-none"
-										style="width: 0%"
-									/>
-								</div>
-
-								<p class="mt-2.5 text-sm leading-snug font-medium text-(--on-surface)" data-rg-section-level>
-									{s.levels.map((l) => (
-										<span data-rg-level data-up-to={String(l.upTo)} data-tone={l.tone} hidden>
-											{l.label}
-										</span>
-									))}
-								</p>
-
-								<p class="mt-2 text-xs leading-relaxed text-(--outline)">{s.caption}</p>
-								<p
-									class="mt-2 text-xs font-semibold text-(--primary)"
-									data-rg-dominant-label
-									hidden
-								>
-									Déconditionnement le plus marqué
-								</p>
-							</div>
-						);
-					})
-				}
-			</div>
-		</div>
-
-		{/* Rappel non médical */}
-		<p
-			class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)"
+		<div
+			class="mt-8 scroll-mt-28 rounded-2xl border-2 border-(--error) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
+			data-rg-booking
 		>
-			<strong>Cette auto-évaluation est un outil de réflexion et ne constitue pas un diagnostic médical.</strong>{' '}
-			Elle évalue le déconditionnement physique, pas la maladie. Elle ne
-			remplace ni un avis médical, ni un bilan, ni un suivi de santé. Les seuils utilisés ici sont
-			propres à l’expérience Re-flow.
+			<div class="text-center">
+				<p class="text-xs font-semibold tracking-[0.18em] text-(--error) uppercase">Bilan offert — Re-flow</p>
+				<h3 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
+					Réservez votre bilan pour relire ce résultat ensemble
+				</h3>
+				<p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)">
+					Un échange personnalisé avec Cécile pour faire le point sur votre profil, identifier votre prochain pas et voir si l’accompagnement Re-flow est fait pour vous, sans engagement.
+				</p>
+			</div>
+			<div class="mt-6 min-h-150" data-rg-booking-mount></div>
+		</div>
+		<p class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)">
+			Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
 		</p>
-
 		<div class="mt-8 text-center">
-			<button
-				type="button"
-				class="inline-flex items-center justify-center gap-2 rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-6 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) motion-reduce:transition-none"
-				data-rg-restart
-			>
-				<RotateCcw class="size-4" aria-hidden="true" stroke-width={2} />
-				Refaire le test
+			<button type="button" class="inline-flex items-center justify-center gap-2 rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-6 py-3 text-base font-medium text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)" data-rg-restart>
+				<RotateCcw class="size-4" aria-hidden="true" stroke-width={2} /> Refaire le test
 			</button>
 		</div>
 	</section>
-
 	<p class="mt-6 text-center text-xs leading-relaxed text-(--secondary)">
-		Cette auto-évaluation est un outil de réflexion et ne constitue pas un diagnostic médical. Tes
-		réponses ne sont transmises qu’au moment où tu demandes à voir ton résultat.
+		Ce questionnaire est un outil d’orientation et de réflexion. Vos réponses ne sont transmises qu’au moment où vous demandez à découvrir votre profil.
 	</p>
 </div>
 
 <style>
-	/* Mode « une question à la fois » : activé uniquement quand le script a démarré. */
 	[data-rg-root][data-js='on'] .rg-step:not([data-current]) {
 		display: none;
 	}
-
-	/* Teintes des sous-scores : mêmes trois tons que la jauge principale,
-	   pour qu'on n'ait qu'une seule échelle à apprendre. */
-	.rg-band-low {
-		background: #e9b8b0;
+	.rg-cta {
+		display: inline-flex;
+		justify-content: center;
+		border-radius: 9999px;
+		background: var(--primary);
+		color: var(--on-primary);
+		padding: 0.85rem 1.75rem;
+		font-weight: 600;
 	}
-	.rg-band-mid {
-		background: #f4d49a;
+	.rg-cta:hover {
+		background: var(--primary-container);
 	}
-	.rg-band-high {
-		background: #a8d7be;
-	}
-	[data-rg-total][data-tone='low'] {
-		color: #b9473b;
-	}
-	[data-rg-total][data-tone='mid'] {
-		color: #a56508;
-	}
-	[data-rg-total][data-tone='high'] {
-		color: #2f805e;
-	}
-	[data-rg-badge][data-tone='low'],
-	[data-rg-marker][data-tone='low'] {
-		background: #b9473b;
-		color: white;
-	}
-	[data-rg-badge][data-tone='mid'],
-	[data-rg-marker][data-tone='mid'] {
-		background: #a56508;
-		color: white;
-	}
-	[data-rg-badge][data-tone='high'],
-	[data-rg-marker][data-tone='high'] {
-		background: #2f805e;
-		color: white;
-	}
-	.rg-section .rg-chip {
-		background: #f8e1dd;
-		color: #9b342c;
-	}
-	.rg-section .rg-bar {
-		background: #c35649;
-	}
-	.rg-section .rg-sentiment {
-		background: #f8e1dd;
-		color: #9b342c;
-	}
-	.rg-section[data-tone='mid'] .rg-chip {
-		background: #f8ecd2;
-		color: #8d5a0a;
-	}
-	.rg-section[data-tone='mid'] .rg-bar {
-		background: #c78113;
-	}
-	.rg-section[data-tone='mid'] .rg-sentiment {
-		background: #f8ecd2;
-		color: #8d5a0a;
-	}
-	.rg-section[data-tone='high'] .rg-chip {
-		background: #dcefe4;
-		color: #2e7959;
-	}
-	.rg-section[data-tone='high'] .rg-bar {
-		background: #45956d;
-	}
-	.rg-section[data-tone='high'] .rg-sentiment {
-		background: #dcefe4;
-		color: #2e7959;
-	}
-
-	[data-rg-result][data-revealed='true'] [data-rg-result-summary] {
-		animation: rg-result-rise 560ms cubic-bezier(0.22, 1, 0.36, 1) both;
-	}
-	[data-rg-result][data-revealed='false'] [data-rg-result-summary],
-	[data-rg-result][data-revealed='false'] [data-rg-badge] {
-		opacity: 0;
-	}
-	[data-rg-result][data-revealed='true'] [data-rg-badge] {
-		animation: rg-result-badge 480ms 180ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-	}
-
-	@keyframes rg-result-rise {
-		from {
-			opacity: 0;
-			transform: translateY(18px) scale(0.97);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0) scale(1);
-		}
-	}
-
-	@keyframes rg-result-badge {
-		from {
-			opacity: 0;
-			transform: translateY(8px) scale(0.78);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0) scale(1);
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		[data-rg-result][data-revealed='true'] [data-rg-result-summary],
-		[data-rg-result][data-revealed='true'] [data-rg-badge] {
-			animation: none;
-		}
+	.rg-cta:focus-visible {
+		outline: 2px solid var(--primary);
+		outline-offset: 4px;
 	}
 </style>
 
 <script>
+	import { scoreQuiz, type SubmittedAnswer } from '../data/reflow';
 	import { normalizeFrenchPhone } from '../utils/frenchPhone';
 
 	const trackUmami = (name: string) => {
@@ -732,151 +326,22 @@ const bands = PROFILES.map((p) => ({
 	};
 
 	document.querySelectorAll<HTMLElement>('[data-rg-root]').forEach((root) => {
-		const form = root.querySelector<HTMLFormElement>('[data-rg-form]');
-		const result = root.querySelector<HTMLElement>('[data-rg-result]');
-		const nav = root.querySelector<HTMLElement>('[data-rg-nav]');
-		const progress = root.querySelector<HTMLElement>('[data-rg-progress]');
-		const nojs = root.querySelector<HTMLElement>('[data-rg-nojs]');
-		const gate = root.querySelector<HTMLElement>('[data-rg-gate]');
-		const leadForm = root.querySelector<HTMLFormElement>('[data-rg-lead-form]');
-		const leadError = root.querySelector<HTMLElement>('[data-rg-lead-error]');
-		const leadSubmit = root.querySelector<HTMLButtonElement>('[data-rg-lead-submit]');
-		if (!form || !result || !nav || !progress || !nojs || !gate || !leadForm || !leadError || !leadSubmit) return;
-
+		const form = root.querySelector<HTMLFormElement>('[data-rg-form]')!;
+		const result = root.querySelector<HTMLElement>('[data-rg-result]')!;
+		const progress = root.querySelector<HTMLElement>('[data-rg-progress]')!;
+		const gate = root.querySelector<HTMLElement>('[data-rg-gate]')!;
+		const leadForm = root.querySelector<HTMLFormElement>('[data-rg-lead-form]')!;
+		const leadError = root.querySelector<HTMLElement>('[data-rg-lead-error]')!;
+		const leadSubmit = root.querySelector<HTMLButtonElement>('[data-rg-lead-submit]')!;
+		const prevBtn = root.querySelector<HTMLButtonElement>('[data-rg-prev]')!;
+		const nextBtn = root.querySelector<HTMLButtonElement>('[data-rg-next]')!;
 		const steps = Array.from(root.querySelectorAll<HTMLFieldSetElement>('[data-rg-step]'));
-		if (steps.length === 0) return;
-
-		const prevBtn = nav.querySelector<HTMLButtonElement>('[data-rg-prev]')!;
-		const nextBtn = nav.querySelector<HTMLButtonElement>('[data-rg-next]')!;
-		const progressLabel = progress.querySelector<HTMLElement>('[data-rg-progress-label]')!;
-		const progressSection = progress.querySelector<HTMLElement>('[data-rg-progress-section]')!;
-		const progressBar = progress.querySelector<HTMLElement>('[data-rg-progressbar]')!;
-		const progressFill = progress.querySelector<HTMLElement>('[data-rg-progress-fill]')!;
-		const live = progress.querySelector<HTMLElement>('[data-rg-live]')!;
-		const skipNote = root.querySelector<HTMLElement>('[data-rg-skip-note]');
-
-		const total = Number(root.dataset.total) || steps.length;
-		const minScore = root.dataset.min === undefined ? 0 : Number(root.dataset.min);
-		const maxScore = Number(root.dataset.max) || steps.length * 3;
-		const skipPoints = Number(root.dataset.skipPoints) || 0;
-		const skipIds = (root.dataset.skipIds ?? '').split(',').filter(Boolean);
-
-		let current = 0;
 		const autoAdvanced = new Set<number>();
+		let current = 0;
 		let lastPointerAt = 0;
 		let startedTracked = false;
-		let resultShown = false;
 		let leadSending = false;
-		let revealResult: (() => void) | null = null;
-
-		const radiosOf = (step: HTMLFieldSetElement) =>
-			Array.from(step.querySelectorAll<HTMLInputElement>('input[type="radio"]'));
-
-		const isSkipping = () => {
-			const trigger = form.querySelector<HTMLInputElement>('input[data-skip="true"]');
-			return Boolean(trigger?.checked);
-		};
-
-		const isSkipped = (step: HTMLFieldSetElement) =>
-			isSkipping() && skipIds.includes(step.dataset.qid ?? '');
-
-		const isActive = (i: number) => !isSkipped(steps[i]);
-
-		const isAnswered = (step: HTMLFieldSetElement) => radiosOf(step).some((r) => r.checked);
-
-		let wasSkipping = false;
-
-		/**
-		 * Coche (ou décoche) automatiquement les questions sautées.
-		 * Conservé comme no-op : cette auto-évaluation n'a plus de questions sautées.
-		 */
-		const syncSkipped = () => {
-			const skipping = isSkipping();
-			if (skipping !== wasSkipping) {
-				wasSkipping = skipping;
-				steps.forEach((step) => {
-					if (!skipIds.includes(step.dataset.qid ?? '')) return;
-					const radios = radiosOf(step);
-					if (skipping) {
-						const fallback = radios.find((r) => Number(r.value) === skipPoints);
-						if (fallback) fallback.checked = true;
-					} else {
-						radios.forEach((r) => {
-							r.checked = false;
-						});
-					}
-				});
-			}
-			if (skipNote) skipNote.hidden = !skipping;
-		};
-
-		/**
-		 * Ne défile que si la question est masquée par le header collant ou sortie
-		 * de l'écran : sinon on laisse la page où l'utilisatrice l'a mise.
-		 */
-		const ensureVisible = (step: HTMLFieldSetElement) => {
-			const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
-			const stepTop = step.getBoundingClientRect().top;
-			const rootTop = root.getBoundingClientRect().top;
-			// scroll-mt-28 (112px) repose le haut du widget sous le header : la
-			// condition reste vraie après le défilement, donc pas d'oscillation.
-			if (stepTop > headerHeight + 8 && rootTop >= headerHeight + 8) return;
-			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
-		};
-
-		const findNext = (from: number, dir: 1 | -1) => {
-			let i = from + dir;
-			while (i >= 0 && i < steps.length && !isActive(i)) i += dir;
-			return i;
-		};
-
-		const render = (focus: boolean) => {
-			steps.forEach((step, i) => {
-				if (i === current) step.setAttribute('data-current', '');
-				else step.removeAttribute('data-current');
-			});
-
-			const step = steps[current];
-			const number = Number(step.dataset.number) || current + 1;
-			progressLabel.textContent = `QUESTION ${number} SUR ${total}`;
-			progressSection.textContent = step.dataset.sectionLabel ?? '';
-			progressBar.setAttribute('aria-valuenow', String(number));
-			progressFill.style.width = `${(number / total) * 100}%`;
-			live.textContent = `Question ${number} sur ${total}.`;
-
-			prevBtn.disabled = findNext(current, -1) < 0;
-			nextBtn.disabled = !isAnswered(step);
-			nextBtn.textContent =
-				findNext(current, 1) >= steps.length ? 'Voir mon résultat' : 'Suivant';
-
-			if (!focus) return;
-			// On garde la main sur le défilement : le focus ne doit pas faire glisser
-			// la question sous le header collant.
-			step.querySelector<HTMLElement>('legend')?.focus({ preventScroll: true });
-			ensureVisible(step);
-		};
-
-		const goTo = (i: number, focus = true) => {
-			if (i < 0 || i >= steps.length) return;
-			current = i;
-			render(focus);
-		};
-
-		const showDimension = (attr: string, key: string) => {
-			result.querySelectorAll<HTMLElement>(`[${attr}]`).forEach((el) => {
-				el.hidden = el.getAttribute(attr) !== key;
-			});
-		};
-
-		const showLeadError = (message: string) => {
-			leadError.textContent = message;
-			leadError.hidden = false;
-		};
-
-		const clearLeadError = () => {
-			leadError.textContent = '';
-			leadError.hidden = true;
-		};
+		let advanceTimer: number | undefined;
 
 		const mountCalendar = (lead: {
 			firstName: string;
@@ -911,313 +376,177 @@ const bands = PROFILES.map((p) => ({
 			bookingMount.appendChild(embed);
 		};
 
-		const unlockResult = (lead: {
-			firstName: string;
-			lastName: string;
-			email: string;
-			phone: string;
-		}) => {
-			gate.hidden = true;
-			result.hidden = false;
-			mountCalendar(lead);
-			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-			root.scrollIntoView({ block: 'start', behavior: reduceMotion ? 'auto' : 'smooth' });
-			if (reduceMotion) revealResult?.();
-			else window.setTimeout(() => revealResult?.(), 520);
-			result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
-			trackUmami('lead_submitted');
+
+		const selected = (step: HTMLFieldSetElement) =>
+			step.querySelector<HTMLInputElement>('input:checked');
+		const readAnswers = (): SubmittedAnswer[] =>
+			steps.flatMap((step) => {
+				const radio = selected(step);
+				return radio ? [{ id: step.dataset.qid!, optionIndex: Number(radio.value) }] : [];
+			});
+		const scrollToQuiz = () =>
+			root.scrollIntoView({
+				block: 'start',
+				behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+			});
+		const render = (focus = true) => {
+			steps.forEach((step, index) => step.toggleAttribute('data-current', index === current));
+			root.querySelector<HTMLElement>('[data-rg-progress-label]')!.textContent =
+				`QUESTION ${current + 1} SUR ${steps.length}`;
+			root.querySelector<HTMLElement>('[data-rg-progress-section]')!.textContent =
+				steps[current].dataset.sectionLabel!;
+			root.querySelector('[data-rg-progressbar]')!.setAttribute('aria-valuenow', String(current + 1));
+			root.querySelector<HTMLElement>('[data-rg-progress-fill]')!.style.width =
+				`${((current + 1) / steps.length) * 100}%`;
+			root.querySelector<HTMLElement>('[data-rg-live]')!.textContent =
+				`Question ${current + 1} sur ${steps.length}.`;
+			prevBtn.disabled = current === 0;
+			nextBtn.disabled = !selected(steps[current]);
+			nextBtn.textContent = current === steps.length - 1 ? 'Découvrir mon profil' : 'Suivant';
+			if (!focus) return;
+			steps[current].querySelector('legend')?.focus({ preventScroll: true });
+			const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
+			if (root.getBoundingClientRect().top < headerHeight + 8) scrollToQuiz();
 		};
-
-		const showResult = () => {
-			if (resultShown) return;
-			resultShown = true;
-			let totalScore = 0;
-			const bySection = new Map<string, number>();
-
-			steps.forEach((step) => {
-				const checked = radiosOf(step).find((r) => r.checked);
-				if (!checked) return;
-				const points = Number(checked.value);
-				const value = Number.isFinite(points) ? points : 0;
-				if (step.dataset.scored === 'false') {
-					const slot = result.querySelector<HTMLElement>(
-						`[data-rg-open-answer="${step.dataset.qid}"]`,
-					);
-					if (slot) slot.textContent = checked.dataset.label ?? '';
-					return;
-				}
-				totalScore += value;
-				const section = checked.dataset.section ?? '';
-				bySection.set(section, (bySection.get(section) ?? 0) + value);
-			});
-
-			const percent = Math.round((totalScore / Math.max(1, maxScore)) * 100);
-			const score = result.querySelector<HTMLElement>('[data-rg-score]')!;
-			const barUpdates: Array<{ bar: HTMLElement; width: string; delay: string }> = [];
-
-			let dominantKey = '';
-			let dominantRatio = -1;
-			result.querySelectorAll<HTMLElement>('[data-rg-section]').forEach((card) => {
-				const key = card.dataset.rgSection ?? '';
-				const max = Number(card.dataset.max) || 1;
-				const value = bySection.get(key) ?? 0;
-				const ratio = Math.min(1, Math.max(0, value / max));
-				const sectionPercent = Math.round(ratio * 100);
-				const levelRatio = sectionPercent / 100;
-
-				if (ratio > dominantRatio) {
-					dominantRatio = ratio;
-					dominantKey = key;
-				}
-
-				const scoreEl = card.querySelector<HTMLElement>('[data-rg-section-score]');
-				if (scoreEl) scoreEl.textContent = String(sectionPercent);
-
-				const levels = Array.from(card.querySelectorAll<HTMLElement>('[data-rg-level]'));
-				const level =
-					levels.find((l) => levelRatio <= Number(l.dataset.upTo)) ?? levels[levels.length - 1];
-				levels.forEach((l) => {
-					l.hidden = l !== level;
-				});
-				card.dataset.tone = level?.dataset.tone ?? 'low';
-				card.querySelectorAll<HTMLElement>('[data-rg-sentiment]').forEach((icon) => {
-					icon.toggleAttribute('hidden', icon.dataset.tone !== card.dataset.tone);
-				});
-
-				const dominantLabel = card.querySelector<HTMLElement>('[data-rg-dominant-label]');
-				if (dominantLabel) dominantLabel.hidden = true;
-
-				const bar = card.querySelector<HTMLElement>('.rg-bar');
-				if (bar) {
-					barUpdates.push({
-						bar,
-						width: `${ratio * 100}%`,
-						delay: `${180 + barUpdates.length * 120}ms`,
-					});
-				}
-			});
-
-			if (dominantKey) {
-				const dominantCard = result.querySelector<HTMLElement>(`[data-rg-section="${dominantKey}"]`);
-				const dominantLabel = dominantCard?.querySelector<HTMLElement>('[data-rg-dominant-label]');
-				if (dominantLabel) dominantLabel.hidden = false;
-				showDimension('data-rg-dimension', dominantKey);
-				showDimension('data-rg-advice', dominantKey);
-				showDimension('data-rg-transition', dominantKey);
+		const goNext = () => {
+			window.clearTimeout(advanceTimer);
+			if (form.hidden || !selected(steps[current])) return;
+			if (current < steps.length - 1) {
+				current++;
+				render();
+				return;
 			}
-
-			const blocks = Array.from(result.querySelectorAll<HTMLElement>('[data-rg-profile]'));
-			const match =
-				blocks.find(
-					(b) => percent >= Number(b.dataset.min) && percent <= Number(b.dataset.max),
-				) ?? blocks[blocks.length - 1];
-			blocks.forEach((b) => {
-				b.hidden = b !== match;
-			});
-			const overallTone = match?.dataset.tone ?? 'mid';
-			const badge = result.querySelector<HTMLElement>('[data-rg-badge]')!;
-			badge.textContent = match?.dataset.label ?? '';
-			badge.dataset.tone = overallTone;
-			result.querySelector<HTMLElement>('[data-rg-total]')!.dataset.tone = overallTone;
-
-			const ratio = (percent - minScore) / Math.max(1, 100 - minScore);
-			const marker = result.querySelector<HTMLElement>('[data-rg-marker]')!;
-			const markerPosition = `${Math.min(100, Math.max(0, ratio * 100))}%`;
-			marker.dataset.tone = overallTone;
-
-			revealResult = () => {
-				result.dataset.revealed = 'true';
-				score.textContent = '0';
-				window.requestAnimationFrame(() => {
-					barUpdates.forEach(({ bar, width, delay }) => {
-						bar.style.transitionDelay = delay;
-						bar.style.width = width;
-					});
-					marker.style.left = markerPosition;
-
-					if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-						score.textContent = String(percent);
-						return;
-					}
-
-					const duration = 700;
-					const startedAt = performance.now();
-					const updateScore = (now: number) => {
-						const progress = Math.min(1, (now - startedAt) / duration);
-						const eased = 1 - Math.pow(1 - progress, 3);
-						score.textContent = String(Math.round(percent * eased));
-						if (progress < 1) window.requestAnimationFrame(updateScore);
-					};
-					window.requestAnimationFrame(updateScore);
-				});
-			};
-
+			if (readAnswers().length !== steps.length) return;
 			form.hidden = true;
 			progress.hidden = true;
-			result.hidden = true;
-			result.dataset.revealed = 'false';
 			gate.hidden = false;
-			document.querySelector<HTMLElement>('[data-rg-intro]')?.setAttribute('hidden', '');
-			document.querySelector<HTMLElement>('[data-rg-info]')?.setAttribute('hidden', '');
-			root.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			document.querySelector('[data-rg-intro]')?.setAttribute('hidden', '');
+			document.querySelector('[data-rg-info]')?.setAttribute('hidden', '');
+			scrollToQuiz();
 			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
 			trackUmami('quiz_completed');
 		};
-
-		const goNext = () => {
-			if (!isAnswered(steps[current])) return;
-			const next = findNext(current, 1);
-			if (next >= steps.length) showResult();
-			else goTo(next);
-		};
-
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			goNext();
+		});
 		form.addEventListener('pointerdown', () => {
 			lastPointerAt = Date.now();
 		});
-
-		form.addEventListener('change', (e) => {
-			const target = e.target;
+		// Les flèches du clavier doivent permettre de parcourir les quatre choix.
+		form.addEventListener('keydown', (event) => {
+			lastPointerAt = 0;
+			window.clearTimeout(advanceTimer);
+			if (event.key !== 'Enter' || event.target instanceof HTMLButtonElement) return;
+			event.preventDefault();
+			goNext();
+		});
+		form.addEventListener('change', (event) => {
+			const target = event.target;
 			if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
 			if (!startedTracked) {
 				startedTracked = true;
 				trackUmami('quiz_started');
 			}
-			syncSkipped();
 			render(false);
-			// Avance automatique au premier choix d'une étape seulement, pour ne pas
-			// piéger quelqu'un qui revient en arrière relire sa réponse.
-			if (autoAdvanced.has(current)) return;
-			// Et uniquement au clic / toucher : au clavier, les flèches font défiler
-			// les options une à une, il ne faut pas avancer dès la première.
-			if (Date.now() - lastPointerAt > 500) return;
+			if (autoAdvanced.has(current) || Date.now() - lastPointerAt > 500) return;
 			autoAdvanced.add(current);
-			window.setTimeout(() => {
+			advanceTimer = window.setTimeout(() => {
 				if (steps[current].contains(target)) goNext();
 			}, 260);
 		});
-
 		nextBtn.addEventListener('click', goNext);
+		prevBtn.addEventListener('click', () => {
+			window.clearTimeout(advanceTimer);
+			if (current > 0) {
+				current--;
+				render();
+			}
+		});
 
+		const showError = (message: string) => {
+			leadError.textContent = message;
+			leadError.hidden = false;
+		};
 		leadForm.addEventListener('submit', async (event) => {
 			event.preventDefault();
-			if (leadSending || !resultShown) return;
-			clearLeadError();
-
+			if (leadSending || gate.hidden) return;
+			leadError.hidden = true;
+			if (!leadForm.reportValidity()) return;
 			const data = new FormData(leadForm);
-			const company = String(data.get('company') ?? '');
 			const firstName = String(data.get('firstName') ?? '').trim();
 			const lastName = String(data.get('lastName') ?? '').trim();
 			const email = String(data.get('email') ?? '').trim();
-			const phoneInput = String(data.get('phone') ?? '');
-			const phone = normalizeFrenchPhone(phoneInput);
+			const phone = normalizeFrenchPhone(String(data.get('phone') ?? ''));
+			const company = String(data.get('company') ?? '');
 			const consent = data.get('consent') === 'on';
-			const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-			if (company.trim() !== '' || !firstName || !lastName || !emailOk || !phone || !consent) {
-				showLeadError(
-					'Indique ton prénom, ton nom, un email valide, un téléphone français, et coche la case pour continuer.',
-				);
+			if (!firstName || !lastName || !phone || !consent || company.trim()) {
+				showError('Indiquez votre prénom, votre nom, un email valide, un téléphone français et cochez la case pour continuer.');
 				return;
 			}
-
-			const answers = steps.flatMap((step) => {
-				const checked = radiosOf(step).find((radio) => radio.checked);
-				if (!checked) return [];
-				return [{ id: step.dataset.qid ?? '', points: Number(checked.value) }];
-			});
-			if (answers.length !== steps.length) {
-				showLeadError('Il manque des réponses. Refais le test, puis réessaie.');
+			const answers = readAnswers();
+			const scored = scoreQuiz(answers);
+			if (!scored) {
+				showError('Il manque des réponses. Rechargez la page pour recommencer.');
 				return;
 			}
-
 			leadSending = true;
 			leadSubmit.disabled = true;
 			leadSubmit.textContent = 'Envoi…';
-
 			try {
 				const response = await fetch(import.meta.env.DEV ? '/api/reflow-lead/' : '/api/reflow-lead', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-					body: JSON.stringify({
-						firstName,
-						lastName,
-						email,
-						phone,
-						consent: true,
-						company,
-						answers,
-					}),
+					body: JSON.stringify({ firstName, lastName, email, phone, consent, company, answers }),
 				});
 				if (response.status === 400) {
-					leadSending = false;
-					leadSubmit.disabled = false;
-					leadSubmit.textContent = 'Voir mon résultat';
-					showLeadError(
-						'Indique ton prénom, ton nom, un email valide, un téléphone français, et coche la case pour continuer.',
-					);
+					showError('Indiquez votre prénom, votre nom, un email valide, un téléphone français et cochez la case pour continuer.');
 					return;
 				}
 				if (!response.ok) throw new Error('lead');
-				unlockResult({ firstName, lastName, email, phone });
+				root.querySelector<HTMLElement>('[data-rg-profile-name]')!.textContent = scored.profile.label;
+				result.querySelectorAll<HTMLElement>('[data-rg-profile]').forEach((block) => {
+					block.hidden = block.dataset.rgProfile !== scored.profile.key;
+				});
+				gate.hidden = true;
+				result.hidden = false;
+				mountCalendar({ firstName, lastName, email, phone });
+				scrollToQuiz();
+				result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
+				trackUmami('lead_submitted');
 			} catch {
+				showError(
+					'L’envoi n’a pas abouti. Vos réponses sont conservées sur cette page : vous pouvez réessayer.',
+				);
+			} finally {
 				leadSending = false;
 				leadSubmit.disabled = false;
-				leadSubmit.textContent = 'Réessayer';
-				showLeadError('L’envoi n’a pas abouti. Ton résultat reste masqué : tu peux réessayer.');
+				leadSubmit.textContent = leadError.hidden ? 'Découvrir mon profil' : 'Réessayer';
 			}
 		});
-
-		// Le formulaire n'a pas de bouton submit (pour qu'aucune soumission ne soit
-		// possible sans JavaScript) : on gère « Entrée » nous-mêmes.
-		form.addEventListener('keydown', (e) => {
-			if (e.key !== 'Enter') return;
-			// Sur un bouton, « Entrée » doit déclencher ce bouton, pas avancer.
-			if (e.target instanceof HTMLButtonElement) return;
-			e.preventDefault();
-			goNext();
-		});
-
-		prevBtn.addEventListener('click', () => {
-			const prev = findNext(current, -1);
-			if (prev >= 0) goTo(prev);
-		});
-
-		result.querySelector<HTMLButtonElement>('[data-rg-restart]')?.addEventListener('click', () => {
+		root.querySelector('[data-rg-restart]')!.addEventListener('click', () => {
+			window.clearTimeout(advanceTimer);
 			form.reset();
+			leadForm.reset();
+			result.querySelector<HTMLElement>('[data-rg-booking-mount]')?.replaceChildren();
 			autoAdvanced.clear();
-			wasSkipping = false;
 			startedTracked = false;
-			resultShown = false;
-			leadSending = false;
-			revealResult = null;
-			syncSkipped();
+			lastPointerAt = 0;
+			current = 0;
 			result.hidden = true;
 			gate.hidden = true;
-			leadForm.reset();
-			clearLeadError();
-			leadSubmit.disabled = false;
-			leadSubmit.textContent = 'Voir mon résultat';
-			result.querySelector<HTMLElement>('[data-rg-booking-mount]')?.replaceChildren();
-			result.removeAttribute('data-revealed');
-			result.querySelector<HTMLElement>('[data-rg-score]')!.textContent = '—';
-			result.querySelector<HTMLElement>('[data-rg-marker]')!.style.left = '0%';
-			result.querySelectorAll<HTMLElement>('.rg-bar').forEach((bar) => {
-				bar.style.width = '0%';
-				bar.style.transitionDelay = '';
-			});
-			document.querySelector<HTMLElement>('[data-rg-intro]')?.removeAttribute('hidden');
-			document.querySelector<HTMLElement>('[data-rg-info]')?.removeAttribute('hidden');
+			leadError.hidden = true;
+			leadSubmit.textContent = 'Découvrir mon profil';
 			form.hidden = false;
 			progress.hidden = false;
-			goTo(0);
+			document.querySelector('[data-rg-intro]')?.removeAttribute('hidden');
+			document.querySelector('[data-rg-info]')?.removeAttribute('hidden');
+			render();
 		});
-
-		// Activation du mode pas-à-pas.
-		nojs.hidden = true;
-		nav.hidden = false;
+		root.querySelector<HTMLElement>('[data-rg-nojs]')!.hidden = true;
+		root.querySelector<HTMLElement>('[data-rg-nav]')!.hidden = false;
 		progress.hidden = false;
 		root.dataset.js = 'on';
-		syncSkipped();
 		render(false);
 	});
 </script>

@@ -3,41 +3,37 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import Header from '../../../components/Header.astro';
 import ReflowAssessment from '../../../components/ReflowAssessment.astro';
-import { MAX_SCORE, SCORED_QUESTIONS, TOTAL_QUESTIONS } from '../../../data/reflow';
+import { PROFILES, TOTAL_QUESTIONS } from '../../../data/reflow';
 import { tieFrenchPunctuation } from '../../../utils/frenchTypography';
 
-const title = 'Évalue tes capacités physiques | RE-FLOW';
+const title = 'Découvre ton profil Re-flow | RE-FLOW';
 const description =
-	'Auto-évaluation Re-flow : situer le déconditionnement physique et son effet sur le quotidien. Gratuit.';
+	'12 questions pour découvrir ton profil Re-flow : Reconnexion, Énergie, Force ou Équilibre, et identifier ton besoin pour reprendre une activité physique.';
 
 const faqs = [
 	{
-		q: 'Qu’est-ce que l’auto-évaluation Re-flow ?',
-		a: 'C’est un questionnaire pour situer ta condition physique actuelle (énergie, mouvements, endurance, récupération, travail, tâches du quotidien, loisirs, rapport au corps, reprise) et pour dire ce qui te freine, ce dont tu as besoin, et où tu aimerais aller. Il s’adresse aux personnes touchées par une maladie chronique. Il ne s’agit pas d’un diagnostic, ni d’un test médical, ni d’un questionnaire clinique validé.',
+		q: 'À quoi sert le questionnaire Re-flow ?',
+		a: 'Les 12 questions t’aident à identifier ce dont tu as probablement le plus besoin aujourd’hui pour reprendre progressivement une activité physique. Les sept premières explorent tes capacités et ton quotidien ; les cinq suivantes, ton rapport au corps, tes appréhensions et ton besoin d’accompagnement.',
 	},
 	{
 		q: 'Comment interpréter mon résultat ?',
-		a: 'Le score global est un pourcentage de déconditionnement, de 0 % (plutôt limité) à 100 % (très important). Il est calculé sur les neuf premières questions. Les trois dernières (appréhension, besoin, projection) ne sont pas notées : elles précisent la lecture. Les seuils 0–20 %, 21–60 % et 61–100 % sont propres à l’expérience Re-flow : ils ne correspondent à aucun seuil clinique validé.',
+		a: 'Ton résultat met en lumière un besoin principal : Reconnexion, Énergie, Force ou Équilibre. Toutes les réponses contribuent à ce profil. Il s’accompagne d’une priorité et d’un petit pas pour avancer à ton rythme. Aucun score n’est affiché.',
 	},
 	{
-		q: 'Cette auto-évaluation remplace-t-elle un avis médical ?',
-		a: 'Non, jamais. C’est un outil de réflexion. Elle ne pose aucun diagnostic, n’évalue pas la gravité d’une maladie et ne remplace ni un bilan, ni un suivi de santé. En cas de doute, l’avis de ton médecin reste le point de départ.',
-	},
-	{
-		q: 'Est-ce que Re-flow agit sur ma maladie ou mes symptômes ?',
-		a: 'Non. Re-flow n’agit ni sur la maladie, ni sur les symptômes. Il agit sur le déconditionnement physique qui peut s’installer quand on bouge moins : perte d’endurance, de force, de mobilité, et quotidien plus coûteux. L’accompagnement vise à reconstruire progressivement une condition physique compatible avec tes journées.',
+		q: 'Ce questionnaire remplace-t-il un avis médical ?',
+		a: 'Non. C’est un outil d’orientation et de réflexion, pas une évaluation médicale. Il ne pose aucun diagnostic, ne mesure pas la gravité d’une maladie et ne remplace pas l’avis d’un professionnel de santé.',
 	},
 	{
 		q: 'Mes réponses sont-elles enregistrées ?',
-		a: 'Pendant le questionnaire, le calcul reste dans ton navigateur. Pour afficher le résultat, le site demande ton prénom, ton nom, ton email et ton téléphone. Avec ton accord, ces informations, tes réponses et ton score sont alors envoyés à Cécile et enregistrés dans son outil de suivi, afin d’afficher ton résultat, de préparer le bilan et de lui écrire. Rien n’est transmis avant la validation du formulaire. Si tu recharges la page avant cela, l’auto-évaluation repart de zéro.',
+		a: 'Tes réponses restent dans ton navigateur pendant le questionnaire. Pour découvrir ton profil, tu renseignes ton prénom, ton nom, ton email et ton téléphone et tu donnes ton accord pour recevoir ton résultat et des informations de Cécile coaching. À ce moment, tes coordonnées, tes réponses et ton profil sont transmis à son outil de suivi. Rien n’est transmis avant la validation du formulaire. Recharger la page fait repartir le questionnaire de zéro.',
 	},
 	{
-		q: 'Que faire après l’auto-évaluation ?',
-		a: 'Une fois tes coordonnées envoyées, tu vois ton résultat et la dimension qui pèse le plus. Tu peux ensuite réserver un bilan pour en parler, sans engagement, et voir si l’accompagnement Re-flow peut t’aider à limiter le déconditionnement.',
+		q: 'Que faire après le questionnaire ?',
+		a: 'Tu découvres ton profil personnalisé, ta priorité et un petit pas du jour. Tu peux ensuite réserver un bilan personnalisé avec Cécile grâce au calendrier intégré, ou découvrir Re-flow : 16 semaines, 3 séances par semaine, associant Pilates, yoga, renforcement musculaire et relaxation.',
 	},
 	{
-		q: 'Les pourcentages mesurent-ils la gravité de ma maladie ?',
-		a: 'Non. Un pourcentage élevé ne décrit pas une maladie « plus grave ». Il indique seulement que, d’après tes réponses du moment, le déconditionnement physique et son incidence sur le quotidien apparaissent importants. L’inverse est vrai aussi : un pourcentage plus bas ne minimise pas ce que tu vis.',
+		q: 'Mon profil peut-il évoluer ?',
+		a: 'Oui. Il reflète tes réponses et tes besoins du moment. Il peut évoluer avec ton quotidien, ton énergie et ta confiance dans tes capacités.',
 	},
 ];
 
@@ -93,15 +89,13 @@ const faqStructuredData = {
 					AUTO-ÉVALUATION
 				</p>
 				<h1 class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
-					Évalue tes capacités physiques
+					Découvre ton profil Re-flow
 				</h1>
 				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-(--on-surface)">
-					Où en est ta condition physique aujourd’hui, et quelle incidence a-t-elle sur ton
-					quotidien&nbsp;?
+					De quoi as-tu le plus besoin aujourd’hui pour reprendre une activité physique à ton rythme&nbsp;?
 				</p>
 				<p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-(--secondary)">
-					{TOTAL_QUESTIONS} questions pour situer ton déconditionnement physique, et pour dire ce qui te
-					freine, ce dont tu as besoin, et où tu aimerais aller.
+					{TOTAL_QUESTIONS} questions pour découvrir ton profil : Reconnexion, Énergie, Force ou Équilibre. À la fin, ton prénom, ton nom, ton email et ton téléphone te permettront de découvrir ton résultat personnalisé.
 				</p>
 			</section>
 
@@ -110,76 +104,24 @@ const faqStructuredData = {
 			</div>
 
 			<div class="mt-16" data-rg-info>
-				<h2 class="text-2xl font-semibold text-(--on-surface)">
-					À quoi sert l’auto-évaluation Re-flow&nbsp;?
-				</h2>
+				<h2 class="text-2xl font-semibold text-(--on-surface)">Un point de départ pour reprendre le mouvement</h2>
 				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Quand on vit avec une maladie chronique, on bouge souvent moins. Avec le temps, le corps peut
-					perdre de l’endurance, de la force et de la mobilité : c’est le déconditionnement physique.
-					Cette auto-évaluation propose un temps d’arrêt pour situer où tu en es, et à quel point
-					cela pèse sur tes journées.
+					Les sept premières questions explorent l’impact actuel de ta condition physique sur tes capacités et ton quotidien. Les cinq suivantes précisent ton besoin pour reprendre une activité physique.
 				</p>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Re-flow n’agit pas sur la maladie ni sur les symptômes. Il agit sur ce déconditionnement :
-					retrouver progressivement une condition physique compatible avec le quotidien.
+				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Quatre profils pour mieux comprendre tes besoins</h2>
+				<div class="mt-5 grid gap-4 sm:grid-cols-2">
+					{PROFILES.map((profile) => (
+						<div class="rounded-2xl bg-(--surface-container-lowest) p-5 ring-1 ring-(--outline-variant)">
+							<h3 class="text-lg font-semibold text-(--primary)">{profile.label}</h3>
+							<p class="mt-2 leading-relaxed text-(--secondary)">{profile.description}</p>
+						</div>
+					))}
+				</div>
+				<p class="mt-5 text-base leading-relaxed text-(--secondary)">
+					Ton profil reflète tes besoins du moment. Il s’accompagne d’une priorité, d’un petit pas du jour et d’une présentation de l’approche Re-flow.
 				</p>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Les {TOTAL_QUESTIONS} questions se répondent en quatre choix. Les {
-						SCORED_QUESTIONS.length
-					} premières situent le déconditionnement, de la situation la plus préservée à la plus marquée.
-					Le pourcentage est calculé sur ces questions, soit {MAX_SCORE} points. Les trois dernières ne
-					sont pas notées : elles disent ce qui te ferait hésiter, ce dont tu as le plus besoin, et ce
-					que tu aimerais pouvoir dire dans quatre mois.
-				</p>
-
-				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Comment lire ton résultat</h2>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Le pourcentage global, et celui de chaque dimension, représentent le déconditionnement actuel
-					:
-				</p>
-				<ul class="mt-3 ml-5 list-disc space-y-1.5 text-base leading-relaxed text-(--secondary)">
-					<li>
-						<strong class="font-semibold text-(--on-surface)">0 à 20&nbsp;% :</strong> déconditionnement
-						actuellement plutôt limité.
-					</li>
-					<li>
-						<strong class="font-semibold text-(--on-surface)">21 à 60&nbsp;% :</strong> déconditionnement
-						significatif, avec une incidence réelle sur le quotidien.
-					</li>
-					<li>
-						<strong class="font-semibold text-(--on-surface)">61 à 100&nbsp;% :</strong> déconditionnement
-						important, qui pèse nettement sur les journées.
-					</li>
-				</ul>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Ces seuils sont propres à l’expérience Re-flow. Ils ne correspondent pas à des seuils
-					cliniques validés. Chaque dimension notée reprend ta réponse, de la situation la plus préservée
-					à la plus marquée. La dimension la plus haute oriente le message de restitution. Les trois
-					dernières réponses s’affichent à part : elles ne montent ni ne baissent le pourcentage.
-				</p>
-
-				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">
-					Ce que cette auto-évaluation ne dit pas
-				</h2>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Elle ne pose pas de diagnostic, n’évalue pas la gravité d’une maladie et ne dit rien de ce
-					que tu «&nbsp;devrais&nbsp;» faire. Elle repose uniquement sur ce que tu déclares, à un
-					instant donné.
-				</p>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Un pourcentage élevé ne signifie pas que quelque chose ne va pas chez toi. Il indique que,
-					d’après tes réponses du moment, le déconditionnement physique semble peser fortement sur
-					certains aspects de ton quotidien. Un pourcentage plus bas ne minimise pas non plus ce que
-					tu vis.
-				</p>
-
-				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Et après&nbsp;?</h2>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					L’objectif de Re-flow n’est pas de te demander d’en faire plus, ni d’agir sur la maladie.
-					C’est de t’aider à reconstruire progressivement ta condition physique, à partir de ce
-					que ton corps peut faire aujourd’hui. À la fin du questionnaire, tes coordonnées
-					débloquent le résultat. Tu peux ensuite réserver un bilan pour le relire
-					ensemble, sans engagement.
+				<p class="mt-4 text-sm leading-relaxed text-(--secondary)">
+					Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
 				</p>
 			</div>
 

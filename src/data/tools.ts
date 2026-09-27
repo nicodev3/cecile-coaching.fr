@@ -27,7 +27,7 @@ export const TOOLS_BY_KEY: Record<ToolKey, Tool> = {
 		label: 'Auto-évaluation Re-flow',
 		shortLabel: 'Re-flow',
 		tagline:
-			'12 questions pour situer ton déconditionnement physique, ce qui te freine, et ce dont tu as besoin.',
+			'12 questions pour découvrir ton profil Re-flow et ton besoin principal pour reprendre une activité physique.',
 		duration: '4 minutes',
 		available: true,
 	},

@@ -1,287 +1,28 @@
-/**
- * Auto-évaluation Re-flow — questionnaire d'auto-évaluation du
- * déconditionnement physique et de son incidence sur le quotidien,
- * pour les personnes touchées par une maladie chronique.
- *
- * 12 questions, 4 réponses chacune.
- * Les 9 premières sont notées de 0 à 3 points -> score de 0 à 27, exprimé en %.
- * Les 3 dernières (appréhension, besoin, projection) ne sont pas une échelle :
- * elles personnalisent la lecture, sans entrer dans le pourcentage.
- * Ce n'est pas un diagnostic, ni un questionnaire clinique validé.
- * Re-flow n'agit pas sur la maladie ni les symptômes : il agit sur
- * le déconditionnement physique.
- * Module TS pur : importé côté serveur pour le rendu statique des questions
- * (SEO + fallback sans JS) et côté client pour le calcul du score.
- */
-
-export type SectionKey =
-	| 'energie'
-	| 'mouvements'
-	| 'endurance'
-	| 'recuperation'
-	| 'travail'
-	| 'quotidien'
-	| 'loisirs'
-	| 'corps'
-	| 'reprise';
-export type ProfileKey = 'limite' | 'significatif' | 'important';
-export type Tone = 'low' | 'mid' | 'high';
+/** Questionnaire d’orientation Re-flow : 12 questions, 4 profils, scores internes. */
+export const PROFILE_KEYS = ['reconnexion', 'energie', 'force', 'equilibre'] as const;
+export type ProfileKey = (typeof PROFILE_KEYS)[number];
+export type ProfilePoints = Readonly<Record<ProfileKey, number>>;
 
 export interface Option {
-	/** Libellé affiché sur la carte de réponse */
 	label: string;
-	/** Points attribués (0 à 3) */
-	points: number;
 }
-
 export interface Question {
-	/** Identifiant stable, utilisé comme name= des radios */
 	id: string;
-	/** Numéro affiché (1 à 12) */
 	number: number;
-	/** Thème affiché dans la progression */
 	progressLabel: string;
-	/**
-	 * Dimension notée. Absente pour les questions qui ne mesurent pas
-	 * le déconditionnement (appréhension, besoin, projection).
-	 */
-	section?: SectionKey;
 	label: string;
-	/** Titre dans le résultat, pour les questions hors score */
-	resultTitle?: string;
-	/** Précision affichée sous la question */
 	hint?: string;
 	options: readonly Option[];
 }
 
-export interface SectionLevel {
-	/** Ratio maximal (score / maxScore) couvert par ce niveau, inclus */
-	upTo: number;
-	/** Ce que ce niveau veut dire, en clair */
-	label: string;
-	/** Teinte : high = déconditionnement plutôt limité, low = important */
-	tone: Tone;
-}
-
-export interface Section {
-	key: SectionKey;
-	label: string;
-	shortLabel: string;
-	maxScore: number;
-	caption: string;
-	levels: readonly SectionLevel[];
-	/** Paragraphe visible selon la dimension dominante */
-	resultCopy: string;
-	/** Phrase dans la zone floutée */
-	advice: string;
-	/** Transition vers Re-flow, dans le bloc de réservation */
-	transitionCopy: string;
-}
-
-/** Quatre réponses : 0 % , 33 % , 67 % , 100 % de la dimension. */
-const answerLevels = (
-	preserved: string,
-	mild: string,
-	marked: string,
-	severe: string,
-): readonly SectionLevel[] => [
-	{ upTo: 0, label: preserved, tone: 'high' },
-	{ upTo: 0.33, label: mild, tone: 'mid' },
-	{ upTo: 0.67, label: marked, tone: 'low' },
-	{ upTo: 1, label: severe, tone: 'low' },
-];
-
-export const SECTIONS: readonly Section[] = [
-	{
-		key: 'energie',
-		label: 'Ton énergie',
-		shortLabel: 'Énergie',
-		maxScore: 3,
-		caption: 'Ton niveau d’énergie au quotidien',
-		levels: answerLevels(
-			'Énergie globalement suffisante',
-			'Énergie variable',
-			'Fatigue fréquente, énergie à économiser',
-			'Fatigue très présente, quotidien très sédentaire',
-		),
-		resultCopy:
-			'C’est surtout du côté de l’énergie que le déconditionnement se fait sentir. La fatigue prend de la place, et les journées se construisent souvent en économisant ce qu’il reste.',
-		advice:
-			'Repartir de l’énergie réellement disponible, plutôt que de celle que tu aimerais avoir, permet souvent de bouger sans creuser la fatigue.',
-		transitionCopy:
-			'Ton résultat montre surtout comment ton énergie pèse aujourd’hui sur tes journées. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à retrouver un mouvement compatible avec l’énergie que tu as vraiment.',
-	},
-	{
-		key: 'mouvements',
-		label: 'Tes mouvements',
-		shortLabel: 'Mouvements',
-		maxScore: 3,
-		caption: 'L’aisance dans les gestes du quotidien',
-		levels: answerLevels(
-			'Mouvements sans restriction',
-			'Mouvements moins fluides',
-			'Certains mouvements limités',
-			'Force insuffisante pour bouger',
-		),
-		resultCopy:
-			'C’est surtout autour des mouvements que le déconditionnement se fait sentir. Se lever, fléchir, lever les bras ou marcher peut demander plus d’attention, et certains gestes sont devenus moins fluides, voire évités.',
-		advice:
-			'Remobiliser les gestes du quotidien, à partir de ce que tu peux faire sans forcer, est souvent le premier pas pour retrouver de l’aisance.',
-		transitionCopy:
-			'Ton résultat montre surtout comment tes mouvements se sont restreints. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à retrouver des gestes plus fluides, à partir de là où tu en es.',
-	},
-	{
-		key: 'endurance',
-		label: 'Ton endurance',
-		shortLabel: 'Endurance',
-		maxScore: 3,
-		caption: 'La capacité à tenir un effort courant',
-		levels: answerLevels(
-			'Effort prolongé possible',
-			'Vitesse à réduire',
-			'Effort souvent interrompu',
-			'Effort prolongé impossible',
-		),
-		resultCopy:
-			'C’est surtout du côté de l’endurance que le déconditionnement apparaît. Un effort courant — escaliers, marche, pédalage — peut obliger à ralentir, à t’arrêter, ou être devenu trop difficile à tenir.',
-		advice:
-			'Reconstruire l’endurance par de courts efforts répétés, à une intensité que tu peux tenir, est souvent plus utile que de chercher à aller plus loin d’un coup.',
-		transitionCopy:
-			'Ton résultat montre surtout comment ton endurance limite les efforts courants. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de reconstruire progressivement ta capacité à tenir un effort, à ton rythme.',
-	},
-	{
-		key: 'recuperation',
-		label: 'Ta récupération',
-		shortLabel: 'Récupération',
-		maxScore: 3,
-		caption: 'Le temps nécessaire pour récupérer après un effort',
-		levels: answerLevels(
-			'Récupération rapide',
-			'Pause plus longue qu’avant',
-			'Repos le reste de la journée',
-			'Plusieurs jours pour récupérer',
-		),
-		resultCopy:
-			'C’est surtout la récupération qui marque le déconditionnement. Après un effort un peu plus intense, le corps a besoin de davantage de temps — parfois le reste de la journée, parfois plusieurs jours — avant de pouvoir enchaîner.',
-		advice:
-			'Choisir des efforts dont tu peux récupérer, plutôt que des efforts dont tu mets plusieurs jours à revenir, permet souvent de progresser sans t’épuiser.',
-		transitionCopy:
-			'Ton résultat montre surtout le temps dont ton corps a besoin pour récupérer. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à trouver un effort dont la récupération reste compatible avec tes journées.',
-	},
-	{
-		key: 'travail',
-		label: 'Impact sur le travail',
-		shortLabel: 'Travail',
-		maxScore: 3,
-		caption: 'L’incidence de ta condition physique sur l’activité professionnelle',
-		levels: answerLevels(
-			'Sans incidence sur le travail',
-			'Efficacité parfois réduite',
-			'Poste ou temps de travail aménagé',
-			'Travail devenu impossible',
-		),
-		resultCopy:
-			'C’est surtout sur le travail que le déconditionnement se voit. Ta condition physique peut réduire ton efficacité, avoir imposé un aménagement, ou rendre l’activité professionnelle difficile, voire impossible.',
-		advice:
-			'Tenir compte de ce que le travail demande déjà au corps évite souvent d’ajouter un effort qui n’a plus de place dans la journée.',
-		transitionCopy:
-			'Ton résultat montre surtout comment ta condition physique pèse sur ton activité professionnelle. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à reconstruire une condition physique compatible avec ce que tes journées de travail exigent déjà.',
-	},
-	{
-		key: 'quotidien',
-		label: 'Tâches du quotidien',
-		shortLabel: 'Quotidien',
-		maxScore: 3,
-		caption: 'Courses, ménage, jardinage, bricolage',
-		levels: answerLevels(
-			'Tâches faites sans y penser',
-			'Tâches plus coûteuses qu’avant',
-			'Aide parfois nécessaire',
-			'Tâches devenues impossibles',
-		),
-		resultCopy:
-			'C’est surtout sur les tâches du quotidien que le déconditionnement se fait sentir. Courses, ménage ou bricolage peuvent demander plus d’effort, de l’aide, ou être devenus trop difficiles à faire seule.',
-		advice:
-			'Rendre quelques tâches du quotidien un peu moins coûteuses est souvent le premier signe qu’une condition physique se reconstruit.',
-		transitionCopy:
-			'Ton résultat montre surtout comment tes capacités physiques pèsent sur les tâches du quotidien. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à retrouver assez d’aisance pour ces gestes, à partir de là où tu en es.',
-	},
-	{
-		key: 'loisirs',
-		label: 'Loisirs et vie sociale',
-		shortLabel: 'Loisirs',
-		maxScore: 3,
-		caption: 'Sport, sorties, balades, temps en famille',
-		levels: answerLevels(
-			'Loisirs non freinés',
-			'Tu suis moins facilement',
-			'Activités adaptées ou reportées',
-			'Activités souvent abandonnées',
-		),
-		resultCopy:
-			'C’est surtout sur les loisirs et la vie sociale que le déconditionnement se voit. Tu peux avoir du mal à suivre, devoir adapter ou reporter, ou renoncer à des activités que tu aimes.',
-		advice:
-			'Garder une place, même petite, pour une activité qui te tient à cœur évite souvent de te sentir à l’écart.',
-		transitionCopy:
-			'Ton résultat montre surtout comment ta condition physique pèse sur tes loisirs et ta vie sociale. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à retrouver une condition compatible avec ce que tu as envie de continuer à vivre.',
-	},
-	{
-		key: 'corps',
-		label: 'Ton rapport au corps',
-		shortLabel: 'Corps',
-		maxScore: 3,
-		caption: 'L’aisance, les sensations et la confiance',
-		levels: answerLevels(
-			'Plutôt à l’aise',
-			'Sensations parfois difficiles à lire',
-			'Confiance difficile',
-			'Repères perdus',
-		),
-		resultCopy:
-			'C’est surtout le rapport à ton corps qui marque le déconditionnement. Les signaux peuvent être difficiles à lire, la confiance fragile, ou les repères perdus.',
-		advice:
-			'Réapprendre à sentir ce que le corps tolère, sans le forcer, ouvre souvent une reprise plus sûre.',
-		transitionCopy:
-			'Ton résultat montre surtout à quel point le lien avec ton corps s’est distendu. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à retrouver des repères et de la confiance, à partir de tes sensations actuelles.',
-	},
-	{
-		key: 'reprise',
-		label: 'Reprise de l’activité',
-		shortLabel: 'Reprise',
-		maxScore: 3,
-		caption: 'Où tu en es quand tu penses à reprendre',
-		levels: answerLevels(
-			'Prête et plutôt confiante',
-			'Envie, sans savoir par où commencer',
-			'Envie, avec la peur d’en faire trop',
-			'Reprise très inquiétante',
-		),
-		resultCopy:
-			'C’est surtout l’idée de reprendre une activité physique qui pèse. L’envie peut être là, sans point de départ clair, avec la peur d’en faire trop, ou avec beaucoup d’inquiétude.',
-		advice:
-			'Un point de départ très simple, dont tu sais à l’avance jusqu’où aller, rend souvent la reprise moins inquiétante.',
-		transitionCopy:
-			'Ton résultat montre surtout où tu en es face à la reprise. L’objectif de Re-flow n’est pas d’agir sur la maladie : c’est de t’aider à trouver un premier pas qui reste soutenable.',
-	},
-];
-
-export const SECTIONS_BY_KEY: Record<SectionKey, Section> = Object.fromEntries(
-	SECTIONS.map((s) => [s.key, s]),
-) as Record<SectionKey, Section>;
-
-const CHOICES = (a: string, b: string, c: string, d: string): readonly Option[] => [
-	{ label: a, points: 0 },
-	{ label: b, points: 1 },
-	{ label: c, points: 2 },
-	{ label: d, points: 3 },
-];
+const CHOICES = (...labels: [string, string, string, string]): readonly Option[] =>
+	labels.map((label) => ({ label }));
 
 export const QUESTIONS: readonly Question[] = [
 	{
 		id: 'energie',
 		number: 1,
 		progressLabel: 'Ton énergie',
-		section: 'energie',
 		label: 'Comment décrirais-tu ton niveau d’énergie au quotidien ?',
 		options: CHOICES(
 			'J’ai globalement assez d’énergie et je peux faire ce que je veux',
@@ -294,7 +35,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'mouvements',
 		number: 2,
 		progressLabel: 'Tes mouvements',
-		section: 'mouvements',
 		label:
 			'Comment décrirais-tu tes gestes du quotidien (se lever, fléchir les jambes, lever les bras, monter les genoux, s’accroupir, marcher…) ?',
 		options: CHOICES(
@@ -308,7 +48,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'endurance',
 		number: 3,
 		progressLabel: 'Ton endurance',
-		section: 'endurance',
 		label:
 			'Rencontres-tu des difficultés à maintenir un effort courant (monter les escaliers, marcher, pédaler…) pendant plusieurs minutes ?',
 		options: CHOICES(
@@ -322,7 +61,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'recuperation',
 		number: 4,
 		progressLabel: 'Ta récupération',
-		section: 'recuperation',
 		label:
 			'Comment te sens-tu après avoir fourni un effort physique un peu plus intense que d’habitude ? (marcher longtemps, monter plusieurs étages, porter une charge lourde…)',
 		options: CHOICES(
@@ -336,7 +74,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'travail',
 		number: 5,
 		progressLabel: 'Impact sur le travail',
-		section: 'travail',
 		label:
 			'Aujourd’hui, dans quelle mesure ta condition physique influence-t-elle ton activité professionnelle ?',
 		options: CHOICES(
@@ -350,7 +87,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'taches',
 		number: 6,
 		progressLabel: 'Impact sur les tâches du quotidien',
-		section: 'quotidien',
 		label:
 			'Actuellement, en quoi tes capacités physiques influencent-elles tes activités du quotidien ? (courses, ménage, jardinage, bricolage…)',
 		options: CHOICES(
@@ -364,7 +100,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'loisirs',
 		number: 7,
 		progressLabel: 'Impact sur les loisirs et la vie sociale',
-		section: 'loisirs',
 		label:
 			'Aujourd’hui, dans quelle mesure ta condition physique influence-t-elle tes activités de loisirs ? (activités sportives, associatives, sorties entre amis, balades en famille, jeu avec les enfants…)',
 		options: CHOICES(
@@ -378,7 +113,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'corps',
 		number: 8,
 		progressLabel: 'Comment tu te sens dans ton corps',
-		section: 'corps',
 		label: 'Aujourd’hui, quel est ton rapport avec ton corps ?',
 		options: CHOICES(
 			'Je me sens plutôt à l’aise dans mon corps',
@@ -391,8 +125,8 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'reprise',
 		number: 9,
 		progressLabel: 'Reprise de l’activité physique',
-		section: 'reprise',
-		label: 'Quand tu penses à reprendre une activité physique, quelle phase te correspond le mieux ?',
+		label:
+			'Quand tu penses à reprendre une activité physique, quelle phase te correspond le mieux ?',
 		options: CHOICES(
 			'Je me sens prête à essayer et plutôt confiante',
 			'J’en ai envie mais je ne sais pas par où commencer',
@@ -404,7 +138,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'apprehensions',
 		number: 10,
 		progressLabel: 'Tes appréhensions',
-		resultTitle: 'Ce qui te ferait le plus hésiter',
 		label: 'Qu’est-ce qui te ferait le plus hésiter à reprendre une activité physique ?',
 		options: CHOICES(
 			'Ne pas réussir à tenir dans la durée',
@@ -417,7 +150,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'besoin',
 		number: 11,
 		progressLabel: 'Ton besoin d’accompagnement',
-		resultTitle: 'Ce dont tu as le plus besoin',
 		label: 'De quoi as-tu le plus besoin pour réussir à reprendre une activité physique ?',
 		options: CHOICES(
 			'Un programme simple que je peux suivre à mon rythme',
@@ -430,7 +162,6 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'projection',
 		number: 12,
 		progressLabel: 'Et si tu te projetais un peu…',
-		resultTitle: 'Dans 4 mois, tu aimerais pouvoir dire',
 		label: 'Dans 4 mois, qu’aimerais-tu pouvoir dire ?',
 		options: CHOICES(
 			'« Je bouge régulièrement sans que cela devienne une contrainte »',
@@ -442,194 +173,222 @@ export const QUESTIONS: readonly Question[] = [
 ];
 
 export const TOTAL_QUESTIONS = QUESTIONS.length;
-export const SCORED_QUESTIONS = QUESTIONS.filter((question) => question.section);
-export const MIN_SCORE = 0;
-export const MAX_SCORE = SCORED_QUESTIONS.reduce(
-	(sum, question) => sum + Math.max(...question.options.map((option) => option.points)),
-	0,
-);
-export const PERCENT_MAX = 100;
+
+const points = (
+	reconnexion: number,
+	energie: number,
+	force: number,
+	equilibre: number,
+): ProfilePoints => ({ reconnexion, energie, force, equilibre });
+
+/** Barème fourni, dans l’ordre A / B / C / D. Aucune réponse n’est une note globale. */
+export const SCORING: Readonly<Record<string, readonly ProfilePoints[]>> = {
+	energie: [points(0, 0, 0, 2), points(1, 3, 0, 0), points(1, 3, 1, 0), points(2, 3, 1, 0)],
+	mouvements: [points(0, 0, 0, 2), points(1, 0, 2, 0), points(2, 1, 1, 0), points(1, 0, 3, 0)],
+	endurance: [points(0, 0, 0, 2), points(0, 1, 2, 0), points(0, 2, 2, 0), points(0, 2, 3, 0)],
+	recuperation: [points(0, 0, 0, 2), points(0, 2, 0, 0), points(0, 3, 0, 0), points(1, 3, 1, 0)],
+	travail: [points(0, 0, 0, 2), points(0, 1, 1, 0), points(0, 1, 2, 0), points(0, 2, 3, 0)],
+	taches: [points(0, 0, 0, 2), points(0, 1, 1, 0), points(0, 1, 2, 0), points(0, 2, 3, 0)],
+	loisirs: [points(0, 0, 0, 2), points(0, 2, 1, 0), points(1, 1, 1, 0), points(2, 2, 1, 0)],
+	corps: [points(0, 0, 0, 2), points(2, 0, 0, 0), points(3, 0, 0, 0), points(3, 0, 0, 0)],
+	reprise: [points(0, 0, 0, 2), points(2, 0, 0, 0), points(3, 0, 0, 0), points(3, 1, 0, 0)],
+	apprehensions: [points(0, 2, 0, 0), points(0, 3, 0, 0), points(0, 0, 3, 0), points(3, 0, 0, 0)],
+	besoin: [points(0, 0, 0, 2), points(0, 3, 0, 0), points(2, 0, 1, 0), points(3, 0, 0, 0)],
+	projection: [points(0, 0, 0, 3), points(0, 0, 3, 0), points(3, 0, 0, 0), points(2, 1, 0, 0)],
+};
+
+/** Calculés depuis le barème pour éviter toute dérive des dénominateurs. */
+export const MAX_SCORES = Object.fromEntries(
+	PROFILE_KEYS.map((key) => [
+		key,
+		QUESTIONS.reduce((sum, q) => sum + Math.max(...SCORING[q.id].map((p) => p[key])), 0),
+	]),
+) as Record<ProfileKey, number>;
+
+export interface SubmittedAnswer {
+	id: string;
+	/** Position de la réponse : A = 0, B = 1, C = 2, D = 3. */
+	optionIndex: number;
+}
+
+export interface ScoredQuiz {
+	profile: Profile;
+	scores: Record<ProfileKey, number>;
+	percentages: Record<ProfileKey, number>;
+	answers: Array<SubmittedAnswer & { number: number; label: string; optionLabel: string }>;
+}
 
 /**
- * Conservés pour que le script de navigation existant reste un no-op
- * (plus de questions sautées dans cette auto-évaluation).
+ * Compare les ratios exacts (produits croisés), sans arrondi avant classement.
+ * Une égalité est départagée par les points de Q12, puis ceux de Q11,
+ * uniquement parmi les profils encore ex æquo. Ultime repli : ordre PROFILE_KEYS.
  */
-export const SKIP_TRIGGER_QUESTION_ID = '';
-export const SKIP_TRIGGER_POINTS = 0;
-export const SKIPPED_QUESTION_IDS: readonly string[] = [];
+export function scoreQuiz(raw: readonly SubmittedAnswer[]): ScoredQuiz | null {
+	if (!Array.isArray(raw) || raw.length !== TOTAL_QUESTIONS) return null;
+	const byId = new Map<string, number>();
+	for (const answer of raw) {
+		if (!answer || typeof answer.id !== 'string' || byId.has(answer.id)) return null;
+		if (!Number.isInteger(answer.optionIndex) || answer.optionIndex < 0 || answer.optionIndex > 3)
+			return null;
+		byId.set(answer.id, answer.optionIndex);
+	}
+	const scores: Record<ProfileKey, number> = { reconnexion: 0, energie: 0, force: 0, equilibre: 0 };
+	const answers: ScoredQuiz['answers'] = [];
+	for (const q of QUESTIONS) {
+		const optionIndex = byId.get(q.id);
+		if (optionIndex === undefined) return null;
+		for (const key of PROFILE_KEYS) scores[key] += SCORING[q.id][optionIndex][key];
+		answers.push({
+			id: q.id,
+			optionIndex,
+			number: q.number,
+			label: q.label,
+			optionLabel: q.options[optionIndex].label,
+		});
+	}
+	const ranked = [...PROFILE_KEYS].sort((a, b) => {
+		const difference = scores[b] * MAX_SCORES[a] - scores[a] * MAX_SCORES[b];
+		if (difference !== 0) return difference;
+		for (const id of ['projection', 'besoin']) {
+			const selected = SCORING[id][byId.get(id)!];
+			if (selected[b] !== selected[a]) return selected[b] - selected[a];
+		}
+		return PROFILE_KEYS.indexOf(a) - PROFILE_KEYS.indexOf(b);
+	});
+	const percentages = Object.fromEntries(
+		PROFILE_KEYS.map((key) => [key, (scores[key] / MAX_SCORES[key]) * 100]),
+	) as Record<ProfileKey, number>;
+	return { profile: PROFILES.find((p) => p.key === ranked[0])!, scores, percentages, answers };
+}
 
 export interface Profile {
 	key: ProfileKey;
 	label: string;
-	/** Bornes incluses, en pourcentage arrondi */
-	min: number;
-	max: number;
-	range: string;
+	description: string;
 	summary: string;
-	advice: readonly string[];
-	tone: Tone;
+	intro: readonly string[];
+	priority: string;
+	guidance: readonly string[];
+	approach: readonly string[];
+	smallStep: readonly string[];
+	invitation: string;
 }
 
 export const PROFILES: readonly Profile[] = [
 	{
-		key: 'limite',
-		label: 'Plutôt limité',
-		min: 0,
-		max: 20,
-		range: '0 à 20 %',
-		tone: 'high',
+		key: 'reconnexion',
+		label: 'Reconnexion',
+		description: 'Retrouver confiance dans son corps, ses sensations et ses capacités.',
 		summary:
-			'Aujourd’hui, ta condition physique semble encore assez préservée. Le déconditionnement, s’il est présent, a une incidence plutôt limitée sur ton quotidien.',
-		advice: [
-			'Ce résultat n’est pas un verdict. Il décrit une période, et il peut évoluer d’une semaine à l’autre. Même un déconditionnement plutôt limité mérite d’être regardé avec attention : c’est souvent là qu’on peut préserver ce qui fonctionne déjà.',
-			'L’auto-évaluation sert à repérer où ta condition physique pèse le plus en ce moment, pas à te situer sur une échelle de « réussite ».',
+			'Vous avez besoin de retrouver confiance dans votre corps avant de chercher à aller plus loin.',
+		intro: [
+			'Aujourd’hui, vous avez peut-être l’impression d’avoir perdu certains de vos repères.',
+			'Vous ne savez plus toujours quand bouger, quand ralentir ou jusqu’où aller. Certains mouvements vous demandent davantage d’attention et l’idée de reprendre une activité physique peut susciter de l’appréhension.',
+			'Et quand on ne fait plus vraiment confiance à son corps, on peut progressivement réduire ses activités… et perdre encore un peu plus confiance en ses capacités.',
 		],
+		priority: 'Retrouver progressivement des repères et de la sécurité dans le mouvement.',
+		guidance: [
+			'Il ne s’agit pas de faire toujours plus.',
+			'Il s’agit d’apprendre à écouter votre corps, reconnaître ses signaux, respecter ses limites et redécouvrir petit à petit ce dont vous êtes capable.',
+		],
+		approach: [
+			'Pendant 16 semaines, vous êtes accompagnée à travers une combinaison de Pilates, yoga, renforcement musculaire et relaxation, avec des séances pensées pour s’adapter à vos capacités et à votre énergie.',
+			'Pas de performance. Pas de pression. Une progression à votre rythme.',
+		],
+		smallStep: [
+			'Prenez 5 minutes pour bouger doucement, sans objectif de performance.',
+			'Observez simplement :',
+			'Qu’est-ce qui est facile aujourd’hui ?',
+			'Qu’est-ce qui demande davantage d’effort ?',
+			'Comment est-ce que je me sens après ?',
+		],
+		invitation: 'Vous avez envie de retrouver confiance dans votre corps ?',
 	},
 	{
-		key: 'significatif',
-		label: 'Significatif',
-		min: 21,
-		max: 60,
-		range: '21 à 60 %',
-		tone: 'mid',
+		key: 'energie',
+		label: 'Énergie',
+		description: 'Apprendre à bouger en respectant son niveau d’énergie et sa récupération.',
 		summary:
-			'Ta condition physique semble aujourd’hui marquée par un déconditionnement significatif, avec une incidence réelle sur plusieurs aspects de ton quotidien.',
-		advice: [
-			'Ce n’est ni une fatalité ni une note. C’est un éclairage sur les domaines où ta condition physique semble aujourd’hui peser le plus. Beaucoup de femmes dans cette situation cherchent simplement un cadre plus adapté, pas un effort supplémentaire.',
-			'Ce pourcentage ne mesure pas la gravité d’une maladie. Il dit seulement à quel point le déconditionnement physique influence actuellement ton quotidien.',
+			'Votre principal enjeu est de retrouver une activité physique qui respecte votre énergie.',
+		intro: [
+			'Vous savez peut-être que bouger pourrait vous faire du bien… mais votre énergie n’est pas toujours prévisible.',
+			'Certains jours, vous avez envie et pouvez en faire davantage. D’autres jours, votre corps vous impose de ralentir.',
+			'Et lorsque l’on ne sait pas comment adapter son activité, on peut facilement tomber dans le « trop » puis devoir récupérer longtemps… ou finir par ne plus bouger du tout.',
 		],
+		priority: 'Apprendre à bouger avec votre énergie plutôt que contre elle.',
+		guidance: [
+			'L’objectif n’est pas d’en faire toujours plus.',
+			'C’est de trouver ce que vous pouvez faire aujourd’hui, en tenant compte de votre état du moment, puis de construire progressivement à partir de là.',
+		],
+		approach: [
+			'Les séances sont conçues pour être progressives et modulables, afin de vous permettre d’adapter l’intensité à votre niveau d’énergie.',
+			'Pilates, yoga, renforcement musculaire et relaxation vous permettent de remettre progressivement du mouvement dans votre quotidien sans faire de la performance votre objectif.',
+		],
+		smallStep: [
+			'Avant une activité physique, ne vous demandez pas :',
+			'« Combien dois-je faire ? »',
+			'Demandez-vous plutôt :',
+			'« Quel niveau d’effort est réaliste pour moi aujourd’hui ? »',
+		],
+		invitation: 'Vous aimeriez apprendre à bouger sans épuiser votre énergie ?',
 	},
 	{
-		key: 'important',
-		label: 'Important',
-		min: 61,
-		max: PERCENT_MAX,
-		range: '61 à 100 %',
-		tone: 'low',
+		key: 'force',
+		label: 'Force',
+		description:
+			'Reconstruire progressivement ses capacités physiques et se sentir à nouveau capable.',
 		summary:
-			'Le déconditionnement physique semble aujourd’hui important, et pèse nettement sur ce que tu peux faire au quotidien.',
-		advice: [
-			'Ce résultat ne dit pas qui tu es, ni ce que tu « devrais » faire. Il dit surtout que ta condition physique actuelle rend le quotidien plus coûteux. Être accompagnée pour la reconstruire progressivement n’est pas un aveu de faiblesse : c’est une façon de prendre soin de toi.',
-			'Les seuils utilisés ici sont propres à l’expérience Re-flow. Ils ne correspondent à aucun seuil clinique validé.',
+			'Vous avez envie de retrouver des capacités physiques et de vous sentir à nouveau capable.',
+		intro: [
+			'Votre condition physique a peut-être changé au fil du temps.',
+			'Certains efforts sont devenus plus difficiles, votre endurance a diminué ou vous avez l’impression d’avoir perdu de la force.',
+			'Et lorsque le corps ne suit plus comme avant, cela peut aussi affecter la confiance que l’on a en ses propres capacités.',
 		],
+		priority: 'Reconstruire progressivement votre force et vos capacités physiques.',
+		guidance: [
+			'Pas besoin de repartir là où vous étiez avant.',
+			'Votre point de départ actuel est le bon point de départ.',
+			'L’objectif est de progresser étape par étape, sans brûler les étapes ni chercher à reproduire immédiatement ce que vous faisiez auparavant.',
+		],
+		approach: [
+			'Le programme associe renforcement musculaire, Pilates, yoga et relaxation pour reconstruire progressivement les capacités physiques tout en respectant votre situation actuelle.',
+			'Vous avancez à votre niveau, puis vous progressez à partir de celui-ci.',
+		],
+		smallStep: [
+			'Choisissez un mouvement simple que vous pouvez réaliser confortablement.',
+			'Faites 5 répétitions lentes.',
+			'Puis demandez-vous :',
+			'« Est-ce que je me sens capable d’en faire davantage aujourd’hui… ou est-ce suffisant ? »',
+			'L’objectif n’est pas de vous tester. C’est de commencer à observer vos capacités.',
+		],
+		invitation: 'Vous avez envie de vous sentir à nouveau forte et capable ?',
+	},
+	{
+		key: 'equilibre',
+		label: 'Équilibre',
+		description:
+			'Retrouver une activité physique qui apporte à la fois mouvement, bien-être et équilibre.',
+		summary:
+			'Pour vous, bouger ne doit pas seulement faire du bien à votre corps. Cela doit aussi vous faire du bien à vous.',
+		intro: [
+			'Vous avez peut-être envie de retrouver davantage de mouvement dans votre quotidien, mais sans que cela devienne une nouvelle contrainte.',
+			'Vous recherchez quelque chose qui vous permette à la fois de bouger, de prendre soin de votre corps, de respirer, de relâcher les tensions et de retrouver un peu de sérénité.',
+		],
+		priority: 'Réconcilier mouvement et bien-être.',
+		guidance: [
+			'L’activité physique ne devrait pas être une obligation supplémentaire à ajouter à votre quotidien.',
+			'Elle peut devenir un rendez-vous avec vous-même.',
+			'Un moment pour bouger, respirer, vous reconnecter à vos sensations et prendre soin de vous.',
+		],
+		approach: [
+			'Re-flow associe Pilates, yoga, renforcement musculaire et relaxation dans une progression simple, sécurisante et adaptée.',
+			'L’objectif : retrouver un corps en mouvement sans oublier la personne qui l’habite.',
+		],
+		smallStep: [
+			'Prenez 5 minutes pour bouger doucement, en portant simplement votre attention sur votre respiration.',
+			'Aucun objectif de performance.',
+			'Juste quelques minutes pour vous.',
+		],
+		invitation: 'Vous avez envie de retrouver cet équilibre ?',
 	},
 ];
-
-export const PROFILES_BY_KEY: Record<ProfileKey, Profile> = Object.fromEntries(
-	PROFILES.map((p) => [p.key, p]),
-) as Record<ProfileKey, Profile>;
-
-export function toPercent(score: number, max = MAX_SCORE): number {
-	if (max <= 0) return 0;
-	return Math.round((score / max) * 100);
-}
-
-/** Paliers propres à Re-flow, appliqués au pourcentage arrondi. */
-export function scoreToProfile(percent: number): Profile {
-	if (percent <= 20) return PROFILES_BY_KEY.limite;
-	if (percent <= 60) return PROFILES_BY_KEY.significatif;
-	return PROFILES_BY_KEY.important;
-}
-
-export interface SubmittedAnswer {
-	id: string;
-	points: number;
-}
-
-export interface DimensionScore {
-	key: SectionKey;
-	label: string;
-	score: number;
-	maxScore: number;
-	percent: number;
-	levelLabel: string;
-}
-
-export interface ScoredAnswer {
-	id: string;
-	number: number;
-	label: string;
-	points: number;
-	optionLabel: string;
-	section: SectionKey | null;
-}
-
-export interface ScoredQuiz {
-	totalScore: number;
-	percent: number;
-	profile: Profile;
-	dimensions: readonly DimensionScore[];
-	dominant: Section;
-	answers: readonly ScoredAnswer[];
-}
-
-/**
- * Recalcule le résultat à partir des 12 réponses.
- * Seules les questions rattachées à une dimension entrent dans le pourcentage.
- * En cas d'égalité de ratio, la première dimension de SECTIONS l'emporte,
- * comme le parcours affiché dans le navigateur.
- * Retourne null si les réponses sont incomplètes ou incohérentes.
- */
-export function scoreQuiz(raw: readonly SubmittedAnswer[]): ScoredQuiz | null {
-	if (raw.length !== QUESTIONS.length) return null;
-
-	const pointsById = new Map<string, number>();
-	for (const item of raw) {
-		if (!item || typeof item.id !== 'string') return null;
-		if (!Number.isInteger(item.points) || item.points < 0 || item.points > 3) return null;
-		if (pointsById.has(item.id)) return null;
-		pointsById.set(item.id, item.points);
-	}
-
-	let totalScore = 0;
-	const sectionScores = new Map<SectionKey, number>();
-	const answers: ScoredAnswer[] = [];
-
-	for (const question of QUESTIONS) {
-		const points = pointsById.get(question.id);
-		if (points === undefined) return null;
-		const option = question.options.find((entry) => entry.points === points);
-		if (!option) return null;
-		if (question.section) {
-			totalScore += points;
-			sectionScores.set(question.section, (sectionScores.get(question.section) ?? 0) + points);
-		}
-		answers.push({
-			id: question.id,
-			number: question.number,
-			label: question.label,
-			points,
-			optionLabel: option.label,
-			section: question.section ?? null,
-		});
-	}
-
-	const percent = toPercent(totalScore);
-	const profile = scoreToProfile(percent);
-	let dominant: Section = SECTIONS[0];
-	let dominantRatio = -1;
-
-	const dimensions: DimensionScore[] = SECTIONS.map((section) => {
-		const score = sectionScores.get(section.key) ?? 0;
-		const ratio = section.maxScore > 0 ? score / section.maxScore : 0;
-		if (ratio > dominantRatio) {
-			dominantRatio = ratio;
-			dominant = section;
-		}
-		const sectionPercent = Math.round(Math.min(1, Math.max(0, ratio)) * 100);
-		const levelRatio = sectionPercent / 100;
-		const level =
-			section.levels.find((entry) => levelRatio <= entry.upTo) ??
-			section.levels[section.levels.length - 1];
-		return {
-			key: section.key,
-			label: section.label,
-			score,
-			maxScore: section.maxScore,
-			percent: sectionPercent,
-			levelLabel: level.label,
-		};
-	});
-
-	return { totalScore, percent, profile, dimensions, dominant, answers };
-}
