@@ -4,6 +4,7 @@ seoTitle: "Exercices APA : exemples pour débuter | RE-FLOW"
 description: "Exemples d'exercices d'Activité Physique Adaptée pour maladie chronique ou fatigue : mobilité, renforcement doux, équilibre et dosage."
 pubDate: 'Jun 2 2026'
 heroImage: '../../assets/women_doing_different_forms_of_exercices.webp'
+showQuizCta: true
 relatedPillars:
   - apa
   - maladie-chronique

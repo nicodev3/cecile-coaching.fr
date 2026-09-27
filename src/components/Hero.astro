@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import QuizCtaLink from './QuizCtaLink.astro';
 import TunnelCtaLink from './TunnelCtaLink.astro';
 import heroImageWebp from '../assets/femme-yoga.webp';
 
@@ -40,12 +41,12 @@ const reveal =
 				>
 					Immersion gratuite (4 jours)
 				</TunnelCtaLink>
-				<a
-					href="#programme"
+				<QuizCtaLink
+					campaign="hero"
 					class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-8 py-4 text-base font-medium text-(--primary) soft-glow transition hover:bg-(--surface-container)"
 				>
-					Découvrir le programme
-				</a>
+					Faire l’auto-évaluation
+				</QuizCtaLink>
 			</div>
 			<p class="text-sm leading-relaxed text-(--secondary)">
 				Nouvelle ici ? Commence par{' '}

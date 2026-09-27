@@ -4,6 +4,7 @@ seoTitle: "Kiné, coach sportif ou coach APA : qui consulter ?"
 description: "Kinésithérapeute, coach sportif ou coach APA en ligne : quelles différences et quel accompagnement choisir en maladie chronique ou fatigue ?"
 pubDate: 'Apr 12 2026'
 heroImage: '../../assets/une_femme_coach_sportive.webp'
+showQuizCta: true
 relatedPillars:
   - apa
   - maladie-chronique

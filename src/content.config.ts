@@ -17,6 +17,8 @@ const blog = defineCollection({
 			heroImage: image().optional(),
 			/** Maillage SEO vers les pages piliers */
 			relatedPillars: z.array(z.enum(['apa', 'maladie-chronique', 'fatigue'])).optional(),
+			/** Affiche le pont de conversion vers l’auto-évaluation et l’offre. */
+			showQuizCta: z.boolean().optional(),
 		}),
 });
 

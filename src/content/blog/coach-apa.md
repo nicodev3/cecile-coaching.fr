@@ -5,6 +5,7 @@ description: "Coach APA : rôle, différences avec un kiné ou un coach sportif,
 pubDate: 'Feb 22 2026'
 updatedDate: 'Sep 21 2026'
 heroImage: '../../assets/cecile-coach-apa.webp'
+showQuizCta: true
 relatedPillars:
   - apa
   - maladie-chronique

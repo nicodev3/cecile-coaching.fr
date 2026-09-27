@@ -1,0 +1,38 @@
+---
+import { offerCtaEvent } from '../config/analyticsEvents';
+import QuizCtaLink from './QuizCtaLink.astro';
+
+interface Props {
+	campaign: string;
+}
+
+const { campaign } = Astro.props;
+---
+
+<aside
+	class="not-prose mb-10 rounded-2xl border border-(--outline-variant)/60 bg-(--surface-container-low) p-5 sm:p-6"
+	aria-labelledby={`quiz-cta-${campaign}`}
+>
+	<h2 id={`quiz-cta-${campaign}`} class="text-xl font-semibold text-(--on-surface)">
+		Tu ne sais pas encore par où commencer ?
+	</h2>
+	<p class="mt-3 leading-relaxed text-(--secondary)">
+		Fais le point sur ta fatigue, ton énergie et ta confiance dans le mouvement, ou découvre directement
+		l’accompagnement RE-FLOW en visio.
+	</p>
+	<div class="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+		<QuizCtaLink
+			campaign={`blog_${campaign}`}
+			class="inline-flex items-center justify-center rounded-full bg-(--primary) px-6 py-3 text-sm font-semibold text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+		>
+			Faire l’auto-évaluation
+		</QuizCtaLink>
+		<a
+			href="/coach-apa-en-ligne/"
+			data-umami-event={offerCtaEvent(`blog_${campaign}`)}
+			class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-6 py-3 text-sm font-semibold text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+		>
+			Découvrir le coaching en ligne
+		</a>
+	</div>
+</aside>

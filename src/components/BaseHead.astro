@@ -5,7 +5,12 @@ import '../styles/global.css';
 import { Font } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/cecile-coach-apa.webp';
-import { AHREFS_ANALYTICS_KEY, UMAMI_URL, UMAMI_WEBSITE_ID } from '../config/analytics';
+import {
+	AHREFS_ANALYTICS_KEY,
+	UMAMI_ALLOWED_DOMAINS,
+	UMAMI_URL,
+	UMAMI_WEBSITE_ID,
+} from '../config/analytics';
 import {
 	COACH_FAMILY_NAME,
 	COACH_FIRST_NAME,
@@ -110,6 +115,7 @@ const extraStructuredData = Array.isArray(structuredData)
 const structuredDataScripts = noindex
 	? []
 	: [coachingStructuredData, webPageStructuredData, ...extraStructuredData];
+const umamiEnabled = import.meta.env.PROD && UMAMI_WEBSITE_ID && UMAMI_URL;
 ---
 
 <Font cssVariable="--font-body" />
@@ -160,9 +166,13 @@ const structuredDataScripts = noindex
 <meta property="twitter:image" content={new URL(image.src, Astro.site)} />
 
 {
-	UMAMI_WEBSITE_ID &&
-		UMAMI_URL && (
-			<script defer src={`${UMAMI_URL}/script.js`} data-website-id={UMAMI_WEBSITE_ID}></script>
+	umamiEnabled && (
+			<script
+				defer
+				src={`${UMAMI_URL}/script.js`}
+				data-website-id={UMAMI_WEBSITE_ID}
+				data-domains={UMAMI_ALLOWED_DOMAINS}
+			></script>
 		)
 }
 

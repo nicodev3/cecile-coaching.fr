@@ -1,6 +1,6 @@
 ---
 import { PILLARS } from '../data/pillars';
-import { tunnelEntryUrl } from '../utils/tunnelUrl';
+import TunnelCtaLink from './TunnelCtaLink.astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import WhatsAppIcon from './WhatsAppIcon.astro';
 
@@ -26,8 +26,6 @@ const isCurrent = (href: string) => {
 const links = navLinks.map((l) => ({ ...l, isCurrent: isCurrent(l.href) }));
 
 const isUnderstandingActive = PILLARS.some((p) => currentPath.startsWith(p.slug));
-const headerTunnelUrl = tunnelEntryUrl('header');
-const headerMobileTunnelUrl = tunnelEntryUrl('header-mobile');
 
 const linkClass = (active: boolean) =>
 	active
@@ -134,15 +132,12 @@ const mobileLinkClass = (active: boolean) =>
 			>
 				<WhatsAppIcon class="size-5" />
 			</WhatsAppCtaLink>
-			<a
-				href={headerTunnelUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				data-umami-event="tunnel_cta_header"
+			<TunnelCtaLink
+				campaign="header"
 				class="inline-flex items-center justify-center rounded-full bg-(--primary) px-6 py-2.5 text-base text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
 			>
 				Commencer
-			</a>
+			</TunnelCtaLink>
 		</div>
 
 		<details class="group relative lg:hidden" data-mobile-nav>
@@ -208,15 +203,12 @@ const mobileLinkClass = (active: boolean) =>
 						>
 							Écrire sur WhatsApp
 						</WhatsAppCtaLink>
-						<a
-							href={headerMobileTunnelUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							data-umami-event="tunnel_cta_header-mobile"
+						<TunnelCtaLink
+							campaign="header-mobile"
 							class="block rounded-full bg-(--primary) px-3 py-2 text-center text-base font-medium text-(--on-primary) hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
 						>
 							Commencer
-						</a>
+						</TunnelCtaLink>
 					</div>
 				</nav>
 			</div>

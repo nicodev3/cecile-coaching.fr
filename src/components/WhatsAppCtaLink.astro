@@ -1,4 +1,5 @@
 ---
+import { whatsappCtaEvent } from '../config/analyticsEvents';
 import { SITE_WHATSAPP } from '../consts';
 import WhatsAppIcon from './WhatsAppIcon.astro';
 
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const { campaign, class: className, showIcon = false, 'aria-label': ariaLabel } = Astro.props;
-const umamiEvent = `whatsapp_cta_${campaign.replace(/[^a-z0-9_-]/gi, '_')}`;
+const umamiEvent = whatsappCtaEvent(campaign);
 ---
 
 <a

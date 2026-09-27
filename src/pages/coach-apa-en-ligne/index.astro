@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
+import QuizCtaLink from '../../components/QuizCtaLink.astro';
 import WhatsAppCtaLink from '../../components/WhatsAppCtaLink.astro';
 
 const title = 'Coach APA en ligne : séances visio | RE-FLOW';
@@ -96,13 +97,19 @@ const faqStructuredData = {
 				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-800">
 					Un <strong>coach APA en ligne</strong>, c’est un accompagnement du mouvement adapté à ta santé, en visio, depuis chez toi. Des séances avec Cécile Cichosz, coach sportive diplômée d’État <strong>BPJEPS Activités de la forme</strong> et <strong>certifiée APA</strong>, pour les femmes qui vivent avec une maladie chronique, une fatigue chronique ou des douleurs. Cadre doux, progressif, partout en France.
 				</p>
-				<div class="mt-7">
+				<div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
 					<a
 						href="/contact/"
 						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
 					>
 						Échanger sur ta situation
 					</a>
+					<QuizCtaLink
+						campaign="coach-apa-en-ligne"
+						class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-7 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+					>
+						Faire l’auto-évaluation
+					</QuizCtaLink>
 				</div>
 			</section>
 

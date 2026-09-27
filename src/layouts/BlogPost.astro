@@ -6,6 +6,7 @@ import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import BlogArticleFooter from '../components/BlogArticleFooter.astro';
 import BlogArticleNewsletter from '../components/BlogArticleNewsletter.astro';
+import BlogArticleQuizCta from '../components/BlogArticleQuizCta.astro';
 import BlogArticleSidebar from '../components/BlogArticleSidebar.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Footer from '../components/Footer.astro';
@@ -30,6 +31,7 @@ const {
 	updatedDate,
 	heroImage,
 	relatedPillars,
+	showQuizCta = false,
 	postId,
 	readingTime,
 } = Astro.props;
@@ -309,6 +311,7 @@ const blogPostingStructuredData = {
 								</aside>
 							)
 						}
+						{showQuizCta && <BlogArticleQuizCta campaign={postId} />}
 						<div class="article-prose">
 							<slot />
 						</div>

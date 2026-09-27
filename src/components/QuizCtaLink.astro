@@ -1,0 +1,21 @@
+---
+import { quizCtaEvent } from '../config/analyticsEvents';
+
+interface Props {
+	/** Identifiant de placement pour l’événement Umami. */
+	campaign: string;
+	class?: string;
+	'aria-label'?: string;
+}
+
+const { campaign, class: className, 'aria-label': ariaLabel } = Astro.props;
+---
+
+<a
+	href="/outils/auto-evaluation-re-flow/"
+	class={className}
+	data-umami-event={quizCtaEvent(campaign)}
+	aria-label={ariaLabel}
+>
+	<slot />
+</a>

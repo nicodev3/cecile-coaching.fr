@@ -317,6 +317,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 </style>
 
 <script>
+	import { ANALYTICS_EVENTS, quizQuestionAnsweredEvent } from '../config/analyticsEvents';
 	import { scoreQuiz, type SubmittedAnswer } from '../data/reflow';
 	import { normalizeFrenchPhone } from '../utils/frenchPhone';
 
@@ -425,7 +426,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			document.querySelector('[data-rg-info]')?.setAttribute('hidden', '');
 			scrollToQuiz();
 			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
-			trackUmami('quiz_completed');
+			trackUmami(ANALYTICS_EVENTS.quizCompleted);
 		};
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
@@ -447,13 +448,13 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
 			if (!startedTracked) {
 				startedTracked = true;
-				trackUmami('quiz_started');
+				trackUmami(ANALYTICS_EVENTS.quizStarted);
 			}
 			// Un jalon par question répondue, une seule fois par passage dans le quiz.
 			// Ni le choix, ni le texte de la réponse ne sont envoyés à Umami.
 			if (!answeredTracked.has(current)) {
 				answeredTracked.add(current);
-				trackUmami(`quiz_question_${String(current + 1).padStart(2, '0')}_answered`);
+				trackUmami(quizQuestionAnsweredEvent(current + 1));
 			}
 			render(false);
 			if (autoAdvanced.has(current) || Date.now() - lastPointerAt > 500) return;
@@ -480,7 +481,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (leadSending || gate.hidden) return;
 			leadError.hidden = true;
 			if (!leadForm.reportValidity()) {
-				trackUmami('quiz_lead_invalid');
+				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
 				return;
 			}
 			const data = new FormData(leadForm);
@@ -492,7 +493,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			const consent = data.get('consent') === 'on';
 			if (!firstName || !lastName || !phone || !consent || company.trim()) {
 				showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
-				trackUmami('quiz_lead_invalid');
+				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
 				return;
 			}
 			const answers = readAnswers();
@@ -502,7 +503,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				return;
 			}
 			leadSending = true;
-			trackUmami('quiz_lead_attempted');
+			trackUmami(ANALYTICS_EVENTS.quizLeadAttempted);
 			leadSubmit.disabled = true;
 			leadSubmit.textContent = 'Envoi…';
 			try {
@@ -513,7 +514,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				});
 				if (response.status === 400) {
 					showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
-					trackUmami('quiz_lead_invalid');
+					trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
 					return;
 				}
 				if (!response.ok) throw new Error('lead');
@@ -526,9 +527,9 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				mountCalendar({ firstName, lastName, email, phone });
 				scrollToQuiz();
 				result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
-				trackUmami('lead_submitted');
+				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
 			} catch {
-				trackUmami('quiz_lead_failed');
+				trackUmami(ANALYTICS_EVENTS.quizLeadFailed);
 				showError(
 					'L’envoi n’a pas abouti. Tes réponses sont conservées sur cette page : tu peux réessayer.',
 				);
