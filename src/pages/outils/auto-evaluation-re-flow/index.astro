@@ -94,14 +94,16 @@ const faqStructuredData = {
 					Découvre ton profil Re-flow
 				</h1>
 				<div class="mx-auto mt-5 flex max-w-lg items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3 text-left ring-1 ring-(--outline-variant)">
-					<Image
-						src={coachPortrait}
-						alt="Cécile, coach sportive"
-						class="size-14 shrink-0 rounded-full object-cover object-top"
-						width={56}
-						height={56}
-						loading="eager"
-					/>
+					<span class="size-14 shrink-0 overflow-hidden rounded-full">
+						<Image
+							src={coachPortrait}
+							alt="Cécile, coach sportive"
+							class="size-20 max-w-none -translate-x-[22px] -translate-y-[5px]"
+							width={80}
+							height={80}
+							loading="eager"
+						/>
+					</span>
 					<p class="text-sm leading-relaxed text-(--on-surface)">
 						<span class="font-semibold">Je suis Cécile.</span> Prends ces quelques minutes pour faire le point, à ton rythme.
 					</p>
