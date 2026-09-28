@@ -21,6 +21,7 @@ export const ANALYTICS_EVENTS = {
 	quizLeadInvalid: 'quiz_lead_invalid',
 	quizLeadFailed: 'quiz_lead_failed',
 	leadSubmitted: 'lead_submitted',
+	bookingViewed: 'booking_viewed',
 } as const;
 
 export const quizQuestionAnsweredEvent = (questionNumber: number) =>

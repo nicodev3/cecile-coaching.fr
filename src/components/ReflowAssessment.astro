@@ -251,16 +251,36 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					<p class="mt-3 text-lg font-semibold text-(--on-surface)">{profile.priority}</p>
 					{profile.guidance.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
 				</div>
-				<h3 class="mt-8 text-xl font-semibold text-(--on-surface)">C’est justement l’approche de Re-flow</h3>
+			</div>
+		))}
+		<div
+			class="mt-10 scroll-mt-28 rounded-2xl border-2 border-(--primary) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
+			data-rg-booking
+		>
+			<div class="text-center">
+				<p class="text-xs font-semibold tracking-[0.18em] text-(--primary) uppercase">Bilan offert — Re-flow</p>
+				<h3
+					id="rg-booking-title"
+					tabindex="-1"
+					class="mt-2 rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
+				>
+					Réserve ton bilan pour relire ce résultat ensemble
+				</h3>
+				<p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)">
+					Un échange personnalisé avec Cécile pour faire le point sur ton profil, identifier ton prochain pas et voir si l’accompagnement Re-flow est fait pour toi, sans engagement.
+				</p>
+			</div>
+			<div class="mt-6 min-h-150" data-rg-booking-mount></div>
+		</div>
+		{PROFILES.map((profile) => (
+			<div data-rg-profile-more={profile.key} hidden>
+				<h3 class="mt-10 text-xl font-semibold text-(--on-surface)">C’est justement l’approche de Re-flow</h3>
 				{profile.approach.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
 				<div class="mt-8 rounded-2xl bg-(--secondary-container)/40 p-5 text-(--on-secondary-container) sm:p-6">
 					<h3 class="text-lg font-semibold">Ton petit pas du jour</h3>
 					{profile.smallStep.map((text) => <p class="mt-3 leading-relaxed">{text}</p>)}
 				</div>
-				<div class="mt-8 text-center">
-					<p class="text-lg font-semibold text-(--on-surface)">{profile.invitation}</p>
-					<a href="/#programme" class="rg-cta mt-4">Découvrir Re-flow</a>
-				</div>
+				<p class="mt-8 text-center text-lg font-semibold text-(--on-surface)">{profile.invitation}</p>
 			</div>
 		))}
 		<div class="mt-10 border-t border-(--outline-variant) pt-8 text-center">
@@ -271,21 +291,6 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			<p class="mt-2 font-semibold text-(--on-surface)">Pilates · Yoga · Renforcement musculaire · Relaxation</p>
 			<p class="mt-4 leading-relaxed text-(--secondary)">Un accompagnement progressif pour retrouver confiance dans tes capacités physiques, mieux prendre en compte ton énergie et remettre durablement le mouvement dans ton quotidien.</p>
 			<a href="/#programme" class="rg-cta mt-6">Découvrir Re-flow</a>
-		</div>
-		<div
-			class="mt-8 scroll-mt-28 rounded-2xl border-2 border-(--error) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
-			data-rg-booking
-		>
-			<div class="text-center">
-				<p class="text-xs font-semibold tracking-[0.18em] text-(--error) uppercase">Bilan offert — Re-flow</p>
-				<h3 class="mt-2 text-xl leading-snug font-semibold text-(--on-surface) sm:text-2xl">
-					Réserve ton bilan pour relire ce résultat ensemble
-				</h3>
-				<p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)">
-					Un échange personnalisé avec Cécile pour faire le point sur ton profil, identifier ton prochain pas et voir si l’accompagnement Re-flow est fait pour toi, sans engagement.
-				</p>
-			</div>
-			<div class="mt-6 min-h-150" data-rg-booking-mount></div>
 		</div>
 		<p class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)">
 			Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
@@ -340,6 +345,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		const remainingLabel = root.querySelector<HTMLElement>('[data-rg-remaining]')!;
 		const gate = root.querySelector<HTMLElement>('[data-rg-gate]')!;
 		const gateProfile = root.querySelector<HTMLElement>('[data-rg-gate-profile]')!;
+		const booking = root.querySelector<HTMLElement>('[data-rg-booking]')!;
 		const leadForm = root.querySelector<HTMLFormElement>('[data-rg-lead-form]')!;
 		const leadError = root.querySelector<HTMLElement>('[data-rg-lead-error]')!;
 		const leadSubmit = root.querySelector<HTMLButtonElement>('[data-rg-lead-submit]')!;
@@ -351,6 +357,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		let current = 0;
 		let lastPointerAt = 0;
 		let viewedTracked = false;
+		let bookingViewedTracked = false;
 		let startedTracked = false;
 		let leadSending = false;
 		let advanceTimer: number | undefined;
@@ -359,6 +366,11 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (viewedTracked) return;
 			viewedTracked = true;
 			trackUmami(ANALYTICS_EVENTS.quizViewed);
+		};
+		const trackBookingViewed = () => {
+			if (bookingViewedTracked || result.hidden) return;
+			bookingViewedTracked = true;
+			trackUmami(ANALYTICS_EVENTS.bookingViewed);
 		};
 
 		const mountCalendar = (lead: {
@@ -407,6 +419,19 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				block: 'start',
 				behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
 			});
+		const scrollToBooking = () =>
+			booking.scrollIntoView({
+				block: 'start',
+				behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+			});
+		const showProfile = (profileKey: string) => {
+			result.querySelectorAll<HTMLElement>('[data-rg-profile]').forEach((block) => {
+				block.hidden = block.dataset.rgProfile !== profileKey;
+			});
+			result.querySelectorAll<HTMLElement>('[data-rg-profile-more]').forEach((block) => {
+				block.hidden = block.dataset.rgProfileMore !== profileKey;
+			});
+		};
 		const render = (focus = true) => {
 			steps.forEach((step, index) => step.toggleAttribute('data-current', index === current));
 			root.querySelector<HTMLElement>('[data-rg-progress-label]')!.textContent =
@@ -552,15 +577,14 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				}
 				if (!response.ok) throw new Error('lead');
 				root.querySelector<HTMLElement>('[data-rg-profile-name]')!.textContent = scored.profile.label;
-				result.querySelectorAll<HTMLElement>('[data-rg-profile]').forEach((block) => {
-					block.hidden = block.dataset.rgProfile !== scored.profile.key;
-				});
+				showProfile(scored.profile.key);
 				gate.hidden = true;
 				result.hidden = false;
 				mountCalendar({ firstName, lastName, email, phone });
-				scrollToQuiz();
-				result.querySelector<HTMLElement>('#rg-result-title')?.focus({ preventScroll: true });
+				scrollToBooking();
+				booking.querySelector<HTMLElement>('#rg-booking-title')?.focus({ preventScroll: true });
 				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
+				trackBookingViewed();
 			} catch {
 				trackUmami(ANALYTICS_EVENTS.quizLeadFailed);
 				showError(
@@ -580,6 +604,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			autoAdvanced.clear();
 			answeredTracked.clear();
 			startedTracked = false;
+			bookingViewedTracked = false;
 			lastPointerAt = 0;
 			current = 0;
 			result.hidden = true;
@@ -603,15 +628,24 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		if (typeof IntersectionObserver === 'undefined') {
 			trackQuizViewed();
 		} else {
-			const observer = new IntersectionObserver(
+			const quizObserver = new IntersectionObserver(
 				(entries) => {
 					if (!entries.some((entry) => entry.isIntersecting)) return;
 					trackQuizViewed();
-					observer.disconnect();
+					quizObserver.disconnect();
 				},
 				{ threshold: 0.35 },
 			);
-			observer.observe(root);
+			quizObserver.observe(root);
+
+			const bookingObserver = new IntersectionObserver(
+				(entries) => {
+					if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio > 0)) return;
+					trackBookingViewed();
+				},
+				{ threshold: 0.4 },
+			);
+			bookingObserver.observe(booking);
 		}
 	});
 </script>
