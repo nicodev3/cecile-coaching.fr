@@ -14,6 +14,7 @@ const campaignEvent = (prefix: string, campaign: string) => {
 };
 
 export const ANALYTICS_EVENTS = {
+	quizViewed: 'quiz_viewed',
 	quizStarted: 'quiz_started',
 	quizCompleted: 'quiz_completed',
 	quizLeadAttempted: 'quiz_lead_attempted',

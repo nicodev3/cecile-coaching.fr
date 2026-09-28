@@ -33,6 +33,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			>
 			</div>
 		</div>
+		<p class="mt-2 text-sm font-medium text-(--primary)" data-rg-remaining hidden></p>
 		<p class="sr-only" aria-live="polite" data-rg-live></p>
 	</div>
 
@@ -118,8 +119,14 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			>
 				Ton profil est prêt !
 			</h2>
+			<p
+				class="mt-4 text-2xl font-semibold text-(--primary) sm:text-3xl"
+				data-rg-gate-profile
+				hidden
+			>
+			</p>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Tu as terminé le questionnaire. Indique ton prénom, ton nom, ton email et ton téléphone pour découvrir ton profil Re-flow et recevoir ton résultat. Tu pourras ensuite réserver un bilan personnalisé avec Cécile.
+				Encore une étape : tes coordonnées pour débloquer ton résultat complet. Tu pourras ensuite réserver un bilan avec Cécile.
 			</p>
 		</div>
 
@@ -205,7 +212,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					class="mt-1 size-4 shrink-0 accent-(--primary)"
 				/>
 				<span>
-					J’accepte que mes coordonnées et mes réponses soient utilisées pour afficher mon profil et préparer mon bilan avec Cécile coaching, ainsi que de recevoir mon résultat et des informations de sa part.{' '}
+					J’accepte que mes coordonnées et mes réponses servent à afficher mon profil et à me recontacter au sujet de Re-flow.{' '}
 					<a
 						href="/politique-de-confidentialite/"
 						class="font-semibold text-(--primary) underline underline-offset-2"
@@ -330,7 +337,9 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		const form = root.querySelector<HTMLFormElement>('[data-rg-form]')!;
 		const result = root.querySelector<HTMLElement>('[data-rg-result]')!;
 		const progress = root.querySelector<HTMLElement>('[data-rg-progress]')!;
+		const remainingLabel = root.querySelector<HTMLElement>('[data-rg-remaining]')!;
 		const gate = root.querySelector<HTMLElement>('[data-rg-gate]')!;
+		const gateProfile = root.querySelector<HTMLElement>('[data-rg-gate-profile]')!;
 		const leadForm = root.querySelector<HTMLFormElement>('[data-rg-lead-form]')!;
 		const leadError = root.querySelector<HTMLElement>('[data-rg-lead-error]')!;
 		const leadSubmit = root.querySelector<HTMLButtonElement>('[data-rg-lead-submit]')!;
@@ -341,9 +350,16 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		const answeredTracked = new Set<number>();
 		let current = 0;
 		let lastPointerAt = 0;
+		let viewedTracked = false;
 		let startedTracked = false;
 		let leadSending = false;
 		let advanceTimer: number | undefined;
+
+		const trackQuizViewed = () => {
+			if (viewedTracked) return;
+			viewedTracked = true;
+			trackUmami(ANALYTICS_EVENTS.quizViewed);
+		};
 
 		const mountCalendar = (lead: {
 			firstName: string;
@@ -400,6 +416,15 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			root.querySelector('[data-rg-progressbar]')!.setAttribute('aria-valuenow', String(current + 1));
 			root.querySelector<HTMLElement>('[data-rg-progress-fill]')!.style.width =
 				`${((current + 1) / steps.length) * 100}%`;
+			const remaining = steps.length - current;
+			if (remaining <= 3) {
+				remainingLabel.hidden = false;
+				remainingLabel.textContent =
+					remaining === 1 ? 'Dernière question' : `Plus que ${remaining} questions`;
+			} else {
+				remainingLabel.hidden = true;
+				remainingLabel.textContent = '';
+			}
 			root.querySelector<HTMLElement>('[data-rg-live]')!.textContent =
 				`Question ${current + 1} sur ${steps.length}.`;
 			prevBtn.disabled = current === 0;
@@ -419,6 +444,14 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				return;
 			}
 			if (readAnswers().length !== steps.length) return;
+			const scored = scoreQuiz(readAnswers());
+			if (scored) {
+				gateProfile.textContent = scored.profile.label;
+				gateProfile.hidden = false;
+			} else {
+				gateProfile.textContent = '';
+				gateProfile.hidden = true;
+			}
 			form.hidden = true;
 			progress.hidden = true;
 			gate.hidden = false;
@@ -551,6 +584,8 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			current = 0;
 			result.hidden = true;
 			gate.hidden = true;
+			gateProfile.hidden = true;
+			gateProfile.textContent = '';
 			leadError.hidden = true;
 			leadSubmit.textContent = 'Découvrir mon profil';
 			form.hidden = false;
@@ -564,5 +599,19 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		progress.hidden = false;
 		root.dataset.js = 'on';
 		render(false);
+
+		if (typeof IntersectionObserver === 'undefined') {
+			trackQuizViewed();
+		} else {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					if (!entries.some((entry) => entry.isIntersecting)) return;
+					trackQuizViewed();
+					observer.disconnect();
+				},
+				{ threshold: 0.35 },
+			);
+			observer.observe(root);
+		}
 	});
 </script>
