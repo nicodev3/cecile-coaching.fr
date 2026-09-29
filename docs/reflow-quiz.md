@@ -96,8 +96,11 @@ après le déploiement : les nouveaux jalons ne sont pas rétroactifs.
 Contrôler dans **Events** qu’un parcours de test produit chaque événement une
 fois et dans le bon ordre. Le funnel compte les visiteurs qui atteignent les
 étapes dans l’ordre ; les événements de diagnostic se consultent séparément
-dans **Events**. Le chargement du widget de réservation ne confirme pas qu’un
-créneau a été réservé : cette conversion doit être mesurée côté GoHighLevel.
+dans **Events**. L’affichage du widget de réservation envoie `booking_viewed`,
+sans confirmer qu’un créneau a été pris. La confirmation est mesurée sur
+`/merci-rendez-vous/` via `booking_confirmed` (et l’événement Meta `Schedule`).
+Configurer dans GoHighLevel la redirection après réservation vers
+`https://cecilecoaching.fr/merci-rendez-vous/`.
 
 ## Meta Pixel
 
@@ -111,9 +114,11 @@ est envoyé automatiquement sur chaque page. Le quiz envoie en plus :
 | Première réponse | `QuizStarted` | Custom |
 | Formulaire affiché | `QuizCompleted` | Custom |
 | Lead envoyé | `Lead` | Standard |
-| Calendrier visible | `Schedule` | Standard |
+| Calendrier visible | `BookingViewed` | Custom |
+| Réservation confirmée (`/merci-rendez-vous/`) | `Schedule` | Standard |
 
 Les paramètres `content_name=quiz_reflow` et `content_category=quiz`
 accompagnent ces événements. Aucune coordonnée personnelle n’est envoyée au
 Pixel. Pour les campagnes Meta, configurer la conversion principale sur
-`Lead`. Vérifier avec l’extension Meta Pixel Helper après déploiement.
+`Lead`, et `Schedule` uniquement comme conversion de rendez-vous confirmé.
+Vérifier avec l’extension Meta Pixel Helper après déploiement.

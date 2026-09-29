@@ -381,7 +381,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (bookingViewedTracked || result.hidden) return;
 			bookingViewedTracked = true;
 			trackUmami(ANALYTICS_EVENTS.bookingViewed);
-			trackMeta('Schedule', QUIZ_CONTENT);
+			trackMeta('BookingViewed', QUIZ_CONTENT, true);
 		};
 
 		const mountCalendar = (lead: {

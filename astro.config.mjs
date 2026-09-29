@@ -11,7 +11,12 @@ import { reflowLeadDevPlugin } from './src/dev/reflowLeadDevPlugin.mjs';
 export default defineConfig({
   site: 'https://cecilecoaching.fr',
   trailingSlash: 'always',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.startsWith('https://cecilecoaching.fr/merci-rendez-vous'),
+    }),
+  ],
 
   fonts: [
     {

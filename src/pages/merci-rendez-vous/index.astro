@@ -1,0 +1,107 @@
+---
+import { Image } from 'astro:assets';
+import coachPortrait from '../../assets/cecile-coach-portrait.webp';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+
+const title = 'Ton rendez-vous est confirmé | RE-FLOW';
+const description =
+	'Merci, ton rendez-vous avec Cécile est confirmé. Un email de confirmation arrive dans ta boîte.';
+---
+
+<BaseLayout title={title} description={description} noindex={true} nofollow={true}>
+	<Fragment slot="header">
+		<Header />
+	</Fragment>
+
+	<section class="border-b border-black/5 bg-white/35">
+		<div class="mx-auto max-w-3xl px-4 pt-4 pb-16 text-center sm:px-6 sm:py-20 lg:px-8">
+			<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">BILAN RE-FLOW</p>
+			<h1 class="mt-2 text-3xl font-semibold text-(--on-surface) sm:text-4xl">
+				Ton rendez-vous est confirmé
+			</h1>
+
+			<div
+				class="mx-auto mt-8 flex max-w-lg items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-3 py-3 text-left ring-1 ring-(--outline-variant) sm:px-4 sm:py-4"
+			>
+				<span class="size-14 shrink-0 overflow-hidden rounded-full">
+					<Image
+						src={coachPortrait}
+						alt="Cécile, coach sportive"
+						class="size-20 max-w-none -translate-x-[22px] -translate-y-[5px]"
+						width={240}
+						height={240}
+						loading="eager"
+					/>
+				</span>
+				<p class="text-sm leading-relaxed text-(--on-surface) sm:text-base">
+					<span class="font-semibold">Merci pour ta confiance.</span> Je suis Cécile : ton bilan
+					est bien noté dans mon agenda. Tu vas recevoir un email de confirmation avec le créneau et
+					les détails pratiques. À très vite.
+				</p>
+			</div>
+
+			<p class="mx-auto mt-6 max-w-lg text-base leading-relaxed text-(--secondary)">
+				Pense à vérifier tes spams si l’email n’arrive pas dans les prochaines minutes.
+			</p>
+
+			<div class="mt-8 flex flex-wrap justify-center gap-3">
+				<a
+					href="/"
+					class="inline-flex items-center justify-center rounded-2xl bg-(--primary) px-5 py-2.5 text-base font-semibold text-(--on-primary) shadow-sm shadow-black/10 transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+				>
+					Retour à l’accueil
+				</a>
+				<a
+					href="/blog/"
+					class="inline-flex items-center justify-center rounded-2xl bg-(--surface-container-lowest) px-5 py-2.5 text-base font-semibold text-(--on-surface) ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+				>
+					Lire le blog
+				</a>
+			</div>
+		</div>
+	</section>
+</BaseLayout>
+
+<script>
+	import { ANALYTICS_EVENTS } from '../../config/analyticsEvents';
+
+	const QUIZ_CONTENT = { content_name: 'quiz_reflow', content_category: 'quiz' } as const;
+	const POLL_MS = 100;
+	const MAX_WAIT_MS = 4000;
+
+	type Fbq = ((...args: unknown[]) => void) & { callMethod?: (...args: unknown[]) => void; queue?: unknown[] };
+	type Umami = { track?: (name: string) => void };
+
+	let metaSent = false;
+	let umamiSent = false;
+
+	const trackMetaSchedule = () => {
+		if (metaSent) return true;
+		const fbq = (window as unknown as { fbq?: Fbq }).fbq;
+		if (typeof fbq !== 'function') return false;
+		metaSent = true;
+		fbq('track', 'Schedule', QUIZ_CONTENT);
+		return true;
+	};
+
+	const trackUmamiConfirmed = () => {
+		if (umamiSent) return true;
+		const umami = (window as unknown as { umami?: Umami }).umami;
+		if (typeof umami?.track !== 'function') return false;
+		umamiSent = true;
+		umami.track(ANALYTICS_EVENTS.bookingConfirmed);
+		return true;
+	};
+
+	const startedAt = Date.now();
+	const tryTrack = () => {
+		const metaOk = trackMetaSchedule();
+		const umamiOk = trackUmamiConfirmed();
+		if (metaOk && umamiOk) return;
+		if (Date.now() - startedAt >= MAX_WAIT_MS) return;
+		window.setTimeout(tryTrack, POLL_MS);
+	};
+
+	tryTrack();
+</script>
