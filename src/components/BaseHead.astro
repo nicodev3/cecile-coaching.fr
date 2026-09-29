@@ -32,6 +32,7 @@ interface Props {
 	structuredData?: StructuredData | StructuredData[];
 	ogType?: 'website' | 'article';
 	noindex?: boolean;
+	nofollow?: boolean;
 	includeCanonical?: boolean;
 }
 
@@ -44,6 +45,7 @@ const {
 	structuredData,
 	ogType = 'website',
 	noindex = false,
+	nofollow = false,
 	includeCanonical = true,
 } = Astro.props;
 const siteUrl = Astro.site?.toString() ?? `${Astro.url.origin}/`;
@@ -144,7 +146,7 @@ const metaPixelEnabled = import.meta.env.PROD && META_PIXEL_ID;
 
 <!-- Canonical URL -->
 {includeCanonical && <link rel="canonical" href={canonicalURL} />}
-{noindex && <meta name="robots" content="noindex, follow" />}
+{noindex && <meta name="robots" content={nofollow ? 'noindex, nofollow' : 'noindex, follow'} />}
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
