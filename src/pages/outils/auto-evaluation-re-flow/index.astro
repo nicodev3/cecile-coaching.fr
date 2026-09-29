@@ -77,23 +77,25 @@ const faqStructuredData = {
 	</Fragment>
 
 	<article class="border-b border-black/5 bg-white/35">
-		<div class="mx-auto max-w-3xl px-4 pt-4 pb-12 sm:px-6 sm:py-12 lg:px-8">
-			<Breadcrumbs
-				items={[
-					{ name: 'Accueil', href: '/' },
-					{ name: 'Outils', href: '/outils/' },
-					{ name: 'Auto-évaluation Re-flow', href: '/outils/auto-evaluation-re-flow/' },
-				]}
-			/>
+		<div class="mx-auto max-w-3xl px-4 pt-2 pb-12 sm:px-6 sm:py-12 lg:px-8">
+			<div class="hidden sm:block">
+				<Breadcrumbs
+					items={[
+						{ name: 'Accueil', href: '/' },
+						{ name: 'Outils', href: '/outils/' },
+						{ name: 'Auto-évaluation Re-flow', href: '/outils/auto-evaluation-re-flow/' },
+					]}
+				/>
+			</div>
 
 			<section class="text-center" data-rg-intro>
 				<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">
 					AUTO-ÉVALUATION
 				</p>
-				<h1 class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
+				<h1 class="mt-2 text-2xl leading-tight font-semibold text-(--on-surface) sm:mt-3 sm:text-4xl">
 					Découvre ton profil et évalue tes besoins
 				</h1>
-				<div class="mx-auto mt-5 flex max-w-lg items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3 text-left ring-1 ring-(--outline-variant)">
+				<div class="mx-auto mt-3 flex max-w-lg items-center gap-3 rounded-2xl bg-(--surface-container-lowest) px-3 py-2 text-left ring-1 ring-(--outline-variant) sm:mt-5 sm:px-4 sm:py-3">
 					<span class="size-14 shrink-0 overflow-hidden rounded-full">
 						<Image
 							src={coachPortrait}
@@ -108,15 +110,15 @@ const faqStructuredData = {
 						<span class="font-semibold">Je suis Cécile.</span> Prends ces quelques minutes pour faire le point sur tes capacités physiques.
 					</p>
 				</div>
-				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-(--on-surface)">
+				<p class="mx-auto mt-5 hidden max-w-2xl text-base leading-relaxed text-(--on-surface) sm:block">
 					De quoi as-tu le plus besoin aujourd’hui pour reprendre une activité physique à ton rythme&nbsp;?
 				</p>
-				<p class="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-(--secondary)">
+				<p class="mx-auto mt-3 hidden max-w-2xl text-base leading-relaxed text-(--secondary) sm:block">
 					{TOTAL_QUESTIONS} questions pour découvrir ton profil : Reconnexion, Énergie, Force ou Équilibre.
 				</p>
 			</section>
 
-			<div class="mt-10">
+			<div class="mt-4 sm:mt-10">
 				<ReflowAssessment />
 			</div>
 
