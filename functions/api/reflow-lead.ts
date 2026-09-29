@@ -100,33 +100,34 @@ const isAllowedOrigin = (request: Request): boolean => {
 };
 
 const formatQuizResult = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
-	// Ce champ peut servir au mail de résultat : il ne contient aucun score.
+	// Texte du mail : profil, priorité et petit pas. Pas de score ni de lien vers le programme.
 	const profile = result.profile;
-	const lines = [
-		`Ton profil Re-flow : ${profile.label}`,
+	return [
+		`Ton profil : ${profile.label}`,
 		profile.summary,
+		'',
+		'Ta priorité',
+		profile.priority,
+		'',
+		'Ton petit pas',
+		...profile.smallStep,
+	].join('\n');
+};
+
+const formatQuizNote = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
+	const profile = result.profile;
+	return [
+		formatQuizResult(result),
 		'',
 		...profile.intro,
 		'',
-		'Ta priorité aujourd’hui',
-		profile.priority,
 		...profile.guidance,
 		'',
-		'C’est justement l’approche de Re-flow',
 		...profile.approach,
 		'',
-		'Ton petit pas du jour',
-		...profile.smallStep,
-		'',
-		profile.invitation,
-		'Découvrir Re-flow : https://cecilecoaching.fr/#programme',
-		'',
-		'16 semaines · 3 séances par semaine',
-		'Pilates · Yoga · Renforcement musculaire · Relaxation',
-		'',
-		'Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.',
-	];
-	return lines.join('\n');
+		'Réponses au questionnaire',
+		...result.answers.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`),
+	].join('\n');
 };
 
 const ghlFetch = (token: string, path: string, body: unknown, method: 'POST' | 'DELETE' = 'POST') =>
@@ -272,14 +273,7 @@ export const onRequestPost = async (context: {
 
 	try {
 		const note = await ghlFetch(token, `/contacts/${contactId}/notes`, {
-			body: [
-				quizText,
-				'',
-				'Réponses au questionnaire',
-				...result.answers.map(
-					(answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`,
-				),
-			].join('\n'),
+			body: formatQuizNote(result),
 		});
 		if (!note.ok) {
 			const detail = await readUpstreamError(note);

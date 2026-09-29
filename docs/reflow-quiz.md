@@ -42,8 +42,9 @@ Les secrets existants restent `GHL_PRIVATE_TOKEN`, `GHL_LOCATION_ID` et
 Le téléphone français est normalisé au format E.164. Après validation, le
 widget de réservation GoHighLevel est chargé dans une iframe, préremplie
 avec ces quatre coordonnées. Refaire le test supprime le widget précédent.
-Le champ résultat reçoit le texte complet du profil, sans scores ni réponses
-personnelles. Une note interne conserve le profil et les 12 réponses.
+Le champ résultat reçoit un texte court pour le mail : le profil, une phrase,
+la priorité et le petit pas. Il ne contient ni score, ni réponses, ni lien vers
+le programme. Une note interne conserve le détail du profil et les 12 réponses.
 
 À chaque questionnaire, les anciens tags de profil/dimension du quiz sont
 retirés, puis `quiz-reflow` et un seul des tags `quiz-reconnexion`,
