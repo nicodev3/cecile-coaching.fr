@@ -338,6 +338,15 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		umami?.track?.(name);
 	};
 
+	type Fbq = ((...args: unknown[]) => void) & { callMethod?: (...args: unknown[]) => void; queue?: unknown[] };
+	const trackMeta = (event: string, params?: Record<string, unknown>, custom = false) => {
+		const fbq = (window as unknown as { fbq?: Fbq }).fbq;
+		if (typeof fbq !== 'function') return;
+		fbq(custom ? 'trackCustom' : 'track', event, params);
+	};
+
+	const QUIZ_CONTENT = { content_name: 'quiz_reflow', content_category: 'quiz' } as const;
+
 	document.querySelectorAll<HTMLElement>('[data-rg-root]').forEach((root) => {
 		const form = root.querySelector<HTMLFormElement>('[data-rg-form]')!;
 		const result = root.querySelector<HTMLElement>('[data-rg-result]')!;
@@ -366,11 +375,13 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (viewedTracked) return;
 			viewedTracked = true;
 			trackUmami(ANALYTICS_EVENTS.quizViewed);
+			trackMeta('ViewContent', QUIZ_CONTENT);
 		};
 		const trackBookingViewed = () => {
 			if (bookingViewedTracked || result.hidden) return;
 			bookingViewedTracked = true;
 			trackUmami(ANALYTICS_EVENTS.bookingViewed);
+			trackMeta('Schedule', QUIZ_CONTENT);
 		};
 
 		const mountCalendar = (lead: {
@@ -485,6 +496,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			scrollToQuiz();
 			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
 			trackUmami(ANALYTICS_EVENTS.quizCompleted);
+			trackMeta('QuizCompleted', QUIZ_CONTENT, true);
 		};
 		form.addEventListener('submit', (event) => {
 			event.preventDefault();
@@ -507,6 +519,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (!startedTracked) {
 				startedTracked = true;
 				trackUmami(ANALYTICS_EVENTS.quizStarted);
+				trackMeta('QuizStarted', QUIZ_CONTENT, true);
 			}
 			// Un jalon par question répondue, une seule fois par passage dans le quiz.
 			// Ni le choix, ni le texte de la réponse ne sont envoyés à Umami.
@@ -584,6 +597,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				scrollToBooking();
 				booking.querySelector<HTMLElement>('#rg-booking-title')?.focus({ preventScroll: true });
 				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
+				trackMeta('Lead', QUIZ_CONTENT);
 				trackBookingViewed();
 			} catch {
 				trackUmami(ANALYTICS_EVENTS.quizLeadFailed);

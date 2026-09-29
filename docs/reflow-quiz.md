@@ -98,3 +98,22 @@ fois et dans le bon ordre. Le funnel compte les visiteurs qui atteignent les
 étapes dans l’ordre ; les événements de diagnostic se consultent séparément
 dans **Events**. Le chargement du widget de réservation ne confirme pas qu’un
 créneau a été réservé : cette conversion doit être mesurée côté GoHighLevel.
+
+## Meta Pixel
+
+Le script Meta Pixel est chargé en production par `BaseHead.astro` lorsque
+`META_PIXEL_ID` est renseigné dans `src/config/analytics.ts`. Un `PageView`
+est envoyé automatiquement sur chaque page. Le quiz envoie en plus :
+
+| Étape | Événement Meta | Type |
+| --- | --- | --- |
+| Quiz visible | `ViewContent` | Standard |
+| Première réponse | `QuizStarted` | Custom |
+| Formulaire affiché | `QuizCompleted` | Custom |
+| Lead envoyé | `Lead` | Standard |
+| Calendrier visible | `Schedule` | Standard |
+
+Les paramètres `content_name=quiz_reflow` et `content_category=quiz`
+accompagnent ces événements. Aucune coordonnée personnelle n’est envoyée au
+Pixel. Pour les campagnes Meta, configurer la conversion principale sur
+`Lead`. Vérifier avec l’extension Meta Pixel Helper après déploiement.

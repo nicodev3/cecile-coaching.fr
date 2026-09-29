@@ -6,7 +6,7 @@ import { COACH_ADDRESS, COACH_EMAIL, COACH_NAME, COACH_SIRET_DISPLAY } from '../
 
 const title = 'Politique de confidentialité | RE-FLOW';
 const description =
-	"Politique de confidentialité du site cecilecoaching.fr : données personnelles, formulaires, statistiques anonymisées et droits RGPD.";
+	"Politique de confidentialité du site cecilecoaching.fr : données personnelles, formulaires, statistiques, Meta Pixel et droits RGPD.";
 ---
 
 <BaseLayout title={title} description={description}>
@@ -25,7 +25,7 @@ const description =
 
 			<div class="legal-content text-base leading-relaxed text-slate-800">
 				<h1 class="text-3xl font-semibold text-slate-900 sm:text-4xl">Politique de confidentialité</h1>
-				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : 26 septembre 2026.</p>
+				<p class="mt-2 text-sm text-slate-600">Dernière mise à jour : 29 septembre 2026.</p>
 
 				<p>
 					La présente politique décrit la façon dont {COACH_NAME} (ci-après « <em>nous</em> »)
@@ -66,6 +66,13 @@ const description =
 						manière anonymisée par <strong>Umami Analytics</strong> et
 						<strong>Ahrefs Web Analytics</strong>, sans cookies de suivi individuel.
 					</li>
+					<li>
+						<strong>Mesure publicitaire (Meta Pixel)</strong> : pages consultées et événements
+						liés à l’auto-évaluation Re-flow (démarrage, fin du questionnaire, envoi du
+						formulaire, affichage du calendrier). Ces données sont transmises à
+						<strong>Meta Platforms Ireland Ltd.</strong> pour mesurer l’efficacité des campagnes
+						Facebook et Instagram et, le cas échéant, optimiser la diffusion des publicités.
+					</li>
 				</ul>
 
 				<h2>3. Finalités</h2>
@@ -76,6 +83,10 @@ const description =
 						acceptées lors du formulaire et informer la responsable du traitement par email.
 					</li>
 					<li>Mesurer l’audience du site et améliorer son contenu (statistiques anonymisées).</li>
+					<li>
+						Mesurer et améliorer les campagnes publicitaires diffusées sur Facebook et Instagram
+						(Meta Pixel).
+					</li>
 					<li>
 						Gérer la relation pré-contractuelle et contractuelle dans le cadre d’un éventuel
 						accompagnement en ligne.
@@ -91,6 +102,10 @@ const description =
 					<li>
 						<strong>Intérêt légitime</strong> de l’éditeur à améliorer son site (statistiques
 						anonymisées).
+					</li>
+					<li>
+						<strong>Consentement</strong> pour les cookies et traceurs publicitaires déposés par
+						le Meta Pixel, lorsque la réglementation l’exige.
 					</li>
 				</ul>
 
@@ -125,16 +140,22 @@ const description =
 					</li>
 					<li><strong>Umami Analytics</strong> - statistiques anonymisées.</li>
 					<li><strong>Ahrefs Web Analytics</strong> - statistiques anonymisées.</li>
+					<li>
+						<strong>Meta Platforms Ireland Ltd.</strong> - mesure des campagnes publicitaires
+						via le Meta Pixel (Facebook / Instagram).
+					</li>
 				</ul>
 
 				<h2>7. Cookies</h2>
 				<p>
-					Ce site n’utilise pas de cookies de suivi publicitaire. Les solutions analytics
-					(<strong>Umami</strong> et <strong>Ahrefs Web Analytics</strong>) fonctionnent sans
-					cookie permettant d’identifier individuellement un visiteur. Les vidéos YouTube
-					intégrées peuvent en revanche poser des cookies tiers : ils ne sont déposés qu’à
-					partir du moment où vous lancez la lecture. Le calendrier de rendez-vous
-					(GoHighLevel) peut déposer des cookies lorsqu’il s’affiche, après l’envoi du
+					Les solutions analytics (<strong>Umami</strong> et
+					<strong>Ahrefs Web Analytics</strong>) fonctionnent sans cookie permettant d’identifier
+					individuellement un visiteur. Le <strong>Meta Pixel</strong> peut en revanche déposer
+					des cookies ou traceurs publicitaires afin de mesurer les campagnes Facebook et
+					Instagram et d’attribuer les conversions (notamment l’envoi du formulaire
+					d’auto-évaluation). Les vidéos YouTube intégrées peuvent aussi poser des cookies tiers :
+					ils ne sont déposés qu’à partir du moment où vous lancez la lecture. Le calendrier de
+					rendez-vous (GoHighLevel) peut déposer des cookies lorsqu’il s’affiche, après l’envoi du
 					formulaire de résultat.
 				</p>
 
