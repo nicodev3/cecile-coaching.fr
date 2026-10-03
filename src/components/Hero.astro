@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import QuizCtaLink from './QuizCtaLink.astro';
 import TunnelCtaLink from './TunnelCtaLink.astro';
-import heroImageWebp from '../assets/femme-yoga.webp';
+import heroImage from '../assets/apa-re-flow.webp';
 
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
@@ -19,7 +19,7 @@ const reveal =
 		aria-hidden="true"
 	/>
 
-	<div class="relative z-10 mx-auto grid w-full max-w-container grid-cols-1 items-center gap-12 md:grid-cols-2">
+	<div class="relative z-10 mx-auto grid w-full max-w-container grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-12">
 		<div class="space-y-8">
 			<p class="text-sm font-semibold tracking-[0.2em] text-(--primary-container) uppercase">
 				RE-FLOW par Cécile Cichosz — coach sportive certifiée APA
@@ -81,18 +81,18 @@ const reveal =
 			</p>
 		</div>
 
-		<div class="group relative">
+		<div class="group relative flex justify-center md:justify-end">
 			<div
 				class="pointer-events-none absolute -inset-4 rounded-4xl bg-(--primary-container)/10 blur-2xl transition group-hover:blur-3xl"
 				aria-hidden="true"
 			/>
 			<Image
-				src={heroImageWebp}
-				alt="Femme en méditation, assise en tailleur."
+				src={heroImage}
+				alt="Femme en tenue de sport, les bras levés dans un étirement."
 				fetchpriority="high"
 				loading="eager"
 				decoding="async"
-				class="relative h-auto w-full rounded-4xl object-contain"
+				class="relative mx-auto max-h-[min(22rem,48vh)] w-auto max-w-[85%] rounded-4xl object-contain sm:max-h-80 md:mx-0 md:max-h-[70vh] md:max-w-full"
 			/>
 		</div>
 	</div>

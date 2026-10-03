@@ -1,4 +1,5 @@
 ---
+import { Menu, X } from '@lucide/astro';
 import { PILLARS } from '../data/pillars';
 import TunnelCtaLink from './TunnelCtaLink.astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
@@ -36,11 +37,13 @@ const desktopLinkClass = (active: boolean) =>
 	`text-base transition focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) ${linkClass(active)}`;
 
 const mobileLinkClass = (active: boolean) =>
-	`block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary) ${active ? 'pointer-events-none font-semibold text-(--primary)' : 'text-(--on-surface) hover:bg-(--surface-container-low)'}`;
+	`flex min-h-11 items-center rounded-xl px-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary) ${active ? 'bg-(--primary-fixed)/40 font-semibold text-(--primary)' : 'text-(--on-surface) hover:bg-(--surface-container-low)'}`;
 ---
 
-<header class="sticky top-0 z-50 bg-(--surface)/90 shadow-sm backdrop-blur-md">
-	<div class="mx-auto flex max-w-container items-center justify-between gap-4 px-4 py-6 sm:px-10">
+<header class="sticky top-0 z-50 bg-(--surface) shadow-sm lg:bg-(--surface)/90 lg:backdrop-blur-md">
+	<div
+		class="mx-auto flex h-16 max-w-container items-center justify-between gap-3 px-4 sm:px-10 lg:h-auto lg:gap-4 lg:py-6"
+	>
 		<a
 			href="/"
 			class="text-2xl tracking-tight text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
@@ -140,95 +143,213 @@ const mobileLinkClass = (active: boolean) =>
 			</TunnelCtaLink>
 		</div>
 
-		<details class="group relative lg:hidden" data-mobile-nav>
-			<summary
-				class="list-none inline-flex items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-4 py-2 text-base font-medium text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
-				aria-label="Ouvrir le menu"
+		<div class="group/mbar flex items-center gap-2 lg:hidden">
+			<TunnelCtaLink
+				campaign="header-mobile-bar"
+				class="inline-flex min-h-11 items-center justify-center rounded-full bg-(--primary) px-4 text-sm font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) group-has-[[data-mobile-nav][open]]/mbar:hidden"
 			>
-				Menu
-			</summary>
+				Commencer
+			</TunnelCtaLink>
 
-			<div
-				class="absolute right-0 mt-2 w-[min(92vw,22rem)] overflow-hidden rounded-2xl bg-(--surface-container-lowest) shadow-lg ring-1 ring-(--outline-variant)/40"
-			>
-				<nav class="p-2" aria-label="Menu mobile">
-					<a
-						href={links[0].href}
-						aria-current={links[0].isCurrent ? 'page' : undefined}
-						class={mobileLinkClass(links[0].isCurrent)}
+			<details class="group" data-mobile-nav>
+				<summary
+					class="inline-flex size-11 cursor-pointer list-none items-center justify-center rounded-full text-(--primary) transition select-none hover:bg-(--surface-container-low) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary) group-open:bg-(--surface-container-low) [&::-webkit-details-marker]:hidden"
+					aria-label="Ouvrir le menu"
+					aria-controls="mobile-nav-panel"
+					aria-expanded="false"
+				>
+					<span class="sr-only" data-mobile-nav-label>Menu</span>
+					<Menu class="size-6 group-open:hidden" stroke-width={1.75} aria-hidden="true" />
+					<X class="hidden size-6 group-open:block" stroke-width={1.75} aria-hidden="true" />
+				</summary>
+
+				<div
+					class="fixed inset-x-0 top-16 bottom-0 z-40 bg-(--ink)/35 backdrop-blur-[2px]"
+					data-mobile-nav-backdrop
+				>
+				</div>
+
+				<div
+					id="mobile-nav-panel"
+					class="mobile-nav-panel fixed inset-y-0 top-16 right-0 z-50 flex w-full max-w-sm flex-col bg-(--surface-container-lowest) shadow-2xl ring-1 ring-(--outline-variant)/40"
+				>
+					<nav
+						class="min-h-0 flex-1 overflow-y-auto overscroll-contain px-3 py-4"
+						aria-label="Navigation mobile"
 					>
-						{links[0].label}
-					</a>
-
-					<div class="mt-2 border-t border-(--outline-variant)/40 pt-2">
-						<p class="px-3 pb-1 text-xs font-semibold tracking-[0.18em] text-(--secondary)">
-							COMPRENDRE
-						</p>
-						{
-							PILLARS.map((p) => (
-								<a
-									href={p.slug}
-									class:list={[
-										'block rounded-xl px-3 py-2 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)',
-										currentPath.startsWith(p.slug)
-											? 'font-semibold text-(--primary)'
-											: 'text-(--on-surface) hover:bg-(--surface-container-low)',
-									]}
-								>
-									{p.label}
-								</a>
-							))
-						}
-					</div>
-
-					<div class="mt-2 border-t border-(--outline-variant)/40 pt-2">
-						{
-							links.slice(1).map((l) => (
-								<a
-									href={l.href}
-									aria-current={l.isCurrent ? 'page' : undefined}
-									class={mobileLinkClass(l.isCurrent)}
-								>
-									{l.label}
-								</a>
-							))
-						}
-					</div>
-
-					<div class="mt-2 border-t border-(--outline-variant)/40 pt-2">
-						<WhatsAppCtaLink
-							campaign="header-mobile"
-							showIcon={true}
-							class="whatsapp-btn mb-2 w-full rounded-full px-3 py-2.5 text-center text-base font-medium"
+						<a
+							href={links[0].href}
+							aria-current={links[0].isCurrent ? 'page' : undefined}
+							class={mobileLinkClass(links[0].isCurrent)}
 						>
-							Écrire sur WhatsApp
-						</WhatsAppCtaLink>
+							{links[0].label}
+						</a>
+
+						<div class="mt-3 border-t border-(--outline-variant)/60 pt-3">
+							<p class="px-3 pb-2 text-xs font-semibold tracking-[0.18em] text-(--secondary)">
+								COMPRENDRE
+							</p>
+							{
+								PILLARS.map((p) => (
+									<a
+										href={p.slug}
+										aria-current={currentPath.startsWith(p.slug) ? 'page' : undefined}
+										class:list={[
+											'flex min-h-11 items-center rounded-xl px-3 text-base font-medium focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)',
+											currentPath.startsWith(p.slug)
+												? 'bg-(--primary-fixed)/40 font-semibold text-(--primary)'
+												: 'text-(--on-surface) hover:bg-(--surface-container-low)',
+										]}
+									>
+										{p.label}
+									</a>
+								))
+							}
+						</div>
+
+						<div class="mt-3 border-t border-(--outline-variant)/60 pt-3">
+							{
+								links.slice(1).map((l) => (
+									<a
+										href={l.href}
+										aria-current={l.isCurrent ? 'page' : undefined}
+										class={mobileLinkClass(l.isCurrent)}
+									>
+										{l.label}
+									</a>
+								))
+							}
+						</div>
+					</nav>
+
+					<div
+						class="shrink-0 space-y-2 border-t border-(--outline-variant)/60 bg-(--surface-container-lowest) px-4 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
+					>
 						<TunnelCtaLink
 							campaign="header-mobile"
-							class="block rounded-full bg-(--primary) px-3 py-2 text-center text-base font-medium text-(--on-primary) hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
+							class="flex min-h-11 w-full items-center justify-center rounded-full bg-(--primary) px-4 text-center text-base font-medium text-(--on-primary) hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
 						>
 							Commencer
 						</TunnelCtaLink>
+						<WhatsAppCtaLink
+							campaign="header-mobile"
+							showIcon={true}
+							class="whatsapp-btn min-h-11 w-full rounded-full px-4 text-center text-base font-medium"
+						>
+							Écrire sur WhatsApp
+						</WhatsAppCtaLink>
 					</div>
-				</nav>
-			</div>
-		</details>
+				</div>
+			</details>
+		</div>
 	</div>
 </header>
 
+<style>
+	@keyframes mobile-nav-panel-in {
+		from {
+			opacity: 0;
+			transform: translateX(1rem);
+		}
+		to {
+			opacity: 1;
+			transform: none;
+		}
+	}
+
+	@keyframes mobile-nav-backdrop-in {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
+	}
+
+	details[data-mobile-nav][open] .mobile-nav-panel {
+		animation: mobile-nav-panel-in 220ms ease-out;
+	}
+
+	details[data-mobile-nav][open] [data-mobile-nav-backdrop] {
+		animation: mobile-nav-backdrop-in 200ms ease-out;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		details[data-mobile-nav][open] .mobile-nav-panel,
+		details[data-mobile-nav][open] [data-mobile-nav-backdrop] {
+			animation: none;
+		}
+	}
+</style>
+
 <script>
 	const mobileNav = document.querySelector<HTMLDetailsElement>('details[data-mobile-nav]');
+	const understandingNav = document.querySelector<HTMLDetailsElement>(
+		'details[data-understanding-nav]',
+	);
+
+	const syncMobileNav = (open: boolean) => {
+		if (!mobileNav) return;
+
+		const summary = mobileNav.querySelector('summary');
+		const label = mobileNav.querySelector('[data-mobile-nav-label]');
+		summary?.setAttribute('aria-expanded', String(open));
+		summary?.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+		if (label) label.textContent = open ? 'Fermer le menu' : 'Menu';
+
+		document.documentElement.classList.toggle('overflow-hidden', open);
+		document.body.classList.toggle('overflow-hidden', open);
+		document.getElementById('contenu')?.toggleAttribute('inert', open);
+		document.querySelector('footer')?.toggleAttribute('inert', open);
+
+		const floating = document.querySelector('[data-whatsapp-floating]');
+		if (floating instanceof HTMLElement) {
+			if (open) floating.setAttribute('hidden', '');
+			else floating.removeAttribute('hidden');
+		}
+	};
+
 	if (mobileNav) {
+		const desktopMq = window.matchMedia('(min-width: 1024px)');
+		const backdrop = mobileNav.querySelector('[data-mobile-nav-backdrop]');
+		const summary = mobileNav.querySelector('summary');
+
+		syncMobileNav(mobileNav.open);
+
+		mobileNav.addEventListener('toggle', () => {
+			if (desktopMq.matches) {
+				if (mobileNav.open) mobileNav.open = false;
+				syncMobileNav(false);
+				return;
+			}
+			syncMobileNav(mobileNav.open);
+		});
+
+		backdrop?.addEventListener('click', () => {
+			mobileNav.open = false;
+		});
+
 		mobileNav.addEventListener('click', (e) => {
 			const t = e.target;
 			if (!(t instanceof Element)) return;
 			const link = t.closest('a[href]');
-			if (!link || !mobileNav.contains(link)) return;
+			if (!(link instanceof HTMLAnchorElement) || !mobileNav.contains(link)) return;
+			const href = link.getAttribute('href') ?? '';
+			const staysOnPage = href.startsWith('#') || link.target === '_blank';
+			if (staysOnPage) mobileNav.open = false;
+		});
+
+		document.addEventListener('keydown', (e) => {
+			if (e.key !== 'Escape' || !mobileNav.open) return;
 			mobileNav.open = false;
+			if (summary instanceof HTMLElement) summary.focus();
+		});
+
+		desktopMq.addEventListener('change', (e) => {
+			if (e.matches && mobileNav.open) mobileNav.open = false;
 		});
 	}
 
-	const understandingNav = document.querySelector<HTMLDetailsElement>('details[data-understanding-nav]');
 	if (understandingNav) {
 		understandingNav.addEventListener('click', (e) => {
 			const t = e.target;

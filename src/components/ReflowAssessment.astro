@@ -1,5 +1,6 @@
 ---
 import { RotateCcw } from '@lucide/astro';
+import TunnelCtaLink from './TunnelCtaLink.astro';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 ---
@@ -243,18 +244,10 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		{PROFILES.map((profile) => (
 			<div data-rg-profile={profile.key} hidden>
 				<p class="mt-6 text-xl leading-relaxed font-semibold text-(--on-surface)">{profile.summary}</p>
-				<div class="mt-5 space-y-4 text-base leading-relaxed text-(--secondary)">
-					{profile.intro.map((text) => <p>{text}</p>)}
-				</div>
-				<div class="mt-8 rounded-2xl bg-(--surface-container-lowest) p-5 sm:p-6">
-					<h3 class="text-lg font-semibold text-(--primary)">Ta priorité aujourd’hui</h3>
-					<p class="mt-3 text-lg font-semibold text-(--on-surface)">{profile.priority}</p>
-					{profile.guidance.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
-				</div>
 			</div>
 		))}
 		<div
-			class="mt-10 scroll-mt-28 rounded-2xl border-2 border-(--primary) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
+			class="mt-8 scroll-mt-28 rounded-2xl border-2 border-(--primary) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
 			data-rg-booking
 		>
 			<div class="text-center">
@@ -264,16 +257,24 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					tabindex="-1"
 					class="mt-2 rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
 				>
-					Réserve ton bilan pour relire ce résultat ensemble
+					Réserve ton bilan pour relire ce profil
 				</h3>
 				<p class="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-(--secondary)">
-					Un échange personnalisé et gratuit avec Cécile pour voir si l’accompagnement Re-flow est fait pour toi.
+					Un échange gratuit avec Cécile pour relire ce résultat et voir si Re-flow est fait pour toi.
 				</p>
 			</div>
 			<div class="mt-6 min-h-150" data-rg-booking-mount></div>
 		</div>
 		{PROFILES.map((profile) => (
 			<div data-rg-profile-more={profile.key} hidden>
+				<div class="mt-10 space-y-4 text-base leading-relaxed text-(--secondary)">
+					{profile.intro.map((text) => <p>{text}</p>)}
+				</div>
+				<div class="mt-8 rounded-2xl bg-(--surface-container-lowest) p-5 sm:p-6">
+					<h3 class="text-lg font-semibold text-(--primary)">Ta priorité aujourd’hui</h3>
+					<p class="mt-3 text-lg font-semibold text-(--on-surface)">{profile.priority}</p>
+					{profile.guidance.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
+				</div>
 				<h3 class="mt-10 text-xl font-semibold text-(--on-surface)">C’est justement l’approche de Re-flow</h3>
 				{profile.approach.map((text) => <p class="mt-3 leading-relaxed text-(--secondary)">{text}</p>)}
 				<div class="mt-8 rounded-2xl bg-(--secondary-container)/40 p-5 text-(--on-secondary-container) sm:p-6">
@@ -284,13 +285,15 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			</div>
 		))}
 		<div class="mt-10 border-t border-(--outline-variant) pt-8 text-center">
-			<h3 class="text-2xl font-semibold text-(--on-surface)">Et maintenant ?</h3>
-			<p class="mt-4 leading-relaxed text-(--secondary)">Ton résultat met en lumière ce dont tu as probablement le plus besoin aujourd’hui pour reprendre progressivement une activité physique.</p>
-			<p class="mt-4 leading-relaxed text-(--secondary)">Et c’est précisément l’objectif de Re-flow :</p>
-			<p class="mt-4 text-xl font-semibold text-(--primary)">16 semaines · 3 séances par semaine</p>
-			<p class="mt-2 font-semibold text-(--on-surface)">Pilates · Yoga · Renforcement musculaire · Relaxation</p>
-			<p class="mt-4 leading-relaxed text-(--secondary)">Un accompagnement progressif pour retrouver confiance dans tes capacités physiques, mieux prendre en compte ton énergie et remettre durablement le mouvement dans ton quotidien.</p>
-			<a href="/#programme" class="rg-cta mt-6">Découvrir Re-flow</a>
+			<p class="leading-relaxed text-(--secondary)">
+				Tu préfères découvrir le programme avant le rendez-vous&nbsp;?
+			</p>
+			<TunnelCtaLink
+				campaign="quiz-result"
+				class="mt-4 inline-flex items-center justify-center rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-6 py-3 text-base font-medium text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+			>
+				Voir le programme Re-flow
+			</TunnelCtaLink>
 		</div>
 		<p class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)">
 			Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
@@ -309,22 +312,6 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 <style>
 	[data-rg-root][data-js='on'] .rg-step:not([data-current]) {
 		display: none;
-	}
-	.rg-cta {
-		display: inline-flex;
-		justify-content: center;
-		border-radius: 9999px;
-		background: var(--primary);
-		color: var(--on-primary);
-		padding: 0.85rem 1.75rem;
-		font-weight: 600;
-	}
-	.rg-cta:hover {
-		background: var(--primary-container);
-	}
-	.rg-cta:focus-visible {
-		outline: 2px solid var(--primary);
-		outline-offset: 4px;
 	}
 </style>
 
@@ -547,12 +534,18 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			leadError.textContent = message;
 			leadError.hidden = false;
 		};
+		const PHONE_ERROR =
+			'Indique un numéro français à 10 chiffres, comme 06 12 34 56 78, ou au format +33.';
 		leadForm.addEventListener('submit', async (event) => {
 			event.preventDefault();
 			if (leadSending || gate.hidden) return;
 			leadError.hidden = true;
+			const phoneField = leadForm.querySelector<HTMLInputElement>('#rg-lead-phone');
 			if (!leadForm.reportValidity()) {
 				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
+				if (phoneField && document.activeElement === phoneField && phoneField.validity.valueMissing) {
+					showError(PHONE_ERROR);
+				}
 				return;
 			}
 			const data = new FormData(leadForm);
@@ -562,8 +555,14 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			const phone = normalizeFrenchPhone(String(data.get('phone') ?? ''));
 			const company = String(data.get('company') ?? '');
 			const consent = data.get('consent') === 'on';
-			if (!firstName || !lastName || !phone || !consent || company.trim()) {
-				showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
+			if (!phone) {
+				showError(PHONE_ERROR);
+				phoneField?.focus();
+				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
+				return;
+			}
+			if (!firstName || !lastName || !email || !consent || company.trim()) {
+				showError('Indique ton prénom, ton nom, un email valide et coche la case pour continuer.');
 				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
 				return;
 			}
@@ -584,11 +583,13 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					body: JSON.stringify({ firstName, lastName, email, phone, consent, company, answers }),
 				});
 				if (response.status === 400) {
-					showError('Indique ton prénom, ton nom, un email valide, un téléphone français et coche la case pour continuer.');
+					showError('Indique ton prénom, ton nom, un email valide et coche la case pour continuer.');
 					trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
 					return;
 				}
 				if (!response.ok) throw new Error('lead');
+				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
+				trackMeta('Lead', QUIZ_CONTENT);
 				root.querySelector<HTMLElement>('[data-rg-profile-name]')!.textContent = scored.profile.label;
 				showProfile(scored.profile.key);
 				gate.hidden = true;
@@ -596,8 +597,6 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				mountCalendar({ firstName, lastName, email, phone });
 				scrollToBooking();
 				booking.querySelector<HTMLElement>('#rg-booking-title')?.focus({ preventScroll: true });
-				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
-				trackMeta('Lead', QUIZ_CONTENT);
 				trackBookingViewed();
 			} catch {
 				trackUmami(ANALYTICS_EVENTS.quizLeadFailed);
