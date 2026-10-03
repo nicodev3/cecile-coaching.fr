@@ -1,11 +1,11 @@
 ---
 import {
 	ArrowDown,
-	ArrowUp,
 	BatteryLow,
 	CircleGauge,
 	Frown,
 	PersonStanding,
+	RefreshCw,
 	Sprout,
 	TrendingDown,
 	Waypoints,
@@ -15,12 +15,12 @@ import {
 const cycle = [
 	{
 		title: 'Fatigue',
-		desc: "Avec les douleurs chroniques l'énergie baisse, tu te sens fatiguée ",
+		desc: "Avec les douleurs chroniques l'énergie baisse, tu te sens fatiguée.",
 		icon: BatteryLow,
 	},
 	{
 		title: 'Moins de mouvement',
-		desc: "Le corps est moins sollicité : tu deviens sédentaire ",
+		desc: "Le corps est moins sollicité : tu deviens sédentaire.",
 		icon: TrendingDown,
 	},
 	{
@@ -80,42 +80,51 @@ const reveal =
 			</p>
 		</div>
 
-		<div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
+		<div class="grid gap-6 lg:gap-8">
 			<div class="flex flex-col rounded-xl bg-(--surface-container) p-6 sm:p-8">
 				<h3 class="mb-8 text-2xl text-(--primary)">Le cercle vicieux du déconditionnement physique</h3>
-				<div class="relative rounded-2xl border-2 border-dashed border-(--primary)/30 px-4 py-5 sm:px-6 sm:py-6">
-					<div class="flex items-stretch gap-4 sm:gap-6">
-						<div class="flex w-5 shrink-0 flex-col items-center text-(--primary)" aria-hidden="true">
-							<ArrowUp class="size-5 shrink-0" stroke-width={2.5} />
-							<div class="mt-0.5 w-0.5 flex-1 rounded-full bg-(--primary-container)"></div>
-						</div>
-						<ol
-							class="min-w-0 flex-1 space-y-4 py-1"
-							aria-label="Étapes du cercle vicieux du déconditionnement physique"
-						>
-							{
-								cycle.map((item) => (
-									<li class="flex items-start gap-4 rounded-lg border border-(--outline-variant)/30 bg-(--surface)/50 p-5">
-										<div
-											class="flex size-12 shrink-0 items-center justify-center rounded-xl bg-(--primary)/10"
-											aria-hidden="true"
-										>
-											<item.icon class="size-7 text-(--primary-container)" stroke-width={1.75} />
+				<div class="relative">
+					<ol
+						class="grid gap-8 sm:grid-cols-2 sm:gap-24"
+						aria-label="Étapes du cercle vicieux du déconditionnement physique, qui se répètent en boucle"
+					>
+						{
+							cycle.map((item, i) => (
+								<li class={`relative flex flex-col gap-3 rounded-xl border border-(--outline-variant)/30 bg-(--surface)/60 p-5 ${i === 2 ? 'sm:order-4' : ''} ${i === 3 ? 'sm:order-3' : ''}`}>
+									<div class="flex items-center gap-3">
+										<div class="flex size-11 shrink-0 items-center justify-center rounded-full bg-(--primary)/10" aria-hidden="true">
+											<item.icon class="size-6 text-(--primary-container)" stroke-width={1.75} />
 										</div>
-										<div class="min-w-0 pt-0.5">
-											<p class="text-base font-bold text-(--primary)">{item.title}</p>
-											<p class="mt-1 text-base leading-relaxed text-(--secondary)">{item.desc}</p>
-										</div>
-									</li>
-								))
-							}
-						</ol>
-						<div class="flex w-5 shrink-0 flex-col items-center text-(--primary)" aria-hidden="true">
-							<div class="mb-0.5 w-0.5 flex-1 rounded-full bg-(--primary-container)"></div>
-							<ArrowDown class="size-5 shrink-0" stroke-width={2.5} />
-						</div>
-					</div>
+										<p class="text-base font-bold text-(--primary)">
+											<span class="mr-1 text-(--primary-container)">{i + 1}.</span>{item.title}
+										</p>
+									</div>
+									<p class="text-base leading-relaxed text-(--secondary)">{item.desc}</p>
+									{i < cycle.length - 1 && (
+										<span class="absolute top-full left-1/2 z-10 flex size-8 -translate-x-1/2 items-center justify-center text-(--primary) sm:hidden" aria-hidden="true">
+											<ArrowDown class="size-5" stroke-width={2.5} />
+										</span>
+									)}
+								</li>
+							))
+						}
+					</ol>
+
+					<!-- Boucle centrale (desktop) : quatre flèches en arc, sens horaire -->
+				<div class="pointer-events-none absolute top-1/2 left-1/2 hidden size-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-(--surface-container) sm:flex" aria-hidden="true">
+					<svg viewBox="-50 -50 100 100" class="absolute inset-0 size-full text-(--primary)"><circle r="40" fill="none" stroke="currentColor" stroke-opacity="0.12" stroke-width="1"/><path d="M11.0 -38.5A40 40 0 0 1 35.3 -18.8M38.5 11.0A40 40 0 0 1 18.8 35.3M-11.0 38.5A40 40 0 0 1 -35.3 18.8M-38.5 -11.0A40 40 0 0 1 -18.8 -35.3" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/><path d="M39.5 -10.8L29.6 -16.8L40.1 -22.5ZM10.8 39.5L16.8 29.6L22.5 40.1ZM-39.5 10.8L-29.6 16.8L-40.1 22.5ZM-10.8 -39.5L-16.8 -29.6L-22.5 -40.1Z" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+					<span class="relative flex size-12 items-center justify-center rounded-full bg-(--primary)/10 text-(--primary)">
+						<RefreshCw class="size-6" stroke-width={1.75} />
+					</span>
 				</div>
+
+				<p class="mt-8 flex items-center justify-center gap-2 text-sm font-semibold text-(--primary) sm:hidden" aria-hidden="true">
+						<RefreshCw class="size-4" stroke-width={2.5} /> Et ça recommence
+					</p>
+				</div>
+				<p class="mt-8 text-center text-sm text-(--secondary)">
+					Chaque tour du cercle renforce le suivant. Bonne nouvelle : il suffit d'agir sur un seul maillon pour l'inverser.
+				</p>
 			</div>
 
 			<div class="group relative overflow-hidden rounded-xl bg-linear-to-br from-(--primary) via-(--primary) to-(--primary-container) p-8 text-(--on-primary) shadow-lg shadow-(--primary)/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-(--primary)/20 sm:p-10">
@@ -125,7 +134,7 @@ const reveal =
 				/>
 				<div class="relative z-10 flex h-full flex-col">
 					<h3 class="text-3xl text-(--on-primary) sm:text-4xl">La solution RE-FLOW</h3>
-					<div class="my-8 grid gap-3 sm:grid-cols-2 sm:gap-4">
+					<div class="my-8 grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
 						{pillars.map((pillar) => (
 							<div class="rounded-xl border border-(--primary-fixed)/20 bg-(--on-primary)/6 p-3 backdrop-blur-sm transition duration-300 hover:bg-(--on-primary)/12 sm:p-4">
 								<div class="flex min-w-0 items-center gap-2.5 sm:gap-3">
