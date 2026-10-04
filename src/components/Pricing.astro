@@ -1,36 +1,6 @@
 ---
-import { Check } from '@lucide/astro';
+import { CalendarDays, Laptop, WalletCards } from '@lucide/astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
-import { SITE_WHATSAPP } from '../consts';
-
-type PricingItem = string | { label: string; href: string };
-
-const columns: { title: string; items: PricingItem[] }[] = [
-	{
-		title: 'Ressources fournies',
-		items: [
-			'Plateforme en ligne avec 3 vidéos par semaine',
-			'Une séance zoom collective tous les 15 jours à suivre en live ou en replay',
-			'Un kit « mauvais jour » de séances express de 5-10 minutes',
-		],
-	},
-	{
-		title: 'Rendez-vous de coaching',
-		items: [
-			'1 bilan forme personnalisé au début et à la fin du programme',
-			'Suivi individuel hebdomadaire en visio pour faire le point',
-			{ label: 'Joignable sur WhatsApp : réponse sous 24h', href: SITE_WHATSAPP },
-		],
-	},
-	{
-		title: 'Bonus',
-		items: [
-			'1 audio de relaxation et 1 audio de respiration',
-			'Playlist Spotify de relaxation',
-			'Guide PDF « Ma routine bien-être » remis à la fin du programme',
-		],
-	},
-];
 
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
@@ -45,60 +15,52 @@ const reveal =
 >
 	<div class="mx-auto max-w-container px-4 sm:px-6 lg:px-8">
 		<div class="mb-16 text-center">
-			<h2 id="pricing-title" class="text-3xl text-(--primary) sm:text-5xl">Programme & modalités</h2>
+			<h2 id="pricing-title" class="text-3xl text-(--primary) sm:text-5xl">Durée & modalités</h2>
 			<p class="mt-4 text-(--secondary)">
-				Un coaching sportif adapté en ligne pour retrouver de la stabilité, du tonus, et une relation plus douce avec ton corps.
+				Un cadre simple et transparent pour avancer sans pression.
 			</p>
 		</div>
 
-		<div class="grid gap-8 md:grid-cols-3">
-			{columns.map((col) => (
-				<div class="bento-card rounded-2xl bg-(--surface-container-lowest) p-8 soft-glow">
-					<h3 class="mb-6 text-2xl text-(--primary)">{col.title}</h3>
-					<ul class="space-y-4 text-(--secondary)">
-						{col.items.map((item) => (
-							<li class="flex gap-3">
-								<Check class="mt-0.5 size-4 shrink-0 text-(--primary)" aria-hidden="true" stroke-width={2} />
-								{typeof item === 'string' ? (
-									<span>{item}</span>
-								) : (
-									<WhatsAppCtaLink
-										campaign="pricing"
-										class="whatsapp-link font-semibold underline-offset-4 hover:underline"
-									>
-										{item.label}
-									</WhatsAppCtaLink>
-								)}
-							</li>
-						))}
-					</ul>
-				</div>
-			))}
+		<div class="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
+			<div class="rounded-2xl bg-(--surface-container-lowest) p-6 text-center shadow-sm ring-1 ring-black/5">
+				<CalendarDays class="mx-auto size-7 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
+				<p class="mt-4 text-2xl font-semibold text-(--primary)">4 mois</p>
+				<p class="mt-1 text-sm text-(--secondary)">16 semaines de progression</p>
+			</div>
+			<div class="rounded-2xl bg-(--surface-container-lowest) p-6 text-center shadow-sm ring-1 ring-black/5">
+				<Laptop class="mx-auto size-7 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
+				<p class="mt-4 text-2xl font-semibold text-(--primary)">100 % en ligne</p>
+				<p class="mt-1 text-sm text-(--secondary)">Depuis chez toi, partout en France</p>
+			</div>
+			<div class="rounded-2xl bg-(--surface-container-lowest) p-6 text-center shadow-sm ring-1 ring-black/5">
+				<WalletCards class="mx-auto size-7 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
+				<p class="mt-4 text-2xl font-semibold text-(--primary)">Tarif sur demande</p>
+				<p class="mt-1 text-sm text-(--secondary)">Modalités de paiement expliquées ensemble</p>
+			</div>
 		</div>
 
-		<p class="mt-12 text-center text-lg text-(--primary) italic">
-			Durée du programme : 4 mois (16 semaines)
-		</p>
-		<p class="mt-4 text-center text-(--secondary)">
-			Pour connaître le tarif et les modalités de paiement,{' '}
-			<a class="font-semibold text-(--primary) underline-offset-4 hover:underline" href="#contact">
-				contacte-moi directement sur WhatsApp
-			</a>.
-		</p>
-
-		<p class="mt-6 text-center text-(--secondary)">
-			Questions avant de te décider ?{' '}
-			<a class="font-semibold text-(--primary) underline-offset-4 hover:underline" href="#faq">Voir la FAQ</a>
-		</p>
-
-		<div class="mt-8 flex justify-center">
-			<WhatsAppCtaLink
-				campaign="pricing"
-				showIcon={true}
-				class="whatsapp-btn rounded-full px-8 py-3 text-base font-semibold"
-			>
-				Demander le tarif sur WhatsApp
-			</WhatsAppCtaLink>
+		<div class="mx-auto mt-10 max-w-2xl rounded-2xl bg-(--sage)/25 p-6 text-center sm:p-8">
+			<p class="text-lg font-semibold text-(--primary)">
+				Une question avant de te décider ?
+			</p>
+			<p class="mt-2 text-(--secondary)">
+				Échangeons sur ta situation et vérifions ensemble si le programme te correspond.
+			</p>
+			<div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+				<WhatsAppCtaLink
+					campaign="pricing"
+					showIcon={true}
+					class="whatsapp-btn rounded-full px-8 py-3 text-base font-semibold"
+				>
+					Demander le tarif
+				</WhatsAppCtaLink>
+				<a
+					class="inline-flex items-center justify-center rounded-full border border-(--primary)/25 px-8 py-3 font-semibold text-(--primary) transition hover:bg-white/70"
+					href="#faq"
+				>
+					Voir la FAQ
+				</a>
+			</div>
 		</div>
 	</div>
 </section>

@@ -45,32 +45,46 @@ const reveal =
 			<p class="mt-4 text-(--secondary)">Une progression en ligne claire, douce et rassurante.</p>
 		</div>
 
-		<ol class="relative mx-auto max-w-3xl space-y-16">
+		<ol class="relative mx-auto max-w-4xl space-y-8 sm:space-y-12">
 			<div
-				class="absolute top-6 bottom-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-(--primary)/30 md:block"
+				class="absolute top-10 bottom-10 left-[27px] w-[2px] bg-(--outline-variant) sm:left-1/2 sm:-translate-x-1/2"
 				aria-hidden="true"
 			/>
 			{
 				steps.map((s, idx) => (
-					<li class="relative flex flex-col items-center gap-8 md:flex-row md:items-start">
-						<div class="flex-1 text-left">
-							<h3 class="text-2xl text-(--primary)">{s.title}</h3>
-							<p class="mt-2 text-(--secondary)">{s.desc}</p>
+					<li class="relative flex flex-col gap-6 sm:flex-row sm:items-stretch">
+						<!-- Colonne de gauche (vide en alternance ou contenu desc) -->
+						<div class={`flex-1 text-left sm:text-right sm:pr-12 ${idx % 2 === 1 ? 'sm:order-1 sm:hidden' : ''}`}>
+							<div class="hidden sm:block">
+								<h3 class="text-2xl font-medium text-(--primary)">{s.title}</h3>
+								<p class="mt-3 leading-relaxed text-(--on-surface-variant)">{s.desc}</p>
+							</div>
 						</div>
+						
+						<!-- Badge central -->
 						<div
 							class:list={[
-								'z-10 flex size-12 shrink-0 items-center justify-center rounded-full text-base font-bold md:self-center',
+								'z-10 absolute left-0 top-0 flex size-14 items-center justify-center rounded-full text-lg font-semibold shadow-sm sm:relative sm:-mt-1 sm:shrink-0',
 								s.badgeClass,
+								'ring-4 ring-(--surface-bright)'
 							]}
 							aria-hidden="true"
 						>
 							{idx + 1}
 						</div>
-						<div class="flex-1 text-left text-(--primary)">
-							<h3 class="hidden text-2xl md:block md:invisible" aria-hidden="true">
-								{s.title}
-							</h3>
-							<p class="mt-2">{s.benefit}</p>
+						
+						<!-- Colonne de droite -->
+						<div class={`flex-1 pl-20 sm:pl-12 ${idx % 2 === 1 ? 'sm:order-3' : ''}`}>
+							<!-- Contenu desc en mobile pour le odd alignement, sinon sur desktop c'est dans la col opposée -->
+							<div class={idx % 2 === 0 ? 'sm:hidden' : ''}>
+								<h3 class="text-2xl font-medium text-(--primary)">{s.title}</h3>
+								<p class="mt-2 text-sm leading-relaxed text-(--on-surface-variant) sm:text-base sm:mt-3">{s.desc}</p>
+							</div>
+							
+							<!-- Bénéfice (toujours visible ici en mobile) -->
+							<div class="mt-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:mt-0">
+								<p class="text-sm font-medium text-(--primary) italic">"{s.benefit}"</p>
+							</div>
 						</div>
 					</li>
 				))
