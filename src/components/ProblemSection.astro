@@ -127,39 +127,34 @@ const reveal =
 				</p>
 			</div>
 
-			<div class="group relative overflow-hidden rounded-xl bg-linear-to-br from-(--primary) via-(--primary) to-(--primary-container) p-8 text-(--on-primary) shadow-lg shadow-(--primary)/10 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-(--primary)/20 sm:p-10">
-				<div
-					class="pointer-events-none absolute -top-24 right-0 size-64 rounded-full bg-(--primary-fixed)/10 blur-3xl transition duration-500 group-hover:scale-125"
-					aria-hidden="true"
-				/>
-				<div class="relative z-10 flex h-full flex-col">
-					<h3 class="text-3xl text-(--on-primary) sm:text-4xl">La solution RE-FLOW</h3>
-					<div class="my-8 grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-4">
-						{pillars.map((pillar) => (
-							<div class="rounded-xl border border-(--primary-fixed)/20 bg-(--on-primary)/6 p-3 backdrop-blur-sm transition duration-300 hover:bg-(--on-primary)/12 sm:p-4">
-								<div class="flex min-w-0 items-center gap-2.5 sm:gap-3">
-									<div class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-(--primary-fixed)/15 text-(--primary-fixed)">
-										<pillar.icon class="size-5" stroke-width={1.9} />
-									</div>
-									<h4 class="min-w-0 break-words text-sm leading-snug font-semibold text-(--primary-fixed)">
-										{pillar.title}
-									</h4>
-								</div>
-								<p class="mt-3 text-sm leading-relaxed text-(--on-primary-container)">{pillar.desc}</p>
+			<div class="relative mt-24 rounded-3xl bg-(--surface-container) p-8 shadow-sm sm:p-12 lg:p-16">
+				<div class="relative z-10 mx-auto max-w-4xl text-center">
+					<h3 class="text-3xl font-medium tracking-tight text-(--primary) sm:text-4xl lg:text-5xl">La solution RE-FLOW</h3>
+					<p class="mt-4 text-lg text-(--on-surface-variant)">Une approche bienveillante pour refaire place au mouvement.</p>
+				</div>
+				
+				<div class="relative z-10 mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+					{pillars.map((pillar) => (
+						<div class="group relative flex flex-col rounded-2xl bg-(--surface) p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+							<div class="mb-4 flex size-12 items-center justify-center rounded-xl bg-(--primary-container) text-(--on-primary-container) transition-colors group-hover:bg-(--primary) group-hover:text-(--on-primary)">
+								<pillar.icon class="size-6" stroke-width={1.75} />
 							</div>
-						))}
-					</div>
+							<h4 class="mb-2 text-lg font-semibold text-(--on-surface)">
+								{pillar.title}
+							</h4>
+							<p class="text-sm leading-relaxed text-(--on-surface-variant)">{pillar.desc}</p>
+						</div>
+					))}
+				</div>
+				
+				<div class="relative z-10 mt-16 text-center">
 					<a
 						href="#programme"
-						class="self-center rounded-full bg-(--surface) px-8 py-4 text-base font-semibold text-(--primary) transition hover:bg-(--primary-fixed)"
+						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-4 text-base font-semibold text-(--on-primary) shadow-sm transition-all hover:bg-(--primary-container) hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
 					>
 						Découvrir la méthode en ligne
 					</a>
 				</div>
-				<div
-					class="pointer-events-none absolute -right-20 -bottom-20 size-80 rounded-full bg-(--primary-container)/30 blur-[80px]"
-					aria-hidden="true"
-				/>
 			</div>
 		</div>
 	</div>
