@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "business": {
+    "fullName": "Cécile Cichosz",
+    "email": "cecile.c.coach@gmail.com"
+  },
+  "seo": {
+    "siteName": "RE-FLOW par Cécile Cichosz",
+    "baseUrl": "https://cecilecoaching.fr"
+  }
+}

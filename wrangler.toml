@@ -1,5 +1,5 @@
 # Cloudflare Pages — https://developers.cloudflare.com/pages/configuration/build-configuration/
-name = "cecilecoaching"
+name = "cecile-coaching-fr"
 compatibility_date = "2024-09-23"
 pages_build_output_dir = "dist"
 
@@ -7,5 +7,6 @@ pages_build_output_dir = "dist"
 # → astro build + soumission IndexNow (scripts/submit-indexnow.mjs)
 #
 # Secrets Pages (dashboard, jamais dans le dépôt) :
-# GHL_PRIVATE_TOKEN, GHL_LOCATION_ID, GHL_RESULT_FIELD_ID
-# La fonction functions/api/reflow-lead.ts les lit au moment du POST.
+# GHL_PRIVATE_TOKEN, GHL_LOCATION_ID, GHL_RESULT_FIELD_ID, BREVO_API_KEY
+# Les fonctions functions/api/reflow-lead.ts et functions/api/contact.js
+# les lisent au moment du POST.

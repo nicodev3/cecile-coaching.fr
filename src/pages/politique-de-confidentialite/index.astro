@@ -48,9 +48,9 @@ const description =
 				<ul>
 					<li>
 						<strong>Formulaire de contact</strong> : nom, adresse email, téléphone (optionnel),
-						contenu du message. Ces données sont transmises via le service
-						<strong>Formspree</strong> (États-Unis) puis stockées dans la boîte mail de la
-						responsable du traitement.
+						contenu du message. Ces données sont traitées par une fonction sécurisée hébergée
+						chez <strong>Cloudflare</strong>, puis transmises par le service d’email transactionnel
+						<strong>Brevo</strong> à la boîte mail de la responsable du traitement.
 					</li>
 					<li>
 						<strong>Auto-évaluation Re-flow</strong> : prénom, nom, adresse email, téléphone,
@@ -133,7 +133,7 @@ const description =
 				</p>
 				<ul>
 					<li><strong>Cloudflare</strong> - hébergement (Pages).</li>
-					<li><strong>Formspree</strong> - réception des messages du formulaire de contact.</li>
+					<li><strong>Brevo (Sendinblue SAS, France)</strong> - transmission des messages du formulaire de contact.</li>
 					<li>
 						<strong>GoHighLevel (HighLevel, États-Unis)</strong> - enregistrement du contact,
 						du profil Re-flow, envoi des résultats et des informations acceptées, email interne et prise de rendez-vous.

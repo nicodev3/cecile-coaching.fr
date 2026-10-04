@@ -1,6 +1,10 @@
 ---
+import { Image } from 'astro:assets';
 import { ArrowRight, BatteryLow, HeartPulse, PersonStanding } from '@lucide/astro';
 import { PILLARS, type PillarKey } from '../data/pillars';
+import apaGuideImage from '../assets/guide-apa-photo.jpg';
+import chronicGuideImage from '../assets/guide-maladie-chronique-photo.jpg';
+import fatigueGuideImage from '../assets/guide-fatigue-photo.jpg';
 
 interface Props {
 	exclude?: PillarKey;
@@ -22,6 +26,21 @@ const iconByKey = {
 	apa: HeartPulse,
 	'maladie-chronique': PersonStanding,
 	fatigue: BatteryLow,
+} as const;
+
+const imageByKey = {
+	apa: {
+		src: apaGuideImage,
+		alt: "Séance d'Activité Physique Adaptée suivie en ligne depuis chez soi",
+	},
+	'maladie-chronique': {
+		src: chronicGuideImage,
+		alt: 'Progression douce et mouvement adapté avec une maladie chronique',
+	},
+	fatigue: {
+		src: fatigueGuideImage,
+		alt: 'Alternance entre repos et mouvement en cas de fatigue chronique',
+	},
 } as const;
 
 const reveal = compact
@@ -62,22 +81,36 @@ const reveal = compact
 			{
 				pillars.map((p) => {
 					const Icon = iconByKey[p.key];
+					const image = imageByKey[p.key];
 					return (
 						<a
 							href={p.slug}
-							class="group flex h-full flex-col rounded-2xl bg-(--surface-container-lowest) p-6 soft-glow transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
+							class="group flex h-full flex-col overflow-hidden rounded-2xl bg-(--surface-container-lowest) soft-glow transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
 						>
-							<div class="mb-3 flex items-center gap-3">
-								<span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed)">
-									<Icon class="size-5 text-(--primary)" aria-hidden="true" stroke-width={1.7} />
+							{!compact && (
+								<div class="relative aspect-[4/3] overflow-hidden bg-(--sage)/20">
+									<Image
+										src={image.src}
+										alt={image.alt}
+										class="size-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+										width={640}
+										height={480}
+									/>
+								</div>
+							)}
+							<div class="flex flex-1 flex-col p-6">
+								<div class="mb-3 flex items-center gap-3">
+									<span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-(--primary-fixed)">
+										<Icon class="size-5 text-(--primary)" aria-hidden="true" stroke-width={1.7} />
+									</span>
+									<p class="font-semibold text-(--primary)">{p.label}</p>
+								</div>
+								<p class="text-sm leading-relaxed text-(--secondary)">{p.tagline}</p>
+								<span class="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-(--primary) transition group-hover:gap-2">
+									Lire le guide
+									<ArrowRight class="size-4" aria-hidden="true" stroke-width={2} />
 								</span>
-								<p class="font-semibold text-(--primary)">{p.label}</p>
 							</div>
-							<p class="text-sm leading-relaxed text-(--secondary)">{p.tagline}</p>
-							<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-(--primary) transition group-hover:gap-2">
-								Lire le guide
-								<ArrowRight class="size-4" aria-hidden="true" stroke-width={2} />
-							</span>
 						</a>
 					);
 				})
