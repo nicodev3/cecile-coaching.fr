@@ -3,6 +3,8 @@
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import { defineConfig, fontProviders } from 'astro/config';
+import robotsTxt from 'astro-robots-txt';
+import llmsMd from './src/integrations/llmsMd.mjs';
 
 import tailwindcss from '@tailwindcss/vite';
 import { reflowLeadDevPlugin } from './src/dev/reflowLeadDevPlugin.mjs';
@@ -17,9 +19,11 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
+    llmsMd(),
     sitemap({
       filter: (page) => !page.startsWith('https://cecilecoaching.fr/merci-rendez-vous'),
     }),
+    robotsTxt(),
   ],
 
   fonts: [
