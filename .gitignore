@@ -1,5 +1,7 @@
 # build output
 dist/
+# cache local de Wrangler (serveur Pages de test)
+.wrangler/
 # generated types
 .astro/
 
