@@ -29,7 +29,7 @@ export const PILLARS_BY_KEY: Record<PillarKey, Pillar> = {
 		shortLabel: 'APA',
 		tagline:
 			'Comprendre l’APA en ligne, ce qu’elle apporte et pourquoi c’est différent d’un coach sportif classique.',
-		featuredPostIds: ['coach-apa'],
+		featuredPostIds: ['coach-apa', 'activite-physique-adaptee-exercices'],
 	},
 	'maladie-chronique': {
 		key: 'maladie-chronique',

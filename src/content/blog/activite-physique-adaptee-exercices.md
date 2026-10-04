@@ -1,8 +1,9 @@
 ---
-title: "Exercices APA pour débuter en douceur"
-seoTitle: "Exercices APA : exemples pour débuter | RE-FLOW"
-description: "Exemples d'exercices d'Activité Physique Adaptée pour maladie chronique ou fatigue : mobilité, renforcement doux, équilibre et dosage."
+title: "Exercices d'activité physique adaptée pour débuter"
+seoTitle: "Exercices d'activité physique adaptée : exemples | RE-FLOW"
+description: "Activité physique adaptée : exemples d'exercices de mobilité, de renforcement doux et d'équilibre, dosés pour une maladie ou une fatigue chronique."
 pubDate: 'Jun 2 2026'
+updatedDate: 'Oct 4 2026'
 heroImage: '../../assets/women_doing_different_forms_of_exercices.webp'
 showQuizCta: true
 relatedPillars:
@@ -11,7 +12,7 @@ relatedPillars:
   - fatigue
 ---
 
-Tu veux voir à quoi ressemble concrètement une **Activité Physique Adaptée** ? Quels exercices, à quelle intensité, comment les modifier les jours difficiles ? Cette page propose des exemples - pas un programme clé en main, mais des repères pour comprendre la logique de l'APA en pratique.
+Tu cherches des **exercices d'activité physique adaptée** : lesquels, à quelle intensité, et comment les modifier les jours difficiles ? Cette page propose des exemples - pas un programme clé en main, mais des repères pour comprendre la logique de l'APA en pratique.
 
 > **Avant de commencer** : si ta maladie est instable, si tu as eu un événement médical récent ou si tu as des douleurs nouvelles, l'avis médical reste le point de départ. Ces exercices sont des exemples généraux, pas une prescription personnalisée.
 

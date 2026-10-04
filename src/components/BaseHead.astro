@@ -181,48 +181,75 @@ const metaPixelEnabled = import.meta.env.PROD && META_PIXEL_ID;
 }
 
 {
-	AHREFS_ANALYTICS_KEY && (
+	(AHREFS_ANALYTICS_KEY || metaPixelEnabled) && (
 		<script
-			src="https://analytics.ahrefs.com/analytics.js"
-			data-key={AHREFS_ANALYTICS_KEY}
-			async
-		></script>
+			is:inline
+			define:vars={{ AHREFS_ANALYTICS_KEY, META_PIXEL_ID, metaPixelEnabled }}
+		>
+			const loadDeferredTrackers = () => {
+				if (window.__reflowTrackersLoaded) return;
+				window.__reflowTrackersLoaded = true;
+
+				if (AHREFS_ANALYTICS_KEY) {
+					const ahrefs = document.createElement('script');
+					ahrefs.src = 'https://analytics.ahrefs.com/analytics.js';
+					ahrefs.async = true;
+					ahrefs.dataset.key = AHREFS_ANALYTICS_KEY;
+					document.head.appendChild(ahrefs);
+				}
+
+				if (metaPixelEnabled) {
+					!(function (f, b, e, v, n, t, s) {
+						if (f.fbq) return;
+						n = f.fbq = function () {
+							n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+						};
+						if (!f._fbq) f._fbq = n;
+						n.push = n;
+						n.loaded = !0;
+						n.version = '2.0';
+						n.queue = [];
+						t = b.createElement(e);
+						t.async = !0;
+						t.src = v;
+						s = b.getElementsByTagName(e)[0];
+						s.parentNode.insertBefore(t, s);
+					})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+					fbq('init', META_PIXEL_ID);
+					fbq('track', 'PageView');
+				}
+			};
+
+			const armDeferredTrackers = () => {
+				const events = ['pointerdown', 'keydown', 'scroll', 'touchstart'];
+				let fallback = 0;
+				const start = () => {
+					clearTimeout(fallback);
+					events.forEach((eventName) => window.removeEventListener(eventName, start));
+					loadDeferredTrackers();
+				};
+				events.forEach((eventName) =>
+					window.addEventListener(eventName, start, { passive: true, once: true }),
+				);
+				fallback = setTimeout(start, 8000);
+			};
+
+			if (document.readyState === 'complete') armDeferredTrackers();
+			else window.addEventListener('load', armDeferredTrackers, { once: true });
+		</script>
 	)
 }
-
 {
 	metaPixelEnabled && (
-		<>
-			<script is:inline define:vars={{ META_PIXEL_ID }}>
-				!(function (f, b, e, v, n, t, s) {
-					if (f.fbq) return;
-					n = f.fbq = function () {
-						n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-					};
-					if (!f._fbq) f._fbq = n;
-					n.push = n;
-					n.loaded = !0;
-					n.version = '2.0';
-					n.queue = [];
-					t = b.createElement(e);
-					t.async = !0;
-					t.src = v;
-					s = b.getElementsByTagName(e)[0];
-					s.parentNode.insertBefore(t, s);
-				})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-				fbq('init', META_PIXEL_ID);
-				fbq('track', 'PageView');
-			</script>
-			<noscript>
-				<img
-					height="1"
-					width="1"
-					style="display:none"
-					src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
-					alt=""
-				/>
-			</noscript>
-		</>
+		<noscript>
+			<img
+				height="1"
+				width="1"
+				style="display:none"
+				src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
+				alt=""
+			/>
+		</noscript>
 	)
 }
 

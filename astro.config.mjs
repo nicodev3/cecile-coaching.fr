@@ -11,6 +11,10 @@ import { reflowLeadDevPlugin } from './src/dev/reflowLeadDevPlugin.mjs';
 export default defineConfig({
   site: 'https://cecilecoaching.fr',
   trailingSlash: 'always',
+  build: {
+    // Le CSS du header dépasse le seuil auto (4 Ko) et bloquait le premier affichage.
+    inlineStylesheets: 'always',
+  },
   integrations: [
     mdx(),
     sitemap({
