@@ -23,7 +23,14 @@ export default defineConfig({
     sitemap({
       filter: (page) => !page.startsWith('https://cecilecoaching.fr/merci-rendez-vous'),
     }),
-    robotsTxt(),
+    robotsTxt({
+      transform(content) {
+        return content.replace(
+          'User-agent: *\n',
+          'User-agent: *\nContent-Signal: ai-train=no, search=yes, ai-input=yes\n',
+        );
+      },
+    }),
   ],
 
   fonts: [
