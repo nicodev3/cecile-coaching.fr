@@ -68,6 +68,8 @@ Le script Umami est déjà chargé par `BaseHead.astro`. Le quiz envoie les
 
 | Étape | Événement | Déclenchement |
 | --- | --- | --- |
+| Introduction vue | `quiz_viewed` | L’introduction du quiz entre dans le viewport |
+| Clic pour commencer | `quiz_cta_clicked` | Clic sur « Commencer le quizz » |
 | Début | `quiz_started` | Première réponse du questionnaire |
 | Questions | `quiz_question_01_answered` à `quiz_question_12_answered` | Première réponse à chaque question pendant ce passage |
 | Formulaire affiché | `quiz_completed` | Les 12 réponses sont validées et le formulaire de coordonnées apparaît |
@@ -83,12 +85,13 @@ les jalons. Aucun choix, score ou coordonnée personnelle n’est envoyé à Uma
 
 Après déploiement, dans le site concerné sur Umami, ouvrir **Insights > Funnel**,
 créer un funnel, puis ajouter des étapes de type **Triggered event** avec les
-noms exacts ci-dessus. Pour une vue rapide : `quiz_started`,
-`quiz_question_04_answered`, `quiz_question_08_answered`,
-`quiz_question_12_answered`, `quiz_completed`, `quiz_lead_attempted`,
-`lead_submitted`. Pour repérer précisément la question où l’on perd des
-participants, créer aussi un funnel avec `quiz_started`, les douze événements
-de questions dans l’ordre, puis `quiz_completed` et `lead_submitted`. Régler
+noms exacts ci-dessus. Pour une vue rapide : `quiz_viewed`,
+`quiz_cta_clicked`, `quiz_started`, `quiz_question_04_answered`,
+`quiz_question_08_answered`, `quiz_question_12_answered`, `quiz_completed`,
+`quiz_lead_attempted`, `lead_submitted`. Pour repérer précisément la question
+où l’on perd des participants, créer aussi un funnel avec `quiz_cta_clicked`,
+`quiz_started`, les douze événements de questions dans l’ordre, puis
+`quiz_completed` et `lead_submitted`. Régler
 la fenêtre entre étapes à 60 minutes pour commencer ; l’ajuster si le quiz est
 souvent interrompu puis repris plus tard. Sélectionner une période commençant
 après le déploiement : les nouveaux jalons ne sont pas rétroactifs.

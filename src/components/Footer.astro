@@ -32,13 +32,19 @@ const resourceLinks = [
 interface Props {
 	showNavigation?: boolean;
 	showBrand?: boolean;
+	compact?: boolean;
 }
 
-const { showNavigation = true, showBrand = true } = Astro.props;
+const { showNavigation = true, showBrand = true, compact = false } = Astro.props;
 const showIntro = showBrand || showNavigation;
 ---
 
-<footer class="mt-20 bg-(--surface-container) px-4 py-12 sm:px-10">
+<footer
+	class:list={[
+		'bg-(--surface-container) px-4 sm:px-10',
+		compact ? 'py-3' : 'mt-20 py-12',
+	]}
+>
 	<div class="mx-auto max-w-container">
 		{
 			showIntro && (
@@ -119,33 +125,45 @@ const showIntro = showBrand || showNavigation;
 
 		<div
 			class:list={[
-				'flex flex-col items-center justify-between gap-4 border-t border-(--secondary)/20 pt-8 md:flex-row',
+				'flex flex-col items-center justify-between gap-4 md:flex-row',
+				!compact && 'border-t border-(--secondary)/20 pt-8',
 				showIntro && (showNavigation ? 'mt-20' : 'mt-10'),
 			]}
 		>
 			<p class="text-xs text-(--on-surface-variant)">
 				© {today.getFullYear()} RE-FLOW. Tous droits réservés.
-				<span class="mx-2" aria-hidden="true">·</span>
-				Site par&nbsp;<a
-					href="https://nicodev.fr"
-					class="text-(--plum-ink) underline underline-offset-2 transition hover:opacity-70"
-				>
-					nicodev.fr
-				</a>
+				{
+					!compact && (
+						<>
+							<span class="mx-2" aria-hidden="true">·</span>
+							Site par&nbsp;
+							<a
+								href="https://nicodev.fr"
+								class="text-(--plum-ink) underline underline-offset-2 transition hover:opacity-70"
+							>
+								nicodev.fr
+							</a>
+						</>
+					)
+				}
 			</p>
-			<div class="flex gap-6">
-				<WhatsAppCtaLink campaign="footer" class="whatsapp-link font-medium">
-					WhatsApp
-				</WhatsAppCtaLink>
-				<a
-					href={SITE_INSTAGRAM}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-(--primary) transition hover:opacity-70"
-				>
-					Instagram
-				</a>
-			</div>
+			{
+				!compact && (
+					<div class="flex gap-6">
+						<WhatsAppCtaLink campaign="footer" class="whatsapp-link font-medium">
+							WhatsApp
+						</WhatsAppCtaLink>
+						<a
+							href={SITE_INSTAGRAM}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-(--primary) transition hover:opacity-70"
+						>
+							Instagram
+						</a>
+					</div>
+				)
+			}
 		</div>
 	</div>
 </footer>

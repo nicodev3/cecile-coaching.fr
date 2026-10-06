@@ -14,6 +14,7 @@ interface Props {
 	includeCanonical?: boolean;
 	showFooterNavigation?: boolean;
 	showFooterBrand?: boolean;
+	footerCompact?: boolean;
 	showWhatsAppFloating?: boolean;
 }
 
@@ -26,6 +27,7 @@ const {
 	includeCanonical,
 	showFooterNavigation = true,
 	showFooterBrand = true,
+	footerCompact = false,
 	showWhatsAppFloating = true,
 } = Astro.props;
 ---
@@ -58,7 +60,11 @@ const {
 				<slot />
 			</main>
 
-			<Footer showNavigation={showFooterNavigation} showBrand={showFooterBrand} />
+			<Footer
+				showNavigation={showFooterNavigation}
+				showBrand={showFooterBrand}
+				compact={footerCompact}
+			/>
 		</div>
 
 		{showWhatsAppFloating && <WhatsAppFloatingButton />}

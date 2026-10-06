@@ -61,7 +61,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 
 					<div class="mt-5 grid gap-2.5">
 						{q.options.map((o, optionIndex) => (
-							<label class="group relative flex cursor-pointer items-start gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-[:checked]:bg-(--primary-fixed)/35 has-[:checked]:ring-2 has-[:checked]:ring-(--primary) has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-(--primary) motion-reduce:transition-none">
+							<label class="group relative flex cursor-pointer items-start gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-checked:bg-(--primary-fixed)/35 has-checked:ring-2 has-checked:ring-(--primary) has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-(--primary) motion-reduce:transition-none">
 								<input
 									type="radio"
 									class="sr-only"
@@ -70,12 +70,12 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 									data-label={tieFrenchPunctuation(o.label)}
 								/>
 								<span
-									class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-[:checked]:ring-2 group-has-[:checked]:ring-(--primary) motion-reduce:transition-none"
+									class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-checked:ring-2 group-has-checked:ring-(--primary) motion-reduce:transition-none"
 									aria-hidden="true"
 								>
-									<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-[:checked]:opacity-100 motion-reduce:transition-none" />
+									<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-checked:opacity-100 motion-reduce:transition-none" />
 								</span>
-								<span class="text-base leading-snug text-(--on-surface) group-has-[:checked]:font-semibold">
+								<span class="text-base leading-snug text-(--on-surface) group-has-checked:font-semibold">
 									{tieFrenchPunctuation(o.label)}
 								</span>
 							</label>
@@ -127,7 +127,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			>
 			</p>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Encore une étape : tes coordonnées pour débloquer ton résultat complet. Tu pourras ensuite réserver un bilan avec Cécile.
+				Encore une étape : tes coordonnées pour débloquer ton résultat complet.
 			</p>
 		</div>
 
@@ -304,9 +304,6 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			</button>
 		</div>
 	</section>
-	<p class="mt-6 text-center text-xs leading-relaxed text-(--secondary)">
-		Ce questionnaire est un outil d’orientation et de réflexion. Tes réponses ne sont transmises qu’au moment où tu demandes à découvrir ton profil.
-	</p>
 </div>
 
 <style>
@@ -353,6 +350,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		let current = 0;
 		let lastPointerAt = 0;
 		let viewedTracked = false;
+		let ctaTracked = false;
 		let bookingViewedTracked = false;
 		let startedTracked = false;
 		let leadSending = false;
@@ -363,6 +361,11 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			viewedTracked = true;
 			trackUmami(ANALYTICS_EVENTS.quizViewed);
 			trackMeta('ViewContent', QUIZ_CONTENT);
+		};
+		const trackQuizCtaClicked = () => {
+			if (ctaTracked) return;
+			ctaTracked = true;
+			trackUmami(ANALYTICS_EVENTS.quizCtaClicked);
 		};
 		const trackBookingViewed = () => {
 			if (bookingViewedTracked || result.hidden) return;
@@ -614,7 +617,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			document.querySelector('[data-rg-quiz-panel]')?.removeAttribute('hidden');
 			scrollToQuiz();
 			steps[0]?.querySelector('legend')?.focus({ preventScroll: true });
-			trackQuizViewed();
+			trackQuizCtaClicked();
 		};
 		const closeQuizToIntro = () => {
 			document.querySelector('[data-rg-intro]')?.removeAttribute('hidden');
@@ -634,6 +637,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			startedTracked = false;
 			bookingViewedTracked = false;
 			viewedTracked = false;
+			ctaTracked = false;
 			lastPointerAt = 0;
 			current = 0;
 			result.hidden = true;
@@ -646,6 +650,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			progress.hidden = false;
 			closeQuizToIntro();
 			render(false);
+			trackQuizViewed();
 		});
 		root.querySelector<HTMLElement>('[data-rg-nojs]')!.hidden = true;
 		root.querySelector<HTMLElement>('[data-rg-nav]')!.hidden = false;
@@ -653,7 +658,20 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		root.dataset.js = 'on';
 		render(false);
 
-		if (typeof IntersectionObserver !== 'undefined') {
+		const intro = document.querySelector('[data-rg-intro]');
+		if (typeof IntersectionObserver === 'undefined') {
+			trackQuizViewed();
+		} else {
+			const quizObserver = new IntersectionObserver(
+				(entries) => {
+					if (!entries.some((entry) => entry.isIntersecting)) return;
+					trackQuizViewed();
+					quizObserver.disconnect();
+				},
+				{ threshold: 0.35 },
+			);
+			quizObserver.observe(intro ?? root);
+
 			const bookingObserver = new IntersectionObserver(
 				(entries) => {
 					if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio > 0)) return;

@@ -13,6 +13,8 @@ test('les noms historiques courts restent stables', () => {
 	assert.equal(tunnelCtaEvent('header-mobile'), 'tunnel_cta_header-mobile');
 	assert.equal(whatsappCtaEvent('header'), 'whatsapp_cta_header');
 	assert.equal(quizQuestionAnsweredEvent(5), 'quiz_question_05_answered');
+	assert.equal(ANALYTICS_EVENTS.quizViewed, 'quiz_viewed');
+	assert.equal(ANALYTICS_EVENTS.quizCtaClicked, 'quiz_cta_clicked');
 	assert.equal(ANALYTICS_EVENTS.bookingViewed, 'booking_viewed');
 	assert.equal(ANALYTICS_EVENTS.bookingConfirmed, 'booking_confirmed');
 });
