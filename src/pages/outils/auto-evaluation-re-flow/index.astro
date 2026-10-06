@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { Timer } from '@lucide/astro';
 import coachPortrait from '../../../assets/cecile-coach-sportive.webp';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ReflowAssessment from '../../../components/ReflowAssessment.astro';
@@ -36,7 +37,7 @@ const appStructuredData = {
 	showFooterBrand={false}
 	showWhatsAppFloating={false}
 >
-	<article class="border-b border-black/5 bg-white/35">
+	<article class="border-b border-black/5 bg-(--sage)/40">
 		<div class="mx-auto max-w-3xl px-4 pt-2 pb-12 sm:px-6 sm:py-12 lg:px-8">
 			<section data-rg-intro>
 				<div class="rounded-2xl bg-(--surface-container-lowest) px-4 py-8 text-center ring-1 ring-(--outline-variant) sm:px-8 sm:py-10">
@@ -50,22 +51,34 @@ const appStructuredData = {
 							loading="eager"
 						/>
 					</span>
-					<p class="mt-4 text-base font-semibold text-(--on-surface)">
-						Je suis Cécile, coach sportive.
+					<p class="mt-4 text-base text-(--on-surface)">
+						<span class="font-bold">Cécile, </span>coach sportive.
 					</p>
-					<p class="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-(--secondary) sm:text-base">
-						J'aide les femmes épuisées physiquement et moralement, à reprendre confiance dans leur corps à l'aide d'une méthode adaptée, accessible et progressive.
-					</p>
-					<h1 class="mt-8 text-xl leading-tight font-semibold text-(--primary) sm:text-4xl">
-						Quizz : Fais le point sur tes capacités physiques en {TOTAL_QUESTIONS} questions
+					<h1 class="mt-8 text-xl leading-tight font-extrabold text-(--primary) sm:text-4xl">
+						Découvre ce dont tu as (vraiment) besoin pour retrouver de l'énergie.
 					</h1>
+					<p class="mt-4 text-3xl" aria-hidden="true">🧘‍♀️</p>
 					<p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-(--secondary)">
-						À l’issue du quizz, découvre ton profil et les actions à mener pour avancer. Tu pourras aussi réserver un rendez-vous téléphonique avec Cécile pour faire le point ensemble.
+						Réponds à ces {TOTAL_QUESTIONS} questions pour faire le point sur tes capacités physiques.
+					</p>
+					<p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-(--secondary)">
+						À l’issue du quizz, découvre ton profil et les actions à mener pour avancer.
+					</p>
+					<button
+						type="button"
+						class="mx-auto mt-8 flex w-full max-w-xl items-center justify-center rounded-full bg-(--primary) px-8 py-3.5 text-base font-semibold text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+						data-rg-start
+					>
+						Commencer le quizz →
+					</button>
+					<p class="mt-3 inline-flex items-center justify-center gap-1.5 text-sm text-(--secondary)">
+						<Timer class="size-4 shrink-0" aria-hidden="true" stroke-width={2} />
+						<span>2 minutes chrono — 100&nbsp;% gratuit</span>
 					</p>
 				</div>
 			</section>
 
-			<div class="mt-4 sm:mt-10">
+			<div class="mt-4 sm:mt-10" data-rg-quiz-panel hidden>
 				<ReflowAssessment />
 			</div>
 		</div>

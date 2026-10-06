@@ -609,6 +609,21 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				leadSubmit.textContent = leadError.hidden ? 'Découvrir mon profil' : 'Réessayer';
 			}
 		});
+		const openQuiz = () => {
+			document.querySelector('[data-rg-intro]')?.setAttribute('hidden', '');
+			document.querySelector('[data-rg-quiz-panel]')?.removeAttribute('hidden');
+			scrollToQuiz();
+			steps[0]?.querySelector('legend')?.focus({ preventScroll: true });
+			trackQuizViewed();
+		};
+		const closeQuizToIntro = () => {
+			document.querySelector('[data-rg-intro]')?.removeAttribute('hidden');
+			document.querySelector('[data-rg-info]')?.removeAttribute('hidden');
+			document.querySelector('[data-rg-quiz-panel]')?.setAttribute('hidden', '');
+		};
+
+		document.querySelector('[data-rg-start]')?.addEventListener('click', openQuiz);
+
 		root.querySelector('[data-rg-restart]')!.addEventListener('click', () => {
 			window.clearTimeout(advanceTimer);
 			form.reset();
@@ -618,6 +633,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			answeredTracked.clear();
 			startedTracked = false;
 			bookingViewedTracked = false;
+			viewedTracked = false;
 			lastPointerAt = 0;
 			current = 0;
 			result.hidden = true;
@@ -628,9 +644,8 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			leadSubmit.textContent = 'Découvrir mon profil';
 			form.hidden = false;
 			progress.hidden = false;
-			document.querySelector('[data-rg-intro]')?.removeAttribute('hidden');
-			document.querySelector('[data-rg-info]')?.removeAttribute('hidden');
-			render();
+			closeQuizToIntro();
+			render(false);
 		});
 		root.querySelector<HTMLElement>('[data-rg-nojs]')!.hidden = true;
 		root.querySelector<HTMLElement>('[data-rg-nav]')!.hidden = false;
@@ -638,19 +653,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		root.dataset.js = 'on';
 		render(false);
 
-		if (typeof IntersectionObserver === 'undefined') {
-			trackQuizViewed();
-		} else {
-			const quizObserver = new IntersectionObserver(
-				(entries) => {
-					if (!entries.some((entry) => entry.isIntersecting)) return;
-					trackQuizViewed();
-					quizObserver.disconnect();
-				},
-				{ threshold: 0.35 },
-			);
-			quizObserver.observe(root);
-
+		if (typeof IntersectionObserver !== 'undefined') {
 			const bookingObserver = new IntersectionObserver(
 				(entries) => {
 					if (!entries.some((entry) => entry.isIntersecting && entry.intersectionRatio > 0)) return;

@@ -47,7 +47,7 @@ export default defineConfig({
       name: 'Montserrat',
       cssVariable: '--font-title',
       provider: fontProviders.fontsource(),
-      weights: [500, 600, 700],
+      weights: [400, 500, 600, 700, 800, 900],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
