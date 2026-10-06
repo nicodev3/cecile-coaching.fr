@@ -201,8 +201,12 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					inputmode="tel"
 					required
 					placeholder="06 12 34 56 78"
+					aria-describedby="rg-lead-phone-hint"
 					class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition focus:ring-2 focus:ring-(--primary) focus:outline-none"
 				/>
+				<p id="rg-lead-phone-hint" class="text-sm leading-relaxed text-(--secondary)">
+					Vérifie que le numéro est correct. Indispensable pour préparer ton bilan offert.
+				</p>
 			</div>
 
 			<label class="flex items-start gap-3 text-sm leading-relaxed text-(--secondary)">

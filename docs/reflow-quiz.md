@@ -42,9 +42,10 @@ Les secrets existants restent `GHL_PRIVATE_TOKEN`, `GHL_LOCATION_ID` et
 Le téléphone français est normalisé au format E.164. Après validation, le
 widget de réservation GoHighLevel est chargé dans une iframe, préremplie
 avec ces quatre coordonnées. Refaire le test supprime le widget précédent.
-Le champ résultat reçoit un texte court pour le mail : le profil, une phrase,
-la priorité et le petit pas. Il ne contient ni score, ni réponses, ni lien vers
-le programme. Une note interne conserve le détail du profil et les 12 réponses.
+Le champ résultat reçoit un texte pour le mail : le profil, le résumé, l’intro,
+la priorité, les conseils, l’approche Re-flow, le petit pas et l’invitation.
+Il ne contient ni score, ni réponses, ni lien vers le programme. Une note
+interne reprend ce texte et ajoute les 12 réponses.
 
 À chaque questionnaire, les anciens tags de profil/dimension du quiz sont
 retirés, puis `quiz-reflow` et un seul des tags `quiz-reconnexion`,
@@ -83,18 +84,30 @@ Modifier une réponse déjà donnée ou revenir en arrière ne répète pas le j
 de cette question. « Refaire le test » ouvre un nouveau passage et réactive
 les jalons. Aucun choix, score ou coordonnée personnelle n’est envoyé à Umami.
 
-Après déploiement, dans le site concerné sur Umami, ouvrir **Insights > Funnel**,
-créer un funnel, puis ajouter des étapes de type **Triggered event** avec les
-noms exacts ci-dessus. Pour une vue rapide : `quiz_viewed`,
-`quiz_cta_clicked`, `quiz_started`, `quiz_question_04_answered`,
-`quiz_question_08_answered`, `quiz_question_12_answered`, `quiz_completed`,
-`quiz_lead_attempted`, `lead_submitted`. Pour repérer précisément la question
-où l’on perd des participants, créer aussi un funnel avec `quiz_cta_clicked`,
-`quiz_started`, les douze événements de questions dans l’ordre, puis
-`quiz_completed` et `lead_submitted`. Régler
-la fenêtre entre étapes à 60 minutes pour commencer ; l’ajuster si le quiz est
-souvent interrompu puis repris plus tard. Sélectionner une période commençant
-après le déploiement : les nouveaux jalons ne sont pas rétroactifs.
+Umami n’accepte que **8 étapes** par funnel. Le funnel du quiz tient donc
+dans cette liste, et pas une de plus :
+
+1. `quiz_cta_clicked`
+2. `quiz_started`
+3. `quiz_question_04_answered`
+4. `quiz_question_08_answered`
+5. `quiz_question_12_answered`
+6. `quiz_completed`
+7. `quiz_lead_attempted`
+8. `lead_submitted`
+
+`quiz_viewed` ne rentre pas dans ce funnel : l’introduction vue se consulte
+dans **Events**, comme les questions autres que 4, 8 et 12. Si le bouton
+Ajouter est grisé, retirer une étape déjà présente (en priorité
+`quiz_viewed` si elle a été ajoutée) avant d’insérer `quiz_cta_clicked` en
+premier. Ne pas créer un second funnel avec les douze questions : il dépasserait
+la même limite.
+
+Après déploiement, ouvrir **Insights > Funnel**, puis des étapes de type
+**Triggered event** avec ces noms exacts. Régler la fenêtre entre étapes à
+60 minutes pour commencer ; l’ajuster si le quiz est souvent interrompu puis
+repris plus tard. Sélectionner une période commençant après le déploiement :
+les nouveaux jalons ne sont pas rétroactifs.
 
 Contrôler dans **Events** qu’un parcours de test produit chaque événement une
 fois et dans le bon ordre. Le funnel compte les visiteurs qui atteignent les

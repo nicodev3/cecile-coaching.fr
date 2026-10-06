@@ -100,30 +100,31 @@ const isAllowedOrigin = (request: Request): boolean => {
 };
 
 const formatQuizResult = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
-	// Texte du mail : profil, priorité et petit pas. Pas de score ni de lien vers le programme.
+	// Texte du mail : même fil que l’écran résultat, sans score ni lien programme.
 	const profile = result.profile;
 	return [
-		`Ton profil : ${profile.label}`,
+		`Ton profil Re-flow : ${profile.label}`,
 		profile.summary,
 		'',
-		'Ta priorité',
-		profile.priority,
+		...profile.intro,
 		'',
-		'Ton petit pas',
+		'Ta priorité aujourd’hui',
+		profile.priority,
+		...profile.guidance,
+		'',
+		'C’est justement l’approche de Re-flow',
+		...profile.approach,
+		'',
+		'Ton petit pas du jour',
 		...profile.smallStep,
+		'',
+		profile.invitation,
 	].join('\n');
 };
 
 const formatQuizNote = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
-	const profile = result.profile;
 	return [
 		formatQuizResult(result),
-		'',
-		...profile.intro,
-		'',
-		...profile.guidance,
-		'',
-		...profile.approach,
 		'',
 		'Réponses au questionnaire',
 		...result.answers.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`),
