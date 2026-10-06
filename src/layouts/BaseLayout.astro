@@ -12,6 +12,9 @@ interface Props {
 	noindex?: boolean;
 	nofollow?: boolean;
 	includeCanonical?: boolean;
+	showFooterNavigation?: boolean;
+	showFooterBrand?: boolean;
+	showWhatsAppFloating?: boolean;
 }
 
 const {
@@ -21,6 +24,9 @@ const {
 	noindex,
 	nofollow,
 	includeCanonical,
+	showFooterNavigation = true,
+	showFooterBrand = true,
+	showWhatsAppFloating = true,
 } = Astro.props;
 ---
 
@@ -52,10 +58,10 @@ const {
 				<slot />
 			</main>
 
-			<Footer />
+			<Footer showNavigation={showFooterNavigation} showBrand={showFooterBrand} />
 		</div>
 
-		<WhatsAppFloatingButton />
+		{showWhatsAppFloating && <WhatsAppFloatingButton />}
 
 		<script is:inline type="module">
 			// Révélation douce au scroll (IntersectionObserver)

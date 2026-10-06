@@ -28,67 +28,100 @@ const resourceLinks = [
 	{ href: '/mentions-legales/', label: 'Mentions légales' },
 	{ href: '/politique-de-confidentialite/', label: 'Confidentialité' },
 ];
+
+interface Props {
+	showNavigation?: boolean;
+	showBrand?: boolean;
+}
+
+const { showNavigation = true, showBrand = true } = Astro.props;
+const showIntro = showBrand || showNavigation;
 ---
 
 <footer class="mt-20 bg-(--surface-container) px-4 py-12 sm:px-10">
 	<div class="mx-auto max-w-container">
-		<div class="grid gap-12 md:grid-cols-4">
-			<div class="space-y-6">
-				<a href="/" class="text-2xl text-(--primary)">RE-FLOW par Cécile Cichosz</a>
-				<p class="text-(--secondary)">
-					Coaching sportif adapté en ligne pour les femmes touchées par une maladie chronique, partout
-					en France. Vitalité sans violence.
-				</p>
-			</div>
+		{
+			showIntro && (
+		<div class:list={['grid gap-12', showNavigation && 'md:grid-cols-4']}>
+			{
+				showBrand && (
+					<div class="space-y-6">
+						<a href="/" class="text-2xl text-(--primary)">
+							RE-FLOW par Cécile Cichosz
+						</a>
+						<p class="text-(--secondary)">
+							Coaching sportif adapté en ligne pour les femmes touchées par une maladie chronique,
+							partout en France. Vitalité sans violence.
+						</p>
+					</div>
+				)
+			}
 
-			<nav aria-labelledby="footer-program-title">
-				<p id="footer-program-title" class="mb-6 font-bold text-(--primary)">PROGRAMME</p>
-				<ul class="space-y-3 text-(--on-surface-variant)">
-					{
-						programLinks.map((l) => (
-							<li>
-								<a href={l.href} class="transition hover:text-(--primary)">
-									{l.label}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</nav>
+			{
+				showNavigation && (
+					<>
+						<nav aria-labelledby="footer-program-title">
+							<p id="footer-program-title" class="mb-6 font-bold text-(--primary)">
+								PROGRAMME
+							</p>
+							<ul class="space-y-3 text-(--on-surface-variant)">
+								{
+									programLinks.map((l) => (
+										<li>
+											<a href={l.href} class="transition hover:text-(--primary)">
+												{l.label}
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</nav>
 
-			<nav aria-labelledby="footer-understanding-title">
-				<p id="footer-understanding-title" class="mb-6 font-bold text-(--primary)">COMPRENDRE</p>
-				<ul class="space-y-3 text-(--on-surface-variant)">
-					{
-						understandingLinks.map((l) => (
-							<li>
-								<a href={l.href} class="transition hover:text-(--primary)">
-									{l.label}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</nav>
+						<nav aria-labelledby="footer-understanding-title">
+							<p id="footer-understanding-title" class="mb-6 font-bold text-(--primary)">
+								COMPRENDRE
+							</p>
+							<ul class="space-y-3 text-(--on-surface-variant)">
+								{
+									understandingLinks.map((l) => (
+										<li>
+											<a href={l.href} class="transition hover:text-(--primary)">
+												{l.label}
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</nav>
 
-			<nav aria-labelledby="footer-resources-title">
-				<p id="footer-resources-title" class="mb-6 font-bold text-(--primary)">RESSOURCES</p>
-				<ul class="space-y-3 text-(--on-surface-variant)">
-					{
-						resourceLinks.map((l) => (
-							<li>
-								<a href={l.href} class="transition hover:text-(--primary)">
-									{l.label}
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</nav>
+						<nav aria-labelledby="footer-resources-title">
+							<p id="footer-resources-title" class="mb-6 font-bold text-(--primary)">
+								RESSOURCES
+							</p>
+							<ul class="space-y-3 text-(--on-surface-variant)">
+								{
+									resourceLinks.map((l) => (
+										<li>
+											<a href={l.href} class="transition hover:text-(--primary)">
+												{l.label}
+											</a>
+										</li>
+									))
+								}
+							</ul>
+						</nav>
+					</>
+				)
+			}
 		</div>
+			)
+		}
 
 		<div
-			class="mt-20 flex flex-col items-center justify-between gap-4 border-t border-(--secondary)/20 pt-8 md:flex-row"
+			class:list={[
+				'flex flex-col items-center justify-between gap-4 border-t border-(--secondary)/20 pt-8 md:flex-row',
+				showIntro && (showNavigation ? 'mt-20' : 'mt-10'),
+			]}
 		>
 			<p class="text-xs text-(--on-surface-variant)">
 				© {today.getFullYear()} RE-FLOW. Tous droits réservés.

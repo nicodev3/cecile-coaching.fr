@@ -2,42 +2,12 @@
 import { Image } from 'astro:assets';
 import coachPortrait from '../../../assets/cecile-coach-sportive.webp';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import Header from '../../../components/Header.astro';
 import ReflowAssessment from '../../../components/ReflowAssessment.astro';
-import { PROFILES, TOTAL_QUESTIONS } from '../../../data/reflow';
-import { tieFrenchPunctuation } from '../../../utils/frenchTypography';
+import { TOTAL_QUESTIONS } from '../../../data/reflow';
 
 const title = 'Découvre ton profil Re-flow | RE-FLOW';
 const description =
 	'12 questions pour découvrir ton profil Re-flow : Reconnexion, Énergie, Force ou Équilibre, et identifier ton besoin pour reprendre une activité physique.';
-
-const faqs = [
-	{
-		q: 'À quoi sert le questionnaire Re-flow ?',
-		a: 'Les 12 questions t’aident à identifier ce dont tu as probablement le plus besoin aujourd’hui pour reprendre progressivement une activité physique. Les sept premières explorent tes capacités et ton quotidien ; les cinq suivantes, ton rapport au corps, tes appréhensions et ton besoin d’accompagnement.',
-	},
-	{
-		q: 'Comment interpréter mon résultat ?',
-		a: 'Ton résultat met en lumière un besoin principal : Reconnexion, Énergie, Force ou Équilibre. Toutes les réponses contribuent à ce profil. Il s’accompagne d’une priorité et d’un petit pas pour avancer à ton rythme. Aucun score n’est affiché.',
-	},
-	{
-		q: 'Ce questionnaire remplace-t-il un avis médical ?',
-		a: 'Non. C’est un outil d’orientation et de réflexion, pas une évaluation médicale. Il ne pose aucun diagnostic, ne mesure pas la gravité d’une maladie et ne remplace pas l’avis d’un professionnel de santé.',
-	},
-	{
-		q: 'Mes réponses sont-elles enregistrées ?',
-		a: 'Tes réponses restent dans ton navigateur pendant le questionnaire. Pour découvrir ton profil, tu renseignes ton prénom, ton nom, ton email et ton téléphone et tu donnes ton accord pour recevoir ton résultat et des informations de Cécile coaching. À ce moment, tes coordonnées, tes réponses et ton profil sont transmis à son outil de suivi. Rien n’est transmis avant la validation du formulaire. Recharger la page fait repartir le questionnaire de zéro.',
-	},
-	{
-		q: 'Que faire après le questionnaire ?',
-		a: 'Tu découvres ton profil personnalisé, ta priorité et un petit pas du jour. Tu peux ensuite réserver un bilan personnalisé avec Cécile grâce au calendrier intégré, ou découvrir Re-flow : 16 semaines, 3 séances par semaine, associant Pilates, yoga, renforcement musculaire et relaxation.',
-	},
-	{
-		q: 'Mon profil peut-il évoluer ?',
-		a: 'Oui. Il reflète tes réponses et tes besoins du moment. Il peut évoluer avec ton quotidien, ton énergie et ta confiance dans tes capacités.',
-	},
-];
 
 const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 
@@ -56,63 +26,40 @@ const appStructuredData = {
 	offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
 };
 
-const faqStructuredData = {
-	'@context': 'https://schema.org',
-	'@type': 'FAQPage',
-	mainEntity: faqs.map((f) => ({
-		'@type': 'Question',
-		name: tieFrenchPunctuation(f.q),
-		acceptedAnswer: { '@type': 'Answer', text: f.a },
-	})),
-};
 ---
 
 <BaseLayout
 	title={title}
 	description={description}
-	structuredData={[appStructuredData, faqStructuredData]}
+	structuredData={appStructuredData}
+	showFooterNavigation={false}
+	showFooterBrand={false}
+	showWhatsAppFloating={false}
 >
-	<Fragment slot="header">
-		<Header />
-	</Fragment>
-
 	<article class="border-b border-black/5 bg-white/35">
 		<div class="mx-auto max-w-3xl px-4 pt-2 pb-12 sm:px-6 sm:py-12 lg:px-8">
-			<div class="hidden sm:block">
-				<Breadcrumbs
-					items={[
-						{ name: 'Accueil', href: '/' },
-						{ name: 'Outils', href: '/outils/' },
-						{ name: 'Auto-évaluation Re-flow', href: '/outils/auto-evaluation-re-flow/' },
-					]}
-				/>
-			</div>
-
 			<section data-rg-intro>
-				<div class="rounded-2xl bg-(--surface-container-lowest) px-4 py-4 text-left ring-1 ring-(--outline-variant) sm:px-5 sm:py-5">
-					<div class="flex items-center gap-3 sm:gap-5">
-						<span class="relative aspect-[1120/2008] h-36 shrink-0 overflow-hidden rounded-2xl sm:h-40">
-							<Image
-								src={coachPortrait}
-								alt="Cécile, coach sportive"
-								class="absolute top-[-1.99%] left-[-7.14%] h-[101.99%] w-[122.05%] max-w-none"
-								width={360}
-								loading="eager"
-							/>
-						</span>
-						<div class="flex min-w-0 flex-col gap-2">
-							<p class="text-md leading-relaxed font-semibold text-(--on-surface)">
-								Je suis Cécile, coach sportive.
-							</p>
-							<p class="text-sm leading-relaxed font-semibold text-(--on-surface)">
-								J'aide les femmes épuisées physiquement et moralement, à reprendre confiance dans leur corps à l'aide d'une méthode adaptée, accessible et progressive.
-							</p>
-						</div>
-					</div>
-					<h1 class="mt-4 text-xl leading-tight font-semibold text-(--primary) sm:text-4xl">
+				<div class="rounded-2xl bg-(--surface-container-lowest) px-4 py-8 text-center ring-1 ring-(--outline-variant) sm:px-8 sm:py-10">
+					<span class="mx-auto block size-28 overflow-hidden rounded-full ring-1 ring-(--outline-variant) sm:size-32">
+						<Image
+							src={coachPortrait}
+							alt="Cécile, coach sportive"
+							class="size-full object-cover object-[50%_0%]"
+							width={360}
+							height={540}
+							loading="eager"
+						/>
+					</span>
+					<p class="mt-4 text-base font-semibold text-(--on-surface)">
+						Je suis Cécile, coach sportive.
+					</p>
+					<p class="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-(--secondary) sm:text-base">
+						J'aide les femmes épuisées physiquement et moralement, à reprendre confiance dans leur corps à l'aide d'une méthode adaptée, accessible et progressive.
+					</p>
+					<h1 class="mt-8 text-xl leading-tight font-semibold text-(--primary) sm:text-4xl">
 						Quizz : Fais le point sur tes capacités physiques en {TOTAL_QUESTIONS} questions
 					</h1>
-					<p class="mt-3 text-base leading-relaxed text-(--secondary)">
+					<p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-(--secondary)">
 						À l’issue du quizz, découvre ton profil et les actions à mener pour avancer. Tu pourras aussi réserver un rendez-vous téléphonique avec Cécile pour faire le point ensemble.
 					</p>
 				</div>
@@ -121,56 +68,6 @@ const faqStructuredData = {
 			<div class="mt-4 sm:mt-10">
 				<ReflowAssessment />
 			</div>
-
-			<div class="mt-16" data-rg-info>
-				<h2 class="text-2xl font-semibold text-(--on-surface)">Un point de départ pour reprendre le mouvement</h2>
-				<p class="mt-3 text-base leading-relaxed text-(--secondary)">
-					Les sept premières questions explorent l’impact actuel de ta condition physique sur tes capacités et ton quotidien. Les cinq suivantes précisent ton besoin pour reprendre une activité physique.
-				</p>
-				<h2 class="mt-10 text-2xl font-semibold text-(--on-surface)">Quatre profils pour mieux comprendre tes besoins</h2>
-				<div class="mt-5 grid gap-4 sm:grid-cols-2">
-					{PROFILES.map((profile) => (
-						<div class="rounded-2xl bg-(--surface-container-lowest) p-5 ring-1 ring-(--outline-variant)">
-							<h3 class="text-lg font-semibold text-(--primary)">{profile.label}</h3>
-							<p class="mt-2 leading-relaxed text-(--secondary)">{profile.description}</p>
-						</div>
-					))}
-				</div>
-				<p class="mt-5 text-base leading-relaxed text-(--secondary)">
-					Ton profil reflète tes besoins du moment. Il s’accompagne d’une priorité, d’un petit pas du jour et d’une présentation de l’approche Re-flow.
-				</p>
-				<p class="mt-4 text-sm leading-relaxed text-(--secondary)">
-					Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
-				</p>
-			</div>
-
-			<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="reflow-faq-title">
-				<h2 id="reflow-faq-title" class="text-2xl font-semibold text-(--on-surface)">
-					Questions fréquentes
-				</h2>
-				<div class="mt-6 space-y-3">
-					{
-						faqs.map((f) => (
-							<details class="group rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
-								<summary class="cursor-pointer list-none text-base font-semibold text-(--on-surface) outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
-									<span class="flex items-center justify-between gap-3">
-										<span>{tieFrenchPunctuation(f.q)}</span>
-										<span
-											class="grid size-8 shrink-0 place-items-center rounded-xl bg-(--sage)/70 text-lg leading-none ring-1 ring-black/5"
-											aria-hidden="true"
-										>
-											<span class="transition group-open:rotate-45 motion-reduce:transition-none">
-												+
-											</span>
-										</span>
-									</span>
-								</summary>
-								<p class="mt-3 text-base leading-relaxed text-(--secondary)">{f.a}</p>
-							</details>
-						))
-					}
-				</div>
-			</section>
 		</div>
 	</article>
 </BaseLayout>
