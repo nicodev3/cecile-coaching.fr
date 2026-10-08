@@ -40,50 +40,53 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 
 	{/* ---------- Questionnaire ---------- */}
 	<form data-rg-form novalidate>
-		{
-			QUESTIONS.map((q) => (
-				<fieldset
-					class="rg-step border-0 p-0"
-					data-rg-step
-					data-qid={q.id}
-					data-number={String(q.number)}
-					data-section-label={q.progressLabel}
-				>
-					<legend
-						class="mb-1 w-full rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
-						tabindex="-1"
+		{/* Empilement grille : hauteur stable = question la plus haute */}
+		<div data-rg-steps>
+			{
+				QUESTIONS.map((q) => (
+					<fieldset
+						class="rg-step border-0 p-0"
+						data-rg-step
+						data-qid={q.id}
+						data-number={String(q.number)}
+						data-section-label={q.progressLabel}
 					>
-						<span class="mr-2 text-(--primary-container)">{q.number}.</span>
-						{tieFrenchPunctuation(q.label)}
-					</legend>
+						<legend
+							class="mb-1 w-full rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
+							tabindex="-1"
+						>
+							<span class="mr-2 text-(--primary-container)">{q.number}.</span>
+							{tieFrenchPunctuation(q.label)}
+						</legend>
 
-					{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{tieFrenchPunctuation(q.hint)}</p>}
+						{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{tieFrenchPunctuation(q.hint)}</p>}
 
-					<div class="mt-5 grid gap-2.5">
-						{q.options.map((o, optionIndex) => (
-							<label class="group relative flex cursor-pointer items-start gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-checked:bg-(--primary-fixed)/35 has-checked:ring-2 has-checked:ring-(--primary) has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-(--primary) motion-reduce:transition-none">
-								<input
-									type="radio"
-									class="sr-only"
-									name={q.id}
-									value={String(optionIndex)}
-									data-label={tieFrenchPunctuation(o.label)}
-								/>
-								<span
-									class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-checked:ring-2 group-has-checked:ring-(--primary) motion-reduce:transition-none"
-									aria-hidden="true"
-								>
-									<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-checked:opacity-100 motion-reduce:transition-none" />
-								</span>
-								<span class="text-base leading-snug text-(--on-surface) group-has-checked:font-semibold">
-									{tieFrenchPunctuation(o.label)}
-								</span>
-							</label>
-						))}
-					</div>
-				</fieldset>
-			))
-		}
+						<div class="mt-5 grid gap-2.5">
+							{q.options.map((o, optionIndex) => (
+								<label class="group relative flex cursor-pointer items-start gap-3 rounded-2xl bg-(--surface-container-lowest) px-4 py-3.5 ring-1 ring-(--outline-variant) transition hover:ring-(--primary)/40 has-checked:bg-(--primary-fixed)/35 has-checked:ring-2 has-checked:ring-(--primary) has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-(--primary) motion-reduce:transition-none">
+									<input
+										type="radio"
+										class="sr-only"
+										name={q.id}
+										value={String(optionIndex)}
+										data-label={tieFrenchPunctuation(o.label)}
+									/>
+									<span
+										class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline)/40 transition group-has-checked:ring-2 group-has-checked:ring-(--primary) motion-reduce:transition-none"
+										aria-hidden="true"
+									>
+										<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-checked:opacity-100 motion-reduce:transition-none" />
+									</span>
+									<span class="text-base leading-snug text-(--on-surface) group-has-checked:font-semibold">
+										{tieFrenchPunctuation(o.label)}
+									</span>
+								</label>
+							))}
+						</div>
+					</fieldset>
+				))
+			}
+		</div>
 
 		{/* ---------- Navigation (activée par le script) ---------- */}
 		<div class="mt-7 flex items-center justify-between gap-3" data-rg-nav hidden>
@@ -123,6 +126,12 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			<p
 				class="mt-4 text-2xl font-semibold text-(--primary) sm:text-3xl"
 				data-rg-gate-profile
+				hidden
+			>
+			</p>
+			<p
+				class="mx-auto mt-3 max-w-lg text-base leading-relaxed text-(--on-surface)"
+				data-rg-gate-teaser
 				hidden
 			>
 			</p>
@@ -230,7 +239,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 						class="mt-1 size-4 shrink-0 accent-(--primary)"
 					/>
 					<span>
-						J’accepte de recevoir mon bilan personnalisé et que Cécile me recontacte au sujet de Re-flow.{' '}
+						J’accepte de recevoir mon bilan personnalisé et que Cécile me recontacte au sujet de la solution Re-Flow.{' '}
 						<a
 							href="/politique-de-confidentialite/"
 							class="font-semibold text-(--primary) underline underline-offset-2"
@@ -326,8 +335,16 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 </div>
 
 <style>
-	[data-rg-root][data-js='on'] .rg-step:not([data-current]) {
-		display: none;
+	/* Toutes les étapes dans la même cellule : la hauteur suit la question la plus haute. */
+	[data-rg-root][data-js='on'] [data-rg-steps] {
+		display: grid;
+	}
+	[data-rg-root][data-js='on'] [data-rg-steps] > .rg-step {
+		grid-area: 1 / 1;
+	}
+	[data-rg-root][data-js='on'] [data-rg-steps] > .rg-step:not([data-current]) {
+		visibility: hidden;
+		pointer-events: none;
 	}
 </style>
 
@@ -357,6 +374,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		const remainingLabel = root.querySelector<HTMLElement>('[data-rg-remaining]')!;
 		const gate = root.querySelector<HTMLElement>('[data-rg-gate]')!;
 		const gateProfile = root.querySelector<HTMLElement>('[data-rg-gate-profile]')!;
+		const gateTeaser = root.querySelector<HTMLElement>('[data-rg-gate-teaser]')!;
 		const booking = root.querySelector<HTMLElement>('[data-rg-booking]')!;
 		const leadForm = root.querySelector<HTMLFormElement>('[data-rg-lead-form]')!;
 		const leadError = root.querySelector<HTMLElement>('[data-rg-lead-error]')!;
@@ -515,7 +533,11 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 		const isValidEmail = (value: string) =>
 			value.length <= 254 && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 		const render = (focus = true) => {
-			steps.forEach((step, index) => step.toggleAttribute('data-current', index === current));
+			steps.forEach((step, index) => {
+				const isCurrent = index === current;
+				step.toggleAttribute('data-current', isCurrent);
+				step.toggleAttribute('inert', !isCurrent);
+			});
 			root.querySelector<HTMLElement>('[data-rg-progress-label]')!.textContent =
 				`QUESTION ${current + 1} SUR ${steps.length}`;
 			root.querySelector<HTMLElement>('[data-rg-progress-section]')!.textContent =
@@ -559,9 +581,13 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (scored) {
 				gateProfile.textContent = scored.profile.label;
 				gateProfile.hidden = false;
+				gateTeaser.textContent = scored.profile.summary;
+				gateTeaser.hidden = false;
 			} else {
 				gateProfile.textContent = '';
 				gateProfile.hidden = true;
+				gateTeaser.textContent = '';
+				gateTeaser.hidden = true;
 			}
 			form.hidden = true;
 			progress.hidden = true;
@@ -761,6 +787,8 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			gate.hidden = true;
 			gateProfile.hidden = true;
 			gateProfile.textContent = '';
+			gateTeaser.hidden = true;
+			gateTeaser.textContent = '';
 			leadSubmit.textContent = LEAD_SUBMIT_LABEL;
 			form.hidden = false;
 			progress.hidden = false;
