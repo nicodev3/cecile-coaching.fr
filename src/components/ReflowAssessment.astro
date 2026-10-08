@@ -127,7 +127,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			>
 			</p>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Encore une étape : tes coordonnées pour débloquer ton résultat complet.
+				Laisse tes coordonnées pour voir le détail de ton profil et, si tu le souhaites, réserver ton bilan offert avec Cécile.
 			</p>
 		</div>
 
@@ -234,7 +234,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				class="inline-flex w-full items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) disabled:pointer-events-none disabled:opacity-40 motion-reduce:transition-none"
 				data-rg-lead-submit
 			>
-				Découvrir mon profil
+				Voir le détail de mon profil
 			</button>
 		</form>
 	</section>
@@ -613,7 +613,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			} finally {
 				leadSending = false;
 				leadSubmit.disabled = false;
-				leadSubmit.textContent = leadError.hidden ? 'Découvrir mon profil' : 'Réessayer';
+				leadSubmit.textContent = leadError.hidden ? 'Voir le détail de mon profil' : 'Réessayer';
 			}
 		});
 		const openQuiz = () => {
@@ -649,7 +649,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			gateProfile.hidden = true;
 			gateProfile.textContent = '';
 			leadError.hidden = true;
-			leadSubmit.textContent = 'Découvrir mon profil';
+			leadSubmit.textContent = 'Voir le détail de mon profil';
 			form.hidden = false;
 			progress.hidden = false;
 			closeQuizToIntro();
