@@ -5,6 +5,7 @@ description: "Sport adapté : définition, différence avec l'APA et le handispo
 pubDate: 'Jun 2 2026'
 updatedDate: 'Aug 24 2026'
 heroImage: '../../assets/sport-adapte.webp'
+showQuizCta: true
 relatedPillars:
   - apa
   - maladie-chronique

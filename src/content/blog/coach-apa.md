@@ -128,6 +128,8 @@ Pour une comparaison plus détaillée, consulte aussi l'article [kiné, coach sp
 
 ---
 
+> **Envie d'en parler avec Cécile ?** Un échange gratuit, en visio et sans engagement, suffit pour voir si l'accompagnement correspond à ta situation. [Réserver un échange](/contact/) ou [découvrir le coaching en ligne](/coach-apa-en-ligne/).
+
 ## Comment se déroule un accompagnement avec un coach APA ?
 
 Un accompagnement APA en ligne commence rarement par une séance intense. Il commence par une compréhension fine de la situation, souvent lors d'un échange à distance.

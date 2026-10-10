@@ -5,6 +5,7 @@ description: "Fatigue chronique : causes possibles, ce qui aggrave, ce qui aide,
 pubDate: 'Jun 2 2026'
 updatedDate: 'Aug 24 2026'
 heroImage: '../../assets/a_tired_adult_sitting.png'
+showQuizCta: true
 relatedPillars:
   - fatigue
   - apa

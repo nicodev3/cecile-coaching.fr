@@ -4,6 +4,7 @@ seoTitle: "Fatigue chronique : quel test et quel bilan sanguin ?"
 description: "Fatigue chronique : pourquoi il n'existe pas de test unique, quel bilan sanguin est habituellement fait et comment se pose le diagnostic d'EM/SFC."
 pubDate: 'Aug 24 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
+showQuizCta: true
 relatedPillars:
   - fatigue
   - maladie-chronique
