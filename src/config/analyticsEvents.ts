@@ -23,6 +23,7 @@ export const ANALYTICS_EVENTS = {
 	quizLeadFailed: 'quiz_lead_failed',
 	leadSubmitted: 'lead_submitted',
 	bookingViewed: 'booking_viewed',
+	bookingCtaClicked: 'booking_cta_clicked',
 	bookingConfirmed: 'booking_confirmed',
 } as const;
 

@@ -4,6 +4,7 @@ seoTitle: "Fatigue chronique : symptômes et signaux d'alerte"
 description: "Symptômes de la fatigue chronique : ce qui la distingue d'une fatigue ordinaire, les signes associés et ceux qui imposent une consultation rapide."
 pubDate: 'Aug 24 2026'
 heroImage: '../../assets/a_tired_adult_sitting.png'
+showQuizCta: true
 relatedPillars:
   - fatigue
   - maladie-chronique

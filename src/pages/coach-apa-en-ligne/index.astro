@@ -3,7 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
 import QuizCtaLink from '../../components/QuizCtaLink.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TunnelCtaLink from '../../components/TunnelCtaLink.astro';
 import WhatsAppCtaLink from '../../components/WhatsAppCtaLink.astro';
+import { offerCtaEvent } from '../../config/analyticsEvents';
 
 const title = 'Coach APA en ligne : séances visio | RE-FLOW';
 const description =
@@ -100,6 +103,7 @@ const faqStructuredData = {
 				<div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
 					<a
 						href="/contact/"
+						data-umami-event={offerCtaEvent('coach-apa-en-ligne-hero')}
 						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
 					>
 						Échanger sur ta situation
@@ -111,6 +115,9 @@ const faqStructuredData = {
 						Faire l’auto-évaluation
 					</QuizCtaLink>
 				</div>
+				<p class="mt-4 text-sm leading-relaxed text-slate-700">
+					Échange gratuit, sans engagement. Réponse sous 48 h.
+				</p>
 			</section>
 
 			<div class="pillar-article mt-14 text-base leading-relaxed text-slate-800">
@@ -249,10 +256,17 @@ const faqStructuredData = {
 				<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
 					<a
 						href="/contact/"
+						data-umami-event={offerCtaEvent('coach-apa-en-ligne-final')}
 						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
-						Me contacter
+						Réserver un échange gratuit
 					</a>
+					<TunnelCtaLink
+						campaign="coach-apa-en-ligne"
+						class="inline-flex items-center justify-center rounded-2xl border-2 border-white/80 px-6 py-3 text-base font-semibold text-white transition hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+					>
+						Immersion gratuite (4 jours)
+					</TunnelCtaLink>
 					<WhatsAppCtaLink
 						campaign="coach-apa-en-ligne"
 						showIcon={true}
@@ -307,4 +321,6 @@ const faqStructuredData = {
 			</style>
 		</div>
 	</article>
+
+	<Testimonials />
 </BaseLayout>

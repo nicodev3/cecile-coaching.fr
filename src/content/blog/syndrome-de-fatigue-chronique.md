@@ -5,6 +5,7 @@ description: "Syndrome de fatigue chronique (EM/SFC) : symptômes, causes possib
 pubDate: 'Jun 2 2026'
 updatedDate: 'Aug 24 2026'
 heroImage: '../../assets/une_femme_dans_la_50aine_fatigue.webp'
+showQuizCta: true
 relatedPillars:
   - fatigue
   - maladie-chronique

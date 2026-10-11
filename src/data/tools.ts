@@ -27,8 +27,8 @@ export const TOOLS_BY_KEY: Record<ToolKey, Tool> = {
 		label: 'Auto-évaluation Re-flow',
 		shortLabel: 'Quizz : évalue tes capacités physiques en 12 questions',
 		tagline:
-			'Découvre ton profil et ton besoin principal pour reprendre une activité physique.',
-		duration: '4 minutes',
+			'Découvre ce dont tu as (vraiment) besoin pour retrouver de l\'énergie',
+		duration: '2 minutes',
 		available: true,
 	},
 };

@@ -223,7 +223,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition placeholder:text-(--outline) focus:ring-2 focus:ring-(--primary) focus:outline-none aria-invalid:ring-(--error)"
 				/>
 				<p id="rg-lead-phone-hint" class="text-sm leading-relaxed text-(--secondary)">
-					Numéro français, pour te rappeler si tu réserves le bilan. Aucun démarchage commercial.
+					Numéro français, pour que Cécile puisse te recontacter par SMS ou par téléphone au sujet de ton bilan et de Re-Flow. Tu peux demander à ne plus être contactée à tout moment.
 				</p>
 				<p id="rg-lead-phone-error" class="text-sm leading-relaxed text-(--error)" data-rg-field-error="phone" hidden></p>
 			</div>
@@ -274,6 +274,16 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				<p class="mt-6 text-xl leading-relaxed font-semibold text-(--on-surface)">{profile.summary}</p>
 			</div>
 		))}
+		<div class="mt-8 text-center">
+			<a
+				href="#rg-booking"
+				class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) motion-reduce:transition-none"
+				data-rg-booking-cta
+			>
+				Réserver mon bilan
+			</a>
+			<p class="mt-2 text-sm text-(--secondary)">Un échange gratuit avec Cécile pour relire ce résultat.</p>
+		</div>
 		{PROFILES.map((profile) => (
 			<div data-rg-profile-more={profile.key} hidden>
 				<div class="mt-10 space-y-4 text-base leading-relaxed text-(--secondary)">
@@ -294,6 +304,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			</div>
 		))}
 		<div
+			id="rg-booking"
 			class="mt-10 scroll-mt-28 rounded-2xl border-2 border-(--primary) bg-(--surface-container-lowest) px-5 py-6 sm:px-8 sm:py-8"
 			data-rg-booking
 		>
@@ -353,9 +364,9 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 	import { scoreQuiz, type SubmittedAnswer } from '../data/reflow';
 	import { normalizeFrenchPhone } from '../utils/frenchPhone';
 
-	const trackUmami = (name: string) => {
-		const umami = (window as unknown as { umami?: { track?: (n: string) => void } }).umami;
-		umami?.track?.(name);
+	const trackUmami = (name: string, data?: Record<string, string>) => {
+		const umami = (window as unknown as { umami?: { track?: (n: string, d?: Record<string, string>) => void } }).umami;
+		umami?.track?.(name, data);
 	};
 
 	type Fbq = ((...args: unknown[]) => void) & { callMethod?: (...args: unknown[]) => void; queue?: unknown[] };
@@ -428,6 +439,14 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			trackUmami(ANALYTICS_EVENTS.bookingViewed);
 			trackMeta('BookingViewed', QUIZ_CONTENT, true);
 		};
+
+		result.querySelector<HTMLAnchorElement>('[data-rg-booking-cta]')?.addEventListener('click', (event) => {
+			event.preventDefault();
+			trackUmami(ANALYTICS_EVENTS.bookingCtaClicked);
+			const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+			booking.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+			booking.querySelector<HTMLElement>('#rg-booking-title')?.focus({ preventScroll: true });
+		});
 
 		const mountCalendar = (lead: BookingLead) => {
 			const bookingMount = result.querySelector<HTMLElement>('[data-rg-booking-mount]');
@@ -703,7 +722,10 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			if (issues.length > 0) {
 				issues.forEach(({ field, key, message }) => setFieldError(field, key, message));
 				issues[0].field.focus();
-				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
+				// Seuls les noms des champs en erreur partent vers Umami, jamais leur contenu.
+				trackUmami(ANALYTICS_EVENTS.quizLeadInvalid, {
+					fields: [...new Set(issues.map(({ key }) => key))].join(','),
+				});
 				return;
 			}
 			if (!phone) return;
@@ -727,7 +749,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 				if (response.status === 400) {
 					setFieldError(emailField, 'email', 'Vérifie tes informations et réessaie.');
 					emailField.focus();
-					trackUmami(ANALYTICS_EVENTS.quizLeadInvalid);
+					trackUmami(ANALYTICS_EVENTS.quizLeadInvalid, { fields: 'server' });
 					return;
 				}
 				if (!response.ok) throw new Error('lead');
