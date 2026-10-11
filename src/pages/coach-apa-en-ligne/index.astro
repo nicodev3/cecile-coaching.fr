@@ -1,5 +1,9 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import coachImage from '../../assets/cecile-coach-apa.webp';
+import heroImage from '../../assets/coach-apa-hero.png';
+import heroImage from '../../assets/coach-apa-hero.png';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
 import QuizCtaLink from '../../components/QuizCtaLink.astro';
@@ -84,56 +88,82 @@ const faqStructuredData = {
 	</Fragment>
 
 	<article class="border-b border-black/5 bg-white/35">
-		<div class="mx-auto max-w-3xl px-4 pt-4 pb-12 sm:px-6 sm:py-12 lg:px-8">
-			<Breadcrumbs
-				items={[
-					{ name: 'Accueil', href: '/' },
-					{ name: 'Coaching sportif adapté', href: '/coach-apa-en-ligne/' },
-				]}
-			/>
-
-			<section class="text-center">
-				<p class="text-sm font-semibold tracking-[0.22em] text-slate-700/80">ACCOMPAGNEMENT EN LIGNE</p>
-				<h1 class="mt-3 text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
-					Coach APA en ligne : séances en visio pour maladie chronique
-				</h1>
-				<p class="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-800">
-					Un <strong>coach APA en ligne</strong>, c’est un accompagnement du mouvement adapté à ta santé, en visio, depuis chez toi. Des séances avec Cécile Cichosz, coach sportive diplômée d’État <strong>BPJEPS Activités de la forme</strong> et <strong>certifiée APA</strong>, pour les femmes qui vivent avec une maladie chronique, une fatigue chronique ou des douleurs. Cadre doux, progressif, partout en France.
-				</p>
-				<div class="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-					<a
-						href="/contact/"
-						data-umami-event={offerCtaEvent('coach-apa-en-ligne-hero')}
-						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
-					>
-						Échanger sur ta situation
-					</a>
-					<QuizCtaLink
-						campaign="coach-apa-en-ligne"
-						class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-7 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
-					>
-						Faire l’auto-évaluation
-					</QuizCtaLink>
+		<div class="mx-auto max-w-3xl px-4 pb-12 sm:px-6 sm:pt-0 sm:pb-12 lg:px-8">
+			<section class="relative left-1/2 h-[32rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[30rem]" aria-labelledby="coach-apa-hero-title">
+				<Image
+					src={heroImage}
+					alt="Une femme pratique un étirement doux à domicile dans un espace lumineux"
+					class="absolute inset-0 size-full object-cover object-top"
+					loading="eager"
+					fetchpriority="high"
+				/>
+				<div class="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10" aria-hidden="true"></div>
+				<div class="relative mx-auto flex h-full max-w-3xl flex-col px-4 pt-4 sm:px-6 sm:pt-0 lg:px-8">
+					<Breadcrumbs
+						items={[
+							{ name: 'Accueil', href: '/' },
+							{ name: 'Coaching sportif adapté', href: '/coach-apa-en-ligne/' },
+						]}
+					/>
+					<div class="flex flex-1 items-center pb-8 sm:pb-12">
+						<div class="max-w-xl">
+							<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">ACCOMPAGNEMENT EN LIGNE</p>
+							<h1 id="coach-apa-hero-title" class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
+								Coach APA en ligne : séances en visio pour maladie chronique
+							</h1>
+							<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
+								Des séances en visio avec Cécile Cichosz, coach sportive diplômée d’État et certifiée APA. Un accompagnement doux et progressif, depuis chez toi, pour les femmes vivant avec une maladie chronique, une fatigue ou des douleurs.
+							</p>
+							<div class="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+								<a
+									href="/contact/"
+									data-umami-event={offerCtaEvent('coach-apa-en-ligne-hero')}
+									class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+								>
+									Échanger sur ta situation
+								</a>
+								<QuizCtaLink
+									campaign="coach-apa-en-ligne"
+									class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-7 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+								>
+									Faire l’auto-évaluation
+								</QuizCtaLink>
+							</div>
+							<p class="mt-3 text-sm leading-relaxed text-(--secondary)">
+								Échange gratuit, sans engagement. Réponse sous 48 h.
+							</p>
+						</div>
+					</div>
 				</div>
-				<p class="mt-4 text-sm leading-relaxed text-slate-700">
-					Échange gratuit, sans engagement. Réponse sous 48 h.
-				</p>
 			</section>
 
-			<div class="pillar-article mt-14 text-base leading-relaxed text-slate-800">
-				<h2>Pour qui est cet accompagnement ?</h2>
-				<p>
-					Cet accompagnement s’adresse aux femmes pour qui le sport classique est devenu trop intense, trop
-					rigide ou trop culpabilisant : <strong>maladie chronique</strong>, fatigue persistante,&nbsp;<strong>douleurs chroniques</strong>, traitements en cours, longue période d’inactivité ou perte de
-					confiance dans le corps.
-				</p>
-				<ul>
-					<li>Tu vis avec une maladie chronique et ton énergie varie d’un jour à l’autre</li>
-					<li>Tu veux reprendre une activité physique sans aggraver ta fatigue ni tes douleurs</li>
-					<li>Tu as déjà essayé des programmes sportifs classiques et tu as abandonné - pas par manque de volonté</li>
-					<li>Tu cherches un cadre doux, sans performance, sans comparaison et sans injonctions</li>
-					<li>Tu préfères un accompagnement en ligne, depuis chez toi, sans déplacement</li>
-				</ul>
+			<div class="pillar-article mx-auto mt-14 max-w-3xl text-base leading-relaxed text-slate-800">
+				<div class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_18rem]">
+					<div>
+						<h2>Pour qui est cet accompagnement ?</h2>
+						<p>
+							Cet accompagnement s’adresse aux femmes pour qui le sport classique est devenu trop intense, trop
+							rigide ou trop culpabilisant : <strong>maladie chronique</strong>, fatigue persistante,&nbsp;<strong>douleurs chroniques</strong>, traitements en cours, longue période d’inactivité ou perte de
+							confiance dans le corps.
+						</p>
+						<ul>
+							<li>Tu vis avec une maladie chronique et ton énergie varie d’un jour à l’autre</li>
+							<li>Tu veux reprendre une activité physique sans aggraver ta fatigue ni tes douleurs</li>
+							<li>Tu as déjà essayé des programmes sportifs classiques et tu as abandonné - pas par manque de volonté</li>
+							<li>Tu cherches un cadre doux, sans performance, sans comparaison et sans injonctions</li>
+							<li>Tu préfères un accompagnement en ligne, depuis chez toi, sans déplacement</li>
+						</ul>
+					</div>
+					<div class="mx-auto w-full max-w-sm overflow-hidden rounded-2xl bg-(--surface-container) lg:max-w-none">
+						<Image
+							src={coachImage}
+							alt="Cécile, coach sportive certifiée APA, assise sur un tapis de mouvement"
+							class="aspect-[4/3] size-full object-cover object-top"
+							width={1200}
+							height={1600}
+						/>
+					</div>
+				</div>
 
 				<h2>Coach APA, BPJEPS, Activité Physique Adaptée : comment s’y retrouver ?</h2>
 				<p>
