@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import coachImage from '../../assets/cecile-coach-apa.webp';
 import heroImage from '../../assets/coach-apa-hero.png';
-import heroImage from '../../assets/coach-apa-hero.png';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import Header from '../../components/Header.astro';
 import QuizCtaLink from '../../components/QuizCtaLink.astro';
@@ -17,6 +16,22 @@ const description =
 	'Coach APA en ligne avec Cécile Cichosz : séances en visio, partout en France, pour reprise du mouvement avec une maladie ou une fatigue chronique.';
 
 const faqs = [
+	{
+		q: 'Combien de temps faut-il prévoir pour RE-FLOW ?',
+		a: 'Le programme dure 4 mois, soit 16 semaines. Il propose 3 séances vidéo d’environ 30 minutes par semaine, à ajuster selon ton énergie, ainsi qu’un point individuel en visio chaque semaine et une séance collective tous les 15 jours. Ce rythme est un repère à discuter avec Cécile, pas une obligation de réaliser toutes les séances.',
+	},
+	{
+		q: 'Quel matériel faut-il pour suivre le programme ?',
+		a: 'Pour les rendez-vous en visio et les vidéos, prévois une connexion Internet et un téléphone, une tablette ou un ordinateur. L’espace disponible chez toi et le matériel nécessaire aux exercices sont à préciser avec Cécile lors du premier échange, avant de t’équiper.',
+	},
+	{
+		q: 'Quel est le tarif et peut-on payer en plusieurs fois ?',
+		a: 'Le tarif est communiqué sur demande, avec les modalités de l’accompagnement. Un paiement en 2 ou 3 fois est possible. Cécile t’explique ces conditions lors de votre échange, avant toute inscription.',
+	},
+	{
+		q: 'Et si je suis trop fatiguée ou si je manque une séance ?',
+		a: 'Le rythme des vidéos est ajustable selon ton énergie et les séances collectives sont accessibles en replay. Préviens Cécile pour discuter des ajustements et des modalités si tu ne peux pas assister à un rendez-vous individuel. L’objectif n’est pas de rattraper toutes les séances à tout prix.',
+	},
 	{
 		q: 'Qu’est-ce qu’un coach APA ?',
 		a: "Dans l'usage courant, on parle parfois de coach APA pour désigner un accompagnement du mouvement adapté à la santé. En France, les enseignant·es en APA ont une formation universitaire STAPS APA-S. RE-FLOW est proposé par Cécile Cichosz, coach sportive diplômée d’État BPJEPS Activités de la forme et certifiée APA, avec un cadre progressif et adapté, non médical.",
@@ -89,7 +104,7 @@ const faqStructuredData = {
 
 	<article class="border-b border-black/5 bg-white/35">
 		<div class="mx-auto max-w-3xl px-4 pb-12 sm:px-6 sm:pt-0 sm:pb-12 lg:px-8">
-			<section class="relative left-1/2 h-[32rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[30rem]" aria-labelledby="coach-apa-hero-title">
+			<section class="relative left-1/2 min-h-[32rem] w-screen -translate-x-1/2 overflow-hidden sm:min-h-[30rem]" aria-labelledby="coach-apa-hero-title">
 				<Image
 					src={heroImage}
 					alt="Une femme pratique un étirement doux à domicile dans un espace lumineux"
@@ -98,7 +113,7 @@ const faqStructuredData = {
 					fetchpriority="high"
 				/>
 				<div class="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10" aria-hidden="true"></div>
-				<div class="relative mx-auto flex h-full max-w-3xl flex-col px-4 pt-4 sm:px-6 sm:pt-0 lg:px-8">
+				<div class="relative mx-auto flex min-h-[32rem] max-w-3xl flex-col px-4 pt-4 sm:min-h-[30rem] sm:px-6 sm:pt-6 lg:px-8">
 					<Breadcrumbs
 						items={[
 							{ name: 'Accueil', href: '/' },
@@ -109,7 +124,7 @@ const faqStructuredData = {
 						<div class="max-w-xl">
 							<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">ACCOMPAGNEMENT EN LIGNE</p>
 							<h1 id="coach-apa-hero-title" class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
-								Coach APA en ligne : séances en visio pour maladie chronique
+								Coach APA en ligne&nbsp;: séances en visio pour maladie chronique
 							</h1>
 							<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
 								Des séances en visio avec Cécile Cichosz, coach sportive diplômée d’État et certifiée APA. Un accompagnement doux et progressif, depuis chez toi, pour les femmes vivant avec une maladie chronique, une fatigue ou des douleurs.
@@ -120,7 +135,7 @@ const faqStructuredData = {
 									data-umami-event={offerCtaEvent('coach-apa-en-ligne-hero')}
 									class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
 								>
-									Échanger sur ta situation
+									Demander un échange avec Cécile
 								</a>
 								<QuizCtaLink
 									campaign="coach-apa-en-ligne"
@@ -130,11 +145,36 @@ const faqStructuredData = {
 								</QuizCtaLink>
 							</div>
 							<p class="mt-3 text-sm leading-relaxed text-(--secondary)">
-								Échange gratuit, sans engagement. Réponse sous 48 h.
+								Le bouton ouvre le formulaire de contact. Cécile te répond sous 24 à 48 h ouvrées pour organiser un échange gratuit, sans engagement.
 							</p>
 						</div>
 					</div>
 				</div>
+			</section>
+
+			<section class="mt-12 rounded-3xl bg-(--sage)/25 p-6 sm:p-8" aria-labelledby="reflow-programme-title">
+				<p class="text-sm font-semibold tracking-[0.18em] text-(--primary)">LE PROGRAMME RE-FLOW</p>
+				<h2 id="reflow-programme-title" class="mt-3 text-2xl font-semibold text-(--on-surface) sm:text-3xl">4 mois pour construire ton rythme, avec Cécile</h2>
+				<p class="mt-4 leading-relaxed text-slate-700">Des vidéos à suivre chez toi, des rendez-vous en direct et un suivi personnalisé. Tu sais quoi pratiquer et tu peux échanger avec Cécile pour adapter le programme à ton quotidien.</p>
+				<dl class="mt-6 grid gap-4 sm:grid-cols-2">
+					<div class="rounded-2xl bg-white/80 p-5">
+						<dt class="text-lg font-semibold text-(--primary)">48 séances vidéo guidées</dt>
+						<dd class="mt-2 text-slate-700">3 séances proposées par semaine pendant 16 semaines, à suivre en autonomie. Environ 30 minutes par séance, avec un rythme et des durées ajustables selon ton énergie.</dd>
+					</div>
+					<div class="rounded-2xl bg-white/80 p-5">
+						<dt class="text-lg font-semibold text-(--primary)">Un point individuel chaque semaine</dt>
+						<dd class="mt-2 text-slate-700">Un rendez-vous en visioconférence avec Cécile pour faire le point sur tes ressentis, poser tes questions et ajuster ton programme.</dd>
+					</div>
+					<div class="rounded-2xl bg-white/80 p-5">
+						<dt class="text-lg font-semibold text-(--primary)">Une séance collective tous les 15 jours</dt>
+						<dd class="mt-2 text-slate-700">Un rendez-vous sur Zoom, accessible en direct ou en replay, pour pratiquer depuis chez toi.</dd>
+					</div>
+					<div class="rounded-2xl bg-white/80 p-5">
+						<dt class="text-lg font-semibold text-(--primary)">Un suivi entre les rendez-vous</dt>
+						<dd class="mt-2 text-slate-700">Un accompagnement WhatsApp, des conseils personnalisés et des supports pour te repérer. Un bilan forme au début et à la fin du programme.</dd>
+					</div>
+				</dl>
+				<p class="mt-5 text-sm leading-relaxed text-slate-700">Les 3 séances hebdomadaires sont un repère, pas un quota à atteindre. Les adaptations se discutent avec Cécile, en tenant compte de tes limites et des consignes de ton équipe soignante.</p>
 			</section>
 
 			<div class="pillar-article mx-auto mt-14 max-w-3xl text-base leading-relaxed text-slate-800">
@@ -177,20 +217,38 @@ const faqStructuredData = {
 					le guide <a href="/activites-physiques-adaptees/">Activité Physique Adaptée : définition et bienfaits</a>, ainsi que <a href="/a-propos/">le parcours de Cécile Cichosz</a>.
 				</p>
 
-				<h2>Activité Physique Adaptée en ligne : comment ça se passe ?</h2>
-				<p>
-					L’<strong>accompagnement en ligne</strong> se déroule en visio, depuis chez toi. Concrètement :
-				</p>
-				<ul>
-					<li><strong>Un premier échange</strong> pour comprendre ta situation : maladie, fatigue, douleurs, traitements, peurs, objectifs et quotidien</li>
-					<li><strong>Des séances en visio</strong> adaptées à ton espace, ton matériel et ton énergie du jour</li>
-					<li><strong>Des versions modulables</strong> pour les bons jours, les jours moyens et les jours difficiles</li>
-					<li><strong>Des ressources à suivre en autonomie</strong> entre les séances, sans pression</li>
-					<li><strong>Des ajustements semaine après semaine</strong>, selon ce que ton corps exprime réellement</li>
-				</ul>
-				<p>
-					Pour visualiser ce que contiennent les séances, découvre des&nbsp;<a href="/blog/activite-physique-adaptee-exercices/">exemples d’exercices d’Activité Physique Adaptée</a>.
-				</p>
+				<section aria-labelledby="reflow-etapes-title">
+					<h2 id="reflow-etapes-title">Comment se déroule RE-FLOW&nbsp;?</h2>
+					<ol class="space-y-5">
+						<li class="rounded-2xl border border-(--primary)/15 bg-white/70 p-5">
+							<h3 class="!mt-0">1. Faire connaissance et vérifier si le programme convient</h3>
+							<p class="!mb-0">Tu envoies un message via le formulaire de contact. Lors de votre échange, Cécile prend le temps de comprendre tes besoins, tes contraintes, ton énergie et tes objectifs. Vous précisez le cadre de l’accompagnement, les conditions et le tarif avant de décider de commencer.</p>
+						</li>
+						<li class="rounded-2xl border border-(--primary)/15 bg-white/70 p-5">
+							<h3 class="!mt-0">2. Définir ton point de départ</h3>
+							<p class="!mb-0">Un bilan forme personnalisé aide à choisir les adaptations et à organiser ta pratique chez toi. L’espace disponible, le matériel et les durées des séances sont discutés avec Cécile.</p>
+						</li>
+						<li class="rounded-2xl border border-(--primary)/15 bg-white/70 p-5">
+							<h3 class="!mt-0">3. Pratiquer et ajuster au fil des semaines</h3>
+							<p class="!mb-0">Tu suis les vidéos en autonomie, tu retrouves le groupe en direct ou en replay et tu fais le point avec Cécile chaque semaine. Les rendez-vous individuels servent à adapter le programme à ce que tu ressens réellement.</p>
+						</li>
+					</ol>
+				</section>
+
+				<h2>Quel type de mouvement est proposé&nbsp;?</h2>
+				<p>RE-FLOW associe <strong>Pilates, yoga, renforcement musculaire et relaxation</strong>. Les vidéos guident la pratique à domicile et les échanges avec Cécile permettent de discuter des adaptations. Pour découvrir des mouvements et leurs variantes, consulte les <a href="/blog/activite-physique-adaptee-exercices/">exemples d’exercices d’Activité Physique Adaptée</a>.</p>
+
+				<section class="mt-10 rounded-2xl bg-(--sage)/20 p-6" aria-labelledby="reflow-pratique-title">
+					<h2 id="reflow-pratique-title" class="!mt-0">Tarif et informations pratiques</h2>
+					<ul>
+						<li><strong>Durée&nbsp;:</strong> 4 mois, soit 16 semaines d’accompagnement.</li>
+						<li><strong>À prévoir&nbsp;:</strong> une connexion Internet et un téléphone, une tablette ou un ordinateur pour les vidéos et les rendez-vous en visio. Le matériel des exercices est précisé avec Cécile avant de t’équiper.</li>
+						<li><strong>Disponibilités&nbsp;:</strong> des temps de pratique en autonomie et un point individuel hebdomadaire. Les séances collectives peuvent être suivies en replay.</li>
+						<li><strong>Tarif sur demande&nbsp;:</strong> Cécile te communique le prix et les modalités avant toute inscription. Le paiement en 2 ou 3 fois est possible.</li>
+					</ul>
+					<a href="/contact/" data-umami-event={offerCtaEvent('coach-apa-en-ligne-programme')} class="inline-flex items-center justify-center rounded-full bg-(--primary) px-6 py-3 font-semibold !text-white !no-underline transition hover:bg-(--plum-ink) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)">Demander le tarif et un échange</a>
+					<p class="mt-3 !mb-0 text-sm">Le formulaire te permet de présenter ta situation et de poser tes questions. Réponse sous 24 à 48 h ouvrées, sans engagement.</p>
+				</section>
 
 				<h2>Dans quelles situations ce coaching adapté en ligne peut-il aider ?</h2>
 				<p>
@@ -289,7 +347,7 @@ const faqStructuredData = {
 						data-umami-event={offerCtaEvent('coach-apa-en-ligne-final')}
 						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
-						Réserver un échange gratuit
+						Demander un échange avec Cécile
 					</a>
 					<TunnelCtaLink
 						campaign="coach-apa-en-ligne"
@@ -305,6 +363,7 @@ const faqStructuredData = {
 						Écrire sur WhatsApp
 					</WhatsAppCtaLink>
 				</div>
+				<p class="mt-4 text-sm text-white/90">Le formulaire de contact s’ouvre pour envoyer ta demande. Cécile te répond sous 24 à 48 h ouvrées pour organiser votre échange gratuit.</p>
 			</div>
 
 			<style is:global>
