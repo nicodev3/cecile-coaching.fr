@@ -1,7 +1,7 @@
 // @ts-check
 
 import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
+import contentSitemap from './src/integrations/contentSitemap.mjs';
 import { defineConfig, fontProviders } from 'astro/config';
 import robotsTxt from 'astro-robots-txt';
 import llmsMd from './src/integrations/llmsMd.mjs';
@@ -20,9 +20,7 @@ export default defineConfig({
   integrations: [
     mdx(),
     llmsMd(),
-    sitemap({
-      filter: (page) => !page.startsWith('https://cecilecoaching.fr/merci-rendez-vous'),
-    }),
+    ...contentSitemap(),
     robotsTxt({
       transform(content) {
         return content.replace(
