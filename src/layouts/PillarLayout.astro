@@ -116,10 +116,10 @@ const faqStructuredData: StructuredData = {
 										id="pillar-hero-title"
 										class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl"
 									>
-										{heroTitle}
+										{tieFrenchPunctuation(heroTitle)}
 									</h1>
 									<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
-										{heroDescription}
+										{tieFrenchPunctuation(heroDescription)}
 									</p>
 								</div>
 							</div>
@@ -240,7 +240,7 @@ const faqStructuredData: StructuredData = {
 							<details class="group rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
 								<summary class="cursor-pointer list-none text-base font-semibold text-slate-900 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
 									<span class="flex items-center justify-between gap-3">
-										<span>{f.q}</span>
+										<span>{tieFrenchPunctuation(f.q)}</span>
 										<span
 											class="grid size-8 shrink-0 place-items-center rounded-xl bg-(--sage)/70 text-lg leading-none ring-1 ring-black/5"
 											aria-hidden="true"
@@ -249,7 +249,7 @@ const faqStructuredData: StructuredData = {
 										</span>
 									</span>
 								</summary>
-								<p class="mt-3 text-base leading-relaxed text-slate-700">{f.a}</p>
+								<p class="mt-3 text-base leading-relaxed text-slate-700">{tieFrenchPunctuation(f.a)}</p>
 							</details>
 						))
 					}
