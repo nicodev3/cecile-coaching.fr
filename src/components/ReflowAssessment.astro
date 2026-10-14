@@ -3,6 +3,13 @@ import { RotateCcw } from '@lucide/astro';
 import TunnelCtaLink from './TunnelCtaLink.astro';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
+
+/** Découpe un libellé en segments, les passages entre parenthèses étant isolés. */
+const splitParenthetical = (text: string) =>
+	text
+		.split(/(\([^)]*\))/)
+		.filter(Boolean)
+		.map((part) => ({ text: part, small: part.startsWith('(') }));
 ---
 
 <div
@@ -56,7 +63,15 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 							tabindex="-1"
 						>
 							<span class="mr-2 text-(--primary-container)">{q.number}.</span>
-							{tieFrenchPunctuation(q.label)}
+							{
+								splitParenthetical(q.label).map((part) =>
+									part.small ? (
+										<span class="text-sm font-normal text-(--secondary)">{tieFrenchPunctuation(part.text)}</span>
+									) : (
+										tieFrenchPunctuation(part.text)
+									),
+								)
+							}
 						</legend>
 
 						{q.hint && <p class="mb-1 text-sm leading-relaxed text-(--secondary)">{tieFrenchPunctuation(q.hint)}</p>}
@@ -136,7 +151,7 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 			>
 			</p>
 			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-(--secondary)">
-				Tes coordonnées permettent de recevoir ton bilan personnalisé et t'ouvrent la possibilité de réserver un échange gratuit et sans engagement avec Cécile si tu le souhaites.
+				Pour obtenir tes résultats, renseigne tes coordonnées
 			</p>
 		</div>
 
@@ -219,12 +234,9 @@ import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 					inputmode="tel"
 					required
 					placeholder="06 12 34 56 78"
-					aria-describedby="rg-lead-phone-hint rg-lead-phone-error"
+					aria-describedby="rg-lead-phone-error"
 					class="w-full rounded-xl border-none bg-(--surface-container-lowest) p-4 text-(--on-surface) ring-1 ring-(--outline-variant) transition placeholder:text-(--outline) focus:ring-2 focus:ring-(--primary) focus:outline-none aria-invalid:ring-(--error)"
 				/>
-				<p id="rg-lead-phone-hint" class="text-sm leading-relaxed text-(--secondary)">
-					Numéro français, pour que Cécile puisse te recontacter par SMS ou par téléphone au sujet de ton bilan et de Re-Flow. Tu peux demander à ne plus être contactée à tout moment.
-				</p>
 				<p id="rg-lead-phone-error" class="text-sm leading-relaxed text-(--error)" data-rg-field-error="phone" hidden></p>
 			</div>
 
