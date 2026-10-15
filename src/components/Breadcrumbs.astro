@@ -34,14 +34,14 @@ const breadcrumbJsonLd = {
 	aria-label="Fil d’Ariane"
 	class:list={[
 		'sm:py-8',
-		variant === 'article' ? 'text-xs text-(--outline)' : 'mb-4 sm:mb-8 text-sm text-(--on-surface-variant)',
+		variant === 'article' ? 'text-xs text-(--secondary)' : 'mb-4 sm:mb-8 text-sm text-(--on-surface-variant)',
 	]}
 >
 	<ol class="flex flex-wrap items-center gap-2">
 		{
 			items.map((c, i) => (
 				<li class="flex items-center gap-2">
-					{i > 0 && <span aria-hidden="true" class="text-(--outline)">/</span>}
+					{i > 0 && <span aria-hidden="true" class="text-(--secondary)">/</span>}
 					{i === items.length - 1 ? (
 						<span
 							class:list={[
@@ -58,7 +58,7 @@ const breadcrumbJsonLd = {
 							class:list={[
 								'inline-flex min-h-6 min-w-6 items-center transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)',
 								variant === 'article'
-									? 'text-(--outline) hover:text-(--primary) no-underline'
+									? 'text-(--secondary) hover:text-(--primary) no-underline'
 									: 'text-(--primary) underline-offset-2 hover:underline',
 							]}
 						>

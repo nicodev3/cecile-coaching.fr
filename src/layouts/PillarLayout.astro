@@ -158,7 +158,7 @@ const faqStructuredData: StructuredData = {
 					font-size: 1.5rem;
 					font-weight: 600;
 					line-height: 1.3;
-					color: #0f172a;
+					color: var(--on-surface);
 				}
 				.pillar-article h2:first-child {
 					margin-top: 0;
@@ -168,7 +168,7 @@ const faqStructuredData: StructuredData = {
 					margin-bottom: 0.5rem;
 					font-size: 1.125rem;
 					font-weight: 600;
-					color: #0f172a;
+					color: var(--on-surface);
 				}
 				.pillar-article p {
 					margin: 0 0 1rem;
@@ -190,7 +190,7 @@ const faqStructuredData: StructuredData = {
 				}
 				.pillar-article strong {
 					font-weight: 700;
-					color: #0f172a;
+					color: var(--on-surface);
 				}
 			</style>
 
@@ -198,7 +198,7 @@ const faqStructuredData: StructuredData = {
 				pillarPosts.length > 0 && (
 					<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="pillar-articles-title">
 						<div class="flex flex-wrap items-baseline justify-between gap-4">
-							<h2 id="pillar-articles-title" class="text-2xl font-semibold text-slate-900">
+							<h2 id="pillar-articles-title" class="text-2xl font-semibold text-(--on-surface)">
 								Articles sur le thème
 							</h2>
 							<a
@@ -215,7 +215,7 @@ const faqStructuredData: StructuredData = {
 										href={`/blog/${post.id}/`}
 										class="block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)"
 									>
-										<p class="text-base font-semibold text-slate-900 hover:text-(--plum)">
+										<p class="text-base font-semibold text-(--on-surface) hover:text-(--plum)">
 											{tieFrenchPunctuation(post.data.title)}
 										</p>
 										<p class="mt-1 text-sm text-slate-600">
@@ -233,12 +233,12 @@ const faqStructuredData: StructuredData = {
 			}
 
 			<section class="mt-14 border-t border-black/10 pt-12" aria-labelledby="pillar-faq-title">
-				<h2 id="pillar-faq-title" class="text-2xl font-semibold text-slate-900">Questions fréquentes</h2>
+				<h2 id="pillar-faq-title" class="text-2xl font-semibold text-(--on-surface)">Questions fréquentes</h2>
 				<div class="mt-6 space-y-3">
 					{
 						faqs.map((f) => (
 							<details class="group rounded-2xl bg-white/70 px-5 py-4 ring-1 ring-black/5">
-								<summary class="cursor-pointer list-none text-base font-semibold text-slate-900 outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
+								<summary class="cursor-pointer list-none text-base font-semibold text-(--on-surface) outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--plum)">
 									<span class="flex items-center justify-between gap-3">
 										<span>{tieFrenchPunctuation(f.q)}</span>
 										<span
@@ -266,7 +266,7 @@ const faqStructuredData: StructuredData = {
 				<div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
 					<TunnelCtaLink
 						campaign={tunnelCampaign}
-						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-slate-900 shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+						class="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 text-base font-semibold text-(--on-surface) shadow-sm transition hover:bg-white/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
 					>
 						Commencer l’immersion en ligne (4 jours)
 					</TunnelCtaLink>

@@ -12,17 +12,18 @@
 	/* Jetons de compatibilité pour les composants ajoutés lors de la refonte. */
 	--primary: var(--plum);
 	--on-primary: #ffffff;
-	--primary-container: #8b6b95;
+	/* Plum clair assombri (même teinte) : ≥ 4.7:1 en texte sur --paper / --surface-container-low */
+	--primary-container: #82628c;
 	--on-primary-container: #ffffff;
 	--primary-fixed: var(--sage);
 	--primary-fixed-dim: var(--sage);
 	--on-primary-fixed-variant: var(--plum-ink);
 	--on-primary-fixed: var(--ink);
-	--secondary: rgb(107, 107, 107);
+	/* Gris texte secondaire : ≥ 4.6:1 aussi sur les fonds sauge translucides */
+	--secondary: #676767;
 	--on-secondary: #ffffff;
 	--secondary-container: var(--sage);
 	--on-secondary-container: var(--plum-ink);
-	--tertiary: var(--plum-ink);
 	--background: var(--paper);
 	--surface: var(--paper);
 	--surface-bright: var(--paper);
@@ -30,39 +31,21 @@
 	--surface-container-low: #f5f6f3;
 	--surface-container-lowest: #ffffff;
 	--surface-container-high: var(--sage);
-	--surface-variant: var(--sage);
-	--outline: rgb(107, 107, 107);
+	--surface-container-highest: #b5c9a7;
+	/* Bordure des champs et contrôles : ≥ 3:1 sur blanc et --surface-container-low */
+	--outline: #858585;
 	--outline-variant: rgb(245, 246, 243);
 	--on-surface: var(--ink);
-	--on-surface-variant: rgb(107, 107, 107);
-	--inverse-primary: var(--sage);
-	--surface-tint: var(--plum);
+	--on-surface-variant: var(--secondary);
 	--error: #ba1a1a;
 
 	/* WhatsApp brand */
 	--whatsapp: #25d366;
 	/* Encre AA (≥ 4.5:1 vs blanc et vs --surface-container) pour texte / boutons */
 	--whatsapp-ink: #0b6b3a;
-	--whatsapp-hover: #128c7e;
 	--whatsapp-btn-hover: #075e54;
 	--whatsapp-surface: #e7f8ee;
 
-	/* Compatibilité avec les composants existants */
-	--accent: var(--plum);
-	--accent-dark: #8b6b95;
-	--accent-sage: var(--sage);
-	--plum-deep: var(--plum-ink);
-	--plum-light: #8b6b95;
-	--rose-dust: var(--sage);
-	--sage-accent: #8b6b95;
-	--sage-wash: #f5f6f3;
-	--surface-cream: var(--paper);
-
-	--black: 15, 18, 25;
-	--gray: 107, 107, 107;
-	--gray-light: 245, 246, 243;
-	--gray-dark: 96, 64, 106;
-	--gray-gradient: rgba(196, 214, 183, 50%), #fff;
 	--box-shadow:
 		0 2px 6px rgba(96, 64, 106, 25%), 0 8px 24px rgba(96, 64, 106, 33%), 0 16px 32px
 		rgba(96, 64, 106, 33%);
@@ -129,7 +112,7 @@ body {
 }
 
 .whatsapp-link:hover {
-	color: var(--whatsapp-hover);
+	color: var(--whatsapp-btn-hover);
 }
 
 .whatsapp-btn {
@@ -153,7 +136,7 @@ body {
 	justify-content: center;
 	gap: 0.5rem;
 	border: 1px solid var(--whatsapp);
-	color: var(--whatsapp);
+	color: var(--whatsapp-ink);
 	background-color: transparent;
 	transition:
 		background-color 0.2s ease,
@@ -162,7 +145,7 @@ body {
 
 .whatsapp-btn-outline:hover {
 	background-color: color-mix(in srgb, var(--whatsapp) 10%, transparent);
-	color: var(--whatsapp-hover);
+	color: var(--whatsapp-btn-hover);
 }
 
 .whatsapp-floating-btn {
