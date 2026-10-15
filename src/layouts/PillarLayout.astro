@@ -43,6 +43,7 @@ const {
 	heroDescription,
 } = Astro.props;
 const pillar = PILLARS_BY_KEY[pillarKey];
+const hasHero = Boolean(heroImage && heroEyebrow && heroTitle && heroDescription);
 
 const crumbs = [
 	{ name: 'Accueil', href: '/' },
@@ -82,53 +83,52 @@ const faqStructuredData: StructuredData = {
 	</Fragment>
 
 	<article class="border-b border-black/5 bg-white/35">
+		{
+			hasHero && (
+				<section
+					class="relative overflow-hidden"
+					aria-labelledby="pillar-hero-title"
+				>
+					<Image
+						src={heroImage}
+						alt=""
+						class="absolute inset-0 size-full object-cover object-top"
+						loading="eager"
+						fetchpriority="high"
+					/>
+					<div
+						class="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10"
+						aria-hidden="true"
+					></div>
+					<div class="relative mx-auto flex min-h-[32rem] max-w-container flex-col px-4 pt-4 sm:min-h-[30rem] sm:px-10 sm:pt-0">
+						<Breadcrumbs items={crumbs} />
+						<div class="flex flex-1 items-center pb-8 sm:pb-12">
+							<div class="max-w-xl">
+								<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">
+									{heroEyebrow}
+								</p>
+								<h1
+									id="pillar-hero-title"
+									class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl"
+								>
+									{tieFrenchPunctuation(heroTitle)}
+								</h1>
+								<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
+									{tieFrenchPunctuation(heroDescription)}
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+			)
+		}
 		<div
 			class:list={[
 				'mx-auto max-w-container px-4 pb-12 sm:px-10 sm:pb-12',
 				heroImage ? 'pt-0' : 'pt-4 sm:py-12',
 			]}
 		>
-			{
-				heroImage && heroEyebrow && heroTitle && heroDescription ? (
-					<section
-						class="relative left-1/2 h-[32rem] w-screen -translate-x-1/2 overflow-hidden sm:h-[30rem]"
-						aria-labelledby="pillar-hero-title"
-					>
-						<Image
-							src={heroImage}
-							alt=""
-							class="absolute inset-0 size-full object-cover object-top"
-							loading="eager"
-							fetchpriority="high"
-						/>
-						<div
-							class="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10"
-							aria-hidden="true"
-						></div>
-						<div class="relative mx-auto flex h-full max-w-container flex-col px-4 pt-4 sm:px-10 sm:pt-0">
-							<Breadcrumbs items={crumbs} />
-							<div class="flex flex-1 items-center pb-8 sm:pb-12">
-								<div class="max-w-xl">
-									<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">
-										{heroEyebrow}
-									</p>
-									<h1
-										id="pillar-hero-title"
-										class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl"
-									>
-										{tieFrenchPunctuation(heroTitle)}
-									</h1>
-									<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
-										{tieFrenchPunctuation(heroDescription)}
-									</p>
-								</div>
-							</div>
-						</div>
-					</section>
-				) : (
-					<Breadcrumbs items={crumbs} />
-				)
-			}
+			{!hasHero && <Breadcrumbs items={crumbs} />}
 
 			<div
 				class:list={[

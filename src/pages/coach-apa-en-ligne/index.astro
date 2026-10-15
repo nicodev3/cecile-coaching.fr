@@ -103,54 +103,55 @@ const faqStructuredData = {
 	</Fragment>
 
 	<article class="border-b border-black/5 bg-white/35">
-		<div class="mx-auto max-w-3xl px-4 pb-12 sm:px-6 sm:pt-0 sm:pb-12 lg:px-8">
-			<section class="relative left-1/2 min-h-[32rem] w-screen -translate-x-1/2 overflow-hidden sm:min-h-[30rem]" aria-labelledby="coach-apa-hero-title">
-				<Image
-					src={heroImage}
-					alt="Une femme pratique un étirement doux à domicile dans un espace lumineux"
-					class="absolute inset-0 size-full object-cover object-top"
-					loading="eager"
-					fetchpriority="high"
+		<section class="relative overflow-hidden" aria-labelledby="coach-apa-hero-title">
+			<Image
+				src={heroImage}
+				alt="Une femme pratique un étirement doux à domicile dans un espace lumineux"
+				class="absolute inset-0 size-full object-cover object-top"
+				loading="eager"
+				fetchpriority="high"
+			/>
+			<div class="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10" aria-hidden="true"></div>
+			<div class="relative mx-auto flex min-h-[32rem] max-w-3xl flex-col px-4 pt-4 sm:min-h-[30rem] sm:px-6 sm:pt-6 lg:px-8">
+				<Breadcrumbs
+					items={[
+						{ name: 'Accueil', href: '/' },
+						{ name: 'Coaching sportif adapté', href: '/coach-apa-en-ligne/' },
+					]}
 				/>
-				<div class="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/10" aria-hidden="true"></div>
-				<div class="relative mx-auto flex min-h-[32rem] max-w-3xl flex-col px-4 pt-4 sm:min-h-[30rem] sm:px-6 sm:pt-6 lg:px-8">
-					<Breadcrumbs
-						items={[
-							{ name: 'Accueil', href: '/' },
-							{ name: 'Coaching sportif adapté', href: '/coach-apa-en-ligne/' },
-						]}
-					/>
-					<div class="flex flex-1 items-center pb-8 sm:pb-12">
-						<div class="max-w-xl">
-							<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Accompagnement en ligne</p>
-							<h1 id="coach-apa-hero-title" class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
-								Coach APA en ligne&nbsp;: séances en visio pour maladie chronique
-							</h1>
-							<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
-								Des séances en visio avec Cécile Cichosz, coach sportive diplômée d’État et certifiée APA. Un accompagnement doux et progressif, depuis chez toi, pour les femmes vivant avec une maladie chronique, une fatigue ou des douleurs.
-							</p>
-							<div class="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-								<a
-									href="/contact/"
-									data-umami-event={offerCtaEvent('coach-apa-en-ligne-hero')}
-									class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
-								>
-									Demander un échange avec Cécile
-								</a>
-								<QuizCtaLink
-									campaign="coach-apa-en-ligne"
-									class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-7 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
-								>
-									Faire l’auto-évaluation
-								</QuizCtaLink>
-							</div>
-							<p class="mt-3 text-sm leading-relaxed text-(--secondary)">
-								Le bouton ouvre le formulaire de contact. Cécile te répond sous 24 à 48 h ouvrées pour organiser un échange gratuit, sans engagement.
-							</p>
+				<div class="flex flex-1 items-center pb-8 sm:pb-12">
+					<div class="max-w-xl">
+						<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Accompagnement en ligne</p>
+						<h1 id="coach-apa-hero-title" class="mt-3 text-3xl leading-tight font-semibold text-(--on-surface) sm:text-4xl">
+							Coach APA en ligne&nbsp;: séances en visio pour maladie chronique
+						</h1>
+						<p class="mt-5 max-w-2xl text-base leading-relaxed text-(--secondary)">
+							Des séances en visio avec Cécile Cichosz, coach sportive diplômée d’État et certifiée APA. Un accompagnement doux et progressif, depuis chez toi, pour les femmes vivant avec une maladie chronique, une fatigue ou des douleurs.
+						</p>
+						<div class="mt-6 flex flex-col items-start gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+							<a
+								href="/contact/"
+								data-umami-event={offerCtaEvent('coach-apa-en-ligne-hero')}
+								class="inline-flex items-center justify-center rounded-full bg-(--primary) px-7 py-3 text-base font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+							>
+								Demander un échange avec Cécile
+							</a>
+							<QuizCtaLink
+								campaign="coach-apa-en-ligne"
+								class="inline-flex items-center justify-center rounded-full border-2 border-(--primary) bg-(--surface-container-lowest) px-7 py-3 text-base font-medium text-(--primary) transition hover:bg-(--surface-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+							>
+								Faire l’auto-évaluation
+							</QuizCtaLink>
 						</div>
+						<p class="mt-3 text-sm leading-relaxed text-(--secondary)">
+							Le bouton ouvre le formulaire de contact. Cécile te répond sous 24 à 48 h ouvrées pour organiser un échange gratuit, sans engagement.
+						</p>
 					</div>
 				</div>
-			</section>
+			</div>
+		</section>
+
+		<div class="mx-auto max-w-3xl px-4 pb-12 sm:px-6 sm:pt-0 sm:pb-12 lg:px-8">
 
 			<section class="mt-12 rounded-3xl bg-(--sage)/25 p-6 sm:p-8" aria-labelledby="reflow-programme-title">
 				<p class="text-sm font-semibold tracking-widest text-(--primary) uppercase">Le programme RE-FLOW</p>

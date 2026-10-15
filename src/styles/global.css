@@ -73,6 +73,14 @@
 
 html {
 	scroll-behavior: smooth;
+	/* Les ancres et éléments focalisés ne passent pas sous le header sticky (h-16, plus haut en lg) */
+	scroll-padding-top: 5rem;
+}
+
+@media (min-width: 64rem) {
+	html {
+		scroll-padding-top: 7rem;
+	}
 }
 
 body {
