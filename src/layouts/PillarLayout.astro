@@ -109,7 +109,7 @@ const faqStructuredData: StructuredData = {
 							<Breadcrumbs items={crumbs} />
 							<div class="flex flex-1 items-center pb-8 sm:pb-12">
 								<div class="max-w-xl">
-									<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">
+									<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">
 										{heroEyebrow}
 									</p>
 									<h1
@@ -132,7 +132,7 @@ const faqStructuredData: StructuredData = {
 
 			<div
 				class:list={[
-					'pillar-article max-w-[68ch] text-base leading-relaxed text-slate-800',
+					'pillar-article max-w-[68ch] text-base leading-relaxed text-(--on-surface-body)',
 					heroImage && 'mt-14',
 				]}
 			>
@@ -218,10 +218,10 @@ const faqStructuredData: StructuredData = {
 										<p class="text-base font-semibold text-(--on-surface) hover:text-(--plum)">
 											{tieFrenchPunctuation(post.data.title)}
 										</p>
-										<p class="mt-1 text-sm text-slate-600">
+										<p class="mt-1 text-sm text-(--secondary)">
 											<FormattedDate date={post.data.pubDate} />
 										</p>
-										<p class="mt-2 text-sm leading-relaxed text-slate-700">
+										<p class="mt-2 text-sm leading-relaxed text-(--on-surface-body)">
 											{post.data.description}
 										</p>
 									</a>
@@ -249,7 +249,7 @@ const faqStructuredData: StructuredData = {
 										</span>
 									</span>
 								</summary>
-								<p class="mt-3 text-base leading-relaxed text-slate-700">{tieFrenchPunctuation(f.a)}</p>
+								<p class="mt-3 text-base leading-relaxed text-(--on-surface-body)">{tieFrenchPunctuation(f.a)}</p>
 							</details>
 						))
 					}

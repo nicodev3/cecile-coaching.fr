@@ -20,7 +20,7 @@ const splitParenthetical = (text: string) =>
 	{/* ---------- Progression (activée par le script) ---------- */}
 	<div class="mb-6" data-rg-progress hidden>
 		<div class="flex items-baseline justify-between gap-4">
-			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase tabular-nums" data-rg-progress-label>
+			<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase tabular-nums" data-rg-progress-label>
 				Question 1 sur {TOTAL_QUESTIONS}
 			</p>
 			<p class="text-sm text-(--secondary)" data-rg-progress-section>{QUESTIONS[0].progressLabel}</p>
@@ -62,7 +62,7 @@ const splitParenthetical = (text: string) =>
 							class="mb-1 w-full rounded-lg text-xl leading-snug font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-2xl"
 							tabindex="-1"
 						>
-							<span class="mr-2 text-(--primary-container)">{q.number}.</span>
+							<span class="mr-2 text-(--on-surface-accent)">{q.number}.</span>
 							{
 								splitParenthetical(q.label).map((part) =>
 									part.small ? (
@@ -130,7 +130,7 @@ const splitParenthetical = (text: string) =>
 	{/* ---------- Déblocage du résultat ---------- */}
 	<section data-rg-gate hidden aria-labelledby="rg-gate-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">Ton profil RE-FLOW</p>
+			<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Ton profil RE-FLOW</p>
 			<h2
 				id="rg-gate-title"
 				class="mt-3 rounded-lg text-3xl font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-4xl"
@@ -278,7 +278,7 @@ const splitParenthetical = (text: string) =>
 	{/* ---------- Résultat personnalisé : aucun score affiché ---------- */}
 	<section data-rg-result hidden aria-labelledby="rg-result-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">Ton profil RE-FLOW</p>
+			<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Ton profil RE-FLOW</p>
 			<h2 id="rg-result-title" tabindex="-1" class="mt-3 scroll-mt-28 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl" data-rg-profile-name></h2>
 		</div>
 		{PROFILES.map((profile) => (

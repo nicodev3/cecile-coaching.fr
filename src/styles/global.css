@@ -8,12 +8,14 @@
 	--plum-ink: #4a2d57;
 	--ink: #111827;
 	--paper: #f7faf6;
+	--plum-soft: #82628c;
+	--slate: #334155;
 
 	/* Jetons de compatibilité pour les composants ajoutés lors de la refonte. */
 	--primary: var(--plum);
 	--on-primary: #ffffff;
 	/* Plum clair assombri (même teinte) : ≥ 4.7:1 en texte sur --paper / --surface-container-low */
-	--primary-container: #82628c;
+	--primary-container: var(--plum-soft);
 	--on-primary-container: #ffffff;
 	--primary-fixed: var(--sage);
 	--primary-fixed-dim: var(--sage);
@@ -37,7 +39,18 @@
 	--outline-variant: rgb(245, 246, 243);
 	--on-surface: var(--ink);
 	--on-surface-variant: var(--secondary);
+	/* Texte courant des pages longues (piliers, légal) : 9.8:1 sur --paper */
+	--on-surface-body: var(--slate);
+	/* Texte d’accent discret (surtitres, numéros, survols) */
+	--on-surface-accent: var(--plum-soft);
 	--error: #ba1a1a;
+	--error-container: #fef2f2;
+	--error-outline: #fecaca;
+	--on-error-container: #7f1d1d;
+	--success: #047857;
+	--success-container: #ecfdf5;
+	--success-outline: #a7f3d0;
+	--on-success-container: #064e3b;
 
 	/* WhatsApp brand */
 	--whatsapp: #25d366;

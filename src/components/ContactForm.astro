@@ -25,7 +25,7 @@ const reveal =
 >
 	<div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
 		<div class="mx-auto max-w-2xl text-center">
-			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">Parlons de ta situation</p>
+			<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Parlons de ta situation</p>
 			<h2 id="contact-title" class="text-3xl text-(--primary) sm:text-5xl">Me contacter</h2>
 			<p class="mt-4 text-lg leading-relaxed text-(--secondary)">
 				Une question sur RE-FLOW ou envie de vérifier si l’accompagnement te correspond ? Écris-moi simplement.
@@ -176,13 +176,13 @@ const reveal =
 
 				<div
 					id="form-success"
-					class="mt-5 hidden rounded-xl bg-emerald-50 p-4 text-emerald-900 ring-1 ring-emerald-200"
+					class="mt-5 hidden rounded-xl bg-(--success-container) p-4 text-(--on-success-container) ring-1 ring-(--success-outline)"
 					role="status"
 					aria-live="polite"
 					tabindex="-1"
 				>
 					<div class="flex gap-3">
-						<CheckCircle2 class="mt-0.5 size-5 shrink-0 text-emerald-700" aria-hidden="true" />
+						<CheckCircle2 class="mt-0.5 size-5 shrink-0 text-(--success)" aria-hidden="true" />
 						<div>
 							<p class="font-semibold">Ton message a bien été envoyé.</p>
 							<p class="mt-1 text-sm">Merci ! Je te répondrai sous 24 à 48 h ouvrées.</p>
@@ -192,12 +192,12 @@ const reveal =
 
 				<div
 					id="form-error"
-					class="mt-5 hidden rounded-xl bg-red-50 p-4 text-red-900 ring-1 ring-red-200"
+					class="mt-5 hidden rounded-xl bg-(--error-container) p-4 text-(--on-error-container) ring-1 ring-(--error-outline)"
 					role="alert"
 					tabindex="-1"
 				>
 					<div class="flex gap-3">
-						<AlertCircle class="mt-0.5 size-5 shrink-0 text-red-700" aria-hidden="true" />
+						<AlertCircle class="mt-0.5 size-5 shrink-0 text-(--error)" aria-hidden="true" />
 						<div>
 							<p class="font-semibold">Le message n’a pas pu être envoyé.</p>
 							<p class="mt-1 text-sm">
