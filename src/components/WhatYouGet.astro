@@ -73,12 +73,12 @@ const reveal =
 
 		<div class="grid gap-8 md:grid-cols-3">
 			{cards.map((c) => (
-				<div class="bento-card group flex flex-col overflow-hidden rounded-3xl bg-(--surface-container-lowest) shadow-sm ring-1 ring-black/5 transition-all hover:shadow-md hover:ring-black/10">
+				<div class="bento-card group flex flex-col overflow-hidden rounded-3xl bg-(--surface-container-lowest) shadow-sm ring-1 ring-black/5 transition-[box-shadow,translate] hover:shadow-md hover:ring-black/10">
 					<div aria-hidden="true" class="relative flex h-60 w-full items-center justify-center overflow-hidden bg-linear-to-br from-(--sage)/35 via-(--paper) to-(--primary-container)/12 p-5">
 						{/* Mockup Vidéo / PDF */}
 						{c.visual === 'video' && (
 							<div class="relative h-full w-full max-w-72">
-								<div class="absolute top-1 right-0 w-4/5 overflow-hidden rounded-2xl bg-white p-2 shadow-lg ring-1 ring-black/6 transition-transform duration-500 group-hover:-translate-y-1">
+								<div class="absolute top-1 right-0 w-4/5 overflow-hidden rounded-2xl bg-white p-2 shadow-lg ring-1 ring-black/6 transition-transform duration-500 motion-safe:group-hover:-translate-y-1">
 									<div class="relative aspect-video overflow-hidden rounded-xl bg-(--sage)">
 										<Image
 											src={coachPortrait}
@@ -120,7 +120,7 @@ const reveal =
 						{/* Mockup Visioconférence */}
 						{c.visual === 'visio' && (
 							<div class="relative h-full w-full max-w-72">
-								<div class="absolute inset-x-4 top-0 overflow-hidden rounded-2xl bg-white p-2 shadow-lg ring-1 ring-black/6 transition-transform duration-500 group-hover:-translate-y-1">
+								<div class="absolute inset-x-4 top-0 overflow-hidden rounded-2xl bg-white p-2 shadow-lg ring-1 ring-black/6 transition-transform duration-500 motion-safe:group-hover:-translate-y-1">
 									<div class="relative h-32 overflow-hidden rounded-xl bg-(--sage)">
 										<Image
 											src={coachPortrait}
@@ -146,7 +146,7 @@ const reveal =
 										</div>
 									</div>
 								</div>
-								<div class="absolute right-0 bottom-0 left-0 mx-auto flex w-[88%] items-center gap-3 rounded-xl bg-(--primary) p-3 text-(--on-primary) shadow-lg transition-transform duration-500 group-hover:translate-y-1">
+								<div class="absolute right-0 bottom-0 left-0 mx-auto flex w-[88%] items-center gap-3 rounded-xl bg-(--primary) p-3 text-(--on-primary) shadow-lg transition-transform duration-500 motion-safe:group-hover:translate-y-1">
 									<span class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-white/12">
 										<CalendarDays class="size-4.5" stroke-width={1.7} />
 									</span>
@@ -162,7 +162,7 @@ const reveal =
 						{/* Aperçu des bonus audio et express */}
 						{c.visual === 'bonus' && (
 							<div class="relative h-full w-full max-w-72">
-								<div class="absolute inset-x-3 top-1 rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/6 transition-transform duration-500 group-hover:-translate-y-1">
+								<div class="absolute inset-x-3 top-1 rounded-2xl bg-white p-4 shadow-lg ring-1 ring-black/6 transition-transform duration-500 motion-safe:group-hover:-translate-y-1">
 									<div class="flex items-center gap-3">
 										<span class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-(--sage)/45 text-(--primary)">
 											<HeartPulse class="size-5" stroke-width={1.7} />
@@ -185,7 +185,7 @@ const reveal =
 										</div>
 									</div>
 								</div>
-								<div class="absolute right-0 bottom-1 left-6 rounded-xl bg-(--plum-ink) p-3 text-white shadow-lg transition-transform duration-500 group-hover:translate-x-1">
+								<div class="absolute right-0 bottom-1 left-6 rounded-xl bg-(--plum-ink) p-3 text-white shadow-lg transition-transform duration-500 motion-safe:group-hover:translate-x-1">
 									<div class="flex items-center justify-between">
 										<div>
 											<p class="text-[9px] font-semibold tracking-widest text-(--sage) uppercase">Nouveau chaque mois</p>

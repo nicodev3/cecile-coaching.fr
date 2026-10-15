@@ -710,7 +710,7 @@ const splitParenthetical = (text: string) =>
 			if (!email) {
 				issues.push({ field: emailField, key: 'email', message: 'Indique ton email.' });
 			} else if (!isValidEmail(email)) {
-				issues.push({ field: emailField, key: 'email', message: 'Indique un email valide.' });
+				issues.push({ field: emailField, key: 'email', message: 'Indique un email au format nom@exemple.fr.' });
 			}
 			if (!phoneRaw.trim()) {
 				issues.push({ field: phoneField, key: 'phone', message: PHONE_ERROR });
@@ -759,7 +759,7 @@ const splitParenthetical = (text: string) =>
 					body: JSON.stringify({ firstName, lastName, email, phone, consent, company, answers }),
 				});
 				if (response.status === 400) {
-					setFieldError(emailField, 'email', 'Vérifie tes informations et réessaie.');
+					setFieldError(emailField, 'email', 'Vérifie ton adresse email, par exemple nom@exemple.fr, puis réessaie.');
 					emailField.focus();
 					trackUmami(ANALYTICS_EVENTS.quizLeadInvalid, { fields: 'server' });
 					return;

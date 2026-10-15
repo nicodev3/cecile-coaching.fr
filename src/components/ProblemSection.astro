@@ -135,7 +135,7 @@ const reveal =
 				
 				<div class="relative z-10 mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 					{pillars.map((pillar) => (
-						<div class="group relative flex flex-col rounded-2xl bg-(--surface) p-6 shadow-sm transition-all hover:shadow-md hover:-translate-y-1">
+						<div class="group relative flex flex-col rounded-2xl bg-(--surface) p-6 shadow-sm transition-[box-shadow,translate] hover:shadow-md motion-safe:hover:-translate-y-1">
 							<div class="mb-4 flex size-12 items-center justify-center rounded-xl bg-(--primary-container) text-(--on-primary-container) transition-colors group-hover:bg-(--primary) group-hover:text-(--on-primary)">
 								<pillar.icon class="size-6" stroke-width={1.75} />
 							</div>
@@ -150,7 +150,7 @@ const reveal =
 				<div class="relative z-10 mt-16 text-center">
 					<a
 						href="#programme"
-						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-4 text-base font-semibold text-(--on-primary) shadow-sm transition-all hover:bg-(--primary-container) hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
+						class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-4 text-base font-semibold text-(--on-primary) shadow-sm transition-[background-color,box-shadow] hover:bg-(--primary-container) hover:shadow-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
 					>
 						Découvrir la méthode en ligne
 					</a>

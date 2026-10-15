@@ -72,7 +72,6 @@
 }
 
 html {
-	scroll-behavior: smooth;
 	/* Les ancres et éléments focalisés ne passent pas sous le header sticky (h-16, plus haut en lg) */
 	scroll-padding-top: 5rem;
 }
@@ -80,6 +79,12 @@ html {
 @media (min-width: 64rem) {
 	html {
 		scroll-padding-top: 7rem;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html {
+		scroll-behavior: smooth;
 	}
 }
 
@@ -119,8 +124,10 @@ body {
 		box-shadow 0.3s ease;
 }
 
-.bento-card:hover {
-	transform: translateY(-4px);
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+	.bento-card:hover {
+		transform: translateY(-4px);
+	}
 }
 
 .card-shadow {
@@ -132,8 +139,10 @@ body {
 	transition: color 0.2s ease;
 }
 
-.whatsapp-link:hover {
-	color: var(--whatsapp-btn-hover);
+@media (hover: hover) {
+	.whatsapp-link:hover {
+		color: var(--whatsapp-btn-hover);
+	}
 }
 
 .whatsapp-btn {
@@ -146,9 +155,11 @@ body {
 	transition: background-color 0.2s ease;
 }
 
-.whatsapp-btn:hover {
-	background-color: var(--whatsapp-btn-hover);
-	color: #fff;
+@media (hover: hover) {
+	.whatsapp-btn:hover {
+		background-color: var(--whatsapp-btn-hover);
+		color: #fff;
+	}
 }
 
 .whatsapp-btn-outline {
@@ -164,9 +175,11 @@ body {
 		color 0.2s ease;
 }
 
-.whatsapp-btn-outline:hover {
-	background-color: color-mix(in srgb, var(--whatsapp) 10%, transparent);
-	color: var(--whatsapp-btn-hover);
+@media (hover: hover) {
+	.whatsapp-btn-outline:hover {
+		background-color: color-mix(in srgb, var(--whatsapp) 10%, transparent);
+		color: var(--whatsapp-btn-hover);
+	}
 }
 
 .whatsapp-floating-btn {
@@ -179,5 +192,11 @@ body {
 .whatsapp-floating-btn[data-hidden] {
 	opacity: 0;
 	pointer-events: none;
-	transform: translateY(0.75rem);
+}
+
+/* Sous mouvement réduit, le bouton disparaît en fondu, sans glisser */
+@media (prefers-reduced-motion: no-preference) {
+	.whatsapp-floating-btn[data-hidden] {
+		transform: translateY(0.75rem);
+	}
 }

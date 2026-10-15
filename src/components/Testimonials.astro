@@ -73,7 +73,7 @@ const reveal =
 
     <div class="relative" data-testimonials-carousel>
       <div
-        class="mx-12 flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth py-4 sm:mx-16 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
+        class="mx-12 flex snap-x snap-mandatory gap-8 overflow-x-auto motion-safe:scroll-smooth py-4 sm:mx-16 [-ms-overflow-style:none] scrollbar-none [&::-webkit-scrollbar]:hidden"
         data-carousel-viewport
         role="region"
         aria-label="Témoignages de clientes"
@@ -256,12 +256,15 @@ const reveal =
       nextBtn.classList.toggle("hidden", hideNav);
     };
 
+    const scrollBehavior = (): ScrollBehavior =>
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+
     prevBtn?.addEventListener("click", () => {
-      viewport?.scrollBy({ left: -getSlideStep(), behavior: "smooth" });
+      viewport?.scrollBy({ left: -getSlideStep(), behavior: scrollBehavior() });
     });
 
     nextBtn?.addEventListener("click", () => {
-      viewport?.scrollBy({ left: getSlideStep(), behavior: "smooth" });
+      viewport?.scrollBy({ left: getSlideStep(), behavior: scrollBehavior() });
     });
 
     viewport?.addEventListener("scroll", updateButtons, { passive: true });
