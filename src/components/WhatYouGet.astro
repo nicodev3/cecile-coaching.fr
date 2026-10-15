@@ -43,7 +43,7 @@ const cards = [
 		icon: HeartPulse,
 		items: [
 			'Un audio de relaxation et un audio de respiration.',
-			'Mini-séances express de 5-10 min.',
+			'Mini-séances express de 5–10 min.',
 			'Playlists Spotify pour accompagner tes séances.',
 			'Une nouvelle vidéo bonus chaque mois.',
 			'Le guide PDF « Ma routine bien-être ».',
@@ -74,7 +74,7 @@ const reveal =
 		<div class="grid gap-8 md:grid-cols-3">
 			{cards.map((c) => (
 				<div class="bento-card group flex flex-col overflow-hidden rounded-3xl bg-(--surface-container-lowest) shadow-sm ring-1 ring-black/5 transition-all hover:shadow-md hover:ring-black/10">
-					<div class="relative flex h-60 w-full items-center justify-center overflow-hidden bg-linear-to-br from-(--sage)/35 via-(--paper) to-(--primary-container)/12 p-5">
+					<div aria-hidden="true" class="relative flex h-60 w-full items-center justify-center overflow-hidden bg-linear-to-br from-(--sage)/35 via-(--paper) to-(--primary-container)/12 p-5">
 						{/* Mockup Vidéo / PDF */}
 						{c.visual === 'video' && (
 							<div class="relative h-full w-full max-w-72">
@@ -82,7 +82,7 @@ const reveal =
 									<div class="relative aspect-video overflow-hidden rounded-xl bg-(--sage)">
 										<Image
 											src={coachPortrait}
-											alt="Aperçu d'une séance vidéo guidée par Cécile"
+											alt="Aperçu d’une séance vidéo guidée par Cécile"
 											class="size-full object-cover object-[50%_28%]"
 											width={320}
 											height={180}
@@ -124,7 +124,7 @@ const reveal =
 									<div class="relative h-32 overflow-hidden rounded-xl bg-(--sage)">
 										<Image
 											src={coachPortrait}
-											alt="Cécile lors d'un rendez-vous de coaching en visioconférence"
+											alt="Cécile lors d’un rendez-vous de coaching en visioconférence"
 											class="size-full object-cover object-[50%_24%]"
 											width={320}
 											height={190}
@@ -188,7 +188,7 @@ const reveal =
 								<div class="absolute right-0 bottom-1 left-6 rounded-xl bg-(--plum-ink) p-3 text-white shadow-lg transition-transform duration-500 group-hover:translate-x-1">
 									<div class="flex items-center justify-between">
 										<div>
-											<p class="text-[9px] font-semibold tracking-[0.16em] text-(--sage) uppercase">Nouveau chaque mois</p>
+											<p class="text-[9px] font-semibold tracking-widest text-(--sage) uppercase">Nouveau chaque mois</p>
 											<p class="mt-1 text-xs font-semibold">Ta vidéo bonus</p>
 										</div>
 										<span class="flex size-9 items-center justify-center rounded-full bg-white/12">

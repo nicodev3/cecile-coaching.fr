@@ -16,7 +16,7 @@ interface Props {
 const {
 	exclude,
 	title = 'Comprendre, à ton rythme',
-	intro = "Trois guides pédagogiques pour poser les bons repères avant ou pendant l'accompagnement.",
+	intro = "Trois guides pédagogiques pour poser les bons repères avant ou pendant l’accompagnement.",
 	compact = false,
 } = Astro.props;
 
@@ -31,7 +31,7 @@ const iconByKey = {
 const imageByKey = {
 	apa: {
 		src: apaGuideImage,
-		alt: "Séance d'Activité Physique Adaptée suivie en ligne depuis chez soi",
+		alt: "Séance d’Activité Physique Adaptée suivie en ligne depuis chez soi",
 	},
 	'maladie-chronique': {
 		src: chronicGuideImage,
@@ -57,7 +57,7 @@ const reveal = compact
 		{
 			!compact && (
 				<div class="mx-auto max-w-3xl text-center">
-					<p class="text-sm font-semibold tracking-[0.22em] text-(--primary-container)">COMPRENDRE</p>
+					<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">Comprendre</p>
 					<h2 id="pillars-hub-title" class="mt-2 text-3xl text-(--primary) sm:text-4xl">
 						{title}
 					</h2>

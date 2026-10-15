@@ -20,8 +20,8 @@ const splitParenthetical = (text: string) =>
 	{/* ---------- Progression (activée par le script) ---------- */}
 	<div class="mb-6" data-rg-progress hidden>
 		<div class="flex items-baseline justify-between gap-4">
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)" data-rg-progress-label>
-				QUESTION 1 SUR {TOTAL_QUESTIONS}
+			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase tabular-nums" data-rg-progress-label>
+				Question 1 sur {TOTAL_QUESTIONS}
 			</p>
 			<p class="text-sm text-(--secondary)" data-rg-progress-section>{QUESTIONS[0].progressLabel}</p>
 		</div>
@@ -130,7 +130,7 @@ const splitParenthetical = (text: string) =>
 	{/* ---------- Déblocage du résultat ---------- */}
 	<section data-rg-gate hidden aria-labelledby="rg-gate-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON PROFIL RE-FLOW</p>
+			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">Ton profil RE-FLOW</p>
 			<h2
 				id="rg-gate-title"
 				class="mt-3 rounded-lg text-3xl font-semibold text-(--on-surface) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-4xl"
@@ -278,7 +278,7 @@ const splitParenthetical = (text: string) =>
 	{/* ---------- Résultat personnalisé : aucun score affiché ---------- */}
 	<section data-rg-result hidden aria-labelledby="rg-result-title">
 		<div class="text-center">
-			<p class="text-sm font-semibold tracking-[0.18em] text-(--primary-container)">TON PROFIL RE-FLOW</p>
+			<p class="text-sm font-semibold tracking-widest text-(--primary-container) uppercase">Ton profil RE-FLOW</p>
 			<h2 id="rg-result-title" tabindex="-1" class="mt-3 scroll-mt-28 rounded-lg text-4xl font-semibold text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) sm:text-5xl" data-rg-profile-name></h2>
 		</div>
 		{PROFILES.map((profile) => (
@@ -321,7 +321,7 @@ const splitParenthetical = (text: string) =>
 			data-rg-booking
 		>
 			<div class="text-center">
-				<p class="text-xs font-semibold tracking-[0.18em] text-(--primary) uppercase">Bilan offert — Re-flow</p>
+				<p class="text-xs font-semibold tracking-widest text-(--primary) uppercase">Bilan offert — RE-FLOW</p>
 				<h3
 					id="rg-booking-title"
 					tabindex="-1"
@@ -570,7 +570,7 @@ const splitParenthetical = (text: string) =>
 				step.toggleAttribute('inert', !isCurrent);
 			});
 			root.querySelector<HTMLElement>('[data-rg-progress-label]')!.textContent =
-				`QUESTION ${current + 1} SUR ${steps.length}`;
+				`Question ${current + 1} sur ${steps.length}`;
 			root.querySelector<HTMLElement>('[data-rg-progress-section]')!.textContent =
 				steps[current].dataset.sectionLabel!;
 			root.querySelector('[data-rg-progressbar]')!.setAttribute('aria-valuenow', String(current + 1));

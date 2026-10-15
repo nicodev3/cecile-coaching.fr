@@ -16,7 +16,7 @@ export interface Tool {
 	tagline: string;
 	/** Durée indicative annoncée sur la carte */
 	duration: string;
-	/** Un outil non disponible s'affiche en « bientôt » sans lien */
+	/** Un outil non disponible s’affiche en « bientôt » sans lien */
 	available: boolean;
 }
 

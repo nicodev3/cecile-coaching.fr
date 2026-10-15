@@ -12,25 +12,25 @@ const testimonials = [
     name: "Rachel",
     source: "",
     quote:
-      "Merci infiniment pour toutes ces séances qui m'ont apporté beaucoup, que ce soit pour un mieux-être physique et moral, une reprise de confiance en moi et bien d'autres choses encore.",
+      "Merci infiniment pour toutes ces séances qui m’ont apporté beaucoup, que ce soit pour un mieux-être physique et moral, une reprise de confiance en moi et bien d’autres choses encore.",
   },
   {
     name: "Aude",
     source: "",
     quote:
-      "J'en profite pour te remercier pour cette super année avec toi. Ta bonne humeur communicative, la qualité de tes cours, ta gentillesse et ta bienveillance sont très précieux et je me sens chanceuse d'en bénéficier.",
+      "J’en profite pour te remercier pour cette super année avec toi. Ta bonne humeur communicative, la qualité de tes cours, ta gentillesse et ta bienveillance sont très précieux et je me sens chanceuse d’en bénéficier.",
   },
   {
     name: "Martine",
     source: "Avis Google",
     quote:
-      "Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j'ai remusclé mes jambes et marche sans depuis plusieurs mois.",
+      "Grâce à sa motivation et son empathie, je BOUGE ! Entrée avec 1 canne, j’ai remusclé mes jambes et marche sans depuis plusieurs mois.",
   },
   {
     name: "Nadia",
     source: "",
     quote:
-      "Je n'ai plus cette pression de « performer ». J'avance à mon rythme, et ça change tout pour ma confiance personnelle.",
+      "Je n’ai plus cette pression de « performer ». J’avance à mon rythme, et ça change tout pour ma confiance personnelle.",
   },
   {
     name: "Sophie",
@@ -42,13 +42,13 @@ const testimonials = [
     name: "Emmanuel",
     source: "",
     quote:
-      "Je souhaite également profiter de ce message pour souligner la grande qualité du travail fourni par Cécile : son application, son attention pour chacun d'entre nous et, plus globalement, sa bienveillance et son professionnalisme que je trouve absolument remarquables.",
+      "Je souhaite également profiter de ce message pour souligner la grande qualité du travail fourni par Cécile : son application, son attention pour chacun d’entre nous et, plus globalement, sa bienveillance et son professionnalisme que je trouve absolument remarquables.",
   },
   {
     name: "Emmanuel",
     source: "",
     quote:
-      "Le groupe compte environ une dizaine de personnes, avec des situations et des niveaux différents. Malgré cela, Cécile parvient toujours à adapter son accompagnement, avec le sourire, un mot juste et une vigilance constante. Même si, je l'avoue, je ne suis pas toujours ravi d'y aller avant le cours, je constate à quel point cette activité m'est bénéfique. C'est suffisamment rare, au regard de certaines expériences passées, pour que je tienne à le souligner.",
+      "Le groupe compte environ une dizaine de personnes, avec des situations et des niveaux différents. Malgré cela, Cécile parvient toujours à adapter son accompagnement, avec le sourire, un mot juste et une vigilance constante. Même si, je l’avoue, je ne suis pas toujours ravi d’y aller avant le cours, je constate à quel point cette activité m’est bénéfique. C’est suffisamment rare, au regard de certaines expériences passées, pour que je tienne à le souligner.",
   },
 ];
 
@@ -135,7 +135,7 @@ const reveal =
                       : undefined
                   }
                 >
-                  "{t.quote}"
+                  «&nbsp;{t.quote}&nbsp;»
                 </blockquote>
                 {t.quote.length > 380 && (
                   <button
@@ -283,7 +283,7 @@ const reveal =
       opener.addEventListener("click", () => {
         if (!reviewDialog || !reviewTitle || !reviewContent) return;
         reviewTitle.textContent = opener.dataset.reviewAuthor || "Avis client";
-        reviewContent.textContent = `“${opener.dataset.reviewQuote || ""}”`;
+        reviewContent.textContent = `« ${opener.dataset.reviewQuote || ""} »`;
 
         reviewDialog.showModal();
       });

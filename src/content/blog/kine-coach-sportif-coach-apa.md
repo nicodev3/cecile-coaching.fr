@@ -49,7 +49,7 @@ Le kiné travaille souvent en **lien direct avec le médecin** et peut être **r
 
 ### Ce qu’un kiné n’est pas
 
-Ce n’est généralement **pas** son rôle de te faire suivre un **programme sportif loisir sur plusieurs mois** ou de piloter ta **remise en forme globale** une fois la rééducation terminée - sauf orientation spécifique dans le cadre de sa pratique. Pour du **coaching d’activité physique** dans la durée, d’autres professionnels entrent en jeu.
+Ce n’est généralement **pas** son rôle de te faire suivre un **programme sportif loisir sur plusieurs mois** ou de piloter ta **remise en forme globale** une fois la rééducation terminée — sauf orientation spécifique dans le cadre de sa pratique. Pour du **coaching d’activité physique** dans la durée, d’autres professionnels entrent en jeu.
 
 ---
 
@@ -79,9 +79,9 @@ C’est souvent le bon interlocuteur si :
 - tu as du mal à tenir un **sport classique** sans t’épuiser ou t’exposer ;
 - tu veux **reprendre confiance** dans ton corps **sans** logique de performance ;
 - tu cherches un **accompagnement dans la durée**, avec des **ajustements** semaine après semaine.
-- tu souhaites être accompagnée **à distance**, sans dépendre d'un cabinet proche de chez toi.
+- tu souhaites être accompagnée **à distance**, sans dépendre d’un cabinet proche de chez toi.
 
-L’APA n’est **pas** de la kinésithérapie : pas de diagnostic médical, pas de soins curatifs au sens kiné du terme. Ce n’est **pas** non plus, par essence, de la **préparation physique** « haute intensité » - même si l’intensité peut évoluer avec le temps et l’avis médical. À distance, le cadre doit rester simple, progressif et sécurisant.
+L’APA n’est **pas** de la kinésithérapie : pas de diagnostic médical, pas de soins curatifs au sens kiné du terme. Ce n’est **pas** non plus, par essence, de la **préparation physique** « haute intensité » — même si l’intensité peut évoluer avec le temps et l’avis médical. À distance, le cadre doit rester simple, progressif et sécurisant.
 
 Pour aller plus loin sur la définition : [Coach APA en ligne : rôle et accompagnement](/blog/coach-apa/).
 
@@ -121,7 +121,7 @@ Beaucoup de personnes pensent devoir choisir **l’un ou l’autre**. En réalit
 Quelques questions à te poser (ou à poser au professionnel) :
 
 - **Quel est ton problème principal aujourd’hui ?** Douleur aiguë → piste médicale / kiné. Objectif sportif → coach sportif. Maladie chronique + besoin d’adaptation, même à distance → coach APA.
-- **Le professionnel pose-t-il des questions sur ta santé, tes traitements, tes symptômes ?** C’est le principe même de l'APA.
+- **Le professionnel pose-t-il des questions sur ta santé, tes traitements, tes symptômes ?** C’est le principe même de l’APA.
 - Propose-t-il des **alternatives** les jours avec douleur, fatigue ou symptômes ?
 
 ---

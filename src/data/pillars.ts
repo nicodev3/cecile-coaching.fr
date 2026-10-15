@@ -8,7 +8,7 @@ export interface Pillar {
 	key: PillarKey;
 	/** URL de la page guide (pilier vitrine) */
 	slug: `/${string}/`;
-	/** URL de l'archive blog filtrée sur ce pilier */
+	/** URL de l’archive blog filtrée sur ce pilier */
 	archiveSlug: `/blog/${string}/`;
 	/** Libellé long pour titres et footer */
 	label: string;
@@ -64,5 +64,5 @@ export const PILLARS: readonly Pillar[] = [
 	PILLARS_BY_KEY.fatigue,
 ];
 
-/** Conservé pour rétro-compatibilité avec d'anciens imports. */
+/** Conservé pour rétro-compatibilité avec d’anciens imports. */
 export const PILLAR_BY_KEY = PILLARS_BY_KEY;

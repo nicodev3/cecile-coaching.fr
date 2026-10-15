@@ -14,8 +14,8 @@ const steps = [
 	},
 	{
 		title: 'Vitalité & énergie',
-		desc: "C'est le moment d'augmenter l'intensité, tout en restant à l'écoute de son corps.",
-		benefit: "Tu as davantage d'énergie, tu te sens plus endurante.",
+		desc: "C’est le moment d’augmenter l’intensité, tout en restant à l’écoute de son corps.",
+		benefit: "Tu as davantage d’énergie, tu te sens plus endurante.",
 		badgeClass: 'bg-(--primary-container) text-(--on-primary)',
 	},
 	{
@@ -75,7 +75,7 @@ const reveal =
 						
 						<!-- Colonne de droite -->
 						<div class={`flex-1 pl-20 sm:pl-12 ${idx % 2 === 1 ? 'sm:order-3' : ''}`}>
-							<!-- Contenu desc en mobile pour le odd alignement, sinon sur desktop c'est dans la col opposée -->
+							<!-- Contenu desc en mobile pour le odd alignement, sinon sur desktop c’est dans la col opposée -->
 							<div class={idx % 2 === 0 ? 'sm:hidden' : ''}>
 								<h3 class="text-2xl font-medium text-(--primary)">{s.title}</h3>
 								<p class="mt-2 text-sm leading-relaxed text-(--on-surface-variant) sm:text-base sm:mt-3">{s.desc}</p>
@@ -83,7 +83,7 @@ const reveal =
 							
 							<!-- Bénéfice (toujours visible ici en mobile) -->
 							<div class="mt-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:mt-0">
-								<p class="text-sm font-medium text-(--primary) italic">"{s.benefit}"</p>
+								<p class="text-sm font-medium text-(--primary) italic">«&nbsp;{s.benefit}&nbsp;»</p>
 							</div>
 						</div>
 					</li>
