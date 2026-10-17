@@ -78,6 +78,7 @@ const blogPostingStructuredData = {
 	},
 	author: {
 		'@type': 'Person',
+		'@id': `${siteUrlNormalized}/a-propos/#cecile`,
 		name: COACH_NAME,
 		givenName: COACH_FIRST_NAME,
 		familyName: COACH_FAMILY_NAME,
@@ -270,7 +271,7 @@ const blogPostingStructuredData = {
 								{readingTime} min de lecture
 							</span>
 							<span class="size-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
-							<span>Par {COACH_NAME}</span>
+							<span>Par <a href="/a-propos/" rel="author" class="underline underline-offset-2 hover:text-(--primary)">{COACH_NAME}</a></span>
 							<span class="size-1 rounded-full bg-(--outline)" aria-hidden="true"></span>
 							<time datetime={pubDate.toISOString()}>
 								<FormattedDate date={pubDate} />
@@ -296,6 +297,10 @@ const blogPostingStructuredData = {
 									src={heroImage}
 									alt={`${displayTitle} - article RE-FLOW par Cécile`}
 									class="size-full object-cover"
+									widths={[320, 480, 640]}
+									sizes="(min-width: 768px) 33vw, 100vw"
+									loading="eager"
+									fetchpriority="high"
 								/>
 							</div>
 						)
@@ -318,10 +323,10 @@ const blogPostingStructuredData = {
 								</aside>
 							)
 						}
-						{showQuizCta && <BlogArticleQuizCta campaign={postId} />}
 						<div class="article-prose">
 							<slot />
 						</div>
+						{showQuizCta && <BlogArticleQuizCta campaign={postId} />}
 						<BlogArticleNewsletter tunnelCampaign={tunnelCampaign} />
 
 						<aside class="mt-10 flex gap-4 rounded-2xl bg-white/80 p-5 ring-1 ring-black/8" aria-label="À propos de l’auteure">

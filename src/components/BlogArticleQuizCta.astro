@@ -10,7 +10,7 @@ const { campaign } = Astro.props;
 ---
 
 <aside
-	class="not-prose mb-10 rounded-2xl border border-(--outline-variant)/60 bg-(--surface-container-low) p-5 sm:p-6"
+	class="not-prose my-10 rounded-2xl border border-(--outline-variant)/60 bg-(--surface-container-low) p-5 sm:p-6"
 	aria-labelledby={`quiz-cta-${campaign}`}
 >
 	<h2 id={`quiz-cta-${campaign}`} class="text-xl font-semibold text-(--on-surface)">
@@ -20,6 +20,9 @@ const { campaign } = Astro.props;
 		Fais le point sur ta fatigue, ton énergie et ta confiance dans le mouvement, ou découvre directement
 		l’accompagnement RE-FLOW en visio.
 	</p>
+	{campaign === 'syndrome-de-fatigue-chronique' && (
+		<p class="mt-3 text-sm leading-relaxed text-(--secondary)">Cette auto-évaluation ne diagnostique pas l’EM/SFC et ne détermine pas une activité sans risque. En présence de malaise post-effort, échange d’abord avec ton équipe soignante avant d’envisager un programme.</p>
+	)}
 	<div class="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
 		<QuizCtaLink
 			campaign={`blog_${campaign}`}
