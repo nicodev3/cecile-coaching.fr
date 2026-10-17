@@ -1,5 +1,11 @@
 # Astro Starter Kit: Blog
 
+## Prérequis
+
+Le projet nécessite **Node.js 24.22.0 ou version ultérieure**.
+
+Les fichiers `.nvmrc` et `.node-version` indiquent la version de référence minimale.
+
 ```sh
 npm create astro@latest -- --template blog
 ```
