@@ -1,5 +1,4 @@
 ---
-import { RotateCcw } from '@lucide/astro';
 import TunnelCtaLink from './TunnelCtaLink.astro';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
 import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
@@ -309,11 +308,6 @@ const splitParenthetical = (text: string) =>
 		<p class="mt-8 rounded-2xl bg-(--secondary-container)/40 px-5 py-4 text-sm leading-relaxed text-(--on-secondary-container)">
 			Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
 		</p>
-		<div class="mt-8 text-center">
-			<button type="button" class="inline-flex items-center justify-center gap-2 rounded-full border border-(--outline-variant) bg-(--surface-container-lowest) px-6 py-3 text-base font-medium text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)" data-rg-restart>
-				<RotateCcw class="size-4" aria-hidden="true" stroke-width={2} /> Refaire le test
-			</button>
-		</div>
 	</section>
 </div>
 
@@ -749,36 +743,6 @@ const splitParenthetical = (text: string) =>
 
 		document.querySelector('[data-rg-start]')?.addEventListener('click', openQuiz);
 
-		root.querySelector('[data-rg-restart]')!.addEventListener('click', () => {
-			window.clearTimeout(advanceTimer);
-			form.reset();
-			leadForm.reset();
-			clearFieldErrors();
-			bookingMountObserver?.disconnect();
-			bookingMountObserver = undefined;
-			pendingBookingLead = null;
-			result.querySelector<HTMLElement>('[data-rg-booking-mount]')?.replaceChildren();
-			autoAdvanced.clear();
-			answeredTracked.clear();
-			startedTracked = false;
-			bookingViewedTracked = false;
-			viewedTracked = false;
-			ctaTracked = false;
-			lastPointerAt = 0;
-			current = 0;
-			result.hidden = true;
-			gate.hidden = true;
-			gateProfile.hidden = true;
-			gateProfile.textContent = '';
-			gateTeaser.hidden = true;
-			gateTeaser.textContent = '';
-			leadSubmit.textContent = LEAD_SUBMIT_LABEL;
-			form.hidden = false;
-			progress.hidden = false;
-			closeQuizToIntro();
-			render(false);
-			trackQuizViewed();
-		});
 		root.querySelector<HTMLElement>('[data-rg-nojs]')!.hidden = true;
 		root.querySelector<HTMLElement>('[data-rg-nav]')!.hidden = false;
 		progress.hidden = false;
