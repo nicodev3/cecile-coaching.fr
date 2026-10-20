@@ -25,7 +25,7 @@ export const TOOLS_BY_KEY: Record<ToolKey, Tool> = {
 		key: 'reflow',
 		slug: '/outils/auto-evaluation-re-flow/',
 		label: 'Auto-évaluation Re-flow',
-		shortLabel: 'Quizz : évalue tes capacités physiques en 12 questions',
+		shortLabel: 'Quiz : évalue tes capacités physiques en 12 questions',
 		tagline:
 			'Découvre ce dont tu as (vraiment) besoin pour retrouver de l\'énergie',
 		duration: '2 minutes',

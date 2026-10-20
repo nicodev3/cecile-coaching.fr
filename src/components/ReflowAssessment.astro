@@ -1,7 +1,7 @@
 ---
 import TunnelCtaLink from './TunnelCtaLink.astro';
 import { tieFrenchPunctuation } from '../utils/frenchTypography';
-import { PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
+import { optionAnswerLabel, PROFILES, QUESTIONS, TOTAL_QUESTIONS } from '../data/reflow';
 
 /** Découpe un libellé en segments, les passages entre parenthèses étant isolés. */
 const splitParenthetical = (text: string) =>
@@ -83,7 +83,7 @@ const splitParenthetical = (text: string) =>
 										class="sr-only"
 										name={q.id}
 										value={String(optionIndex)}
-										data-label={tieFrenchPunctuation(o.label)}
+										data-label={tieFrenchPunctuation(optionAnswerLabel(o))}
 									/>
 									<span
 										class="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full ring-1 ring-(--outline) transition group-has-checked:ring-2 group-has-checked:ring-(--primary) motion-reduce:transition-none"
@@ -91,8 +91,15 @@ const splitParenthetical = (text: string) =>
 									>
 										<span class="size-2.5 rounded-full bg-(--primary) opacity-0 transition group-has-checked:opacity-100 motion-reduce:transition-none" />
 									</span>
-									<span class="text-base leading-snug text-(--on-surface) group-has-checked:font-semibold">
-										{tieFrenchPunctuation(o.label)}
+									<span class="min-w-0">
+										<span class="block text-base leading-snug text-(--on-surface) group-has-checked:font-semibold">
+											{tieFrenchPunctuation(o.label)}
+										</span>
+										{o.detail && (
+											<span class="mt-0.5 block text-sm leading-snug font-normal text-(--secondary)">
+												{tieFrenchPunctuation(o.detail)}
+											</span>
+										)}
 									</span>
 								</label>
 							))}

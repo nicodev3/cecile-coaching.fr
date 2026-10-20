@@ -5,6 +5,8 @@ export type ProfilePoints = Readonly<Record<ProfileKey, number>>;
 
 export interface Option {
 	label: string;
+	/** Exemple ou précision, affiché sous le libellé court. */
+	detail?: string;
 }
 export interface Question {
 	id: string;
@@ -15,8 +17,14 @@ export interface Question {
 	options: readonly Option[];
 }
 
-const CHOICES = (...labels: [string, string, string, string]): readonly Option[] =>
-	labels.map((label) => ({ label }));
+type ChoiceInput = string | Option;
+
+const CHOICES = (...items: [ChoiceInput, ChoiceInput, ChoiceInput, ChoiceInput]): readonly Option[] =>
+	items.map((item) => (typeof item === 'string' ? { label: item } : item));
+
+/** Libellé transmis avec le lead : la précision reste lisible hors de l’écran. */
+export const optionAnswerLabel = (option: Option) =>
+	option.detail ? `${option.label} — ${option.detail}` : option.label;
 
 export const QUESTIONS: readonly Question[] = [
 	{
@@ -35,12 +43,11 @@ export const QUESTIONS: readonly Question[] = [
 		id: 'mouvements',
 		number: 2,
 		progressLabel: 'Tes mouvements',
-		label:
-			'Comment décrirais-tu tes gestes du quotidien (se lever, fléchir les jambes, lever les bras, monter les genoux, s’accroupir, marcher…) ?',
+		label: 'Comment décrirais-tu tes gestes du quotidien (se lever, s’accroupir, marcher…) ?',
 		options: CHOICES(
-			'Je bouge avec aisance sans restriction de mobilité, ni douleur',
-			'Je bouge mais je sens que ce n’est plus comme avant, mes mouvements sont moins fluides, je me sens rouillée',
-			'Je limite certains mouvements par manque d’énergie, appréhension ou inconfort',
+			{ label: 'Je bouge avec aisance', detail: 'Sans restriction, ni douleur' },
+			{ label: 'Ce n’est plus comme avant', detail: 'Moins fluide, je me sens rouillée' },
+			{ label: 'Je limite certains mouvements', detail: 'Manque d’énergie, appréhension ou inconfort' },
 			'Je n’ai plus la force de bouger',
 		),
 	},
@@ -51,10 +58,10 @@ export const QUESTIONS: readonly Question[] = [
 		label:
 			'Rencontres-tu des difficultés à maintenir un effort courant (monter les escaliers, marcher, pédaler…) pendant plusieurs minutes ?',
 		options: CHOICES(
-			'Je peux fournir un effort prolongé sans problème',
-			'Je peux marcher ou pédaler pendant plusieurs minutes mais je suis obligée de diminuer la vitesse',
-			'Quand je fournis un effort prolongé, je dois m’arrêter à plusieurs reprises parce que je n’ai plus de force ou pour reprendre mon souffle',
-			'Il m’est devenu impossible de fournir un effort prolongé',
+			'Je tiens un effort prolongé sans problème',
+			{ label: 'Je tiens, mais je ralentis', detail: 'Plusieurs minutes, à vitesse réduite' },
+			{ label: 'Je dois m’arrêter plusieurs fois', detail: 'Plus de force, ou pour reprendre mon souffle' },
+			'Un effort prolongé m’est devenu impossible',
 		),
 	},
 	{
@@ -77,36 +84,34 @@ export const QUESTIONS: readonly Question[] = [
 		label:
 			'Aujourd’hui, dans quelle mesure ta condition physique influence-t-elle ton activité professionnelle ?',
 		options: CHOICES(
-			'Ma condition physique n’a aucune incidence sur mon activité professionnelle',
-			'Il arrive que ma condition physique me rende moins efficace dans mon travail',
-			'J’ai été contrainte d’aménager mon poste de travail ou mon temps de travail, voire de changer d’emploi',
-			'Ma condition physique ne me permet plus de travailler',
+			'Aucune incidence sur mon travail',
+			'Parfois moins efficace au travail',
+			{ label: 'J’ai dû aménager mon travail', detail: 'Poste, temps, voire un autre emploi' },
+			'Je ne peux plus travailler',
 		),
 	},
 	{
 		id: 'taches',
 		number: 6,
 		progressLabel: 'Impact sur les tâches du quotidien',
-		label:
-			'Actuellement, en quoi tes capacités physiques influencent-elles tes activités du quotidien ? (courses, ménage, jardinage, bricolage…)',
+		label: 'En quoi tes capacités physiques pèsent-elles sur le quotidien (courses, ménage, jardinage…) ?',
 		options: CHOICES(
-			'J’effectue les tâches du quotidien sans y penser',
-			'Les tâches courantes me demandent plus d’efforts qu’avant (les sacs de courses me semblent plus lourds, je mets plus de temps à passer l’aspirateur…)',
-			'Il m’arrive de demander de l’aide pour certaines tâches, je me sens de moins en moins autonome',
-			'Faire les courses ou le ménage est devenu impossible pour moi, je suis dépendante de quelqu’un d’autre pour qu’elles soient faites',
+			'Je les fais sans y penser',
+			{ label: 'Plus d’effort qu’avant', detail: 'Courses plus lourdes, aspirateur plus long' },
+			{ label: 'Je demande de l’aide', detail: 'Je me sens de moins en moins autonome' },
+			{ label: 'Je n’y arrive plus seule', detail: 'Je dépends de quelqu’un pour les courses ou le ménage' },
 		),
 	},
 	{
 		id: 'loisirs',
 		number: 7,
 		progressLabel: 'Impact sur les loisirs et la vie sociale',
-		label:
-			'Aujourd’hui, dans quelle mesure ta condition physique influence-t-elle tes activités de loisirs ? (activités sportives, associatives, sorties entre amis, balades en famille, jeu avec les enfants…)',
+		label: 'Ta condition physique freine-t-elle tes loisirs (sport, sorties, balades, enfants…) ?',
 		options: CHOICES(
-			'Ma condition physique actuelle ne me freine pas dans mes activités de loisir',
-			'Je ne me prive d’aucune de mes activités de loisir ou sorties entre amis ou en famille, mais j’ai du mal à suivre, je me sens à la traîne',
-			'Je suis contrainte d’adapter mes activités habituelles de loisir à ma condition physique ou de les reporter',
-			'Je dois souvent renoncer à des activités que j’affectionne par manque de force ou d’énergie et je me sens à l’écart',
+			'Non, elle ne me freine pas',
+			{ label: 'Je continue, mais je suis à la traîne', detail: 'J’ai du mal à suivre amis et famille' },
+			{ label: 'J’adapte ou je reporte', detail: 'Mes activités habituelles ne passent plus telles quelles' },
+			{ label: 'Je renonce souvent', detail: 'Plus assez de force, je me sens à l’écart' },
 		),
 	},
 	{
@@ -243,7 +248,7 @@ export function scoreQuiz(raw: readonly SubmittedAnswer[]): ScoredQuiz | null {
 			optionIndex,
 			number: q.number,
 			label: q.label,
-			optionLabel: q.options[optionIndex].label,
+			optionLabel: optionAnswerLabel(q.options[optionIndex]),
 		});
 	}
 	const ranked = [...PROFILE_KEYS].sort((a, b) => {

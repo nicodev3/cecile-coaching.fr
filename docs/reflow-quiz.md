@@ -70,7 +70,7 @@ Le script Umami est déjà chargé par `BaseHead.astro`. Le quiz envoie les
 | Étape | Événement | Déclenchement |
 | --- | --- | --- |
 | Introduction vue | `quiz_viewed` | L’introduction du quiz entre dans le viewport |
-| Clic pour commencer | `quiz_cta_clicked` | Clic sur « Commencer le quizz » |
+| Clic pour commencer | `quiz_cta_clicked` | Clic sur « Commencer le quiz » |
 | Début | `quiz_started` | Première réponse du questionnaire |
 | Questions | `quiz_question_01_answered` à `quiz_question_12_answered` | Première réponse à chaque question pendant ce passage |
 | Formulaire affiché | `quiz_completed` | Les 12 réponses sont validées et le formulaire de coordonnées apparaît |
