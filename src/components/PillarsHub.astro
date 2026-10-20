@@ -57,8 +57,7 @@ const reveal = compact
 		{
 			!compact && (
 				<div class="mx-auto max-w-3xl text-center">
-					<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Comprendre</p>
-					<h2 id="pillars-hub-title" class="mt-2 text-3xl text-(--primary) sm:text-4xl">
+					<h2 id="pillars-hub-title" class="text-3xl text-(--primary) sm:text-4xl">
 						{title}
 					</h2>
 					<p class="mt-4 text-base leading-relaxed text-(--secondary)">{intro}</p>
@@ -85,7 +84,7 @@ const reveal = compact
 					return (
 						<a
 							href={p.slug}
-							class="group flex h-full flex-col overflow-hidden rounded-2xl bg-(--surface-container-lowest) soft-glow transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
+							class="group flex h-full flex-col overflow-hidden rounded-2xl bg-(--surface-container-lowest) shadow-sm ring-1 ring-black/5 transition hover:-translate-y-0.5 motion-reduce:hover:translate-y-0"
 						>
 							{!compact && (
 								<div class="relative aspect-[4/3] overflow-hidden bg-(--sage)/20">

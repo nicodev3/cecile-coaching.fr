@@ -86,8 +86,23 @@ const {
 					},
 					{ rootMargin: '0px 0px -10% 0px', threshold: 0.12 },
 				);
-				els.forEach((el) => io.observe(el));
+				const revealIfVisible = (el) => {
+					const rect = el.getBoundingClientRect();
+					if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+						el.setAttribute('data-revealed', 'true');
+						io.unobserve(el);
+						return true;
+					}
+					return false;
+				};
+
+				els.forEach((el) => {
+					if (!revealIfVisible(el)) io.observe(el);
+				});
 			}
 		</script>
-	</body>
+	<!-- impeccable-live-start -->
+<script is:inline src="http://localhost:8400/live.js?token=66f90603-edac-43df-84e7-ed100bcd81de"></script>
+<!-- impeccable-live-end -->
+</body>
 </html>

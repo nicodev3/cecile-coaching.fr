@@ -16,51 +16,67 @@ const reveal =
 	<div class="mx-auto max-w-container px-4 sm:px-6 lg:px-8">
 		<div class="mb-16 text-center">
 			<h2 id="pricing-title" class="text-3xl text-(--primary) sm:text-5xl">Durée & modalités</h2>
-			<p class="mt-4 text-(--secondary)">
-				Un cadre simple et transparent pour avancer sans pression.
+			<p class="mt-4 max-w-2xl mx-auto text-(--secondary)">
+				4 mois, 48 séances guidées et un suivi hebdomadaire en visio — le tarif s’explique en échange, sans
+				engagement.
 			</p>
 		</div>
 
-		<div class="mx-auto grid max-w-5xl gap-4 sm:grid-cols-3">
-			<div class="rounded-2xl bg-(--surface-container-lowest) p-6 text-center shadow-sm ring-1 ring-black/5">
-				<CalendarDays class="mx-auto size-7 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
-				<p class="mt-4 text-2xl font-semibold text-(--primary)">4 mois</p>
-				<p class="mt-1 text-sm text-(--secondary)">16 semaines de progression</p>
+		<dl class="mx-auto grid max-w-5xl gap-10 sm:grid-cols-3 sm:gap-8">
+			<div class="text-center">
+				<dt class="flex items-center justify-center gap-2 text-sm font-medium text-(--secondary)">
+					<CalendarDays class="size-5 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
+					Durée
+				</dt>
+				<dd class="mt-2 text-2xl font-semibold text-(--primary)">4 mois</dd>
+				<dd class="mt-1 text-sm text-(--secondary)">16 semaines de progression</dd>
 			</div>
-			<div class="rounded-2xl bg-(--surface-container-lowest) p-6 text-center shadow-sm ring-1 ring-black/5">
-				<Laptop class="mx-auto size-7 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
-				<p class="mt-4 text-2xl font-semibold text-(--primary)">100 % en ligne</p>
-				<p class="mt-1 text-sm text-(--secondary)">Depuis chez toi, partout en France</p>
+			<div class="text-center">
+				<dt class="flex items-center justify-center gap-2 text-sm font-medium text-(--secondary)">
+					<Laptop class="size-5 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
+					Format
+				</dt>
+				<dd class="mt-2 text-2xl font-semibold text-(--primary)">100 % en ligne</dd>
+				<dd class="mt-1 text-sm text-(--secondary)">Depuis chez toi, partout en France</dd>
 			</div>
-			<div class="rounded-2xl bg-(--surface-container-lowest) p-6 text-center shadow-sm ring-1 ring-black/5">
-				<WalletCards class="mx-auto size-7 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
-				<p class="mt-4 text-2xl font-semibold text-(--primary)">Tarif sur demande</p>
-				<p class="mt-1 text-sm text-(--secondary)">Modalités de paiement expliquées ensemble</p>
+			<div class="text-center">
+				<dt class="flex items-center justify-center gap-2 text-sm font-medium text-(--secondary)">
+					<WalletCards class="size-5 text-(--primary)" stroke-width={1.7} aria-hidden="true" />
+					Tarif
+				</dt>
+				<dd class="mt-2 text-2xl font-semibold text-(--primary)">Tarif personnalisé</dd>
+				<dd class="mt-1 text-sm text-(--secondary)">Montant et paiement expliqués lors d’un échange gratuit</dd>
 			</div>
-		</div>
+		</dl>
 
 		<div class="mx-auto mt-10 max-w-2xl rounded-2xl bg-(--sage)/25 p-6 text-center sm:p-8">
-			<p class="text-lg font-semibold text-(--primary)">
-				Une question avant de te décider ?
-			</p>
+			<p class="text-lg font-semibold text-(--primary)">Tu veux connaître le tarif avant de t’engager ?</p>
 			<p class="mt-2 text-(--secondary)">
-				Échangeons sur ta situation et vérifions ensemble si le programme te correspond.
+				Un message suffit : on regarde ta situation et je te réponds clairement, sans pression.
 			</p>
-			<div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+			<div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row sm:items-center">
+				<a
+					class="inline-flex items-center justify-center rounded-full bg-(--primary) px-8 py-3 text-base font-semibold text-(--on-primary) transition hover:bg-(--primary-container)"
+					href="#contact"
+				>
+					Échanger sur le tarif
+				</a>
 				<WhatsAppCtaLink
 					campaign="pricing"
 					showIcon={true}
-					class="whatsapp-btn rounded-full px-8 py-3 text-base font-semibold"
+					class="whatsapp-btn rounded-full px-8 py-3 text-base font-medium"
 				>
-					Demander le tarif
+					Ou écrire sur WhatsApp
 				</WhatsAppCtaLink>
-				<a
-					class="inline-flex items-center justify-center rounded-full border border-(--primary)/25 px-8 py-3 font-semibold text-(--primary) transition hover:bg-white/70"
-					href="#faq"
-				>
-					Voir la FAQ
-				</a>
 			</div>
+			<p class="mt-4 text-sm text-(--secondary)">
+				<a
+					href="#faq"
+					class="font-medium text-(--primary) underline underline-offset-4 transition hover:text-(--on-surface-accent)"
+				>
+					Questions fréquentes
+				</a>
+			</p>
 		</div>
 	</div>
 </section>

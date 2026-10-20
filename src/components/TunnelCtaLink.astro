@@ -8,9 +8,18 @@ interface Props {
 	/** Chemin côté tunnel. Par défaut, l’entrée de conversion du tunnel. */
 	path?: string;
 	class?: string;
+	/** Annonce l’ouverture dans un nouvel onglet (défaut : oui). */
+	announceNewTab?: boolean;
+	'aria-label'?: string;
 }
 
-const { campaign, path, class: className } = Astro.props;
+const {
+	campaign,
+	path,
+	class: className,
+	announceNewTab = true,
+	'aria-label': ariaLabel,
+} = Astro.props;
 const href = tunnelEntryUrl(campaign, path);
 const umamiEvent = tunnelCtaEvent(campaign);
 ---
@@ -20,7 +29,13 @@ const umamiEvent = tunnelCtaEvent(campaign);
 	class={className}
 	target="_blank"
 	rel="noopener noreferrer"
+	aria-label={ariaLabel}
 	data-umami-event={umamiEvent}
 >
 	<slot />
+	{
+		announceNewTab && (
+			<span class="sr-only"> — ouvre l’espace immersion dans un nouvel onglet</span>
+		)
+	}
 </a>

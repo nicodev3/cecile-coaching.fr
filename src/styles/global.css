@@ -178,7 +178,7 @@ body {
 @media (hover: hover) {
 	.whatsapp-btn-outline:hover {
 		background-color: color-mix(in srgb, var(--whatsapp) 10%, transparent);
-		color: var(--whatsapp-btn-hover);
+		color: var(--whatsapp-ink);
 	}
 }
 

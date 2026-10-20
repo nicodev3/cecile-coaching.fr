@@ -1,0 +1,279 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T19:50:00+02:00",
+  "title": "Design System: RE-FLOW",
+  "extensions": {
+    "colorMeta": {
+      "plum": {
+        "role": "primary",
+        "displayName": "Plum profond",
+        "canonical": "#60406A",
+        "tonalRamp": [
+          "oklch(22% 0.06 310)",
+          "oklch(30% 0.07 310)",
+          "oklch(38% 0.08 310)",
+          "oklch(46% 0.08 310)",
+          "oklch(54% 0.07 310)",
+          "oklch(62% 0.06 310)",
+          "oklch(74% 0.04 310)",
+          "oklch(92% 0.015 310)"
+        ]
+      },
+      "plum-ink": {
+        "role": "primary",
+        "displayName": "Encre plum",
+        "canonical": "#4a2d57",
+        "tonalRamp": [
+          "oklch(18% 0.05 310)",
+          "oklch(24% 0.06 310)",
+          "oklch(30% 0.07 310)",
+          "oklch(36% 0.08 310)",
+          "oklch(42% 0.08 310)",
+          "oklch(50% 0.07 310)",
+          "oklch(65% 0.04 310)",
+          "oklch(88% 0.02 310)"
+        ]
+      },
+      "plum-soft": {
+        "role": "primary",
+        "displayName": "Plum adouci",
+        "canonical": "#82628c",
+        "tonalRamp": [
+          "oklch(28% 0.05 310)",
+          "oklch(35% 0.06 310)",
+          "oklch(42% 0.07 310)",
+          "oklch(48% 0.07 310)",
+          "oklch(55% 0.06 310)",
+          "oklch(62% 0.05 310)",
+          "oklch(75% 0.03 310)",
+          "oklch(92% 0.01 310)"
+        ]
+      },
+      "sage": {
+        "role": "secondary",
+        "displayName": "Sauge respirante",
+        "canonical": "#c4d6b7",
+        "tonalRamp": [
+          "oklch(35% 0.04 130)",
+          "oklch(42% 0.05 130)",
+          "oklch(50% 0.06 130)",
+          "oklch(58% 0.07 130)",
+          "oklch(66% 0.07 130)",
+          "oklch(74% 0.06 130)",
+          "oklch(82% 0.05 130)",
+          "oklch(94% 0.02 130)"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier",
+        "canonical": "#f7faf6",
+        "tonalRamp": [
+          "oklch(25% 0.01 130)",
+          "oklch(35% 0.015 130)",
+          "oklch(45% 0.02 130)",
+          "oklch(55% 0.02 130)",
+          "oklch(65% 0.02 130)",
+          "oklch(75% 0.02 130)",
+          "oklch(85% 0.015 130)",
+          "oklch(97% 0.008 130)"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre",
+        "canonical": "#111827",
+        "tonalRamp": [
+          "oklch(15% 0.02 260)",
+          "oklch(22% 0.02 260)",
+          "oklch(30% 0.02 260)",
+          "oklch(38% 0.02 260)",
+          "oklch(46% 0.02 260)",
+          "oklch(55% 0.02 260)",
+          "oklch(70% 0.015 260)",
+          "oklch(92% 0.005 260)"
+        ]
+      },
+      "whatsapp-ink": {
+        "role": "tertiary",
+        "displayName": "WhatsApp encré",
+        "canonical": "#0b6b3a",
+        "tonalRamp": [
+          "oklch(22% 0.08 155)",
+          "oklch(30% 0.09 155)",
+          "oklch(38% 0.10 155)",
+          "oklch(45% 0.11 155)",
+          "oklch(52% 0.12 155)",
+          "oklch(60% 0.11 155)",
+          "oklch(72% 0.08 155)",
+          "oklch(92% 0.03 155)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "H1 hero et accroches programme — Montserrat 500, balance."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "H2 de section, titres de blocs marketing."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphes, UI, formulaires — Hanken Grotesk."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Chips blog, micro-badges uppercase."
+      }
+    },
+    "shadows": [
+      {
+        "name": "soft-glow",
+        "value": "0 2px 6px rgba(96, 64, 106, 0.25), 0 8px 24px rgba(96, 64, 106, 0.33), 0 16px 32px rgba(96, 64, 106, 0.33)",
+        "purpose": "CTA primaire et éléments focaux — ombre teintée plum."
+      },
+      {
+        "name": "card-rest",
+        "value": "0 1px 2px rgba(0, 0, 0, 0.05)",
+        "purpose": "Cartes contact et blocs blancs au repos (souvent avec ring black/5)."
+      },
+      {
+        "name": "whatsapp-floating",
+        "value": "0 12px 30px -18px color-mix(in srgb, #25d366 55%, transparent), 0 6px 18px -12px rgba(0, 0, 0, 0.28)",
+        "purpose": "Bouton WhatsApp flottant."
+      }
+    ],
+    "motion": [
+      {
+        "name": "reveal-section",
+        "value": "opacity 700ms ease-out, transform 700ms ease-out",
+        "purpose": "Sections data-reveal au scroll."
+      },
+      {
+        "name": "bento-hover",
+        "value": "transform 300ms ease, box-shadow 300ms ease",
+        "purpose": "Lift léger des cartes bento au hover."
+      },
+      {
+        "name": "ui-quick",
+        "value": "color 200ms ease, background-color 200ms ease",
+        "purpose": "Liens WhatsApp et micro-interactions."
+      }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA immersion et actions principales — pilule plum avec soft glow.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\">Commencer l’immersion gratuite</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; font-family: 'Hanken Grotesk', Segoe UI, sans-serif; font-size: 1rem; font-weight: 500; line-height: 1.5; padding: 1rem 2rem; border: none; border-radius: 9999px; background-color: #60406A; color: #ffffff; cursor: pointer; box-shadow: 0 2px 6px rgba(96, 64, 106, 0.25), 0 8px 24px rgba(96, 64, 106, 0.33), 0 16px 32px rgba(96, 64, 106, 0.33); transition: background-color 0.2s ease; } .ds-btn-primary:hover { background-color: #82628c; } .ds-btn-primary:focus-visible { outline: 2px solid #60406A; outline-offset: 4px; }"
+    },
+    {
+      "name": "Secondary Outline Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Quiz et secondaires hero — contour plum, fond blanc.",
+      "html": "<button type=\"button\" class=\"ds-btn-secondary\">Faire l’auto-évaluation</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; font-family: 'Hanken Grotesk', Segoe UI, sans-serif; font-size: 1rem; font-weight: 500; padding: 1rem 2rem; border: 2px solid rgba(96, 64, 106, 0.4); border-radius: 9999px; background-color: #ffffff; color: #60406A; cursor: pointer; transition: background-color 0.2s ease; } .ds-btn-secondary:hover { background-color: #f5f6f3; } .ds-btn-secondary:focus-visible { outline: 2px solid #60406A; outline-offset: 4px; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "card-surface",
+      "description": "Champs contact — coins xl, ring focus plum.",
+      "html": "<label class=\"ds-field-wrap\">Prénom<input class=\"ds-input\" type=\"text\" placeholder=\"Ton prénom\" /></label>",
+      "css": ".ds-field-wrap { display: block; font-family: 'Hanken Grotesk', Segoe UI, sans-serif; font-size: 0.875rem; font-weight: 500; color: #111827; } .ds-input { margin-top: 0.5rem; width: 100%; box-sizing: border-box; padding: 0.875rem 1rem; border-radius: 0.75rem; border: 1px solid #858585; background-color: #f5f6f3; color: #111827; font-family: inherit; font-size: 1rem; transition: border-color 0.2s ease, box-shadow 0.2s ease; } .ds-input::placeholder { color: #676767; } .ds-input:focus { border-color: #60406A; outline: none; box-shadow: 0 0 0 3px rgba(96, 64, 106, 0.12); }"
+    },
+    {
+      "name": "Navigation Link",
+      "kind": "nav",
+      "refersTo": "button-secondary",
+      "description": "Liens desktop header — inactif gris, hover plum.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Exemple\"><a class=\"ds-nav-link\" href=\"#\">Programme</a><a class=\"ds-nav-link ds-nav-link--active\" href=\"#\" aria-current=\"page\">Blog</a></nav>",
+      "css": ".ds-nav { display: flex; gap: 2rem; font-family: 'Hanken Grotesk', Segoe UI, sans-serif; } .ds-nav-link { font-size: 1rem; text-decoration: none; color: #676767; transition: color 0.2s ease; } .ds-nav-link:hover { color: #60406A; } .ds-nav-link--active { color: #60406A; font-weight: 600; pointer-events: none; } .ds-nav-link:focus-visible { outline: 2px solid #60406A; outline-offset: 4px; }"
+    },
+    {
+      "name": "Content Card",
+      "kind": "card",
+      "refersTo": "card-surface",
+      "description": "Carte blanche contact / aside — rounded-2xl, ring léger.",
+      "html": "<article class=\"ds-card\"><h3 class=\"ds-card-title\">Réponse rapide</h3><p class=\"ds-card-body\">Réponse sous 24 à 48 h ouvrées.</p></article>",
+      "css": ".ds-card { background-color: #ffffff; border-radius: 1rem; padding: 1.25rem; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05); font-family: 'Hanken Grotesk', Segoe UI, sans-serif; } .ds-card-title { margin: 0 0 0.5rem; font-family: Montserrat, Segoe UI, sans-serif; font-size: 1rem; font-weight: 600; color: #111827; letter-spacing: -0.02em; } .ds-card-body { margin: 0; font-size: 0.875rem; line-height: 1.5; color: #676767; }"
+    },
+    {
+      "name": "Blog Filter Chip",
+      "kind": "chip",
+      "refersTo": "button-primary",
+      "description": "Filtre blog actif — pilule sage / plum container.",
+      "html": "<button type=\"button\" class=\"ds-chip ds-chip--active\">Fatigue</button><button type=\"button\" class=\"ds-chip\">APA</button>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; white-space: nowrap; font-family: 'Hanken Grotesk', Segoe UI, sans-serif; font-size: 0.875rem; font-weight: 600; padding: 0.5rem 1.5rem; border: none; border-radius: 9999px; background-color: #c4d6b7; color: #4a2d57; cursor: pointer; transition: background-color 0.2s ease; } .ds-chip:hover { background-color: #b5c9a7; } .ds-chip--active { background-color: #82628c; color: #ffffff; } .ds-chip:focus-visible { outline: 2px solid #60406A; outline-offset: 2px; }"
+    },
+    {
+      "name": "WhatsApp Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Canal secondaire — vert encré dédié, pilule.",
+      "html": "<a class=\"ds-whatsapp-btn\" href=\"#\"><svg class=\"ds-whatsapp-icon\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.881 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z\"/></svg>Question rapide</a>",
+      "css": ".ds-whatsapp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; font-family: 'Hanken Grotesk', Segoe UI, sans-serif; font-size: 1rem; font-weight: 600; padding: 0.75rem 2rem; border-radius: 9999px; background-color: #0b6b3a; color: #ffffff; text-decoration: none; transition: background-color 0.2s ease; } .ds-whatsapp-btn:hover { background-color: #075e54; color: #ffffff; } .ds-whatsapp-btn:focus-visible { outline: 2px solid #0b6b3a; outline-offset: 4px; } .ds-whatsapp-icon { flex-shrink: 0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Force douce",
+    "overview": "Le site RE-FLOW traduit une promesse APA : reprendre le corps sans culture performance. Visuellement, l’autorité vient du plum (crédibilité, ancrage) ; la respiration vient de la sauge et du papier (apaisement, espace). La densité reste aérée : sections longues, tutoiement, peu de kickers décoratifs — le contenu et les CTAs portent la conversion (immersion 4 jours, quiz, puis contact).\n\nL’interface évite le fitness agressif (noir néon, angles durs, typographie condensée « gym »). Elle préfère des pilules arrondies, des cartes blanches légères, et une ombre teintée plum plutôt qu’un gris neutre froid.",
+    "keyCharacteristics": [
+      "Palette « force douce » : plum + sauge + papier, contrastes WCAG documentés dans src/styles/global.css.",
+      "Typographie : Montserrat pour les titres, Hanken Grotesk pour le corps (Astro Font / Fontsource).",
+      "CTAs en pilule (rounded-full) ; champs en coins doux (rounded-xl).",
+      "Profondeur par .soft-glow (ombre plum) sur les actions primaires, pas par empilement de gris.",
+      "Motion : reveal au scroll, hover carte léger, respect de prefers-reduced-motion."
+    ],
+    "rules": [
+      {
+        "name": "The Rare Plum Rule",
+        "body": "Le plum plein est réservé aux titres, navigation active et CTAs primaires. Les grands aplats plum sur toute une section fatiguent une audience déjà en surcharge — préférer papier + touches sauge.",
+        "section": "colors"
+      },
+      {
+        "name": "The AA Ink Rule",
+        "body": "Ne jamais utiliser --plum-soft ou --sage seuls pour du texte long sur papier ; suivre les commentaires de contraste dans global.css.",
+        "section": "colors"
+      },
+      {
+        "name": "The Title Font Rule",
+        "body": "Tous les h1–h6 utilisent --font-title (Montserrat) à weight 500 par défaut ; le gras sémantique reste dans le corps (strong) plutôt que des titres ultra-bold.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plum Shadow Rule",
+        "body": "Les ombres portent une teinte plum, jamais un gris pur #000 opaque — cela maintient la chaleur du système.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Flat Section Rule",
+        "body": "Fonds de section alternent papier / coquille / sauge léger ; éviter d’empiler soft-glow sur chaque carte d’une même grille.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do utiliser --font-title pour tout titre et --font-body pour UI + paragraphes.",
+      "Do réserver .soft-glow aux CTAs primaires ou à un seul élément focal par viewport.",
+      "Do garder les CTAs immersion et quiz visuellement distincts (plein vs outline) comme sur le hero.",
+      "Do respecter prefers-reduced-motion (transitions désactivées ou simplifiées)."
+    ],
+    "donts": [
+      "Don't introduire une palette fitness (noir/orange néon, italiques condensées agressives).",
+      "Don't remplacer les pilules par des boutons carrés sans décision produit explicite.",
+      "Don't utiliser du texte gris clair arbitraire sous le seuil --secondary sur papier.",
+      "Don't empiler plus de trois niveaux d’ombre sur une même zone."
+    ]
+  }
+}

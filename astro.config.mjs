@@ -13,6 +13,10 @@ import { reflowLeadDevPlugin } from './src/dev/reflowLeadDevPlugin.mjs';
 export default defineConfig({
   site: 'https://cecilecoaching.fr',
   trailingSlash: 'always',
+  // Barre dev Astro masquait la barre Impeccable live en bas de viewport.
+  devToolbar: {
+    enabled: false,
+  },
   build: {
     // Le CSS du header dépasse le seuil auto (4 Ko) et bloquait le premier affichage.
     inlineStylesheets: 'always',

@@ -73,7 +73,7 @@ const reveal =
 
 		<div class="grid gap-8 md:grid-cols-3">
 			{cards.map((c) => (
-				<div class="bento-card group flex flex-col overflow-hidden rounded-3xl bg-(--surface-container-lowest) shadow-sm ring-1 ring-black/5 transition-[box-shadow,translate] hover:shadow-md hover:ring-black/10">
+				<div class="group flex flex-col gap-6">
 					<div aria-hidden="true" class="relative flex h-60 w-full items-center justify-center overflow-hidden bg-linear-to-br from-(--sage)/35 via-(--paper) to-(--primary-container)/12 p-5">
 						{/* Mockup Vidéo / PDF */}
 						{c.visual === 'video' && (
@@ -93,13 +93,13 @@ const reveal =
 												<Play class="ml-0.5 size-5" fill="currentColor" stroke-width={1.5} />
 											</span>
 										</div>
-										<span class="absolute right-2 bottom-2 rounded-md bg-black/65 px-1.5 py-0.5 text-[10px] font-semibold text-white">
+										<span class="absolute right-2 bottom-2 rounded-md bg-black/65 px-1.5 py-0.5 text-xs font-semibold text-white">
 											32:08
 										</span>
 									</div>
 									<div class="px-1 pt-2 pb-1">
 										<p class="text-xs font-semibold text-(--on-surface)">Mobilité douce · séance 1/48</p>
-										<p class="mt-0.5 text-[10px] text-(--secondary)">3 séances par semaine</p>
+										<p class="mt-0.5 text-xs text-(--secondary)">3 séances par semaine</p>
 									</div>
 								</div>
 								<div class="absolute bottom-1 left-0 w-3/5 rotate-[-3deg] rounded-xl bg-white p-3 shadow-lg ring-1 ring-black/6 transition-transform duration-500 group-hover:rotate-0">
@@ -107,10 +107,10 @@ const reveal =
 										<span class="flex size-8 items-center justify-center rounded-lg bg-(--primary)/10 text-(--primary)">
 											<FileText class="size-4.5" stroke-width={1.7} />
 										</span>
-										<span class="rounded-full bg-(--sage)/50 px-2 py-0.5 text-[9px] font-bold tracking-wide text-(--plum-ink)">PDF</span>
+										<span class="rounded-full bg-(--sage)/50 px-2 py-0.5 text-xs font-bold tracking-wide text-(--plum-ink)">PDF</span>
 									</div>
-									<p class="mt-3 text-[11px] font-semibold leading-tight text-(--on-surface)">Ma routine bien-être</p>
-									<div class="mt-2 flex items-center gap-1 text-[9px] text-(--secondary)">
+									<p class="mt-3 text-xs font-semibold leading-tight text-(--on-surface)">Ma routine bien-être</p>
+									<div class="mt-2 flex items-center gap-1 text-xs text-(--secondary)">
 										<Download class="size-3" /> 8 pages
 									</div>
 								</div>
@@ -129,7 +129,7 @@ const reveal =
 											width={320}
 											height={190}
 										/>
-										<span class="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-[9px] font-semibold text-(--on-surface) shadow-sm">
+										<span class="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-white/90 px-2 py-1 text-xs font-semibold text-(--on-surface) shadow-sm">
 											<span class="size-1.5 rounded-full bg-emerald-500"></span>
 											Cécile
 										</span>
@@ -138,7 +138,7 @@ const reveal =
 										</div>
 									</div>
 									<div class="flex items-center justify-between px-2 pt-2 pb-1">
-										<span class="text-[10px] font-medium text-(--on-surface)">Point hebdomadaire</span>
+										<span class="text-xs font-medium text-(--on-surface)">Point hebdomadaire</span>
 										<div class="flex gap-1.5">
 											<span class="size-2 rounded-full bg-(--sage)"></span>
 											<span class="size-2 rounded-full bg-(--primary-container)"></span>
@@ -151,7 +151,7 @@ const reveal =
 										<CalendarDays class="size-4.5" stroke-width={1.7} />
 									</span>
 									<div class="min-w-0">
-										<p class="truncate text-[10px] text-white/70">Prochain rendez-vous</p>
+										<p class="truncate text-xs text-white/70">Prochain rendez-vous</p>
 										<p class="text-xs font-semibold">Mardi · 18 h 30</p>
 									</div>
 									<MessagesSquare class="ml-auto size-4 text-(--sage)" stroke-width={1.7} />
@@ -169,7 +169,7 @@ const reveal =
 										</span>
 										<div>
 											<p class="text-xs font-semibold text-(--on-surface)">Respiration apaisante</p>
-											<p class="mt-0.5 flex items-center gap-1 text-[10px] text-(--secondary)">
+											<p class="mt-0.5 flex items-center gap-1 text-xs text-(--secondary)">
 												<Clock3 class="size-3" /> 5 minutes
 											</p>
 										</div>
@@ -188,7 +188,7 @@ const reveal =
 								<div class="absolute right-0 bottom-1 left-6 rounded-xl bg-(--plum-ink) p-3 text-white shadow-lg transition-transform duration-500 motion-safe:group-hover:translate-x-1">
 									<div class="flex items-center justify-between">
 										<div>
-											<p class="text-[9px] font-semibold tracking-widest text-(--sage) uppercase">Nouveau chaque mois</p>
+											<p class="text-xs font-semibold tracking-widest text-(--sage) uppercase">Nouveau chaque mois</p>
 											<p class="mt-1 text-xs font-semibold">Ta vidéo bonus</p>
 										</div>
 										<span class="flex size-9 items-center justify-center rounded-full bg-white/12">
@@ -216,9 +216,7 @@ const reveal =
 							{c.items.map((it) => (
 								<li class="flex items-start gap-3">
 									{it.includes('cadeau surprise') ? (
-										<span class="flex size-5 shrink-0 items-center justify-center text-base leading-none" aria-hidden="true">
-											🎁
-										</span>
+										<Gift class="mt-0.5 size-4.5 shrink-0 text-(--on-surface-accent)" aria-hidden="true" stroke-width={2} />
 									) : (
 										<Check class="mt-0.5 size-4.5 shrink-0 text-(--on-surface-accent)" aria-hidden="true" stroke-width={2.5} />
 									)}

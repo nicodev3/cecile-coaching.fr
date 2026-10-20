@@ -9,6 +9,13 @@ export const SITE_DESCRIPTION =
 export const SITE_BRAND = 'RE-FLOW';
 export const SITE_INSTAGRAM = 'https://www.instagram.com/cecile.c.oaching/';
 export const SITE_WHATSAPP = 'https://wa.me/message/6FQL2VZLVY4IC1';
+
+/** Entrée produit : immersion gratuite du tunnel RE-FLOW (libellé unique sur les CTAs primaires). */
+export const TUNNEL_IMMERSION_CTA_LABEL = 'Immersion gratuite (4 jours)';
+/** Barre header mobile (espace réduit) — même promesse, forme courte. */
+export const TUNNEL_IMMERSION_CTA_LABEL_COMPACT = 'Immersion 4 jours';
+/** CTA secondaire hero : auto-évaluation avant l’immersion. */
+export const QUIZ_HERO_SECONDARY_CTA_LABEL = 'Pas prête ? Auto-évaluation (~5 min)';
 export const COACH_FIRST_NAME = 'Cécile';
 export const COACH_FAMILY_NAME = 'Cichosz';
 export const COACH_NAME = `${COACH_FIRST_NAME} ${COACH_FAMILY_NAME}`;

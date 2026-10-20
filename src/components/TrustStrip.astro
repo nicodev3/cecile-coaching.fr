@@ -3,18 +3,18 @@ import { Heart, ShieldCheck, TrendingUp } from '@lucide/astro';
 
 const items = [
 	{
-		title: 'Cadre sécurisant',
-		desc: 'Le mouvement est adapté à ton état de santé, à tes capacités et à ton énergie du moment.',
+		title: 'Certifiée APA',
+		desc: 'Activité Physique Adaptée pour les femmes avec maladie chronique ou fatigue — sans culture performance.',
 		icon: ShieldCheck,
 	},
 	{
-		title: 'Approche progressive',
-		desc: 'On reconstruit sans brusquer, étape par étape, pour durer dans le temps.',
+		title: '4 mois · 48 séances',
+		desc: 'Progression douce, 3 séances guidées par semaine et un point individuel hebdomadaire en visio.',
 		icon: TrendingUp,
 	},
 	{
-		title: 'Suivi personnalisé',
-		desc: 'Un accompagnement humain à distance, ajusté à ton quotidien et à tes besoins spécifiques.',
+		title: '100 % en ligne',
+		desc: 'Depuis chez toi, partout en France — immersion gratuite 4 jours pour tester avant de t’engager.',
 		icon: Heart,
 	},
 ];
@@ -30,19 +30,21 @@ const reveal =
 	aria-label="Éléments de confiance"
 >
 	<div class="mx-auto max-w-container px-4 sm:px-6 lg:px-8">
-		<div class="grid gap-8 md:grid-cols-3">
+		<ul class="grid gap-10 md:grid-cols-3 md:gap-8">
 			{items.map((it) => (
-				<div class="bento-card space-y-4 rounded-xl bg-(--surface-container-lowest) p-10 text-center soft-glow">
-					<div
-						class="mx-auto mb-6 flex size-12 items-center justify-center rounded-full bg-(--primary-fixed-dim)/30"
-						aria-hidden="true"
-					>
-						<it.icon class="size-6 text-(--primary)" stroke-width={1.5} />
+				<li class="flex flex-col gap-3 text-center md:text-left">
+					<div class="flex flex-col items-center gap-3 md:flex-row md:items-start">
+						<span
+							class="flex size-11 shrink-0 items-center justify-center rounded-full bg-(--primary-fixed-dim)/35 text-(--primary)"
+							aria-hidden="true"
+						>
+							<it.icon class="size-5" stroke-width={1.5} />
+						</span>
+						<p class="text-xl font-medium text-(--primary) sm:text-2xl">{it.title}</p>
 					</div>
-					<h2 class="text-2xl text-(--primary)">{it.title}</h2>
-					<p class="text-(--secondary)">{it.desc}</p>
-				</div>
+					<p class="text-base leading-relaxed text-(--secondary)">{it.desc}</p>
+				</li>
 			))}
-		</div>
+		</ul>
 	</div>
 </section>

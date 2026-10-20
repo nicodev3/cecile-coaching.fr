@@ -12,6 +12,13 @@ import {
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 import { COACH_EMAIL } from '../consts';
 
+const phoneNumber = `${'0' + '6'}${'8' + '6'}${'4' + '1'}${'5' + '7'}${'0' + '1'}`;
+const phoneDisplay = phoneNumber.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
+const phoneHref = `tel:+33${phoneNumber.substring(1)}`;
+
+const fieldClass =
+	'mt-2 w-full rounded-xl border border-(--outline) bg-(--surface-container-low) px-4 py-3.5 text-(--on-surface) transition placeholder:text-(--secondary) focus:border-(--primary) focus:ring-3 focus:ring-(--primary)/12 focus:outline-none';
+
 const reveal =
 	'opacity-0 translate-y-4 transition duration-700 ease-out will-change-transform will-change-opacity motion-reduce:transition-none data-[revealed=true]:opacity-100 data-[revealed=true]:translate-y-0';
 ---
@@ -25,7 +32,6 @@ const reveal =
 >
 	<div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
 		<div class="mx-auto max-w-2xl text-center">
-			<p class="text-sm font-semibold tracking-widest text-(--on-surface-accent) uppercase">Parlons de ta situation</p>
 			<h2 id="contact-title" class="text-3xl text-(--primary) sm:text-5xl">Me contacter</h2>
 			<p class="mt-4 text-lg leading-relaxed text-(--secondary)">
 				Une question sur RE-FLOW ou envie de vérifier si l’accompagnement te correspond ? Écris-moi simplement.
@@ -59,15 +65,15 @@ const reveal =
 							<span class="block text-sm text-(--secondary)">Tu préfères appeler ?</span>
 							<a
 								id="phone-link"
-								href="#"
+								href={phoneHref}
 								class="mt-1 block font-semibold text-(--primary) hover:underline"
-								aria-label="Téléphone"
+								aria-label={`Appeler Cécile au ${phoneDisplay}`}
 							>
-								<span id="phone-display">Chargement…</span>
+								<span id="phone-display">{phoneDisplay}</span>
 							</a>
 						</span>
 					</div>
-					<div class="mt-4 flex items-center gap-2 border-t border-black/5 pt-4 text-sm text-(--secondary)">
+					<div class="mt-5 flex items-center gap-2 border-t border-black/5 pt-5 text-sm text-(--secondary)">
 						<Clock3 class="size-4 shrink-0 text-(--primary)" aria-hidden="true" />
 						Réponse sous 24 à 48 h ouvrées
 					</div>
@@ -117,7 +123,7 @@ const reveal =
 							required
 							maxlength="120"
 							autocomplete="name"
-							class="mt-2 w-full rounded-xl border border-(--outline) bg-(--surface-container-low) px-4 py-3.5 text-(--on-surface) transition placeholder:text-(--outline) focus:border-(--primary) focus:ring-3 focus:ring-(--primary)/12 focus:outline-none"
+							class={fieldClass}
 							placeholder="Ton nom"
 						/>
 					</div>
@@ -133,7 +139,7 @@ const reveal =
 							maxlength="254"
 							autocomplete="email"
 							inputmode="email"
-							class="mt-2 w-full rounded-xl border border-(--outline) bg-(--surface-container-low) px-4 py-3.5 text-(--on-surface) transition placeholder:text-(--outline) focus:border-(--primary) focus:ring-3 focus:ring-(--primary)/12 focus:outline-none"
+							class={fieldClass}
 							placeholder="ton@email.com"
 						/>
 					</div>
@@ -150,7 +156,7 @@ const reveal =
 						maxlength="40"
 						autocomplete="tel"
 						inputmode="tel"
-						class="mt-2 w-full rounded-xl border border-(--outline) bg-(--surface-container-low) px-4 py-3.5 text-(--on-surface) transition placeholder:text-(--outline) focus:border-(--primary) focus:ring-3 focus:ring-(--primary)/12 focus:outline-none"
+						class={fieldClass}
 						placeholder="06 12 34 56 78"
 					/>
 				</div>
@@ -169,7 +175,7 @@ const reveal =
 						maxlength="5000"
 						rows="6"
 						aria-describedby="message-help"
-						class="mt-2 w-full resize-y rounded-xl border border-(--outline) bg-(--surface-container-low) px-4 py-3.5 text-(--on-surface) transition placeholder:text-(--outline) focus:border-(--primary) focus:ring-3 focus:ring-(--primary)/12 focus:outline-none"
+						class={`${fieldClass} resize-y`}
 						placeholder="Bonjour Cécile, je souhaiterais…"
 					></textarea>
 				</div>
@@ -229,26 +235,6 @@ const reveal =
 		</div>
 	</div>
 </section>
-
-<script is:inline>
-	(function () {
-		const a = '0' + '6';
-		const b = '8' + '6';
-		const c = '4' + '1';
-		const d = '5' + '7';
-		const e = '0' + '1';
-		const phoneNumber = a + b + c + d + e;
-		const phoneDisplay = phoneNumber.replace(/(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5');
-
-		const phoneLink = document.getElementById('phone-link');
-		const phoneDisplayEl = document.getElementById('phone-display');
-
-		if (phoneLink && phoneDisplayEl) {
-			phoneLink.href = 'tel:+33' + phoneNumber.substring(1);
-			phoneDisplayEl.textContent = phoneDisplay;
-		}
-	})();
-</script>
 
 <script is:inline>
 	const form = document.querySelector('form[name="contact"]');

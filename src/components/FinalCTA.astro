@@ -1,4 +1,5 @@
 ---
+import { TUNNEL_IMMERSION_CTA_LABEL } from '../consts';
 import TunnelCtaLink from './TunnelCtaLink.astro';
 import WhatsAppCtaLink from './WhatsAppCtaLink.astro';
 
@@ -24,29 +25,31 @@ const reveal =
 				Prête à reconnecter avec ton corps ?
 			</h2>
 			<p class="mx-auto mt-6 max-w-2xl text-lg text-(--on-primary-container)">
-				Choisis une approche douce, progressive et à distance, réellement compatible avec ton quotidien de femme
-				concernée par la maladie chronique, peu importe où tu es en France.
+				Commence par tester le programme pendant 4 jours, gratuitement et sans engagement. Si tu préfères en
+				parler avant, réserve un échange ou pose une question rapide sur WhatsApp.
 			</p>
-			<div class="mt-10 flex flex-col justify-center gap-6 sm:flex-row sm:flex-wrap">
+			<div class="mt-10 flex flex-col items-center justify-center gap-4">
 				<TunnelCtaLink
 					campaign="final-cta"
-					class="inline-flex items-center justify-center rounded-full bg-(--surface) px-10 py-5 text-lg font-bold text-(--primary) transition hover:bg-(--primary-fixed)"
+					class="inline-flex w-full max-w-md items-center justify-center rounded-full bg-(--surface) px-10 py-5 text-lg font-bold text-(--primary) transition hover:bg-(--primary-fixed) sm:w-auto"
 				>
-					Commencer l’immersion en ligne
+					{TUNNEL_IMMERSION_CTA_LABEL}
 				</TunnelCtaLink>
-				<a
-					href="#contact"
-					class="inline-flex items-center justify-center rounded-full border border-(--on-primary)/30 px-10 py-5 text-lg font-bold text-(--on-primary) transition hover:bg-(--on-primary)/10"
-				>
-					Réserver un échange à distance
-				</a>
-				<WhatsAppCtaLink
-					campaign="final-cta"
-					showIcon={true}
-					class="inline-flex items-center justify-center gap-2 rounded-full border border-(--on-primary)/30 px-10 py-5 text-lg font-bold text-(--on-primary) transition hover:bg-(--on-primary)/10"
-				>
-					Écrire sur WhatsApp
-				</WhatsAppCtaLink>
+				<div class="flex w-full max-w-lg flex-col gap-3 sm:flex-row sm:justify-center">
+					<a
+						href="#contact"
+						class="inline-flex flex-1 items-center justify-center rounded-full border border-(--on-primary)/35 px-8 py-3.5 text-base font-semibold text-(--on-primary) transition hover:bg-(--on-primary)/10"
+					>
+						Échanger avant de commencer
+					</a>
+					<WhatsAppCtaLink
+						campaign="final-cta"
+						showIcon={true}
+						class="inline-flex flex-1 items-center justify-center gap-2 rounded-full border border-(--on-primary)/25 px-8 py-3.5 text-base font-medium text-(--on-primary-container) transition hover:bg-(--on-primary)/10"
+					>
+						Question sur WhatsApp
+					</WhatsAppCtaLink>
+				</div>
 			</div>
 		</div>
 	</div>
