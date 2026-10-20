@@ -16,6 +16,10 @@ const splitParenthetical = (text: string) =>
 	data-rg-root
 	data-total={String(TOTAL_QUESTIONS)}
 >
+	<p class="mb-4 text-sm leading-relaxed text-(--secondary)" data-rg-resume hidden>
+		Tu reprends là où tu t’étais arrêtée.
+	</p>
+
 	{/* ---------- Progression (activée par le script) ---------- */}
 	<div class="mb-6" data-rg-progress hidden>
 		<div class="flex items-baseline justify-between gap-4">
@@ -46,7 +50,6 @@ const splitParenthetical = (text: string) =>
 
 	{/* ---------- Questionnaire ---------- */}
 	<form data-rg-form novalidate>
-		{/* Empilement grille : hauteur stable = question la plus haute */}
 		<div data-rg-steps>
 			{
 				QUESTIONS.map((q) => (
@@ -260,9 +263,12 @@ const splitParenthetical = (text: string) =>
 						J’accepte de recevoir mon bilan personnalisé et que Cécile me recontacte au sujet de la solution Re-Flow.{' '}
 						<a
 							href="/politique-de-confidentialite/"
+							target="_blank"
+							rel="noopener noreferrer"
 							class="font-semibold text-(--primary) underline underline-offset-2"
 						>
 							Politique de confidentialité
+							<span class="sr-only"> (s’ouvre dans un nouvel onglet)</span>
 						</a>
 					</span>
 				</label>
@@ -316,19 +322,21 @@ const splitParenthetical = (text: string) =>
 			Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.
 		</p>
 	</section>
+
+	<p class="mt-8 text-center">
+		<a
+			href="/"
+			class="text-sm font-medium text-(--secondary) underline decoration-(--outline-variant) underline-offset-4 transition hover:text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+		>
+			Revenir à l’accueil
+		</a>
+	</p>
 </div>
 
 <style>
-	/* Toutes les étapes dans la même cellule : la hauteur suit la question la plus haute. */
-	[data-rg-root][data-js='on'] [data-rg-steps] {
-		display: grid;
-	}
-	[data-rg-root][data-js='on'] [data-rg-steps] > .rg-step {
-		grid-area: 1 / 1;
-	}
+	/* Une seule étape dans le flux : la hauteur suit la question affichée. */
 	[data-rg-root][data-js='on'] [data-rg-steps] > .rg-step:not([data-current]) {
-		visibility: hidden;
-		pointer-events: none;
+		display: none;
 	}
 </style>
 
@@ -372,6 +380,7 @@ const splitParenthetical = (text: string) =>
 		const phoneField = leadForm.querySelector<HTMLInputElement>('#rg-lead-phone')!;
 		const consentField = leadForm.querySelector<HTMLInputElement>('#rg-lead-consent')!;
 		const steps = Array.from(root.querySelectorAll<HTMLFieldSetElement>('[data-rg-step]'));
+		const resumeNote = root.querySelector<HTMLElement>('[data-rg-resume]')!;
 		const autoAdvanced = new Set<number>();
 		const answeredTracked = new Set<number>();
 		const LEAD_SUBMIT_LABEL = 'Recevoir mon bilan';
@@ -472,6 +481,100 @@ const splitParenthetical = (text: string) =>
 				const radio = selected(step);
 				return radio ? [{ id: step.dataset.qid!, optionIndex: Number(radio.value) }] : [];
 			});
+		const DRAFT_KEY = 'cecile-reflow-quiz';
+		type Draft = { v: 1; step: number; answers: Record<string, number> };
+		const storageGet = (key: string) => {
+			try {
+				return localStorage.getItem(key);
+			} catch {
+				return null;
+			}
+		};
+		const storageSet = (key: string, value: string) => {
+			try {
+				localStorage.setItem(key, value);
+			} catch {
+				/* Navigation privée ou quota : le quiz continue dans la page. */
+			}
+		};
+		const storageRemove = (key: string) => {
+			try {
+				localStorage.removeItem(key);
+			} catch {
+				/* ignore */
+			}
+		};
+		const readDraft = (): Draft | null => {
+			const raw = storageGet(DRAFT_KEY);
+			if (!raw) return null;
+			try {
+				const parsed = JSON.parse(raw) as Partial<Draft>;
+				if (
+					parsed?.v !== 1 ||
+					typeof parsed.step !== 'number' ||
+					!parsed.answers ||
+					typeof parsed.answers !== 'object'
+				) {
+					return null;
+				}
+				const answers: Record<string, number> = {};
+				for (const step of steps) {
+					const id = step.dataset.qid;
+					if (!id) continue;
+					const optionIndex = parsed.answers[id];
+					if (
+						typeof optionIndex !== 'number' ||
+						!Number.isInteger(optionIndex) ||
+						optionIndex < 0 ||
+						optionIndex > 3
+					) {
+						continue;
+					}
+					answers[id] = optionIndex;
+				}
+				return { v: 1, step: parsed.step, answers };
+			} catch {
+				return null;
+			}
+		};
+		const persistDraft = () => {
+			const answers: Record<string, number> = {};
+			for (const step of steps) {
+				const radio = selected(step);
+				const id = step.dataset.qid;
+				if (!radio || !id) continue;
+				answers[id] = Number(radio.value);
+			}
+			if (Object.keys(answers).length === 0) return;
+			const draft: Draft = { v: 1, step: gate.hidden ? current : steps.length, answers };
+			storageSet(DRAFT_KEY, JSON.stringify(draft));
+		};
+		const clearDraft = () => storageRemove(DRAFT_KEY);
+		const dismissResume = () => {
+			resumeNote.hidden = true;
+		};
+		const restoreDraft = (): 'question' | 'gate' | null => {
+			const draft = readDraft();
+			if (!draft || Object.keys(draft.answers).length === 0) return null;
+			for (const [index, step] of steps.entries()) {
+				const id = step.dataset.qid;
+				if (!id) continue;
+				const optionIndex = draft.answers[id];
+				if (optionIndex === undefined) continue;
+				const radio = step.querySelector<HTMLInputElement>(`input[type="radio"][value="${optionIndex}"]`);
+				if (!radio) continue;
+				radio.checked = true;
+				autoAdvanced.add(index);
+				answeredTracked.add(index);
+			}
+			if (readAnswers().length === 0) return null;
+			startedTracked = true;
+			if (draft.step >= steps.length && readAnswers().length === steps.length) return 'gate';
+			const firstGap = steps.findIndex((step) => !selected(step));
+			const saved = Math.max(0, Math.floor(draft.step));
+			current = firstGap === -1 ? Math.min(saved, steps.length - 1) : Math.min(saved, firstGap);
+			return 'question';
+		};
 		const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const scrollToQuiz = () =>
 			root.scrollIntoView({
@@ -543,21 +646,13 @@ const splitParenthetical = (text: string) =>
 			const hasAnswer = Boolean(selected(steps[current]));
 			nextBtn.hidden = !hasAnswer || autoAdvancePending || !autoAdvanced.has(current);
 			nextBtn.textContent = current === steps.length - 1 ? 'Découvrir mon profil' : 'Suivant';
+			persistDraft();
 			if (!focus) return;
 			steps[current].querySelector('legend')?.focus({ preventScroll: true });
 			const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0;
 			if (root.getBoundingClientRect().top < headerHeight + 8) scrollToQuiz();
 		};
-		const goNext = () => {
-			window.clearTimeout(advanceTimer);
-			autoAdvancePending = false;
-			if (form.hidden || !selected(steps[current])) return;
-			if (current < steps.length - 1) {
-				current++;
-				render();
-				return;
-			}
-			if (readAnswers().length !== steps.length) return;
+		const showGate = () => {
 			const scored = scoreQuiz(readAnswers());
 			if (scored) {
 				gateProfile.textContent = scored.profile.label;
@@ -575,6 +670,20 @@ const splitParenthetical = (text: string) =>
 			gate.hidden = false;
 			document.querySelector('[data-rg-intro]')?.setAttribute('hidden', '');
 			document.querySelector('[data-rg-info]')?.setAttribute('hidden', '');
+			persistDraft();
+		};
+		const goNext = () => {
+			window.clearTimeout(advanceTimer);
+			autoAdvancePending = false;
+			dismissResume();
+			if (form.hidden || !selected(steps[current])) return;
+			if (current < steps.length - 1) {
+				current++;
+				render();
+				return;
+			}
+			if (readAnswers().length !== steps.length) return;
+			showGate();
 			scrollToQuiz();
 			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
 			trackUmami(ANALYTICS_EVENTS.quizCompleted);
@@ -599,6 +708,7 @@ const splitParenthetical = (text: string) =>
 		form.addEventListener('change', (event) => {
 			const target = event.target;
 			if (!(target instanceof HTMLInputElement) || target.type !== 'radio') return;
+			dismissResume();
 			if (!startedTracked) {
 				startedTracked = true;
 				trackUmami(ANALYTICS_EVENTS.quizStarted);
@@ -630,6 +740,7 @@ const splitParenthetical = (text: string) =>
 		prevBtn.addEventListener('click', () => {
 			window.clearTimeout(advanceTimer);
 			autoAdvancePending = false;
+			dismissResume();
 			if (current > 0) {
 				current--;
 				render();
@@ -717,6 +828,7 @@ const splitParenthetical = (text: string) =>
 				if (!response.ok) throw new Error('lead');
 				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
 				trackMeta('Lead', QUIZ_CONTENT);
+				clearDraft();
 				root.querySelector<HTMLElement>('[data-rg-profile-name]')!.textContent = scored.profile.label;
 				showProfile(scored.profile.key);
 				gate.hidden = true;
@@ -735,9 +847,12 @@ const splitParenthetical = (text: string) =>
 				leadSubmit.textContent = leadError.hidden ? LEAD_SUBMIT_LABEL : 'Réessayer';
 			}
 		});
-		const openQuiz = () => {
+		const revealQuiz = () => {
 			document.querySelector('[data-rg-intro]')?.setAttribute('hidden', '');
 			document.querySelector('[data-rg-quiz-panel]')?.removeAttribute('hidden');
+		};
+		const openQuiz = () => {
+			revealQuiz();
 			scrollToQuiz();
 			steps[0]?.querySelector('legend')?.focus({ preventScroll: true });
 			trackQuizCtaClicked();
@@ -754,7 +869,21 @@ const splitParenthetical = (text: string) =>
 		root.querySelector<HTMLElement>('[data-rg-nav]')!.hidden = false;
 		progress.hidden = false;
 		root.dataset.js = 'on';
+		const restored = restoreDraft();
 		render(false);
+		if (restored === 'gate') {
+			revealQuiz();
+			showGate();
+			resumeNote.hidden = false;
+			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
+		} else if (restored === 'question') {
+			revealQuiz();
+			resumeNote.hidden = false;
+			root.querySelector<HTMLElement>('[data-rg-live]')!.textContent =
+				`Tes réponses sont conservées. Question ${current + 1} sur ${steps.length}.`;
+			steps[current].querySelector('legend')?.focus({ preventScroll: true });
+			scrollToQuiz();
+		}
 
 		const intro = document.querySelector('[data-rg-intro]');
 		if (typeof IntersectionObserver === 'undefined') {

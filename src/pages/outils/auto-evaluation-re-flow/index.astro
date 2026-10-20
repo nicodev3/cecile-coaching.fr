@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { Timer } from '@lucide/astro';
 import coachPortrait from '../../../assets/cecile-coach-sportive.webp';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ReflowAssessment from '../../../components/ReflowAssessment.astro';
@@ -45,7 +44,7 @@ const appStructuredData = {
 					<span class="mx-auto block size-28 overflow-hidden rounded-full ring-1 ring-(--outline-variant) sm:size-32">
 						<Image
 							src={coachPortrait}
-							alt="Cécile, coach sportive — Activité Physique Adaptée"
+							alt="Portrait de Cécile Cichosz"
 							class="size-full object-cover object-[50%_0%]"
 							width={360}
 							height={540}
@@ -53,12 +52,11 @@ const appStructuredData = {
 						/>
 					</span>
 					<p class="mt-4 text-base text-(--on-surface)">
-						<span class="font-bold">Cécile, </span>coach sportive — Activité Physique Adaptée.
+						Cécile Cichosz, coach en Activité Physique Adaptée.
 					</p>
-					<h1 class="mt-8 text-xl leading-tight font-extrabold text-(--primary) sm:text-4xl">
+					<h1 class="mt-8 text-xl leading-tight font-medium text-balance text-(--primary) sm:text-4xl">
 						Découvre ce dont tu as (vraiment) besoin pour retrouver de l’énergie.
 					</h1>
-					<p class="mt-4 text-3xl" aria-hidden="true">🧘‍♀️</p>
 					<p class="mx-auto mt-4 max-w-xl text-base leading-relaxed text-(--secondary)">
 						Réponds à ces {TOTAL_QUESTIONS} questions pour faire le point sur tes capacités physiques.
 					</p>
@@ -67,14 +65,19 @@ const appStructuredData = {
 					</p>
 					<button
 						type="button"
-						class="mx-auto mt-8 flex w-full max-w-xl items-center justify-center rounded-full bg-(--primary) px-8 py-3.5 text-lg font-bold text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) cursor-pointer"
+						class="mx-auto mt-8 flex w-full max-w-xl items-center justify-center rounded-full bg-(--primary) px-8 py-3.5 text-lg font-medium text-(--on-primary) transition hover:bg-(--primary-container) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary) cursor-pointer"
 						data-rg-start
 					>
-						Commencer le quiz →
+						Commencer le quiz
 					</button>
-					<p class="mt-3 inline-flex items-center justify-center gap-1.5 text-sm text-(--secondary)">
-						<Timer class="size-4 shrink-0" aria-hidden="true" stroke-width={2} />
-						<span>2 minutes chrono — 100&nbsp;% gratuit</span>
+					<p class="mt-3 text-sm text-(--secondary)">2 minutes pas plus — 100&nbsp;% gratuit</p>
+					<p class="mt-6">
+						<a
+							href="/"
+							class="text-sm font-medium text-(--secondary) underline decoration-(--outline-variant) underline-offset-4 transition hover:text-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+						>
+							Revenir à l’accueil
+						</a>
 					</p>
 				</div>
 			</section>
