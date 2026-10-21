@@ -70,7 +70,15 @@ const appStructuredData = {
 					>
 						Commencer le quiz
 					</button>
-					<p class="mt-3 text-sm text-(--secondary)">2 minutes pas plus — 100&nbsp;% gratuit</p>
+					<p class="mt-3 text-sm text-(--secondary)" data-rg-start-note>2 minutes pas plus — 100&nbsp;% gratuit</p>
+					<button
+						type="button"
+						class="mx-auto mt-4 block cursor-pointer rounded-lg text-sm font-medium text-(--primary) underline decoration-(--outline-variant) underline-offset-4 transition hover:decoration-(--primary) focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-(--primary)"
+						data-rg-restart
+						hidden
+					>
+						Recommencer depuis le début
+					</button>
 					<p class="mt-6">
 						<a
 							href="/"

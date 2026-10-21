@@ -18,6 +18,13 @@ const splitParenthetical = (text: string) =>
 >
 	<p class="mb-4 text-sm leading-relaxed text-(--secondary)" data-rg-resume hidden>
 		Tu reprends là où tu t’étais arrêtée.
+		<button
+			type="button"
+			class="cursor-pointer rounded-sm font-medium text-(--primary) underline decoration-(--outline-variant) underline-offset-4 transition hover:decoration-(--primary) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-(--primary)"
+			data-rg-resume-restart
+		>
+			Recommencer depuis le début
+		</button>
 	</p>
 
 	{/* ---------- Progression (activée par le script) ---------- */}
@@ -401,6 +408,7 @@ const splitParenthetical = (text: string) =>
 		let leadSending = false;
 		let advanceTimer: number | undefined;
 		let autoAdvancePending = false;
+		let resumeState: 'question' | 'gate' | null = null;
 		let pendingBookingLead: BookingLead | null = null;
 		let bookingMountObserver: IntersectionObserver | undefined;
 
@@ -546,7 +554,8 @@ const splitParenthetical = (text: string) =>
 				answers[id] = Number(radio.value);
 			}
 			if (Object.keys(answers).length === 0) return;
-			const draft: Draft = { v: 1, step: gate.hidden ? current : steps.length, answers };
+			const atGate = !gate.hidden || resumeState === 'gate';
+			const draft: Draft = { v: 1, step: atGate ? steps.length : current, answers };
 			storageSet(DRAFT_KEY, JSON.stringify(draft));
 		};
 		const clearDraft = () => storageRemove(DRAFT_KEY);
@@ -851,39 +860,73 @@ const splitParenthetical = (text: string) =>
 			document.querySelector('[data-rg-intro]')?.setAttribute('hidden', '');
 			document.querySelector('[data-rg-quiz-panel]')?.removeAttribute('hidden');
 		};
+		const startButton = document.querySelector<HTMLButtonElement>('[data-rg-start]');
+		const startNote = document.querySelector<HTMLElement>('[data-rg-start-note]');
+		const introRestart = document.querySelector<HTMLButtonElement>('[data-rg-restart]');
+		const startLabel = startButton?.textContent?.trim() ?? '';
+		const startNoteText = startNote?.textContent ?? '';
+		const setIntroResume = (state: 'question' | 'gate' | null) => {
+			if (startButton) startButton.textContent = state ? 'Reprendre le quiz' : startLabel;
+			if (startNote) {
+				startNote.textContent =
+					state === 'gate'
+						? 'Tes réponses sont enregistrées : il ne reste qu’à découvrir ton profil.'
+						: state === 'question'
+							? `Tu en étais à la question ${current + 1} sur ${steps.length}.`
+							: startNoteText;
+			}
+			if (introRestart) introRestart.hidden = !state;
+		};
 		const openQuiz = () => {
+			const resuming = resumeState;
+			resumeState = null;
 			revealQuiz();
 			scrollToQuiz();
-			steps[0]?.querySelector('legend')?.focus({ preventScroll: true });
 			trackQuizCtaClicked();
+			if (resuming === 'gate') {
+				showGate();
+				resumeNote.hidden = false;
+				gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
+				return;
+			}
+			if (resuming === 'question') {
+				resumeNote.hidden = false;
+				root.querySelector<HTMLElement>('[data-rg-live]')!.textContent =
+					`Tes réponses sont conservées. Question ${current + 1} sur ${steps.length}.`;
+			}
+			steps[current]?.querySelector('legend')?.focus({ preventScroll: true });
 		};
-		const closeQuizToIntro = () => {
-			document.querySelector('[data-rg-intro]')?.removeAttribute('hidden');
-			document.querySelector('[data-rg-info]')?.removeAttribute('hidden');
-			document.querySelector('[data-rg-quiz-panel]')?.setAttribute('hidden', '');
+		const restartQuiz = () => {
+			window.clearTimeout(advanceTimer);
+			autoAdvancePending = false;
+			clearDraft();
+			resumeState = null;
+			form.reset();
+			autoAdvanced.clear();
+			answeredTracked.clear();
+			startedTracked = false;
+			current = 0;
+			clearFieldErrors();
+			gate.hidden = true;
+			form.hidden = false;
+			progress.hidden = false;
+			dismissResume();
+			setIntroResume(null);
+			render(false);
+			openQuiz();
 		};
 
-		document.querySelector('[data-rg-start]')?.addEventListener('click', openQuiz);
+		startButton?.addEventListener('click', openQuiz);
+		introRestart?.addEventListener('click', restartQuiz);
+		root.querySelector('[data-rg-resume-restart]')?.addEventListener('click', restartQuiz);
 
 		root.querySelector<HTMLElement>('[data-rg-nojs]')!.hidden = true;
 		root.querySelector<HTMLElement>('[data-rg-nav]')!.hidden = false;
 		progress.hidden = false;
 		root.dataset.js = 'on';
-		const restored = restoreDraft();
+		resumeState = restoreDraft();
 		render(false);
-		if (restored === 'gate') {
-			revealQuiz();
-			showGate();
-			resumeNote.hidden = false;
-			gate.querySelector<HTMLElement>('#rg-gate-title')?.focus({ preventScroll: true });
-		} else if (restored === 'question') {
-			revealQuiz();
-			resumeNote.hidden = false;
-			root.querySelector<HTMLElement>('[data-rg-live]')!.textContent =
-				`Tes réponses sont conservées. Question ${current + 1} sur ${steps.length}.`;
-			steps[current].querySelector('legend')?.focus({ preventScroll: true });
-			scrollToQuiz();
-		}
+		setIntroResume(resumeState);
 
 		const intro = document.querySelector('[data-rg-intro]');
 		if (typeof IntersectionObserver === 'undefined') {
