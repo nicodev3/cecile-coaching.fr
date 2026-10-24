@@ -123,7 +123,7 @@ export function buildReflowBookingUrl(lead: ReflowBookingLead): string {
 const MEDICAL_DISCLAIMER =
 	'Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.';
 
-/** Bouton « bulletproof » : triple centrage (align + text-align + margin auto). */
+/** Bouton : hauteur = line-height pour centrer le texte, tableau pour centrer le bloc. */
 export function formatQuizBookingButtonHtml(bookingUrl: string): string {
 	const href = escapeHtml(bookingUrl);
 	return `<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;margin:24px 0;">
@@ -131,8 +131,8 @@ export function formatQuizBookingButtonHtml(bookingUrl: string): string {
 <td align="center" style="text-align:center;width:100%;">
 <table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
 <tr>
-<td align="center" bgcolor="${COLORS.plum}" style="background-color:${COLORS.plum};border-radius:9999px;">
-<a href="${href}" target="_blank" rel="noopener noreferrer" style="background-color:${COLORS.plum};border:1px solid ${COLORS.plum};border-radius:9999px;color:#ffffff;display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;line-height:1.2;padding:14px 28px;text-align:center;text-decoration:none;">Réserver mon bilan</a>
+<td align="center" bgcolor="${COLORS.plum}" height="48" style="background-color:${COLORS.plum};border-radius:9999px;height:48px;padding:0;vertical-align:middle;">
+<a href="${href}" target="_blank" rel="noopener noreferrer" style="background-color:${COLORS.plum};border-radius:9999px;color:#ffffff;display:block;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;height:48px;line-height:48px;padding:0 28px;text-align:center;text-decoration:none;">Réserver mon bilan</a>
 </td>
 </tr>
 </table>
