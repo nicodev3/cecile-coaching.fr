@@ -51,6 +51,7 @@ test('formatQuizLeadEmailHtml inclut intro et CTA bilan', () => {
 		bookingUrl,
 	});
 	assert.match(html, /Bonjour Marie/);
+	assert.doesNotMatch(html, /<!DOCTYPE|<html|<body/i);
 	assert.match(html, /Réserver mon bilan/);
 	assert.match(html, /bgcolor="#60406A"/);
 	assert.match(html, /margin:0 auto/);

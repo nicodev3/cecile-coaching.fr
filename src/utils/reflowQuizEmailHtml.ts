@@ -142,7 +142,9 @@ export function formatQuizBookingButtonHtml(bookingUrl: string): string {
 }
 
 /**
- * Enveloppe complète pour aperçu ou envoi test — reproduit la cible du workflow GHL participante.
+ * Fragment HTML (pas de document complet) : GHL l’injecte dans son propre
+ * `<p>{{contact.resultat_quizz}}</p>`. Un doctype/html/body ferait fuiter
+ * le texte « Bonjour » hors de la carte.
  */
 export function formatQuizLeadEmailHtml(options: {
 	firstName: string;
@@ -152,13 +154,9 @@ export function formatQuizLeadEmailHtml(options: {
 	const { firstName, profileHtml, bookingUrl } = options;
 	const hello = escapeHtml(firstName);
 
-	return `<!DOCTYPE html>
-<html lang="fr">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
-<body style="margin:0;padding:0;background-color:${COLORS.paper};">
-<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="background-color:${COLORS.paper};">
-<tr><td align="center" style="padding:24px 16px;">
-<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;background-color:${COLORS.surface};border-radius:16px;border:1px solid ${COLORS.outline};">
+	return `<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;background-color:${COLORS.paper};">
+<tr><td align="center" style="padding:24px 16px;background-color:${COLORS.paper};">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width:600px;width:100%;background-color:${COLORS.surface};border-radius:16px;border:1px solid ${COLORS.outline};">
 <tr><td style="padding:28px 24px 8px;font-family:${FONT};">
 <p style="margin:0 0 16px;font-size:16px;line-height:1.625;color:${COLORS.slate};">Bonjour ${hello},</p>
 <p style="margin:0 0 24px;font-size:16px;line-height:1.625;color:${COLORS.slate};">Merci d’avoir pris ce temps pour faire le point. Voici ton profil&nbsp;:</p>
@@ -174,6 +172,5 @@ ${formatQuizBookingButtonHtml(bookingUrl)}
 </td></tr>
 </table>
 <p style="margin:16px 0 0;max-width:600px;font-family:${FONT};font-size:12px;line-height:1.5;color:${COLORS.secondary};text-align:center;">RE-FLOW · Vitalité sans violence</p>
-</td></tr></table>
-</body></html>`;
+</td></tr></table>`;
 }
