@@ -171,6 +171,6 @@ ${formatQuizBookingButtonHtml(bookingUrl)}
 <p style="margin:0;font-size:16px;line-height:1.625;color:${COLORS.slate};">À très vite,<br><strong style="color:${COLORS.plum};">Cécile</strong></p>
 </td></tr>
 </table>
-<p style="margin:16px 0 0;max-width:600px;font-family:${FONT};font-size:12px;line-height:1.5;color:${COLORS.secondary};text-align:center;">RE-FLOW · Vitalité sans violence</p>
+<p style="margin:16px 0 0;max-width:600px;font-family:${FONT};font-size:12px;line-height:1.5;color:${COLORS.secondary};text-align:center;">RE-FLOW · Refaire de son corps un allié</p>
 </td></tr></table>`;
 }
