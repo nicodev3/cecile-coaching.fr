@@ -37,7 +37,7 @@ test('formatQuizResultPlain reste lisible dans les notes CRM', () => {
 	assert.match(plain, /Ta priorité aujourd’hui/);
 });
 
-test('formatQuizLeadEmailHtml inclut le CTA bilan', () => {
+test('formatQuizLeadEmailHtml inclut intro et CTA bilan', () => {
 	const result = scoreQuiz(answers('AAAAAAAAAAAA'));
 	const bookingUrl = buildReflowBookingUrl({
 		firstName: 'Marie',
@@ -50,6 +50,9 @@ test('formatQuizLeadEmailHtml inclut le CTA bilan', () => {
 		profileHtml: formatQuizProfileHtml(result),
 		bookingUrl,
 	});
+	assert.match(html, /Bonjour Marie/);
 	assert.match(html, /Réserver mon bilan/);
+	assert.match(html, /bgcolor="#60406A"/);
 	assert.ok(html.includes(bookingUrl.replace(/&/g, '&amp;')));
+	assert.doesNotMatch(html, new RegExp(`>${bookingUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<`));
 });

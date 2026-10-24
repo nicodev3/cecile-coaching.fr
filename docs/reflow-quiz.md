@@ -42,17 +42,15 @@ Les secrets existants restent `GHL_PRIVATE_TOKEN`, `GHL_LOCATION_ID` et
 Le téléphone français est normalisé au format E.164. Après validation, le
 widget de réservation GoHighLevel est chargé dans une iframe, préremplie
 avec ces quatre coordonnées. Refaire le test supprime le widget précédent.
-Le champ résultat reçoit un **fragment HTML** pour le mail participante : profil,
-résumé, intro, priorité, approche RE-FLOW, petit pas et invitation (styles inline,
-tokens plum / sauge). Il ne contient ni score, ni réponses, ni lien programme.
-Une **note interne** reprend la version **texte brut** (`formatQuizResultPlain`)
-et ajoute les 12 réponses.
+Le champ résultat reçoit l’**email HTML complet** pour la participante (intro,
+profil, bouton bilan prérempli, disclaimer, signature) via `formatQuizLeadEmailHtml()`.
+Il ne contient ni score, ni réponses brutes du questionnaire. Une **note interne**
+reprend la version **texte brut** (`formatQuizResultPlain`) et ajoute les 12 réponses.
 
-Dans le workflow GHL, insérer ce champ dans un bloc qui **interprète le HTML**
-(merge custom field sans ré-échapper). Enveloppe recommandée dans le template :
-intro prénom, merge du champ, bouton « Réserver mon bilan » (URL widget + merge
-coordonnées), disclaimer médical, signature. Référence d’enveloppe :
-`formatQuizLeadEmailHtml()` dans `src/utils/reflowQuizEmailHtml.ts`.
+Dans le workflow GHL, le corps du mail peut se limiter à **`{{contact.resultat_quizz}}`**
+(seul merge, de préférence dans un `<td>` ou un bloc HTML — pas dans un `<p>`).
+Ne pas dupliquer intro / bilan / signature dans GHL : tout est déjà dans le champ.
+Sujet côté GHL : par ex. « Ton profil RE-FLOW ».
 
 À chaque questionnaire, les anciens tags de profil/dimension du quiz sont
 retirés, puis `quiz-reflow` et un seul des tags `quiz-reconnexion`,

@@ -9,6 +9,8 @@
 import { scoreQuiz, type SubmittedAnswer } from '../../src/data/reflow';
 import { normalizeFrenchPhone } from '../../src/utils/frenchPhone';
 import {
+	buildReflowBookingUrl,
+	formatQuizLeadEmailHtml,
 	formatQuizProfileHtml,
 	formatQuizResultPlain,
 } from '../../src/utils/reflowQuizEmailHtml';
@@ -214,7 +216,12 @@ export const onRequestPost = async (context: {
 	const result = scoreQuiz(answers);
 	if (!result) return json(400, 'invalid');
 
-	const quizText = formatQuizProfileHtml(result);
+	// Email participante complet : GHL peut n’envoyer que ce champ (merge seul dans le template).
+	const quizText = formatQuizLeadEmailHtml({
+		firstName,
+		profileHtml: formatQuizProfileHtml(result),
+		bookingUrl: buildReflowBookingUrl({ firstName, lastName, email, phone }),
+	});
 	const tags = [TRIGGER_TAG, `quiz-${result.profile.key}`];
 
 	let contactId = '';
