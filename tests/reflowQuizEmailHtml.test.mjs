@@ -53,6 +53,8 @@ test('formatQuizLeadEmailHtml inclut intro et CTA bilan', () => {
 	assert.match(html, /Bonjour Marie/);
 	assert.match(html, /Réserver mon bilan/);
 	assert.match(html, /bgcolor="#60406A"/);
+	assert.match(html, /margin:0 auto/);
+	assert.match(html, /text-align:center/);
 	assert.ok(html.includes(bookingUrl.replace(/&/g, '&amp;')));
 	assert.doesNotMatch(html, new RegExp(`>${bookingUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}<`));
 });

@@ -123,27 +123,19 @@ export function buildReflowBookingUrl(lead: ReflowBookingLead): string {
 const MEDICAL_DISCLAIMER =
 	'Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.';
 
-/** Bouton « bulletproof » compatible Gmail, Outlook et sanitizers GHL. */
+/** Bouton « bulletproof » : triple centrage (align + text-align + margin auto). */
 export function formatQuizBookingButtonHtml(bookingUrl: string): string {
 	const href = escapeHtml(bookingUrl);
-	return `<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="margin:24px 0;">
+	return `<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;margin:24px 0;">
 <tr>
-<td align="center">
-<!--[if mso]>
-<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${href}" style="height:48px;v-text-anchor:middle;width:240px;" arcsize="50%" strokecolor="${COLORS.plum}" fillcolor="${COLORS.plum}">
-<w:anchorlock/>
-<center style="color:#ffffff;font-family:Arial,sans-serif;font-size:16px;font-weight:bold;">Réserver mon bilan</center>
-</v:roundrect>
-<![endif]-->
-<!--[if !mso]><!-->
-<table role="presentation" border="0" cellpadding="0" cellspacing="0">
+<td align="center" style="text-align:center;width:100%;">
+<table role="presentation" border="0" cellpadding="0" cellspacing="0" align="center" style="margin:0 auto;">
 <tr>
-<td align="center" bgcolor="${COLORS.plum}" style="background-color:${COLORS.plum};border-radius:9999px;mso-padding-alt:14px 28px;">
-<a href="${href}" target="_blank" rel="noopener noreferrer" style="background-color:${COLORS.plum};border:1px solid ${COLORS.plum};border-radius:9999px;color:#ffffff;display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;line-height:1.2;padding:14px 28px;text-decoration:none;">Réserver mon bilan</a>
+<td align="center" bgcolor="${COLORS.plum}" style="background-color:${COLORS.plum};border-radius:9999px;">
+<a href="${href}" target="_blank" rel="noopener noreferrer" style="background-color:${COLORS.plum};border:1px solid ${COLORS.plum};border-radius:9999px;color:#ffffff;display:inline-block;font-family:Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;line-height:1.2;padding:14px 28px;text-align:center;text-decoration:none;">Réserver mon bilan</a>
 </td>
 </tr>
 </table>
-<!--<![endif]-->
 </td>
 </tr>
 </table>`;
@@ -174,10 +166,10 @@ export function formatQuizLeadEmailHtml(options: {
 <tr><td style="padding:8px 24px 24px;border-top:4px solid ${COLORS.sage};">
 ${profileHtml}
 </td></tr>
-<tr><td style="padding:8px 24px 28px;font-family:${FONT};">
-<p style="margin:0 0 8px;font-size:16px;line-height:1.625;color:${COLORS.slate};">Si tu veux le relire ensemble, je t’offre un bilan sans engagement. On regarde ton profil, ton prochain pas, et si l’accompagnement te correspond.</p>
+<tr><td align="center" style="padding:8px 24px 28px;font-family:${FONT};text-align:left;">
+<p style="margin:0 0 8px;font-size:16px;line-height:1.625;color:${COLORS.slate};text-align:left;">Si tu veux le relire ensemble, je t’offre un bilan sans engagement. On regarde ton profil, ton prochain pas, et si l’accompagnement te correspond.</p>
 ${formatQuizBookingButtonHtml(bookingUrl)}
-<p style="margin:0 0 20px;font-size:14px;line-height:1.5;color:${COLORS.secondary};">${escapeHtml(MEDICAL_DISCLAIMER)}</p>
+<p style="margin:0 0 20px;font-size:14px;line-height:1.5;color:${COLORS.secondary};text-align:left;">${escapeHtml(MEDICAL_DISCLAIMER)}</p>
 <p style="margin:0;font-size:16px;line-height:1.625;color:${COLORS.slate};">À très vite,<br><strong style="color:${COLORS.plum};">Cécile</strong></p>
 </td></tr>
 </table>
