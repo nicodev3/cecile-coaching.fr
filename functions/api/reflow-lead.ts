@@ -8,6 +8,10 @@
  */
 import { scoreQuiz, type SubmittedAnswer } from '../../src/data/reflow';
 import { normalizeFrenchPhone } from '../../src/utils/frenchPhone';
+import {
+	formatQuizProfileHtml,
+	formatQuizResultPlain,
+} from '../../src/utils/reflowQuizEmailHtml';
 
 interface LeadEnv {
 	GHL_PRIVATE_TOKEN?: string;
@@ -99,32 +103,9 @@ const isAllowedOrigin = (request: Request): boolean => {
 	}
 };
 
-const formatQuizResult = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
-	// Texte du mail : même fil que l’écran résultat, sans score ni lien programme.
-	const profile = result.profile;
-	return [
-		`Ton profil Re-flow : ${profile.label}`,
-		profile.summary,
-		'',
-		...profile.intro,
-		'',
-		'Ta priorité aujourd’hui',
-		profile.priority,
-		...profile.guidance,
-		'',
-		'C’est justement l’approche de Re-flow',
-		...profile.approach,
-		'',
-		'Ton petit pas du jour',
-		...profile.smallStep,
-		'',
-		profile.invitation,
-	].join('\n');
-};
-
 const formatQuizNote = (result: NonNullable<ReturnType<typeof scoreQuiz>>): string => {
 	return [
-		formatQuizResult(result),
+		formatQuizResultPlain(result),
 		'',
 		'Réponses au questionnaire',
 		...result.answers.map((answer) => `${answer.number}. ${answer.label} : ${answer.optionLabel}`),
@@ -233,7 +214,7 @@ export const onRequestPost = async (context: {
 	const result = scoreQuiz(answers);
 	if (!result) return json(400, 'invalid');
 
-	const quizText = formatQuizResult(result);
+	const quizText = formatQuizProfileHtml(result);
 	const tags = [TRIGGER_TAG, `quiz-${result.profile.key}`];
 
 	let contactId = '';
