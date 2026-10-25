@@ -5,6 +5,8 @@
  * Le mail vers Cécile est un workflow GoHighLevel déclenché par le tag `quiz-reflow`.
  * Les tags sont appliqués via POST /contacts/:id/tags (pas dans l’upsert) pour
  * déclencher correctement « Tag Added », y compris après un nouveau test.
+ * GHL_META_WEBHOOK_URL (optionnel) : webhook du workflow GHL qui envoie le Lead
+ * à la Meta Conversion API, appelé seulement une fois le contact enregistré.
  */
 import { scoreQuiz, type SubmittedAnswer } from '../../src/data/reflow';
 import { normalizeFrenchPhone } from '../../src/utils/frenchPhone';
@@ -14,11 +16,13 @@ import {
 	formatQuizProfileHtml,
 	formatQuizResultPlain,
 } from '../../src/utils/reflowQuizEmailHtml';
+import { buildMetaLeadWebhookPayload, type MetaLeadWebhookPayload } from '../../src/utils/metaLeadWebhook';
 
 interface LeadEnv {
 	GHL_PRIVATE_TOKEN?: string;
 	GHL_LOCATION_ID?: string;
 	GHL_RESULT_FIELD_ID?: string;
+	GHL_META_WEBHOOK_URL?: string;
 }
 
 const GHL_BASE = 'https://services.leadconnectorhq.com';
@@ -176,9 +180,27 @@ const applyQuizTags = async (
 	}
 };
 
+/** Un échec du webhook Meta ne doit jamais faire échouer l’inscription : on le journalise seulement. */
+const sendMetaLead = async (url: string, payload: MetaLeadWebhookPayload) => {
+	try {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+			body: JSON.stringify(payload),
+		});
+		if (!response.ok) {
+			const detail = await readUpstreamError(response);
+			console.error('reflow-lead: webhook Meta refusé', response.status, detail);
+		}
+	} catch (error) {
+		console.error('reflow-lead: webhook Meta impossible', error);
+	}
+};
+
 export const onRequestPost = async (context: {
 	request: Request;
 	env: LeadEnv;
+	waitUntil: (promise: Promise<unknown>) => void;
 }): Promise<Response> => {
 	const { request, env } = context;
 	if (!isAllowedOrigin(request)) return json(403, 'unavailable');
@@ -258,6 +280,21 @@ export const onRequestPost = async (context: {
 		const detail = tagged ? await readUpstreamError(tagged) : undefined;
 		if (tagged) console.error('reflow-lead: ajout tags refusé', tagged.status, detail);
 		return json(500, 'unavailable', detail);
+	}
+
+	// Le lead est complet et enregistré : envoi en tâche de fond pour ne pas retarder le résultat.
+	const metaWebhookUrl = env.GHL_META_WEBHOOK_URL?.trim();
+	if (metaWebhookUrl) {
+		const payload = buildMetaLeadWebhookPayload(request, {
+			firstName,
+			lastName,
+			email,
+			phone,
+			profileKey: result.profile.key,
+			eventId: crypto.randomUUID(),
+			now: Date.now(),
+		});
+		context.waitUntil(sendMetaLead(metaWebhookUrl, payload));
 	}
 
 	try {

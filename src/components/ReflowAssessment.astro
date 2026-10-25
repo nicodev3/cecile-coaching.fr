@@ -836,7 +836,7 @@ const splitParenthetical = (text: string) =>
 				}
 				if (!response.ok) throw new Error('lead');
 				trackUmami(ANALYTICS_EVENTS.leadSubmitted);
-				trackMeta('Lead', QUIZ_CONTENT);
+				// Le Lead part côté serveur (webhook GHL → Meta Conversion API), pas via le pixel.
 				clearDraft();
 				root.querySelector<HTMLElement>('[data-rg-profile-name]')!.textContent = scored.profile.label;
 				showProfile(scored.profile.key);
