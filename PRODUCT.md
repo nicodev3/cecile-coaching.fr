@@ -48,7 +48,7 @@ Ce que les voisins ne peuvent pas copier tels quels :
 - **Canal principal post-clic** : tunnel sur `cecile-coaching.fr` (GoHighLevel) avec UTM depuis le site (`src/utils/tunnelUrl.ts`).
 - **Canaux secondaires** : WhatsApp, formulaire contact (`/api/contact`), email coach.
 - **Hébergement** : site statique Astro, déploiement Cloudflare Pages ; domaine canonique **https://cecilecoaching.fr** (sans tiret).
-- **SEO / contenu** : piliers (`src/data/pillars.ts`), articles blog (`src/content/blog/`), outil auto-évaluation (`/outils/auto-evaluation-re-flow/`).
+- **SEO / contenu** : piliers (`src/data/pillars.ts`), articles blog (`src/content/blog/`), quiz d’auto-évaluation Re-flow hébergé dans le funnel GoHighLevel (`https://cecile-coaching.fr/quiz`, lien central `QUIZ_URL` dans `src/utils/tunnelUrl.ts`).
 
 ## Capabilities and Constraints
 
@@ -87,7 +87,7 @@ Ce que les voisins ne peuvent pas copier tels quels :
 | Témoignages | `src/components/Testimonials.astro` |
 | Articles & guides SEO | `src/content/blog/`, piliers |
 | Mentions légales, confidentialité | pages dédiées |
-| Auto-évaluation | `src/pages/outils/auto-evaluation-re-flow/` |
+| Auto-évaluation | funnel GoHighLevel « quiz » (`https://cecile-coaching.fr/quiz`) |
 
 **Absences à respecter** : pas de logos clients enterprise, pas de garanties médicales, pas de prix catalogue tant que la politique « sur demande » tient.
 

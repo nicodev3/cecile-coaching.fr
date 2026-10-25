@@ -7,7 +7,6 @@ import robotsTxt from 'astro-robots-txt';
 import llmsMd from './src/integrations/llmsMd.mjs';
 
 import tailwindcss from '@tailwindcss/vite';
-import { reflowLeadDevPlugin } from './src/dev/reflowLeadDevPlugin.mjs';
 
 // https://astro.build/config
 export default defineConfig({
@@ -57,6 +56,6 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [tailwindcss(), reflowLeadDevPlugin()],
+    plugins: [tailwindcss()],
   },
 });

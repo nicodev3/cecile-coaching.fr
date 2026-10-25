@@ -16,7 +16,7 @@ const SITE_DESCRIPTION =
 
 const SKIP_DIRS = new Set(['_astro', 'node_modules']);
 const SKIP_FILES = new Set(['404.html']);
-const SKIP_PATHS = ['/merci-rendez-vous'];
+const SKIP_PATHS = [];
 
 function collectHtml(dir, out = []) {
 	for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {

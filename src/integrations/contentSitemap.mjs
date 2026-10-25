@@ -42,7 +42,6 @@ export default function contentSitemap() {
 			},
 		},
 		sitemap({
-			filter: (page) => !page.startsWith('https://cecilecoaching.fr/merci-rendez-vous'),
 			serialize: (item) => {
 				const lastmod = dates.get(new URL(item.url).pathname);
 				return lastmod ? { ...item, lastmod } : item;

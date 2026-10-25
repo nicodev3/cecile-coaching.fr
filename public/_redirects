@@ -9,6 +9,10 @@ http://www.cecilecoaching.fr/*  https://cecilecoaching.fr/:splat  301
 # Ancienne page publique remplacée par la page française actuelle.
 /about/  /a-propos/  301
 
-# Ancien test Ricci et Gagnon remplacé par l'auto-évaluation Re-flow.
-/outils/test-ricci-gagnon/  /outils/auto-evaluation-re-flow/  301
-/outils/test-ricci-gagnon   /outils/auto-evaluation-re-flow/  301
+# Le quiz Re-flow et sa page de confirmation sont hébergés dans le funnel GoHighLevel.
+/outils/test-ricci-gagnon/          https://cecile-coaching.fr/quiz  301
+/outils/test-ricci-gagnon           https://cecile-coaching.fr/quiz  301
+/outils/auto-evaluation-re-flow/    https://cecile-coaching.fr/quiz  301
+/outils/auto-evaluation-re-flow     https://cecile-coaching.fr/quiz  301
+/merci-rendez-vous/                 https://cecile-coaching.fr/quiz  301
+/merci-rendez-vous                  https://cecile-coaching.fr/quiz  301

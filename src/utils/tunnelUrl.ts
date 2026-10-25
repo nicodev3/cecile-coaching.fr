@@ -1,6 +1,9 @@
 /** Origine du tunnel GoHighLevel (sans slash final dans les calculs d’URL). */
 export const TUNNEL_ORIGIN = 'https://cecile-coaching.fr';
 export const TUNNEL_ENTRY_PATH = '/';
+/** Quiz RE-FLOW, hébergé dans le funnel GoHighLevel. */
+export const QUIZ_PATH = '/quiz';
+export const QUIZ_URL = `${TUNNEL_ORIGIN}${QUIZ_PATH}`;
 
 const UTM_SOURCE = 'cecilecoaching.fr';
 const UTM_MEDIUM = 'referral';

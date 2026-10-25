@@ -1,13 +1,15 @@
+import { QUIZ_URL } from '../utils/tunnelUrl';
+
 /**
- * Outils interactifs (auto-évaluations) - chemins avec slash final pour cohérence sitemap.
+ * Outils interactifs (auto-évaluations), hébergés dans le funnel GoHighLevel.
  * Source de vérité unique pour la nav, le footer et le hub /outils/.
  */
 export type ToolKey = 'reflow';
 
 export interface Tool {
 	key: ToolKey;
-	/** URL de la page outil */
-	slug: `/outils/${string}/`;
+	/** URL absolue de l’outil */
+	slug: string;
 	/** Libellé long pour titres, nav et footer */
 	label: string;
 	/** Libellé court pour breadcrumbs / cartes */
@@ -23,7 +25,7 @@ export interface Tool {
 export const TOOLS_BY_KEY: Record<ToolKey, Tool> = {
 	reflow: {
 		key: 'reflow',
-		slug: '/outils/auto-evaluation-re-flow/',
+		slug: QUIZ_URL,
 		label: 'Auto-évaluation Re-flow',
 		shortLabel: 'Quiz : évalue tes capacités physiques en 12 questions',
 		tagline:

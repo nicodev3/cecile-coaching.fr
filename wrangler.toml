@@ -7,6 +7,4 @@ pages_build_output_dir = "dist"
 # → astro build + soumission IndexNow (scripts/submit-indexnow.mjs)
 #
 # Secrets Pages (dashboard, jamais dans le dépôt) :
-# GHL_PRIVATE_TOKEN, GHL_LOCATION_ID, GHL_RESULT_FIELD_ID, GHL_META_WEBHOOK_URL, BREVO_API_KEY
-# Les fonctions functions/api/reflow-lead.ts et functions/api/contact.js
-# les lisent au moment du POST.
+# BREVO_API_KEY, lu par functions/api/contact.js au moment du POST.
