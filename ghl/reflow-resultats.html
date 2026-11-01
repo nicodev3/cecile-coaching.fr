@@ -1,540 +1,26 @@
 <!--
-	RE-FLOW — Pages de résultats du quiz (bloc « Code personnalisé » GoHighLevel)
+	RE-FLOW — Résultat du quiz (bloc « Custom Javascript/HTML » du funnel GoHighLevel)
+	Source : dépôt cecile-coaching.fr, ghl/reflow-resultats.html — mode d’emploi : docs/ghl-resultats-re-flow.md
 
-	À coller tel quel dans un élément « Custom Code / HTML » de la page de résultats
-	du funnel. Mode d’emploi complet : docs/ghl-resultats-re-flow.md
-
-	Le bloc choisit le profil et les points d’attention à partir de :
-	  1. window.REFLOW_RESULT (merge fields GHL), si renseigné ci-dessous ;
-	  2. les paramètres de l’URL : ?profil=energie&q1=B&q2=C… &first_name=…&email=… ;
-	  3. à défaut de profil, le barème RE-FLOW appliqué aux 12 réponses.
+	Affiche l’une des 4 pages de résultats (Équilibre, Énergie, Reconnexion, Force),
+	les points d’attention selon les réponses, puis l’appel bilan offert et le calendrier.
 -->
-<script>
-	/* Facultatif : merge fields GHL. Un champ non remplacé ({{…}}) est ignoré. */
-	window.REFLOW_RESULT = window.REFLOW_RESULT || {
-		profil: '',
-		first_name: '',
-		last_name: '',
-		email: '',
-		phone: '',
-		answers: {},
-	};
-</script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Montserrat:wght@500;600&display=swap"
-/>
-
-<style>
-	#reflow-resultat {
-		--rf-plum: #60406a;
-		--rf-plum-ink: #4a2d57;
-		--rf-plum-soft: #82628c;
-		--rf-sage: #c4d6b7;
-		--rf-sage-soft: #e6eedf;
-		--rf-paper: #f7faf6;
-		--rf-shell: #f5f6f3;
-		--rf-white: #ffffff;
-		--rf-ink: #111827;
-		--rf-slate: #334155;
-		--rf-muted: #676767;
-		--rf-shadow: 0 2px 6px rgba(96, 64, 106, 0.25), 0 8px 24px rgba(96, 64, 106, 0.33);
-		--rf-title: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-		--rf-body: 'Hanken Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-		background: var(--rf-paper);
-		color: var(--rf-ink);
-		font-family: var(--rf-body);
-		font-size: 1rem;
-		line-height: 1.625;
-		-webkit-font-smoothing: antialiased;
-		overflow-x: hidden;
-	}
-	#reflow-resultat *,
-	#reflow-resultat *::before,
-	#reflow-resultat *::after {
-		box-sizing: border-box;
-	}
-	#reflow-resultat h1,
-	#reflow-resultat h2,
-	#reflow-resultat h3,
-	#reflow-resultat p,
-	#reflow-resultat ul,
-	#reflow-resultat ol {
-		margin: 0;
-		padding: 0;
-	}
-	#reflow-resultat h1,
-	#reflow-resultat h2,
-	#reflow-resultat h3 {
-		font-family: var(--rf-title);
-		font-weight: 500;
-		letter-spacing: -0.02em;
-		text-wrap: balance;
-		color: var(--rf-plum);
-	}
-	#reflow-resultat p,
-	#reflow-resultat li {
-		text-wrap: pretty;
-	}
-	#reflow-resultat strong {
-		font-weight: 700;
-		color: var(--rf-plum-ink);
-	}
-
-	.rf-wrap {
-		width: 100%;
-		max-width: 64rem;
-		margin: 0 auto;
-		padding: 0 1rem;
-	}
-	.rf-narrow {
-		max-width: 42rem;
-	}
-	.rf-section {
-		padding: 3rem 0;
-	}
-	.rf-section--shell {
-		background: var(--rf-shell);
-	}
-
-	/* En-tête */
-	.rf-hero {
-		position: relative;
-		padding: 3.5rem 0 3rem;
-		overflow: hidden;
-	}
-	.rf-hero::before,
-	.rf-hero::after {
-		content: '';
-		position: absolute;
-		border-radius: 9999px;
-		filter: blur(60px);
-		pointer-events: none;
-	}
-	.rf-hero::before {
-		width: 22rem;
-		height: 22rem;
-		top: -8rem;
-		right: -6rem;
-		background: rgba(196, 214, 183, 0.7);
-	}
-	.rf-hero::after {
-		width: 16rem;
-		height: 16rem;
-		bottom: -8rem;
-		left: -6rem;
-		background: rgba(130, 98, 140, 0.18);
-	}
-	.rf-hero > .rf-wrap {
-		position: relative;
-		z-index: 1;
-	}
-	.rf-chip {
-		display: inline-block;
-		padding: 0.35rem 0.9rem;
-		border-radius: 9999px;
-		background: var(--rf-sage);
-		color: var(--rf-plum-ink);
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-	}
-	.rf-hello {
-		margin-top: 1.25rem !important;
-		color: var(--rf-slate);
-		font-size: 1.125rem;
-	}
-	.rf-hero h1 {
-		margin-top: 0.75rem;
-		font-size: clamp(2rem, 6vw, 3rem);
-		line-height: 1.15;
-	}
-	.rf-goal {
-		margin-top: 2rem !important;
-		padding: 1.25rem 1.5rem;
-		border-radius: 1rem;
-		background: var(--rf-white);
-		box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05);
-		border: 1px solid rgba(17, 24, 39, 0.05);
-		font-size: 1.125rem;
-		color: var(--rf-slate);
-	}
-	.rf-goal span {
-		display: block;
-		margin-bottom: 0.25rem;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-		color: var(--rf-plum);
-	}
-
-	/* Titres de blocs */
-	.rf-kicker {
-		display: flex;
-		align-items: baseline;
-		gap: 0.75rem;
-		font-size: 0.875rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-		color: var(--rf-plum);
-	}
-	.rf-kicker b {
-		font-family: var(--rf-title);
-		font-size: 1.5rem;
-		font-weight: 500;
-		letter-spacing: -0.02em;
-		color: var(--rf-plum-soft);
-	}
-	.rf-section h2 {
-		margin-top: 0.75rem;
-		font-size: clamp(1.5rem, 4.5vw, 2.25rem);
-		line-height: 1.2;
-	}
-	.rf-sub {
-		margin-top: 0.5rem !important;
-		font-size: 1.125rem;
-		color: var(--rf-slate);
-	}
-	.rf-prose {
-		margin-top: 1.5rem;
-		color: var(--rf-slate);
-	}
-	.rf-prose > * + * {
-		margin-top: 1rem !important;
-	}
-	.rf-prose .rf-key {
-		font-family: var(--rf-title);
-		font-size: 1.25rem;
-		font-weight: 600;
-		letter-spacing: -0.02em;
-		line-height: 1.3;
-		color: var(--rf-plum);
-	}
-
-	/* Cercle « tout ou rien » */
-	.rf-cycle {
-		list-style: none;
-		display: flex;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: 0.5rem;
-	}
-	.rf-cycle li {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-	}
-	.rf-cycle li span {
-		padding: 0.4rem 0.85rem;
-		border-radius: 9999px;
-		background: var(--rf-white);
-		border: 1px solid rgba(96, 64, 106, 0.25);
-		color: var(--rf-plum-ink);
-		font-size: 0.9375rem;
-	}
-	.rf-cycle li:not(:last-child)::after {
-		content: '→';
-		color: var(--rf-plum-soft);
-	}
-
-	/* Étapes de la priorité */
-	.rf-steps {
-		list-style: none;
-		margin-top: 1.75rem !important;
-		display: grid;
-		gap: 0.75rem;
-		counter-reset: rf-step;
-	}
-	.rf-steps li {
-		position: relative;
-		padding: 1rem 1.25rem 1rem 3.75rem;
-		border-radius: 1rem;
-		background: var(--rf-white);
-		border: 1px solid rgba(17, 24, 39, 0.05);
-		color: var(--rf-slate);
-		counter-increment: rf-step;
-	}
-	.rf-steps li::before {
-		content: counter(rf-step);
-		position: absolute;
-		left: 1.1rem;
-		top: 1rem;
-		width: 1.75rem;
-		height: 1.75rem;
-		border-radius: 9999px;
-		background: var(--rf-plum);
-		color: var(--rf-white);
-		font-family: var(--rf-title);
-		font-size: 0.875rem;
-		font-weight: 600;
-		line-height: 1.75rem;
-		text-align: center;
-	}
-	.rf-steps strong {
-		display: block;
-	}
-
-	.rf-attention {
-		margin-top: 1.75rem;
-		padding: 1.25rem 1.5rem;
-		border-radius: 1rem;
-		background: var(--rf-sage-soft);
-		border-left: 4px solid var(--rf-plum);
-		color: var(--rf-plum-ink);
-	}
-	.rf-attention h3 {
-		font-size: 1.0625rem;
-		font-weight: 600;
-		color: var(--rf-plum);
-	}
-	.rf-attention ul {
-		margin-top: 0.5rem !important;
-		list-style: none;
-		display: grid;
-		gap: 0.5rem;
-	}
-
-	/* Plan sur 4 mois */
-	.rf-months {
-		list-style: none;
-		margin-top: 2rem !important;
-		display: grid;
-		gap: 1rem;
-	}
-	.rf-month {
-		display: flex;
-		flex-direction: column;
-		padding: 1.5rem;
-		border-radius: 1rem;
-		background: var(--rf-white);
-		border: 1px solid rgba(17, 24, 39, 0.06);
-		box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
-	}
-	.rf-month-num {
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-		color: var(--rf-plum-soft);
-	}
-	.rf-month h3 {
-		margin-top: 0.25rem;
-		font-size: 1.25rem;
-		font-weight: 600;
-	}
-	.rf-month > p {
-		margin-top: 0.75rem !important;
-		color: var(--rf-slate);
-	}
-	.rf-list {
-		list-style: none;
-		margin-top: 1rem !important;
-		display: grid;
-		gap: 0.6rem;
-		color: var(--rf-slate);
-	}
-	.rf-list li {
-		position: relative;
-		padding-left: 1.4rem;
-	}
-	.rf-list li::before {
-		content: '';
-		position: absolute;
-		left: 0.15rem;
-		top: 0.6rem;
-		width: 0.5rem;
-		height: 0.5rem;
-		border-radius: 9999px;
-		background: var(--rf-sage);
-		box-shadow: inset 0 0 0 1.5px var(--rf-plum-soft);
-	}
-	.rf-benefit {
-		margin-top: auto;
-		padding-top: 1.25rem;
-	}
-	.rf-benefit p {
-		padding: 1rem 1.1rem;
-		border-radius: 0.75rem;
-		background: var(--rf-sage-soft);
-		color: var(--rf-plum-ink);
-	}
-	.rf-benefit span {
-		display: block;
-		margin-bottom: 0.2rem;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-		color: var(--rf-plum);
-	}
-
-	/* Semaine type */
-	.rf-sessions {
-		list-style: none;
-		margin-top: 2rem !important;
-		display: grid;
-		gap: 1rem;
-	}
-	.rf-session {
-		padding: 1.5rem;
-		border-radius: 1rem;
-		background: var(--rf-white);
-		border: 1px solid rgba(17, 24, 39, 0.06);
-	}
-	.rf-session-top {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		font-size: 0.8125rem;
-		font-weight: 600;
-		letter-spacing: 0.05em;
-		text-transform: uppercase;
-		color: var(--rf-plum-soft);
-	}
-	.rf-session-top em {
-		font-style: normal;
-		padding: 0.2rem 0.65rem;
-		border-radius: 9999px;
-		background: var(--rf-sage);
-		color: var(--rf-plum-ink);
-		letter-spacing: 0.02em;
-		text-transform: none;
-	}
-	.rf-session h3 {
-		margin-top: 0.75rem;
-		font-size: 1.25rem;
-		font-weight: 600;
-	}
-	.rf-session p {
-		margin-top: 0.5rem !important;
-		color: var(--rf-slate);
-	}
-
-	/* Appel bilan */
-	.rf-cta {
-		padding: 1.75rem 1.25rem;
-		border-radius: 1rem;
-		background: var(--rf-white);
-		border: 2px solid var(--rf-plum);
-	}
-	.rf-cta h2 {
-		margin-top: 0.5rem;
-	}
-	.rf-checks {
-		list-style: none;
-		margin-top: 1.25rem !important;
-		display: grid;
-		gap: 0.6rem;
-		color: var(--rf-slate);
-	}
-	.rf-checks li {
-		position: relative;
-		padding-left: 2rem;
-	}
-	.rf-checks li::before {
-		content: '';
-		position: absolute;
-		left: 0;
-		top: 0.2rem;
-		width: 1.25rem;
-		height: 1.25rem;
-		border-radius: 9999px;
-		background: var(--rf-plum)
-			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
-			center / 0.75rem no-repeat;
-	}
-	.rf-button {
-		display: inline-block;
-		margin-top: 1.5rem;
-		padding: 1rem 2rem;
-		border-radius: 9999px;
-		background: var(--rf-plum);
-		color: var(--rf-white) !important;
-		font-family: var(--rf-body);
-		font-weight: 600;
-		text-decoration: none !important;
-		box-shadow: var(--rf-shadow);
-		transition: background-color 0.2s ease;
-	}
-	.rf-button:hover {
-		background: var(--rf-plum-soft);
-	}
-	.rf-button:focus-visible {
-		outline: 2px solid var(--rf-plum);
-		outline-offset: 4px;
-	}
-	.rf-booking {
-		margin-top: 1.75rem;
-		min-height: 600px;
-		scroll-margin-top: 1.5rem;
-	}
-	.rf-booking iframe {
-		display: block;
-		width: 100%;
-		min-height: 600px;
-		border: 0;
-		overflow: hidden;
-	}
-	.rf-note {
-		margin-top: 2rem !important;
-		padding: 1rem 1.25rem;
-		border-radius: 1rem;
-		background: rgba(196, 214, 183, 0.4);
-		color: var(--rf-plum-ink);
-		font-size: 0.875rem;
-	}
-
-	@media (min-width: 40rem) {
-		.rf-wrap {
-			padding: 0 1.5rem;
-		}
-		.rf-section {
-			padding: 4.5rem 0;
-		}
-		.rf-hero {
-			padding: 5rem 0 4rem;
-		}
-		.rf-cta {
-			padding: 2.5rem;
-		}
-	}
-	@media (min-width: 48rem) {
-		.rf-months {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-		}
-		.rf-sessions {
-			grid-template-columns: repeat(3, minmax(0, 1fr));
-		}
-	}
-	@media (prefers-reduced-motion: reduce) {
-		.rf-button {
-			transition: none;
-		}
-	}
-</style>
-
-<div id="reflow-resultat" aria-live="polite"></div>
-
+<div id="reflow-resultat" style="display:block;width:100%"></div>
 <script>
 	(function () {
 		'use strict';
 
-		/* ------------------------------------------------------------------ */
-		/* Réglages                                                           */
-		/* ------------------------------------------------------------------ */
+		/* ---- Réglages ---- */
+		var QUIZ_URL = '/quiz'; // page du quiz dans le funnel
+		var HOME_URL = 'https://cecilecoaching.fr/';
 		var CALENDAR_ID = 'dJzUTOt5Rfugql6aVt4K';
-		var CALENDAR_URL = 'https://api.leadconnectorhq.com/widget/booking/' + CALENDAR_ID;
-		var EMBED_SCRIPT = 'https://link.msgsndr.com/js/form_embed.js';
+		var DRAFT_KEY = 'cecile-reflow-quiz'; // brouillon du quiz : { v: 1, answers: { energie: 2, … } }
+		var RESULT_KEY = 'cecile-reflow-result'; // résultat du quiz : { v: 1, profile: 'energie' }
+		var QUIZ_CONTENT = { content_name: 'quiz_reflow', content_category: 'quiz' };
 
 		var PROFILE_KEYS = ['reconnexion', 'energie', 'force', 'equilibre'];
+		/* Identifiants des questions Q1 → Q12 dans le quiz. */
+		var QUESTION_IDS = ['energie', 'mouvements', 'endurance', 'recuperation', 'travail', 'taches', 'loisirs', 'corps', 'reprise', 'apprehensions', 'besoin', 'projection'];
 
 		/* Libellés courts des réponses A → D, pour reconnaître une réponse
 		   transmise en texte plutôt qu’en lettre. */
@@ -921,6 +407,523 @@
 
 		var SESSION_NAMES = ['Pilates', 'Renforcement musculaire', 'Yoga / relaxation'];
 
+		/* ---- Styles (isolés du reste de la page GHL) ---- */
+		var CSS = `
+.rf {
+	--rf-plum: #60406a;
+	--rf-plum-ink: #4a2d57;
+	--rf-plum-soft: #82628c;
+	--rf-sage: #c4d6b7;
+	--rf-sage-soft: #e6eedf;
+	--rf-paper: #f7faf6;
+	--rf-shell: #f5f6f3;
+	--rf-white: #ffffff;
+	--rf-ink: #111827;
+	--rf-slate: #334155;
+	--rf-muted: #676767;
+	--rf-shadow: 0 2px 6px rgba(96, 64, 106, 0.25), 0 8px 24px rgba(96, 64, 106, 0.33);
+	--rf-title: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	--rf-body: 'Hanken Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+	background: var(--rf-paper);
+	color: var(--rf-ink);
+	font-family: var(--rf-body);
+	font-size: 1rem;
+	line-height: 1.625;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+}
+.rf *,
+.rf *::before,
+.rf *::after {
+	box-sizing: border-box;
+}
+.rf h1,
+.rf h2,
+.rf h3,
+.rf p,
+.rf ul,
+.rf ol {
+	margin: 0;
+	padding: 0;
+}
+.rf h1,
+.rf h2,
+.rf h3 {
+	font-family: var(--rf-title);
+	font-weight: 500;
+	letter-spacing: -0.02em;
+	text-wrap: balance;
+	color: var(--rf-plum);
+}
+.rf p,
+.rf li {
+	text-wrap: pretty;
+}
+.rf strong {
+	font-weight: 700;
+	color: var(--rf-plum-ink);
+}
+
+.rf-wrap {
+	width: 100%;
+	max-width: 64rem;
+	margin: 0 auto;
+	padding: 0 1rem;
+}
+.rf-narrow {
+	max-width: 42rem;
+}
+.rf-section {
+	padding: 3rem 0;
+}
+.rf-section--shell {
+	background: var(--rf-shell);
+}
+
+/* En-tête */
+.rf-hero {
+	position: relative;
+	padding: 3.5rem 0 3rem;
+	overflow: hidden;
+}
+.rf-hero::before,
+.rf-hero::after {
+	content: '';
+	position: absolute;
+	border-radius: 9999px;
+	filter: blur(60px);
+	pointer-events: none;
+}
+.rf-hero::before {
+	width: 22rem;
+	height: 22rem;
+	top: -8rem;
+	right: -6rem;
+	background: rgba(196, 214, 183, 0.7);
+}
+.rf-hero::after {
+	width: 16rem;
+	height: 16rem;
+	bottom: -8rem;
+	left: -6rem;
+	background: rgba(130, 98, 140, 0.18);
+}
+.rf-hero > .rf-wrap {
+	position: relative;
+	z-index: 1;
+}
+.rf-chip {
+	display: inline-block;
+	padding: 0.35rem 0.9rem;
+	border-radius: 9999px;
+	background: var(--rf-sage);
+	color: var(--rf-plum-ink);
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+}
+.rf-hello {
+	margin-top: 1.25rem !important;
+	color: var(--rf-slate);
+	font-size: 1.125rem;
+}
+.rf-hero h1 {
+	margin-top: 0.75rem;
+	font-size: clamp(2rem, 6vw, 3rem);
+	line-height: 1.15;
+}
+.rf-goal {
+	margin-top: 2rem !important;
+	padding: 1.25rem 1.5rem;
+	border-radius: 1rem;
+	background: var(--rf-white);
+	box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05);
+	border: 1px solid rgba(17, 24, 39, 0.05);
+	font-size: 1.125rem;
+	color: var(--rf-slate);
+}
+.rf-goal span {
+	display: block;
+	margin-bottom: 0.25rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--rf-plum);
+}
+
+/* Titres de blocs */
+.rf-kicker {
+	display: flex;
+	align-items: baseline;
+	gap: 0.75rem;
+	font-size: 0.875rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--rf-plum);
+}
+.rf-kicker b {
+	font-family: var(--rf-title);
+	font-size: 1.5rem;
+	font-weight: 500;
+	letter-spacing: -0.02em;
+	color: var(--rf-plum-soft);
+}
+.rf-section h2 {
+	margin-top: 0.75rem;
+	font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+	line-height: 1.2;
+}
+.rf-sub {
+	margin-top: 0.5rem !important;
+	font-size: 1.125rem;
+	color: var(--rf-slate);
+}
+.rf-prose {
+	margin-top: 1.5rem;
+	color: var(--rf-slate);
+}
+.rf-prose > * + * {
+	margin-top: 1rem !important;
+}
+.rf-prose .rf-key {
+	font-family: var(--rf-title);
+	font-size: 1.25rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.3;
+	color: var(--rf-plum);
+}
+
+/* Cercle « tout ou rien » */
+.rf-cycle {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+}
+.rf-cycle li {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+.rf-cycle li span {
+	padding: 0.4rem 0.85rem;
+	border-radius: 9999px;
+	background: var(--rf-white);
+	border: 1px solid rgba(96, 64, 106, 0.25);
+	color: var(--rf-plum-ink);
+	font-size: 0.9375rem;
+}
+.rf-cycle li:not(:last-child)::after {
+	content: '→';
+	color: var(--rf-plum-soft);
+}
+
+/* Étapes de la priorité */
+.rf-steps {
+	list-style: none;
+	margin-top: 1.75rem !important;
+	display: grid;
+	gap: 0.75rem;
+	counter-reset: rf-step;
+}
+.rf-steps li {
+	position: relative;
+	padding: 1rem 1.25rem 1rem 3.75rem;
+	border-radius: 1rem;
+	background: var(--rf-white);
+	border: 1px solid rgba(17, 24, 39, 0.05);
+	color: var(--rf-slate);
+	counter-increment: rf-step;
+}
+.rf-steps li::before {
+	content: counter(rf-step);
+	position: absolute;
+	left: 1.1rem;
+	top: 1rem;
+	width: 1.75rem;
+	height: 1.75rem;
+	border-radius: 9999px;
+	background: var(--rf-plum);
+	color: var(--rf-white);
+	font-family: var(--rf-title);
+	font-size: 0.875rem;
+	font-weight: 600;
+	line-height: 1.75rem;
+	text-align: center;
+}
+.rf-steps strong {
+	display: block;
+}
+
+.rf-attention {
+	margin-top: 1.75rem;
+	padding: 1.25rem 1.5rem;
+	border-radius: 1rem;
+	background: var(--rf-sage-soft);
+	border-left: 4px solid var(--rf-plum);
+	color: var(--rf-plum-ink);
+}
+.rf-attention h3 {
+	font-size: 1.0625rem;
+	font-weight: 600;
+	color: var(--rf-plum);
+}
+.rf-attention ul {
+	margin-top: 0.5rem !important;
+	list-style: none;
+	display: grid;
+	gap: 0.5rem;
+}
+
+/* Plan sur 4 mois */
+.rf-months {
+	list-style: none;
+	margin-top: 2rem !important;
+	display: grid;
+	gap: 1rem;
+}
+.rf-month {
+	display: flex;
+	flex-direction: column;
+	padding: 1.5rem;
+	border-radius: 1rem;
+	background: var(--rf-white);
+	border: 1px solid rgba(17, 24, 39, 0.06);
+	box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+}
+.rf-month-num {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--rf-plum-soft);
+}
+.rf-month h3 {
+	margin-top: 0.25rem;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+.rf-month > p {
+	margin-top: 0.75rem !important;
+	color: var(--rf-slate);
+}
+.rf-list {
+	list-style: none;
+	margin-top: 1rem !important;
+	display: grid;
+	gap: 0.6rem;
+	color: var(--rf-slate);
+}
+.rf-list li {
+	position: relative;
+	padding-left: 1.4rem;
+}
+.rf-list li::before {
+	content: '';
+	position: absolute;
+	left: 0.15rem;
+	top: 0.6rem;
+	width: 0.5rem;
+	height: 0.5rem;
+	border-radius: 9999px;
+	background: var(--rf-sage);
+	box-shadow: inset 0 0 0 1.5px var(--rf-plum-soft);
+}
+.rf-benefit {
+	margin-top: auto;
+	padding-top: 1.25rem;
+}
+.rf-benefit p {
+	padding: 1rem 1.1rem;
+	border-radius: 0.75rem;
+	background: var(--rf-sage-soft);
+	color: var(--rf-plum-ink);
+}
+.rf-benefit span {
+	display: block;
+	margin-bottom: 0.2rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--rf-plum);
+}
+
+/* Semaine type */
+.rf-sessions {
+	list-style: none;
+	margin-top: 2rem !important;
+	display: grid;
+	gap: 1rem;
+}
+.rf-session {
+	padding: 1.5rem;
+	border-radius: 1rem;
+	background: var(--rf-white);
+	border: 1px solid rgba(17, 24, 39, 0.06);
+}
+.rf-session-top {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	font-size: 0.8125rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: var(--rf-plum-soft);
+}
+.rf-session-top em {
+	font-style: normal;
+	padding: 0.2rem 0.65rem;
+	border-radius: 9999px;
+	background: var(--rf-sage);
+	color: var(--rf-plum-ink);
+	letter-spacing: 0.02em;
+	text-transform: none;
+}
+.rf-session h3 {
+	margin-top: 0.75rem;
+	font-size: 1.25rem;
+	font-weight: 600;
+}
+.rf-session p {
+	margin-top: 0.5rem !important;
+	color: var(--rf-slate);
+}
+
+/* Appel bilan */
+.rf-cta {
+	padding: 1.75rem 1.25rem;
+	border-radius: 1rem;
+	background: var(--rf-white);
+	border: 2px solid var(--rf-plum);
+}
+.rf-cta h2 {
+	margin-top: 0.5rem;
+}
+.rf-checks {
+	list-style: none;
+	margin-top: 1.25rem !important;
+	display: grid;
+	gap: 0.6rem;
+	color: var(--rf-slate);
+}
+.rf-checks li {
+	position: relative;
+	padding-left: 2rem;
+}
+.rf-checks li::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0.2rem;
+	width: 1.25rem;
+	height: 1.25rem;
+	border-radius: 9999px;
+	background: var(--rf-plum)
+		url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
+		center / 0.75rem no-repeat;
+}
+.rf-button {
+	display: inline-block;
+	margin-top: 1.5rem;
+	padding: 1rem 2rem;
+	border-radius: 9999px;
+	background: var(--rf-plum);
+	color: var(--rf-white) !important;
+	font-family: var(--rf-body);
+	font-weight: 600;
+	text-decoration: none !important;
+	box-shadow: var(--rf-shadow);
+	transition: background-color 0.2s ease;
+}
+.rf-button:hover {
+	background: var(--rf-plum-soft);
+}
+.rf-button:focus-visible {
+	outline: 2px solid var(--rf-plum);
+	outline-offset: 4px;
+}
+.rf-booking {
+	margin-top: 1.75rem;
+	min-height: 600px;
+	scroll-margin-top: 1.5rem;
+}
+.rf-booking iframe {
+	display: block;
+	width: 100%;
+	min-height: 600px;
+	border: 0;
+	overflow: hidden;
+}
+.rf-note {
+	margin-top: 2rem !important;
+	padding: 1rem 1.25rem;
+	border-radius: 1rem;
+	background: rgba(196, 214, 183, 0.4);
+	color: var(--rf-plum-ink);
+	font-size: 0.875rem;
+}
+
+@media (min-width: 40rem) {
+	.rf-wrap {
+		padding: 0 1.5rem;
+	}
+	.rf-section {
+		padding: 4.5rem 0;
+	}
+	.rf-hero {
+		padding: 5rem 0 4rem;
+	}
+	.rf-cta {
+		padding: 2.5rem;
+	}
+}
+@media (min-width: 48rem) {
+	.rf-months {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	.rf-sessions {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.rf-button {
+		transition: none;
+	}
+}
+:host {
+	display: block;
+	width: 100%;
+}
+.rf-home {
+	margin-top: 1.5rem !important;
+	text-align: center;
+	font-size: 0.875rem;
+}
+.rf-home a {
+	color: var(--rf-muted);
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+.rf-home a:hover {
+	color: var(--rf-plum);
+}
+.rf-missing {
+	text-align: center;
+}
+.rf-missing .rf-sub {
+	margin-top: 1rem !important;
+}
+`;
+
 		/* ------------------------------------------------------------------ */
 		/* Lecture des données                                                */
 		/* ------------------------------------------------------------------ */
@@ -950,8 +953,17 @@
 			return null;
 		}
 
-		/** Réponse → index 0–3 (A–D). Accepte « B », « 2 » ou le texte de la réponse. */
+		/**
+		 * Réponse → index 0–3 (A–D).
+		 * Nombre (stockage du quiz) : déjà un index 0–3.
+		 * Texte (URL) : « B », « 2 » (1–4) ou le libellé de la réponse.
+		 */
 		function parseAnswer(questionIndex, value) {
+			if (typeof value === 'number') return value >= 0 && value <= 3 && value % 1 === 0 ? value : null;
+			if (value && typeof value === 'object') {
+				if (typeof value.optionIndex === 'number') return parseAnswer(questionIndex, value.optionIndex);
+				return null;
+			}
 			var text = clean(value);
 			if (!text) return null;
 			if (/^[a-d]$/i.test(text)) return text.toUpperCase().charCodeAt(0) - 65;
@@ -964,6 +976,30 @@
 				if (wanted.indexOf(label) === 0 || label.indexOf(wanted) === 0) return i;
 			}
 			return null;
+		}
+
+		/** Réponses enregistrées par le quiz : { energie: 2, … }, { q1: 'C' } ou tableau dans l’ordre. */
+		function storedAnswers(raw) {
+			var out = [];
+			var data = null;
+			try {
+				data = typeof raw === 'string' ? JSON.parse(raw) : raw;
+			} catch (e) {}
+			var answers = data && (data.answers || data.reponses);
+			for (var q = 0; q < QUESTION_IDS.length; q++) {
+				var value = null;
+				if (Array.isArray(answers)) {
+					value = answers[q];
+					for (var i = 0; i < answers.length; i++) {
+						if (answers[i] && answers[i].id === QUESTION_IDS[q]) value = answers[i];
+					}
+				} else if (answers && typeof answers === 'object') {
+					value = answers[QUESTION_IDS[q]];
+					if (value == null) value = answers['q' + (q + 1)];
+				}
+				out.push(value == null ? null : parseAnswer(q, value));
+			}
+			return { data: data, answers: out };
 		}
 
 		/** Barème RE-FLOW : ratios exacts, départage par Q12 puis Q11, puis ordre stable. */
@@ -990,40 +1026,32 @@
 			return PROFILE_KEYS[order[0]];
 		}
 
-		function readInput(search, config) {
+		/**
+		 * Rassemble profil, réponses et coordonnées.
+		 * Profil : résultat enregistré par le quiz, puis ?reflow_profil= (ou ?profil=), puis barème.
+		 * Réponses : URL (q1…q12), puis résultat enregistré, puis brouillon du quiz.
+		 */
+		function readInput(search, stored) {
 			var params = new URLSearchParams(search || '');
-			var get = function (names) {
-				for (var i = 0; i < names.length; i++) {
-					var fromConfig = config && clean(config[names[i]]);
-					if (fromConfig) return fromConfig;
-				}
-				for (var j = 0; j < names.length; j++) {
-					var fromUrl = clean(params.get(names[j]));
-					if (fromUrl) return fromUrl;
-				}
-				return '';
-			};
-			var configAnswers = (config && config.answers) || {};
+			stored = stored || {};
+			var result = storedAnswers(stored.result);
+			var draft = storedAnswers(stored.draft);
 			var answers = [];
-			for (var q = 0; q < SCORING.length; q++) {
-				var n = q + 1;
-				var raw =
-					clean(configAnswers['q' + n]) ||
-					clean(configAnswers[n]) ||
-					clean(params.get('q' + n)) ||
-					clean(params.get('Q' + n));
-				answers.push(parseAnswer(q, raw));
+			for (var q = 0; q < QUESTION_IDS.length; q++) {
+				var fromUrl = parseAnswer(q, params.get('q' + (q + 1)) || params.get('Q' + (q + 1)));
+				answers.push(fromUrl != null ? fromUrl : result.answers[q] != null ? result.answers[q] : draft.answers[q]);
 			}
-			var profile = parseProfile(get(['profil', 'profile', 'resultat'])) || scoreProfile(answers);
+			var savedProfile = result.data && result.data.v === 1 ? parseProfile(result.data.profile) : null;
+			var profile =
+				savedProfile ||
+				parseProfile(params.get('reflow_profil')) ||
+				parseProfile(params.get('profil')) ||
+				scoreProfile(answers);
+			var get = function (key) { return clean(params.get(key)); };
 			return {
 				profile: profile,
 				answers: answers,
-				lead: {
-					first_name: get(['first_name', 'prenom', 'firstName']),
-					last_name: get(['last_name', 'nom', 'lastName']),
-					email: get(['email']),
-					phone: get(['phone', 'telephone']),
-				},
+				lead: { first_name: get('first_name'), last_name: get('last_name'), email: get('email'), phone: get('phone') },
 			};
 		}
 
@@ -1079,20 +1107,26 @@
 				.join('');
 		}
 
+		function renderHomeLink() {
+			return (
+				'<p class="rf-home"><a href="' + esc(HOME_URL) + '">' + esc('Revenir à l’accueil') + '</a></p>'
+			);
+		}
+
 		function renderCta() {
 			return (
-				'<section class="rf-section" aria-labelledby="rf-cta-title"><div class="rf-wrap"><div class="rf-cta">' +
+				'<section class="rf-section" aria-labelledby="rf-cta-title"><div class="rf-wrap"><div class="rf-cta" data-rf-booking>' +
 				'<span class="rf-chip">30 minutes · offert</span>' +
 				'<h2 id="rf-cta-title">' + esc(CTA.title) + '</h2>' +
 				'<p class="rf-sub">' + esc(CTA.sub) + '</p>' +
 				'<div class="rf-prose"><p>' + esc(CTA.intro) + '</p></div>' +
 				'<ul class="rf-checks">' + CTA.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>' +
 				'<a class="rf-button" href="#rf-booking" data-rf-booking-link>' + esc(CTA.button) + '</a>' +
-				'<div class="rf-booking" id="rf-booking" data-rf-booking-mount></div>' +
+				'<div class="rf-booking" id="rf-booking"><slot name="calendar"></slot></div>' +
 				'</div>' +
 				'<p class="rf-note">' +
 				esc('Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.') +
-				'</p></div></section>'
+				'</p>' + renderHomeLink() + '</div></section>'
 			);
 		}
 
@@ -1141,7 +1175,7 @@
 			return (
 				'<header class="rf-hero"><div class="rf-wrap rf-narrow">' +
 				'<span class="rf-chip">Profil ' + esc(p.label) + '</span>' + hello +
-				'<h1>' + esc(p.title) + '</h1>' +
+				'<h1 tabindex="-1">' + esc(p.title) + '</h1>' +
 				'<p class="rf-goal"><span>Ton objectif</span>' + esc(p.goal) + '</p>' +
 				'</div></header>' +
 
@@ -1178,62 +1212,16 @@
 			);
 		}
 
-		function renderFallback() {
+		/* Même message qu’avant quand aucun résultat n’est retrouvé. */
+		function renderMissing() {
 			return (
-				'<header class="rf-hero"><div class="rf-wrap rf-narrow">' +
-				'<span class="rf-chip">Ton résultat RE-FLOW</span>' +
-				'<h1>' + esc('Merci, tes réponses sont bien arrivées !') + '</h1>' +
-				'<p class="rf-goal">' +
-				esc('Ton résultat détaillé n’a pas pu s’afficher sur cette page. Pas d’inquiétude : réserve ton appel bilan offert, Cécile analysera tes réponses avec toi.') +
-				'</p></div></header>' +
-				renderCta()
+				'<header class="rf-hero rf-missing"><div class="rf-wrap rf-narrow">' +
+				'<h1>' + esc('Ton résultat n’est pas disponible ici') + '</h1>' +
+				'<p class="rf-sub">' + esc('Il a été envoyé par e-mail. Tu peux aussi refaire le quiz : il ne prend que 2 minutes.') + '</p>' +
+				'<a class="rf-button" href="' + esc(QUIZ_URL) + '">Refaire le quiz</a>' +
+				renderHomeLink() +
+				'</div></header>'
 			);
-		}
-
-		function mountBooking(root, lead) {
-			var mount = root.querySelector('[data-rf-booking-mount]');
-			if (!mount || mount.querySelector('iframe')) return;
-			var url = new URL(CALENDAR_URL);
-			['first_name', 'last_name', 'email', 'phone'].forEach(function (k) {
-				if (lead[k]) url.searchParams.set(k, lead[k]);
-			});
-			var iframe = document.createElement('iframe');
-			iframe.id = CALENDAR_ID + '_reflow';
-			iframe.src = url.toString();
-			iframe.title = 'Réserver mon appel bilan offert';
-			iframe.allow = 'payment';
-			iframe.setAttribute('scrolling', 'no');
-			mount.appendChild(iframe);
-			if (!document.querySelector('script[src="' + EMBED_SCRIPT + '"]')) {
-				var script = document.createElement('script');
-				script.src = EMBED_SCRIPT;
-				script.async = true;
-				document.body.appendChild(script);
-			}
-		}
-
-		function render(root, input) {
-			root.innerHTML = input.profile ? renderProfile(input.profile, input.answers, input.lead) : renderFallback();
-			root.setAttribute('data-profil', input.profile || 'inconnu');
-
-			/* Le calendrier se charge à l’approche du bloc, pour ne pas ralentir la page. */
-			var mount = root.querySelector('[data-rf-booking-mount]');
-			if ('IntersectionObserver' in window && mount) {
-				var observer = new IntersectionObserver(
-					function (entries) {
-						if (entries.some(function (e) { return e.isIntersecting; })) {
-							observer.disconnect();
-							mountBooking(root, input.lead);
-						}
-					},
-					{ rootMargin: '600px 0px' },
-				);
-				observer.observe(mount);
-			} else {
-				mountBooking(root, input.lead);
-			}
-			var link = root.querySelector('[data-rf-booking-link]');
-			if (link) link.addEventListener('click', function () { mountBooking(root, input.lead); });
 		}
 
 		/* API exposée pour les tests et le débogage dans la console. */
@@ -1246,7 +1234,123 @@
 			PROFILES: PROFILES,
 		};
 
-		var root = document.getElementById('reflow-resultat');
-		if (root) render(root, readInput(window.location.search, window.REFLOW_RESULT));
+		/* ------------------------------------------------------------------ */
+		/* Page                                                               */
+		/* ------------------------------------------------------------------ */
+		var host = document.getElementById('reflow-resultat');
+		if (!host || host.shadowRoot) return;
+
+		function trackUmami(name) {
+			if (window.umami && typeof window.umami.track === 'function') window.umami.track(name);
+		}
+		function trackMeta(event, params, custom) {
+			if (typeof window.fbq !== 'function') return;
+			window.fbq(custom ? 'trackCustom' : 'track', event, params);
+		}
+		function storageGet(key) {
+			try {
+				return localStorage.getItem(key);
+			} catch (e) {
+				return null;
+			}
+		}
+		function storageRemove(key) {
+			try {
+				localStorage.removeItem(key);
+			} catch (e) {}
+		}
+
+		// Les polices sont déclarées dans la page : le shadow DOM les utilise ensuite.
+		if (!document.querySelector('link[data-reflow-fonts]')) {
+			var fonts = document.createElement('link');
+			fonts.rel = 'stylesheet';
+			fonts.href = 'https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Montserrat:wght@500;600&display=swap';
+			fonts.setAttribute('data-reflow-fonts', '');
+			document.head.appendChild(fonts);
+		}
+
+		// Le brouillon contient les réponses : on le lit avant de l’effacer.
+		var input = readInput(window.location.search, {
+			result: storageGet(RESULT_KEY),
+			draft: storageGet(DRAFT_KEY),
+		});
+		var shadow = host.attachShadow({ mode: 'open' });
+		shadow.innerHTML =
+			'<style>' + CSS + '</style><div class="rf" data-profil="' + (input.profile || 'inconnu') + '">' +
+			(input.profile ? renderProfile(input.profile, input.answers, input.lead) : renderMissing()) +
+			'</div>';
+		if (!input.profile) return;
+
+		// Le quiz est terminé : la prochaine visite repart d’un questionnaire vierge.
+		storageRemove(DRAFT_KEY);
+		trackUmami('lead_submitted');
+
+		var booking = shadow.querySelector('[data-rf-booking]');
+		// L’iframe reste dans la page (slot) : form_embed.js de GHL la retrouve pour ajuster sa hauteur.
+		function mountCalendar() {
+			if (host.querySelector('iframe')) return;
+			var bookingUrl = new URL('https://api.leadconnectorhq.com/widget/booking/' + CALENDAR_ID);
+			['first_name', 'last_name', 'email', 'phone'].forEach(function (key) {
+				if (input.lead[key]) bookingUrl.searchParams.set(key, input.lead[key]);
+			});
+			var iframe = document.createElement('iframe');
+			iframe.id = CALENDAR_ID + '_reflow';
+			iframe.src = bookingUrl.toString();
+			iframe.title = 'Réserver mon appel bilan offert';
+			iframe.allow = 'payment';
+			iframe.setAttribute('scrolling', 'no');
+			iframe.style.cssText = 'display:block;width:100%;border:none;overflow:hidden;min-height:600px';
+			iframe.slot = 'calendar';
+			host.appendChild(iframe);
+			if (!document.querySelector('script[data-reflow-booking-embed]')) {
+				var embed = document.createElement('script');
+				embed.src = 'https://link.msgsndr.com/js/form_embed.js';
+				embed.async = true;
+				embed.setAttribute('data-reflow-booking-embed', '');
+				document.body.appendChild(embed);
+			}
+		}
+
+		var bookingViewed = false;
+		function trackBookingViewed() {
+			if (bookingViewed) return;
+			bookingViewed = true;
+			trackUmami('booking_viewed');
+			trackMeta('BookingViewed', QUIZ_CONTENT, true);
+		}
+
+		var link = shadow.querySelector('[data-rf-booking-link]');
+		if (link) {
+			link.addEventListener('click', function (event) {
+				event.preventDefault();
+				mountCalendar();
+				booking.querySelector('.rf-booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+			});
+		}
+
+		if (typeof IntersectionObserver === 'undefined') {
+			mountCalendar();
+			trackBookingViewed();
+		} else {
+			var mountObserver = new IntersectionObserver(
+				function (entries) {
+					if (!entries.some(function (e) { return e.isIntersecting; })) return;
+					mountCalendar();
+					mountObserver.disconnect();
+				},
+				{ rootMargin: '600px 0px' },
+			);
+			mountObserver.observe(booking);
+			var viewObserver = new IntersectionObserver(
+				function (entries) {
+					if (!entries.some(function (e) { return e.isIntersecting && e.intersectionRatio > 0; })) return;
+					trackBookingViewed();
+					viewObserver.disconnect();
+				},
+				{ threshold: 0.4 },
+			);
+			viewObserver.observe(booking);
+		}
+
 	})();
 </script>

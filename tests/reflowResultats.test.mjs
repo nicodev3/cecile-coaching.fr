@@ -6,6 +6,7 @@ import vm from 'node:vm';
 /** Charge le bloc GHL dans un bac à sable sans DOM : seule l’API exposée est testée. */
 const html = readFileSync(new URL('../ghl/reflow-resultats.html', import.meta.url), 'utf8');
 const scripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+const IDS = ['energie', 'mouvements', 'endurance', 'recuperation', 'travail', 'taches', 'loisirs', 'corps', 'reprise', 'apprehensions', 'besoin', 'projection'];
 const window = {};
 const sandbox = { window, document: { getElementById: () => null }, URLSearchParams, URL };
 vm.createContext(sandbox);
@@ -20,6 +21,12 @@ test('le profil transmis prime, quelle que soit sa forme', () => {
 	assert.equal(api.parseProfile('Profil ÉQUILIBRE'), 'equilibre');
 	assert.equal(api.parseProfile('{{contact.reflow_profil}}'), null);
 	assert.equal(api.readInput('?profil=force&q1=A').profile, 'force');
+	assert.equal(api.readInput('?reflow_profil=reconnexion').profile, 'reconnexion');
+	// Le résultat enregistré par le quiz prime sur l’URL, comme dans le bloc d’origine.
+	const result = JSON.stringify({ v: 1, profile: 'energie' });
+	assert.equal(api.readInput('?reflow_profil=force', { result }).profile, 'energie');
+	assert.equal(api.readInput('', { result: JSON.stringify({ v: 2, profile: 'energie' }) }).profile, null);
+	assert.equal(api.readInput('', { result: 'pas du json' }).profile, null);
 });
 
 test('les réponses sont reconnues en lettre, chiffre ou texte', () => {
@@ -51,13 +58,22 @@ test('points d’attention selon les règles de chaque profil', () => {
 	assert.equal(at('force', '?q2=B&q3=C&q6=D'), 3);
 });
 
-test('coordonnées : la config GHL prime sur l’URL, les merge fields vides sont ignorés', () => {
-	const input = api.readInput('?first_name=Url&email=a%40b.fr', {
-		first_name: 'Marie',
-		email: '{{contact.email}}',
-	});
+test('les réponses du brouillon du quiz alimentent les points d’attention', () => {
+	const draft = JSON.stringify({ v: 1, step: 12, answers: { energie: 2, endurance: 3, recuperation: 0 } });
+	const input = api.readInput('', { result: JSON.stringify({ v: 1, profile: 'energie' }), draft });
+	assert.deepEqual([...input.answers.slice(0, 4)], [2, null, 3, 0]);
+	assert.equal(api.attentionPoints('energie', input.answers).length, 2);
+	// L’URL prime sur le brouillon.
+	assert.equal(api.readInput('?q1=A', { draft }).answers[0], 0);
+	// Brouillon complet sans profil : le barème s’applique.
+	const full = Object.fromEntries(IDS.map((id) => [id, 0]));
+	assert.equal(api.readInput('', { draft: JSON.stringify({ v: 1, answers: full }) }).profile, 'equilibre');
+});
+
+test('coordonnées lues dans l’URL, merge fields non remplacés ignorés', () => {
+	const input = api.readInput('?first_name=Marie&email=%7B%7Bcontact.email%7D%7D');
 	assert.equal(input.lead.first_name, 'Marie');
-	assert.equal(input.lead.email, 'a@b.fr');
+	assert.equal(input.lead.email, '');
 });
 
 test('chaque profil a 4 mois et 3 séances', () => {

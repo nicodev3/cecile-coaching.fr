@@ -1,61 +1,54 @@
 # Pages de résultats du quiz RE-FLOW (GoHighLevel)
 
-Le fichier `ghl/reflow-resultats.html` est un bloc autonome (HTML, CSS, JS) à coller
-dans un élément **Code personnalisé** de la page de résultats du funnel GHL
-(`https://cecile-coaching.fr/quiz` → étape « Résultats »). Il n’est pas servi par le site Astro.
+`ghl/reflow-resultats.html` remplace le contenu de l’élément **Custom Javascript/HTML**
+de la page de résultats du funnel GHL. Il reprend le fonctionnement du bloc précédent
+(généré par `ghl/build.mjs`, hors dépôt) et remplace le résultat court par les 4 pages
+de résultats : Équilibre, Énergie, Reconnexion, Force.
 
-Une seule page GHL suffit : le bloc affiche le bon profil parmi Équilibre, Énergie,
-Reconnexion et Force, les points d’attention correspondant aux réponses, puis l’appel
-bilan offert avec le calendrier `dJzUTOt5Rfugql6aVt4K` prérempli.
+## Installation dans GHL
 
-## Données attendues
+1. Ouvrir la page de résultats du funnel, puis l’élément « Custom Javascript/HTML ».
+2. Tout sélectionner dans l’éditeur et le remplacer par le contenu de `ghl/reflow-resultats.html`.
+3. Enregistrer, publier, puis faire le quiz jusqu’au bout pour vérifier.
 
-Le bloc lit les données dans cet ordre :
+## Ce qui est conservé du bloc précédent
 
-1. `window.REFLOW_RESULT`, en tête du bloc, pour les merge fields GHL ;
-2. les paramètres de l’URL de la page ;
-3. à défaut de profil, le barème RE-FLOW appliqué aux 12 réponses (Q12 puis Q11 départagent).
+- Profil lu dans `localStorage['cecile-reflow-result']` (`{ v: 1, profile }`), sinon `?reflow_profil=`.
+- Brouillon `cecile-reflow-quiz` effacé une fois le résultat affiché.
+- Umami : `lead_submitted` à l’affichage, `booking_viewed` à la vue du calendrier ;
+  Meta : `BookingViewed` (personnalisé).
+- Calendrier `dJzUTOt5Rfugql6aVt4K` chargé à l’approche, prérempli avec `first_name`,
+  `last_name`, `email`, `phone` s’ils sont dans l’URL ; iframe dans la page (slot) pour `form_embed.js`.
+- Message « Ton résultat n’est pas disponible ici » et lien « Refaire le quiz » sans profil.
+- Rendu dans un shadow DOM : les styles GHL ne s’appliquent pas au bloc.
 
-| Paramètre | Valeurs acceptées |
-| --- | --- |
-| `profil` | `equilibre`, `energie`, `reconnexion`, `force` (majuscules, accents et « Profil … » tolérés) |
-| `q1` … `q12` | `A`–`D`, `1`–`4`, ou le texte de la réponse |
-| `first_name`, `last_name`, `email`, `phone` | préremplissage du calendrier (le prénom s’affiche aussi en tête) |
+## Personnalisation par les réponses
 
-Un merge field non remplacé (`{{contact.…}}`) est ignoré. Sans profil ni 12 réponses,
-la page affiche un message neutre et le calendrier.
+Les réponses viennent, dans cet ordre : de l’URL (`q1`…`q12`, valeurs `A`–`D`, `1`–`4` ou texte),
+du résultat enregistré (`answers`), puis du brouillon du quiz
+(`{ v: 1, answers: { energie: 2, mouvements: 1, … } }`, index 0–3). Le brouillon est lu avant
+d’être effacé. Sans profil enregistré ni `reflow_profil`, le profil est calculé à partir
+des 12 réponses avec le barème RE-FLOW (départage Q12 puis Q11).
 
-Exemple : `…/resultats?profil=energie&q1=C&q3=D&q4=B&first_name=Marie&email=marie%40exemple.fr`
-
-## Points d’attention
-
-| Profil | Règles |
+| Profil | Points d’attention |
 | --- | --- |
 | Équilibre | Q1 = B/C/D · Q2 = B/C/D |
 | Énergie | Q1 = C/D · Q3 = C/D · Q4 = B/C/D |
 | Reconnexion | Q8 = B/C/D · Q9 = C/D · Q10 = D |
 | Force | Q2 = B/C/D · Q3 = C/D · Q6 = C/D |
 
-Le bloc n’apparaît que si au moins une règle s’applique (titre au pluriel s’il y en a plusieurs).
+Identifiants des questions Q1 → Q12 : `energie`, `mouvements`, `endurance`, `recuperation`,
+`travail`, `taches`, `loisirs`, `corps`, `reprise`, `apprehensions`, `besoin`, `projection`.
+Si le quiz GHL utilise d’autres identifiants, modifier `QUESTION_IDS` en tête du bloc.
 
-## Brancher le quiz GHL
-
-Deux montages possibles, selon ce que le quiz sait transmettre :
-
-- **Redirection par résultat** : dans les réglages de résultats du quiz, rediriger chaque
-  résultat vers la page de résultats avec `?profil=<clé>` et, si GHL le permet, les réponses
-  `q1…q12` et les coordonnées en paramètres.
-- **Champs du contact** : si les réponses sont enregistrées dans des champs personnalisés,
-  remplir `window.REFLOW_RESULT` en tête du bloc avec les merge fields
-  (`profil: '{{contact.reflow_profil}}'`, `answers: { q1: '{{contact.reflow_q1}}', … }`).
-
-Pour vérifier dans la console du navigateur :
-`ReflowResultat.readInput(location.search, window.REFLOW_RESULT)`.
+Débogage dans la console de la page :
+`ReflowResultat.readInput(location.search, { result: localStorage['cecile-reflow-result'], draft: localStorage['cecile-reflow-quiz'] })`
+(à lancer avant l’affichage, le brouillon étant effacé ensuite).
 
 ## Textes
 
 Les textes des quatre profils sont dans l’objet `PROFILES` du bloc. Les espaces insécables
-avant `; : ! ?` et à l’intérieur des guillemets sont ajoutés automatiquement à l’affichage.
+avant `; : ! ?` et à l’intérieur des guillemets sont ajoutés automatiquement.
 
 ## Vérification
 
