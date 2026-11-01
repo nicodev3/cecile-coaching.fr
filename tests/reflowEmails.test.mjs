@@ -13,5 +13,6 @@ test('un e-mail par profil, à jour avec les textes de la page de résultats', (
 		assert.match(html, /Bloc 04/);
 		assert.match(html, /widget\/booking\/dJzUTOt5Rfugql6aVt4K\?first_name=\{\{contact\.first_name\}\}/);
 		assert.doesNotMatch(html, /<script|<style/);
+		assert.match(html, /\{\{contact\.reflow_attention\}\}/);
 	}
 });

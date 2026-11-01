@@ -65,4 +65,8 @@ Les 4 e-mails (`ghl/emails/email-<profil>.html`) sont générés depuis les text
 `ghl/reflow-resultats.html` : après toute modification des textes, lancer
 `node ghl/emails/build.mjs` puis recoller les e-mails dans GHL.
 Le bouton de réservation préremplit le calendrier avec les merge fields du contact.
-Les points d’attention (selon les réponses) ne figurent que sur la page de résultats.
+Les points d’attention (selon les réponses) sont calculés par la page du quiz
+(`ghl/quiz-attention-snippet.js`, à insérer dans `mountLeadForm` juste avant
+`url.searchParams.set('reflow_reponses', letters);`) et transmis au formulaire GHL
+`qIGELjgbjbIvLCYZpQ5T` par le champ caché `reflow_attention`. L’e-mail affiche
+`{{contact.reflow_attention}}` dans le bloc 02 ; vide, il ne se voit pas.

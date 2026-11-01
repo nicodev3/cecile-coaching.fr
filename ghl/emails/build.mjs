@@ -42,6 +42,13 @@ const BOOKING_URL =
 	'https://api.leadconnectorhq.com/widget/booking/dJzUTOt5Rfugql6aVt4K' +
 	'?first_name={{contact.first_name}}&last_name={{contact.last_name}}&email={{contact.email}}&phone={{contact.phone}}';
 
+/**
+ * Points d’attention personnalisés : texte calculé par la page du quiz et transmis
+ * au formulaire GHL (champ caché « reflow_attention »). Vide si aucune règle ne s’applique :
+ * le paragraphe n’a alors ni fond ni bordure, il ne se voit pas.
+ */
+const ATTENTION = `<p style="margin:8px 0 0;font-family:${FONT};font-size:15px;line-height:1.6;color:${C.plumInk};font-weight:bold;">{{contact.reflow_attention}}</p>`;
+
 const MONTH_TITLES = ['Mouvement &amp; sécurité', 'Force &amp; progressivité', 'Vitalité &amp; énergie', 'Confiance &amp; autonomie'];
 const SESSION_NAMES = ['Pilates', 'Renforcement musculaire', 'Yoga / relaxation'];
 
@@ -166,7 +173,7 @@ export function renderEmail(key, profile) {
 		`<tr><td>` +
 		card(eyebrow('Bloc 01') + h2('Ton bilan', 'physique') + highlight(statement(pr.bilan.title)) + renderParas(pr.bilan.paras)) +
 		/* Bloc 02 */
-		card(eyebrow('Bloc 02') + h2('Ta', 'priorité') + highlight(statement(pr.priority.title)) + renderParas(pr.priority.paras) + steps) +
+		card(eyebrow('Bloc 02') + h2('Ta', 'priorité') + highlight(statement(pr.priority.title)) + renderParas(pr.priority.paras) + steps + ATTENTION) +
 		/* Bloc 03 */
 		card(eyebrow('Bloc 03') + h2('Ton plan', 'd’action') + highlight(big('4 MOIS', pr.plan.sub)) + months) +
 		/* Bloc 04 */
