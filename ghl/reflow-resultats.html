@@ -1,0 +1,1252 @@
+<!--
+	RE-FLOW — Pages de résultats du quiz (bloc « Code personnalisé » GoHighLevel)
+
+	À coller tel quel dans un élément « Custom Code / HTML » de la page de résultats
+	du funnel. Mode d’emploi complet : docs/ghl-resultats-re-flow.md
+
+	Le bloc choisit le profil et les points d’attention à partir de :
+	  1. window.REFLOW_RESULT (merge fields GHL), si renseigné ci-dessous ;
+	  2. les paramètres de l’URL : ?profil=energie&q1=B&q2=C… &first_name=…&email=… ;
+	  3. à défaut de profil, le barème RE-FLOW appliqué aux 12 réponses.
+-->
+<script>
+	/* Facultatif : merge fields GHL. Un champ non remplacé ({{…}}) est ignoré. */
+	window.REFLOW_RESULT = window.REFLOW_RESULT || {
+		profil: '',
+		first_name: '',
+		last_name: '',
+		email: '',
+		phone: '',
+		answers: {},
+	};
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Montserrat:wght@500;600&display=swap"
+/>
+
+<style>
+	#reflow-resultat {
+		--rf-plum: #60406a;
+		--rf-plum-ink: #4a2d57;
+		--rf-plum-soft: #82628c;
+		--rf-sage: #c4d6b7;
+		--rf-sage-soft: #e6eedf;
+		--rf-paper: #f7faf6;
+		--rf-shell: #f5f6f3;
+		--rf-white: #ffffff;
+		--rf-ink: #111827;
+		--rf-slate: #334155;
+		--rf-muted: #676767;
+		--rf-shadow: 0 2px 6px rgba(96, 64, 106, 0.25), 0 8px 24px rgba(96, 64, 106, 0.33);
+		--rf-title: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		--rf-body: 'Hanken Grotesk', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+		background: var(--rf-paper);
+		color: var(--rf-ink);
+		font-family: var(--rf-body);
+		font-size: 1rem;
+		line-height: 1.625;
+		-webkit-font-smoothing: antialiased;
+		overflow-x: hidden;
+	}
+	#reflow-resultat *,
+	#reflow-resultat *::before,
+	#reflow-resultat *::after {
+		box-sizing: border-box;
+	}
+	#reflow-resultat h1,
+	#reflow-resultat h2,
+	#reflow-resultat h3,
+	#reflow-resultat p,
+	#reflow-resultat ul,
+	#reflow-resultat ol {
+		margin: 0;
+		padding: 0;
+	}
+	#reflow-resultat h1,
+	#reflow-resultat h2,
+	#reflow-resultat h3 {
+		font-family: var(--rf-title);
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		text-wrap: balance;
+		color: var(--rf-plum);
+	}
+	#reflow-resultat p,
+	#reflow-resultat li {
+		text-wrap: pretty;
+	}
+	#reflow-resultat strong {
+		font-weight: 700;
+		color: var(--rf-plum-ink);
+	}
+
+	.rf-wrap {
+		width: 100%;
+		max-width: 64rem;
+		margin: 0 auto;
+		padding: 0 1rem;
+	}
+	.rf-narrow {
+		max-width: 42rem;
+	}
+	.rf-section {
+		padding: 3rem 0;
+	}
+	.rf-section--shell {
+		background: var(--rf-shell);
+	}
+
+	/* En-tête */
+	.rf-hero {
+		position: relative;
+		padding: 3.5rem 0 3rem;
+		overflow: hidden;
+	}
+	.rf-hero::before,
+	.rf-hero::after {
+		content: '';
+		position: absolute;
+		border-radius: 9999px;
+		filter: blur(60px);
+		pointer-events: none;
+	}
+	.rf-hero::before {
+		width: 22rem;
+		height: 22rem;
+		top: -8rem;
+		right: -6rem;
+		background: rgba(196, 214, 183, 0.7);
+	}
+	.rf-hero::after {
+		width: 16rem;
+		height: 16rem;
+		bottom: -8rem;
+		left: -6rem;
+		background: rgba(130, 98, 140, 0.18);
+	}
+	.rf-hero > .rf-wrap {
+		position: relative;
+		z-index: 1;
+	}
+	.rf-chip {
+		display: inline-block;
+		padding: 0.35rem 0.9rem;
+		border-radius: 9999px;
+		background: var(--rf-sage);
+		color: var(--rf-plum-ink);
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+	.rf-hello {
+		margin-top: 1.25rem !important;
+		color: var(--rf-slate);
+		font-size: 1.125rem;
+	}
+	.rf-hero h1 {
+		margin-top: 0.75rem;
+		font-size: clamp(2rem, 6vw, 3rem);
+		line-height: 1.15;
+	}
+	.rf-goal {
+		margin-top: 2rem !important;
+		padding: 1.25rem 1.5rem;
+		border-radius: 1rem;
+		background: var(--rf-white);
+		box-shadow: 0 1px 2px rgba(17, 24, 39, 0.05);
+		border: 1px solid rgba(17, 24, 39, 0.05);
+		font-size: 1.125rem;
+		color: var(--rf-slate);
+	}
+	.rf-goal span {
+		display: block;
+		margin-bottom: 0.25rem;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--rf-plum);
+	}
+
+	/* Titres de blocs */
+	.rf-kicker {
+		display: flex;
+		align-items: baseline;
+		gap: 0.75rem;
+		font-size: 0.875rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--rf-plum);
+	}
+	.rf-kicker b {
+		font-family: var(--rf-title);
+		font-size: 1.5rem;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		color: var(--rf-plum-soft);
+	}
+	.rf-section h2 {
+		margin-top: 0.75rem;
+		font-size: clamp(1.5rem, 4.5vw, 2.25rem);
+		line-height: 1.2;
+	}
+	.rf-sub {
+		margin-top: 0.5rem !important;
+		font-size: 1.125rem;
+		color: var(--rf-slate);
+	}
+	.rf-prose {
+		margin-top: 1.5rem;
+		color: var(--rf-slate);
+	}
+	.rf-prose > * + * {
+		margin-top: 1rem !important;
+	}
+	.rf-prose .rf-key {
+		font-family: var(--rf-title);
+		font-size: 1.25rem;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+		line-height: 1.3;
+		color: var(--rf-plum);
+	}
+
+	/* Cercle « tout ou rien » */
+	.rf-cycle {
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.rf-cycle li {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+	.rf-cycle li span {
+		padding: 0.4rem 0.85rem;
+		border-radius: 9999px;
+		background: var(--rf-white);
+		border: 1px solid rgba(96, 64, 106, 0.25);
+		color: var(--rf-plum-ink);
+		font-size: 0.9375rem;
+	}
+	.rf-cycle li:not(:last-child)::after {
+		content: '→';
+		color: var(--rf-plum-soft);
+	}
+
+	/* Étapes de la priorité */
+	.rf-steps {
+		list-style: none;
+		margin-top: 1.75rem !important;
+		display: grid;
+		gap: 0.75rem;
+		counter-reset: rf-step;
+	}
+	.rf-steps li {
+		position: relative;
+		padding: 1rem 1.25rem 1rem 3.75rem;
+		border-radius: 1rem;
+		background: var(--rf-white);
+		border: 1px solid rgba(17, 24, 39, 0.05);
+		color: var(--rf-slate);
+		counter-increment: rf-step;
+	}
+	.rf-steps li::before {
+		content: counter(rf-step);
+		position: absolute;
+		left: 1.1rem;
+		top: 1rem;
+		width: 1.75rem;
+		height: 1.75rem;
+		border-radius: 9999px;
+		background: var(--rf-plum);
+		color: var(--rf-white);
+		font-family: var(--rf-title);
+		font-size: 0.875rem;
+		font-weight: 600;
+		line-height: 1.75rem;
+		text-align: center;
+	}
+	.rf-steps strong {
+		display: block;
+	}
+
+	.rf-attention {
+		margin-top: 1.75rem;
+		padding: 1.25rem 1.5rem;
+		border-radius: 1rem;
+		background: var(--rf-sage-soft);
+		border-left: 4px solid var(--rf-plum);
+		color: var(--rf-plum-ink);
+	}
+	.rf-attention h3 {
+		font-size: 1.0625rem;
+		font-weight: 600;
+		color: var(--rf-plum);
+	}
+	.rf-attention ul {
+		margin-top: 0.5rem !important;
+		list-style: none;
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	/* Plan sur 4 mois */
+	.rf-months {
+		list-style: none;
+		margin-top: 2rem !important;
+		display: grid;
+		gap: 1rem;
+	}
+	.rf-month {
+		display: flex;
+		flex-direction: column;
+		padding: 1.5rem;
+		border-radius: 1rem;
+		background: var(--rf-white);
+		border: 1px solid rgba(17, 24, 39, 0.06);
+		box-shadow: 0 1px 2px rgba(17, 24, 39, 0.04);
+	}
+	.rf-month-num {
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--rf-plum-soft);
+	}
+	.rf-month h3 {
+		margin-top: 0.25rem;
+		font-size: 1.25rem;
+		font-weight: 600;
+	}
+	.rf-month > p {
+		margin-top: 0.75rem !important;
+		color: var(--rf-slate);
+	}
+	.rf-list {
+		list-style: none;
+		margin-top: 1rem !important;
+		display: grid;
+		gap: 0.6rem;
+		color: var(--rf-slate);
+	}
+	.rf-list li {
+		position: relative;
+		padding-left: 1.4rem;
+	}
+	.rf-list li::before {
+		content: '';
+		position: absolute;
+		left: 0.15rem;
+		top: 0.6rem;
+		width: 0.5rem;
+		height: 0.5rem;
+		border-radius: 9999px;
+		background: var(--rf-sage);
+		box-shadow: inset 0 0 0 1.5px var(--rf-plum-soft);
+	}
+	.rf-benefit {
+		margin-top: auto;
+		padding-top: 1.25rem;
+	}
+	.rf-benefit p {
+		padding: 1rem 1.1rem;
+		border-radius: 0.75rem;
+		background: var(--rf-sage-soft);
+		color: var(--rf-plum-ink);
+	}
+	.rf-benefit span {
+		display: block;
+		margin-bottom: 0.2rem;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--rf-plum);
+	}
+
+	/* Semaine type */
+	.rf-sessions {
+		list-style: none;
+		margin-top: 2rem !important;
+		display: grid;
+		gap: 1rem;
+	}
+	.rf-session {
+		padding: 1.5rem;
+		border-radius: 1rem;
+		background: var(--rf-white);
+		border: 1px solid rgba(17, 24, 39, 0.06);
+	}
+	.rf-session-top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem;
+		font-size: 0.8125rem;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--rf-plum-soft);
+	}
+	.rf-session-top em {
+		font-style: normal;
+		padding: 0.2rem 0.65rem;
+		border-radius: 9999px;
+		background: var(--rf-sage);
+		color: var(--rf-plum-ink);
+		letter-spacing: 0.02em;
+		text-transform: none;
+	}
+	.rf-session h3 {
+		margin-top: 0.75rem;
+		font-size: 1.25rem;
+		font-weight: 600;
+	}
+	.rf-session p {
+		margin-top: 0.5rem !important;
+		color: var(--rf-slate);
+	}
+
+	/* Appel bilan */
+	.rf-cta {
+		padding: 1.75rem 1.25rem;
+		border-radius: 1rem;
+		background: var(--rf-white);
+		border: 2px solid var(--rf-plum);
+	}
+	.rf-cta h2 {
+		margin-top: 0.5rem;
+	}
+	.rf-checks {
+		list-style: none;
+		margin-top: 1.25rem !important;
+		display: grid;
+		gap: 0.6rem;
+		color: var(--rf-slate);
+	}
+	.rf-checks li {
+		position: relative;
+		padding-left: 2rem;
+	}
+	.rf-checks li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.2rem;
+		width: 1.25rem;
+		height: 1.25rem;
+		border-radius: 9999px;
+		background: var(--rf-plum)
+			url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E")
+			center / 0.75rem no-repeat;
+	}
+	.rf-button {
+		display: inline-block;
+		margin-top: 1.5rem;
+		padding: 1rem 2rem;
+		border-radius: 9999px;
+		background: var(--rf-plum);
+		color: var(--rf-white) !important;
+		font-family: var(--rf-body);
+		font-weight: 600;
+		text-decoration: none !important;
+		box-shadow: var(--rf-shadow);
+		transition: background-color 0.2s ease;
+	}
+	.rf-button:hover {
+		background: var(--rf-plum-soft);
+	}
+	.rf-button:focus-visible {
+		outline: 2px solid var(--rf-plum);
+		outline-offset: 4px;
+	}
+	.rf-booking {
+		margin-top: 1.75rem;
+		min-height: 600px;
+		scroll-margin-top: 1.5rem;
+	}
+	.rf-booking iframe {
+		display: block;
+		width: 100%;
+		min-height: 600px;
+		border: 0;
+		overflow: hidden;
+	}
+	.rf-note {
+		margin-top: 2rem !important;
+		padding: 1rem 1.25rem;
+		border-radius: 1rem;
+		background: rgba(196, 214, 183, 0.4);
+		color: var(--rf-plum-ink);
+		font-size: 0.875rem;
+	}
+
+	@media (min-width: 40rem) {
+		.rf-wrap {
+			padding: 0 1.5rem;
+		}
+		.rf-section {
+			padding: 4.5rem 0;
+		}
+		.rf-hero {
+			padding: 5rem 0 4rem;
+		}
+		.rf-cta {
+			padding: 2.5rem;
+		}
+	}
+	@media (min-width: 48rem) {
+		.rf-months {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+		.rf-sessions {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.rf-button {
+			transition: none;
+		}
+	}
+</style>
+
+<div id="reflow-resultat" aria-live="polite"></div>
+
+<script>
+	(function () {
+		'use strict';
+
+		/* ------------------------------------------------------------------ */
+		/* Réglages                                                           */
+		/* ------------------------------------------------------------------ */
+		var CALENDAR_ID = 'dJzUTOt5Rfugql6aVt4K';
+		var CALENDAR_URL = 'https://api.leadconnectorhq.com/widget/booking/' + CALENDAR_ID;
+		var EMBED_SCRIPT = 'https://link.msgsndr.com/js/form_embed.js';
+
+		var PROFILE_KEYS = ['reconnexion', 'energie', 'force', 'equilibre'];
+
+		/* Libellés courts des réponses A → D, pour reconnaître une réponse
+		   transmise en texte plutôt qu’en lettre. */
+		var OPTION_LABELS = [
+			['J’ai globalement assez d’énergie', 'Mon énergie est très variable', 'Je me sens souvent fatiguée', 'Ma fatigue prend une grande place'],
+			['Je bouge avec aisance', 'Ce n’est plus comme avant', 'Je limite certains mouvements', 'Je n’ai plus la force de bouger'],
+			['Je tiens un effort prolongé sans problème', 'Je tiens, mais je ralentis', 'Je dois m’arrêter plusieurs fois', 'Un effort prolongé m’est devenu impossible'],
+			['Je peux enchaîner très rapidement', 'J’ai besoin d’un temps de pause plus long', 'Je me repose le reste de la journée', 'Il me faut plusieurs jours pour récupérer'],
+			['Aucune incidence sur mon travail', 'Parfois moins efficace au travail', 'J’ai dû aménager mon travail', 'Je ne peux plus travailler'],
+			['Je les fais sans y penser', 'Elles me demandent plus d’effort qu’avant', 'Je demande parfois de l’aide', 'Je n’y arrive plus seule'],
+			['Non, elle ne me freine pas', 'Je continue, mais je suis à la traîne', 'J’adapte ou je reporte', 'Je renonce souvent'],
+			['Je me sens plutôt à l’aise dans mon corps', 'J’ai parfois du mal à percevoir les signaux', 'J’ai du mal à lui faire confiance', 'J’ai l’impression d’avoir perdu mes repères'],
+			['Je me sens prête à essayer', 'J’en ai envie mais je ne sais pas par où commencer', 'J’en ai envie mais j’ai peur d’en faire trop', 'L’idée de reprendre une activité physique m’inquiète'],
+			['Ne pas réussir à tenir dans la durée', 'Aggraver ma fatigue', 'Ne pas être assez forte', 'Faire des exercices qui ne seraient pas adaptés'],
+			['Un programme simple', 'D’une pratique modulable', 'Être guidée pour savoir jusqu’où', 'D’un accompagnement global'],
+			['Je bouge régulièrement', 'Je me sens plus forte', 'J’ai retrouvé confiance dans mon corps', 'Je me sens mieux dans mon corps et dans ma tête'],
+		];
+
+		/* Barème RE-FLOW (repli si le profil n’est pas transmis).
+		   Points par réponse A → D : [reconnexion, énergie, force, équilibre]. */
+		var SCORING = [
+			[[0, 0, 0, 2], [1, 3, 0, 0], [1, 3, 1, 0], [2, 3, 1, 0]],
+			[[0, 0, 0, 2], [1, 0, 2, 0], [2, 1, 1, 0], [1, 0, 3, 0]],
+			[[0, 0, 0, 2], [0, 1, 2, 0], [0, 2, 2, 0], [0, 2, 3, 0]],
+			[[0, 0, 0, 2], [0, 2, 0, 0], [0, 3, 0, 0], [1, 3, 1, 0]],
+			[[0, 0, 0, 2], [0, 1, 1, 0], [0, 1, 2, 0], [0, 2, 3, 0]],
+			[[0, 0, 0, 2], [0, 1, 1, 0], [0, 1, 2, 0], [0, 2, 3, 0]],
+			[[0, 0, 0, 2], [0, 2, 1, 0], [1, 1, 1, 0], [2, 2, 1, 0]],
+			[[0, 0, 0, 2], [2, 0, 0, 0], [3, 0, 0, 0], [3, 0, 0, 0]],
+			[[0, 0, 0, 2], [2, 0, 0, 0], [3, 0, 0, 0], [3, 1, 0, 0]],
+			[[0, 2, 0, 0], [0, 3, 0, 0], [0, 0, 3, 0], [3, 0, 0, 0]],
+			[[0, 0, 0, 2], [0, 3, 0, 0], [2, 0, 1, 0], [3, 0, 0, 0]],
+			[[0, 0, 0, 3], [0, 0, 3, 0], [3, 0, 0, 0], [2, 1, 0, 0]],
+		];
+
+		/* ------------------------------------------------------------------ */
+		/* Contenus                                                           */
+		/* ------------------------------------------------------------------ */
+		var MONTH_TITLES = ['Mouvement & sécurité', 'Force & progressivité', 'Vitalité & énergie', 'Confiance & autonomie'];
+
+		var CTA = {
+			title: 'Appel bilan offert',
+			sub: '30 minutes pour analyser tes résultats',
+			intro:
+				'Ce plan te donne une direction. Mais chaque corps est différent, chaque histoire aussi, et c’est là que tout se joue. Réserve ton appel bilan offert :',
+			items: [
+				'Le bilan sur tes capacités physiques basé sur tes réponses',
+				'Ce qu’il faut faire en priorité pour améliorer ton niveau de forme',
+				'Ton plan d’action',
+				'Une réponse claire : est-ce que je peux t’aider, et comment, grâce à mon programme RE-FLOW, sans pression',
+			],
+			button: 'Réserver mon appel bilan',
+		};
+
+		var PROFILES = {
+			equilibre: {
+				label: 'Équilibre',
+				title: 'Ton plan pour faire du mouvement un allié de ton quotidien',
+				goal: 'Faire du mouvement une source de bien-être et un véritable soutien dans ton quotidien, sans en faire une contrainte.',
+				bilan: {
+					title: 'Tes capacités physiques sont présentes. Mais elles ont besoin d’être entretenues.',
+					paras: [
+						'Ton résultat montre que tu disposes encore d’une base relativement bonne physiquement, mais que le mouvement n’occupe peut-être pas la place que tu aimerais dans ton quotidien.',
+						'Tu peux réaliser la plupart de tes activités, mais tu ressens peut-être que ton corps est moins mobile, moins tonique ou moins disponible qu’avant. Certaines journées, tu bouges facilement ; d’autres, tu manques d’envie, de temps ou d’énergie pour bouger au quotidien.',
+						{ key: 'Et c’est justement maintenant qu’il faut agir !' },
+						'Car une bonne condition physique ne se construit pas uniquement lorsque l’on rencontre de véritables difficultés. Elle se préserve aussi en entretenant régulièrement ce que l’on est encore capable de faire.',
+						'Tu as besoin d’une activité suffisamment régulière et variée pour entretenir tes capacités, te sentir bien dans ton corps tout en prenant soin de ton bien-être.',
+					],
+				},
+				priority: {
+					title: 'Construire une routine qui te ressemble pour entretenir tes capacités physiques',
+					paras: [
+						'Ta priorité est de faire du mouvement une source de bien-être et un véritable soutien dans ton quotidien, sans en faire une contrainte, avec une pratique variée qui pourra t’aider à explorer différentes façons de bouger.',
+						'L’enjeu est de construire une pratique qui s’intègre à ton quotidien, respecte tes possibilités et te donne envie de continuer.',
+					],
+					steps: [
+						['Identifie ce qui te fait du bien.', 'Repère les formes de mouvement que tu apprécies et celles que tu souhaites retrouver dans ton quotidien.'],
+						['Choisis un rythme réaliste.', 'Commence par une organisation compatible avec tes disponibilités et tes capacités actuelles.'],
+						['Fais évoluer ta pratique.', 'Ajuste progressivement la durée, la variété ou l’intensité, en fonction de tes sensations et de ta récupération.'],
+					],
+				},
+				attention: [
+					{ q: 1, when: 'BCD', text: 'Ton énergie peut varier. Prévois une pratique modulable plutôt qu’un programme rigide.' },
+					{ q: 2, when: 'BCD', text: 'L’aisance de certains mouvements mérite aussi d’être prise en compte dans le choix des exercices.' },
+				],
+				plan: {
+					sub: 'C’est le temps nécessaire pour installer une routine d’activité physique durable.',
+					months: [
+						{
+							intro: 'Commence à introduire doucement des séances d’activité physique pour rendre ton corps plus endurant, dans des activités que tu pourras tenir sur le long terme.',
+							items: [
+								'Prépare un espace où tu peux bouger de manière sécuritaire.',
+								'Mets en place une routine qui s’intègre à ta semaine (il vaut mieux plusieurs séances courtes qu’une longue séance par semaine).',
+								'Commence avec des exercices de renforcement musculaire qui te sont accessibles, de la mobilité articulaire, des étirements et de la relaxation pour prendre du temps pour toi.',
+								'Identifie les gestes qui te posent des difficultés pour les travailler par la suite.',
+							],
+							benefit: 'Tu te sens plus mobile, tes mouvements sont plus fluides et ça te fait du bien !',
+						},
+						{
+							intro: 'Le but est de gagner en force, en équilibre, en endurance mais aussi en énergie, de manière progressive.',
+							items: [
+								'Suis ta routine avec régularité tout en restant souple dans ton organisation.',
+								'Introduis progressivement des exercices plus engageants musculairement, sans négliger la récupération entre les séances et pendant la séance.',
+								'Garde des exercices de base à faire presque à chaque séance pour mesurer tes progrès (tu vas tenir plus longtemps, faire plus de répétitions).',
+								'N’oublie pas que l’activité physique ne doit pas être une contrainte mais une source de bien-être : fais ta séance « préférée » les jours où tu manques de motivation.',
+							],
+							benefit: 'Tu te sens plus forte dans les activités de la vie de tous les jours, tu parviens à mesurer tes premiers progrès et c’est gratifiant !',
+						},
+						{
+							intro: 'C’est le moment d’augmenter en intensité tout en restant à l’aise dans tes mouvements.',
+							items: [
+								'Augmente la difficulté et le nombre de répétitions sur les exercices, mais toujours en t’adaptant à tes capacités.',
+								'Introduis des séances plus cardio (avec la récupération adéquate) si tu t’en sens capable.',
+								'Autorise-toi à faire une séance plus cool (relaxation par exemple) si tu es fatiguée, sans culpabiliser.',
+							],
+							benefit: 'Tu as davantage d’énergie au quotidien, tu te sens plus endurante et plus lucide d’esprit.',
+						},
+						{
+							intro: 'Il est temps maintenant de stabiliser les progrès et d’oser aller plus loin.',
+							items: [
+								'Ta routine d’activité physique est installée : elle fait partie de ton quotidien, de tes habitudes.',
+								'Tu peux te permettre des variantes plus difficiles sur les exercices, et tu as même peut-être envie d’aller plus loin en achetant une paire d’haltères !',
+								'Tu peux faire des séances plus longues si tu te sens d’attaque : tu connais tes limites.',
+							],
+							benefit: 'Non seulement tu te sens plus forte et plus tonique, mais tu y prends du plaisir. Tu as repris confiance physiquement mais aussi moralement. Ton corps redevient un allié !',
+						},
+					],
+				},
+				week: {
+					fit: 'à tes capacités, à ton énergie et au temps dont tu disposes',
+					sessions: [
+						'30 min pour retrouver des gestes efficaces : en Pilates, on fait moins mais on fait mieux !',
+						'30 min pour entretenir ou récupérer de la force.',
+						'30 min pour prendre du temps pour toi.',
+					],
+				},
+			},
+
+			energie: {
+				label: 'Énergie',
+				title: 'Ton plan pour bouger en respectant ton énergie du jour',
+				goal: 'Trouver une façon de bouger qui tienne compte de tes capacités, de ta récupération et de ton énergie fluctuante.',
+				bilan: {
+					title: 'Tes capacités physiques sont très liées à ton niveau d’énergie.',
+					paras: [
+						'Ton résultat montre que tu es capable de bouger, mais que ta capacité à faire un effort varie fortement d’un jour à l’autre.',
+						'Certains jours, tu peux en faire davantage. D’autres, une activité pourtant simple peut te demander beaucoup d’énergie.',
+						'Cette fluctuation peut rendre l’activité difficile à gérer au quotidien. Tu peux avoir tendance à :',
+						{ cycle: ['en faire trop lorsque tu te sens bien', 'récupérer longtemps', 'réduire fortement ton activité', 'recommencer lorsque tu vas mieux'] },
+						'Ce fonctionnement en « tout ou rien » peut progressivement diminuer tes capacités physiques et ta confiance dans ton corps.',
+						'Tu as envie de retrouver du mouvement, mais ton énergie ne te permet pas toujours de faire ce que tu voudrais. Tu peux avoir besoin d’adapter tes activités ou de prendre davantage de temps pour récupérer.',
+					],
+				},
+				priority: {
+					title: 'Apprendre à doser ton effort',
+					paras: [
+						'L’énergie disponible, la durée de l’effort et la récupération sont des éléments à prendre en compte. Mets en place une routine souple qui pourra être ajustée, plutôt que de t’imposer la même exigence chaque jour.',
+						'Ton enjeu est d’apprendre à déterminer quelle quantité de mouvement ton corps peut réellement supporter aujourd’hui, puis à progresser sans dépasser régulièrement tes capacités de récupération.',
+					],
+					steps: [
+						['Observe tes réactions.', 'Repère les activités qui te demandent le plus d’efforts et la manière dont tu récupères ensuite.'],
+						['Intègre des options.', 'Selon tes possibilités, envisage différentes durées, amplitudes ou variantes plutôt qu’une seule version de la séance.'],
+						['Fais évoluer ta pratique très progressivement.', ''],
+					],
+				},
+				attention: [
+					{ q: 1, when: 'CD', text: 'Ton énergie semble occuper une place importante dans ton quotidien. La priorité est de comprendre ce qui est réaliste pour toi aujourd’hui.' },
+					{ q: 3, when: 'CD', text: 'Les efforts prolongés semblent difficiles. Il est important de faire le point sur tes possibilités avant de définir une progression.' },
+					{ q: 4, when: 'BCD', text: 'La récupération mérite une attention particulière dans l’organisation de tes activités.' },
+				],
+				plan: {
+					sub: 'Parce que c’est le temps qu’il faut pour apprendre à écouter ton corps.',
+					months: [
+						{
+							intro: 'Commence à introduire du mouvement doucement pour réinvestir ton corps, dans des activités que tu pourras moduler en fonction des jours « avec » et des jours « sans ».',
+							items: [
+								'Prépare un espace où tu peux bouger de manière sécuritaire.',
+								'Mets en place une routine qui s’intègre dans ta semaine (il vaut mieux plusieurs séances courtes qu’une longue séance dans la semaine).',
+								'Commence avec des exercices simples qui te sont accessibles (tu peux commencer sur une chaise par exemple), de la mobilité articulaire et des étirements, de la relaxation pour rester attentive à tes sensations.',
+								'Observe tes réactions : repère les activités qui te demandent le plus d’efforts et la manière dont tu récupères ensuite.',
+							],
+							benefit: 'Tu es plus à l’écoute de ton corps et tu découvres que le mouvement peut faire du bien !',
+						},
+						{
+							intro: 'Le but est de gagner en force, en équilibre, en endurance mais aussi en énergie, de manière très progressive, et d’apprendre à identifier les signaux de fatigue de ton corps.',
+							items: [
+								'Suis ta routine avec régularité tout en respectant ton énergie du jour.',
+								'Introduis progressivement des exercices plus engageants musculairement, sans négliger la récupération entre les séances et pendant la séance.',
+								'Garde des exercices de base à faire presque à chaque séance pour mesurer tes progrès et les adapter à ton niveau d’énergie (plus ou moins d’amplitude, debout ou assise sur une chaise, plus ou moins d’intensité…), en restant à l’écoute de tes sensations.',
+							],
+							benefit: 'Tu te sens plus forte dans les activités de la vie de tous les jours et tu parviens davantage à moduler tes efforts et tes phases de repos.',
+						},
+						{
+							intro: 'C’est le moment d’augmenter en intensité tout en restant à l’écoute de ton corps.',
+							items: [
+								'Augmente la difficulté et le nombre de répétitions sur les exercices, mais toujours en t’adaptant à ton niveau de forme du jour.',
+								'Introduis des séances plus cardio (avec la récupération adéquate) si tu t’en sens capable.',
+								'Autorise-toi à faire une séance plus cool (relaxation par exemple) si tu es trop fatiguée, sans pour autant ne rien faire.',
+							],
+							benefit: 'Tu as davantage d’énergie au quotidien, tu te sens plus endurante et plus lucide d’esprit.',
+						},
+						{
+							intro: 'Il est temps maintenant de stabiliser les progrès et d’oser aller plus loin.',
+							items: [
+								'Ta routine d’activité physique est installée : elle fait partie de ton quotidien, de tes habitudes.',
+								'Tu sais maintenant identifier tes limites pour ne pas en faire trop et ajuster ta pratique les jours « sans ».',
+								'Tu peux te permettre des variantes plus difficiles sur les exercices : ton panel de variantes est beaucoup plus large sur un même exercice (du plus facile au plus difficile), et tu as même peut-être envie d’aller plus loin en achetant une paire d’haltères !',
+							],
+							benefit: 'Non seulement tu te sens plus forte et plus tonique, mais tu connais mieux ton corps : tu sais comment moduler tes efforts, y compris dans la vie quotidienne. Tu as repris confiance physiquement mais aussi moralement. Ton corps redevient un allié !',
+						},
+					],
+				},
+				week: {
+					fit: 'à ton énergie du jour et au temps dont tu disposes',
+					sessions: [
+						'30 min axées sur la qualité du mouvement et pas sur la quantité : en Pilates, on fait moins mais on fait mieux !',
+						'30 min pour reprendre de la force et apprendre à moduler ton effort.',
+						'30 min pour être à l’écoute de tes sensations, ou pour les jours sans énergie, quand tu es trop fatiguée.',
+					],
+				},
+			},
+
+			reconnexion: {
+				label: 'Reconnexion',
+				title: 'Ton plan pour retrouver confiance dans tes capacités physiques',
+				goal: 'Retrouver progressivement confiance dans tes sensations et tes capacités physiques.',
+				bilan: {
+					title: 'Ton corps te demande aujourd’hui plus d’attention qu’avant.',
+					paras: [
+						'Ton résultat montre que certains mouvements ou certaines activités du quotidien te demandent désormais davantage d’effort, de prudence ou de récupération.',
+						'Tu peux avoir perdu de la force, de la mobilité ou de l’endurance.',
+						'Te relever d’une chaise, marcher plus longtemps, monter des escaliers, te pencher, porter quelque chose ou simplement rester active toute une journée peuvent te sembler plus difficiles qu’avant.',
+						'Et lorsque ces difficultés apparaissent, le réflexe peut être de moins bouger.',
+						{ key: 'Le problème, c’est que moins on utilise certaines capacités, plus elles peuvent progressivement diminuer.' },
+					],
+				},
+				priority: {
+					title: 'Réapprendre à explorer le mouvement à ton rythme',
+					paras: [
+						'L’objectif est de choisir des mouvements accessibles et d’apprendre à observer tes réactions, sans transformer chaque séance en test de tes capacités.',
+						'Reprendre une activité physique peut soulever des questions : comment bouger, jusqu’où aller, comment savoir si un exercice est adapté ? Tu peux avoir besoin de retrouver des repères et de te sentir plus en confiance dans tes mouvements.',
+						'Mise sur la qualité de l’expérience et l’adaptation, plutôt que sur la quantité de séances. L’important est de construire une approche qui respecte tes sensations et ta situation.',
+					],
+					steps: [
+						['Observe sans te juger.', 'Prends le temps de remarquer les mouvements qui te semblent confortables et ceux qui soulèvent des questions.'],
+						['Choisis des mouvements accessibles.', 'Privilégie des variantes qui te permettent d’explorer le mouvement sans te mettre en difficulté.'],
+						['Développe tes repères.', 'Fais évoluer ta pratique progressivement, en tenant compte de tes sensations.'],
+					],
+				},
+				attention: [
+					{ q: 8, when: 'BCD', text: 'Le rapport à tes sensations corporelles semble être un point important de ton parcours.' },
+					{ q: 9, when: 'CD', text: 'L’appréhension de la reprise mérite d’être prise en compte dans le choix des premières étapes.' },
+					{ q: 10, when: 'D', text: 'Il sera important de vérifier que les exercices sont adaptés à ta situation.' },
+				],
+				plan: {
+					sub: 'Parce que c’est le temps qu’il faut pour reprendre confiance.',
+					months: [
+						{
+							intro: 'Commence à introduire du mouvement doucement pour réinvestir ton corps dans des activités qui te font du bien.',
+							items: [
+								'Prépare un espace où tu peux bouger de manière sécuritaire.',
+								'Mets en place une routine qui s’intègre dans ta semaine (il vaut mieux plusieurs séances courtes qu’une longue séance dans la semaine).',
+								'Commence avec des exercices simples qui te sont accessibles (tu peux commencer sur une chaise par exemple), de la mobilité articulaire et des étirements, de la relaxation pour rester attentive à tes sensations.',
+								'Observe tes réactions : repère les gestes qui te font du bien et ceux qui te bloquent.',
+							],
+							benefit: 'Tu es plus à l’écoute de ton corps et tu découvres que le mouvement peut faire du bien. Peut-être même que certaines douleurs s’estompent !',
+						},
+						{
+							intro: 'Le but est de gagner en force, en équilibre, en endurance mais aussi en énergie, de manière très progressive, et d’apprendre à identifier les signaux de fatigue de ton corps.',
+							items: [
+								'Suis ta routine avec régularité tout en respectant ton énergie du jour.',
+								'Introduis progressivement des exercices plus engageants musculairement, sans négliger la récupération entre les séances et pendant la séance.',
+								'Garde des exercices de base à faire presque à chaque séance pour mesurer tes progrès et les adapter en fonction de ton ressenti ou de ta capacité de récupération (plus ou moins d’amplitude, debout ou assise sur une chaise, plus ou moins d’intensité…), en restant à l’écoute de tes sensations.',
+							],
+							benefit: 'Tu te sens plus forte dans les activités de la vie de tous les jours et tu parviens davantage à moduler tes efforts et tes phases de repos.',
+						},
+						{
+							intro: 'C’est le moment d’augmenter en intensité tout en restant à l’écoute de ton corps.',
+							items: [
+								'Augmente la difficulté et le nombre de répétitions sur les exercices, mais toujours en restant à l’écoute de tes sensations physiques.',
+								'Introduis des séances plus cardio (avec la récupération adéquate) en augmentant très progressivement l’intensité (ne va pas trop vite tout de suite !).',
+								'Autorise-toi à faire une séance plus cool (relaxation par exemple) si tu es trop fatiguée, sans pour autant ne rien faire.',
+							],
+							benefit: 'Tu as davantage d’énergie au quotidien, tu te sens plus endurante et plus lucide d’esprit.',
+						},
+						{
+							intro: 'Il est temps maintenant de stabiliser les progrès et d’oser aller plus loin.',
+							items: [
+								'Ta routine d’activité physique est installée : elle fait partie de ton quotidien, de tes habitudes.',
+								'Si tu te sens à l’aise, ajoute des variantes sur les exercices. Tu as même peut-être envie d’aller plus loin en achetant une paire d’haltères ou en explorant d’autres pratiques !',
+							],
+							benefit: 'Tu te sens plus forte et plus confiante dans tes capacités physiques. Tu es plus à l’écoute de tes sensations et tu as retrouvé des repères : tu te sens plus à l’aise dans ton corps, qui est redevenu un allié au quotidien. Tu prends même du plaisir à bouger !',
+						},
+					],
+				},
+				week: {
+					fit: 'à tes capacités, à ton énergie du jour et au temps dont tu disposes',
+					sessions: [
+						'30 min pour retrouver des repères et explorer le mouvement.',
+						'30 min pour reprendre confiance dans tes capacités physiques.',
+						'30 min de bien-être pour être à l’écoute de tes sensations.',
+					],
+				},
+			},
+
+			force: {
+				label: 'Force',
+				title: 'Ton plan pour reconstruire de la force',
+				goal: 'Redevenir capable de faire plus facilement les choses que ton quotidien te demande.',
+				bilan: {
+					title: 'Tes capacités physiques ont nettement diminué. Il est temps de reconstruire ta base !',
+					paras: [
+						'Ton résultat montre que le manque de mouvement a aujourd’hui un impact réel sur tes capacités physiques.',
+						'Les efforts du quotidien peuvent te demander beaucoup plus d’énergie qu’avant.',
+						'Tu peux manquer de force pour certains mouvements, te fatiguer rapidement en marchant ou dans les escaliers, avoir besoin de pauses fréquentes ou éviter certaines activités parce que tu ne te sens plus suffisamment capable.',
+						'Ce n’est pas simplement une question de motivation. Ton corps a probablement perdu une partie des capacités qu’il utilisait régulièrement auparavant.',
+						{ key: 'Et la bonne nouvelle, c’est que les capacités physiques peuvent s’améliorer progressivement !' },
+					],
+				},
+				priority: {
+					title: 'Reconstruire de bonnes bases',
+					paras: [
+						'Tu aimerais te sentir plus forte et plus capable dans tes activités, et tu souhaites retrouver des repères pour avancer.',
+						'L’enjeu est d’identifier un point de départ réaliste et de construire une progression adaptée.',
+						'La force, donc ta masse musculaire, se développe avec des exercices simples adaptés à ton niveau actuel, une progression cohérente et de la régularité. Fais évoluer les exercices par étapes, en tenant compte de la qualité du mouvement, de l’effort ressenti et de la récupération.',
+					],
+					steps: [],
+				},
+				attention: [
+					{ q: 2, when: 'BCD', text: 'Certains mouvements te demandent davantage d’efforts ou d’adaptations. Le choix des exercices doit en tenir compte.' },
+					{ q: 3, when: 'CD', text: 'L’endurance est également un point à explorer avant de fixer des objectifs de progression.' },
+					{ q: 6, when: 'CD', text: 'Les difficultés dans les tâches quotidiennes doivent être prises en compte dans la définition de tes priorités.' },
+				],
+				plan: {
+					sub: 'Parce qu’il faut au moins ça pour reconstruire ta masse musculaire.',
+					months: [
+						{
+							intro: 'Commence doucement à réhabituer ton corps au mouvement, sans le mettre en difficulté, pour le réinvestir dans des activités où tu ne te sentiras pas en situation d’échec.',
+							items: [
+								'Prépare un espace où tu peux bouger de manière sécuritaire.',
+								'Mets en place une routine qui s’intègre dans ta semaine (il vaut mieux plusieurs séances courtes qu’une longue séance dans la semaine).',
+								'Commence avec des exercices simples qui te sont accessibles (tu peux commencer sur une chaise par exemple), de la mobilité articulaire et des étirements doux.',
+							],
+							benefit: 'Tu sens tes articulations plus mobiles et peut-être que certaines douleurs s’estompent. Tu découvres que le mouvement peut faire du bien !',
+						},
+						{
+							intro: 'Le but est de (re)construire force, stabilité, équilibre et endurance de manière progressive.',
+							items: [
+								'Suis ta routine avec régularité tout en respectant tes capacités.',
+								'Introduis progressivement des exercices plus engageants musculairement.',
+								'Garde des exercices de base à faire presque à chaque séance pour mesurer tes progrès : petit à petit, tu tiens plus longtemps, tu fais plus de répétitions !',
+							],
+							benefit: 'Tu te sens plus forte dans les activités de la vie de tous les jours.',
+						},
+						{
+							intro: 'C’est le moment d’augmenter en intensité tout en restant à l’écoute de ton corps.',
+							items: [
+								'Augmente la difficulté et le nombre de répétitions sur les exercices si tu t’en sens capable.',
+								'Introduis des séances plus cardio dans le respect de tes capacités.',
+								'Ne néglige pas les séances plus douces (yoga, relaxation) pour la récupération et le bien-être.',
+							],
+							benefit: 'Tu as davantage d’énergie au quotidien, tu te sens plus endurante et plus lucide d’esprit.',
+						},
+						{
+							intro: 'Il est temps maintenant de stabiliser les progrès et d’oser aller plus loin.',
+							items: [
+								'Ta routine d’activité physique est installée : elle fait partie de ton quotidien, de tes habitudes.',
+								'Tu peux te permettre des variantes sur les exercices. Tu as même peut-être envie d’aller plus loin en achetant une paire d’haltères !',
+							],
+							benefit: 'Tu te sens capable à nouveau, tu as repris confiance physiquement mais aussi moralement. Ton corps redevient un allié ! Tu as reconstruit des bases solides.',
+						},
+					],
+				},
+				week: {
+					fit: 'à tes capacités, à ton énergie du jour et au temps dont tu disposes',
+					sessions: [
+						'30 min pour bâtir des bases solides.',
+						'30 min pour reconstruire ta masse musculaire et redevenir forte.',
+						'30 min de bien-être pour prendre du temps pour toi.',
+					],
+				},
+			},
+		};
+
+		var SESSION_NAMES = ['Pilates', 'Renforcement musculaire', 'Yoga / relaxation'];
+
+		/* ------------------------------------------------------------------ */
+		/* Lecture des données                                                */
+		/* ------------------------------------------------------------------ */
+		function normalize(value) {
+			return String(value == null ? '' : value)
+				.normalize('NFD')
+				.replace(/[̀-ͯ]/g, '')
+				.replace(/[’‘`´]/g, "'")
+				.replace(/[«»"“”]/g, '')
+				.replace(/\s+/g, ' ')
+				.trim()
+				.toLowerCase();
+		}
+
+		/* Un merge field GHL non remplacé reste sous la forme {{…}} : on l’ignore. */
+		function clean(value) {
+			var text = String(value == null ? '' : value).trim();
+			return /\{\{.*\}\}/.test(text) ? '' : text;
+		}
+
+		function parseProfile(value) {
+			var text = normalize(clean(value));
+			if (!text) return null;
+			for (var i = 0; i < PROFILE_KEYS.length; i++) {
+				if (text.indexOf(PROFILE_KEYS[i]) !== -1) return PROFILE_KEYS[i];
+			}
+			return null;
+		}
+
+		/** Réponse → index 0–3 (A–D). Accepte « B », « 2 » ou le texte de la réponse. */
+		function parseAnswer(questionIndex, value) {
+			var text = clean(value);
+			if (!text) return null;
+			if (/^[a-d]$/i.test(text)) return text.toUpperCase().charCodeAt(0) - 65;
+			if (/^[1-4]$/.test(text)) return Number(text) - 1;
+			var labels = OPTION_LABELS[questionIndex];
+			if (!labels) return null;
+			var wanted = normalize(text);
+			for (var i = 0; i < labels.length; i++) {
+				var label = normalize(labels[i]);
+				if (wanted.indexOf(label) === 0 || label.indexOf(wanted) === 0) return i;
+			}
+			return null;
+		}
+
+		/** Barème RE-FLOW : ratios exacts, départage par Q12 puis Q11, puis ordre stable. */
+		function scoreProfile(answers) {
+			for (var q = 0; q < SCORING.length; q++) if (answers[q] == null) return null;
+			var max = [0, 0, 0, 0];
+			var scores = [0, 0, 0, 0];
+			for (var i = 0; i < SCORING.length; i++) {
+				for (var k = 0; k < 4; k++) {
+					max[k] += Math.max.apply(null, SCORING[i].map(function (p) { return p[k]; }));
+					scores[k] += SCORING[i][answers[i]][k];
+				}
+			}
+			var order = [0, 1, 2, 3].sort(function (a, b) {
+				var diff = scores[b] * max[a] - scores[a] * max[b];
+				if (diff !== 0) return diff;
+				var tieBreak = [11, 10];
+				for (var t = 0; t < tieBreak.length; t++) {
+					var points = SCORING[tieBreak[t]][answers[tieBreak[t]]];
+					if (points[b] !== points[a]) return points[b] - points[a];
+				}
+				return a - b;
+			});
+			return PROFILE_KEYS[order[0]];
+		}
+
+		function readInput(search, config) {
+			var params = new URLSearchParams(search || '');
+			var get = function (names) {
+				for (var i = 0; i < names.length; i++) {
+					var fromConfig = config && clean(config[names[i]]);
+					if (fromConfig) return fromConfig;
+				}
+				for (var j = 0; j < names.length; j++) {
+					var fromUrl = clean(params.get(names[j]));
+					if (fromUrl) return fromUrl;
+				}
+				return '';
+			};
+			var configAnswers = (config && config.answers) || {};
+			var answers = [];
+			for (var q = 0; q < SCORING.length; q++) {
+				var n = q + 1;
+				var raw =
+					clean(configAnswers['q' + n]) ||
+					clean(configAnswers[n]) ||
+					clean(params.get('q' + n)) ||
+					clean(params.get('Q' + n));
+				answers.push(parseAnswer(q, raw));
+			}
+			var profile = parseProfile(get(['profil', 'profile', 'resultat'])) || scoreProfile(answers);
+			return {
+				profile: profile,
+				answers: answers,
+				lead: {
+					first_name: get(['first_name', 'prenom', 'firstName']),
+					last_name: get(['last_name', 'nom', 'lastName']),
+					email: get(['email']),
+					phone: get(['phone', 'telephone']),
+				},
+			};
+		}
+
+		function attentionPoints(profileKey, answers) {
+			var profile = PROFILES[profileKey];
+			if (!profile) return [];
+			return profile.attention
+				.filter(function (rule) {
+					var index = answers[rule.q - 1];
+					return index != null && rule.when.indexOf('ABCD'.charAt(index)) !== -1;
+				})
+				.map(function (rule) { return rule.text; });
+		}
+
+		/* ------------------------------------------------------------------ */
+		/* Rendu                                                              */
+		/* ------------------------------------------------------------------ */
+		/* Typographie française : espace fine insécable avant ; ! ? et insécable avant : */
+		function fr(text) {
+			return String(text)
+				.replace(/ ([;!?])/g, ' $1')
+				.replace(/ :/g, ' :')
+				.replace(/« /g, '« ')
+				.replace(/ »/g, ' »');
+		}
+
+		function esc(text) {
+			return fr(text)
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;');
+		}
+
+		function kicker(num, label) {
+			return '<p class="rf-kicker"><b>' + num + '</b>' + esc(label) + '</p>';
+		}
+
+		function renderParas(paras) {
+			return paras
+				.map(function (p) {
+					if (typeof p === 'string') return '<p>' + esc(p) + '</p>';
+					if (p.key) return '<p class="rf-key">' + esc(p.key) + '</p>';
+					if (p.cycle) {
+						return (
+							'<ol class="rf-cycle" aria-label="Le cercle du tout ou rien">' +
+							p.cycle.map(function (s) { return '<li><span>' + esc(s) + '</span></li>'; }).join('') +
+							'</ol>'
+						);
+					}
+					return '';
+				})
+				.join('');
+		}
+
+		function renderCta() {
+			return (
+				'<section class="rf-section" aria-labelledby="rf-cta-title"><div class="rf-wrap"><div class="rf-cta">' +
+				'<span class="rf-chip">30 minutes · offert</span>' +
+				'<h2 id="rf-cta-title">' + esc(CTA.title) + '</h2>' +
+				'<p class="rf-sub">' + esc(CTA.sub) + '</p>' +
+				'<div class="rf-prose"><p>' + esc(CTA.intro) + '</p></div>' +
+				'<ul class="rf-checks">' + CTA.items.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>' +
+				'<a class="rf-button" href="#rf-booking" data-rf-booking-link>' + esc(CTA.button) + '</a>' +
+				'<div class="rf-booking" id="rf-booking" data-rf-booking-mount></div>' +
+				'</div>' +
+				'<p class="rf-note">' +
+				esc('Ce questionnaire est un outil d’orientation et de réflexion. Il ne constitue pas une évaluation médicale et ne remplace pas l’avis d’un professionnel de santé.') +
+				'</p></div></section>'
+			);
+		}
+
+		function renderProfile(key, answers, lead) {
+			var p = PROFILES[key];
+			var points = attentionPoints(key, answers);
+			var hello = lead.first_name
+				? '<p class="rf-hello">' + esc(lead.first_name + ', voici ton résultat.') + '</p>'
+				: '';
+
+			var attention = points.length
+				? '<aside class="rf-attention" aria-labelledby="rf-attention-title"><h3 id="rf-attention-title">' +
+					(points.length > 1 ? 'Tes points d’attention' : 'Ton point d’attention') +
+					'</h3><ul>' + points.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul></aside>'
+				: '';
+
+			var steps = p.priority.steps.length
+				? '<ol class="rf-steps">' +
+					p.priority.steps
+						.map(function (s) { return '<li><strong>' + esc(s[0]) + '</strong>' + (s[1] ? esc(s[1]) : '') + '</li>'; })
+						.join('') +
+					'</ol>'
+				: '';
+
+			var months = p.plan.months
+				.map(function (m, i) {
+					return (
+						'<li class="rf-month"><p class="rf-month-num">Mois ' + (i + 1) + '</p>' +
+						'<h3>' + esc(MONTH_TITLES[i]) + '</h3>' +
+						'<p>' + esc(m.intro) + '</p>' +
+						'<ul class="rf-list">' + m.items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('') + '</ul>' +
+						'<div class="rf-benefit"><p><span>Ton bénéfice au quotidien</span>' + esc(m.benefit) + '</p></div></li>'
+					);
+				})
+				.join('');
+
+			var sessions = p.week.sessions
+				.map(function (text, i) {
+					return (
+						'<li class="rf-session"><p class="rf-session-top">Séance ' + (i + 1) + '<em>30 min</em></p>' +
+						'<h3>' + esc(SESSION_NAMES[i]) + '</h3><p>' + esc(text) + '</p></li>'
+					);
+				})
+				.join('');
+
+			return (
+				'<header class="rf-hero"><div class="rf-wrap rf-narrow">' +
+				'<span class="rf-chip">Profil ' + esc(p.label) + '</span>' + hello +
+				'<h1>' + esc(p.title) + '</h1>' +
+				'<p class="rf-goal"><span>Ton objectif</span>' + esc(p.goal) + '</p>' +
+				'</div></header>' +
+
+				'<section class="rf-section rf-section--shell" aria-labelledby="rf-b1"><div class="rf-wrap rf-narrow">' +
+				kicker('01', 'Ton bilan sur tes capacités physiques') +
+				'<h2 id="rf-b1">' + esc(p.bilan.title) + '</h2>' +
+				'<div class="rf-prose">' + renderParas(p.bilan.paras) + '</div>' +
+				'</div></section>' +
+
+				'<section class="rf-section" aria-labelledby="rf-b2"><div class="rf-wrap rf-narrow">' +
+				kicker('02', 'Ta priorité') +
+				'<h2 id="rf-b2">' + esc(p.priority.title) + '</h2>' +
+				'<div class="rf-prose">' + renderParas(p.priority.paras) + '</div>' +
+				steps + attention +
+				'</div></section>' +
+
+				'<section class="rf-section rf-section--shell" aria-labelledby="rf-b3"><div class="rf-wrap">' +
+				'<div class="rf-narrow">' + kicker('03', 'Ton plan d’action') +
+				'<h2 id="rf-b3">' + esc('4 mois pour avancer à ton rythme') + '</h2>' +
+				'<p class="rf-sub">' + esc(p.plan.sub) + '</p></div>' +
+				'<ol class="rf-months">' + months + '</ol>' +
+				'</div></section>' +
+
+				'<section class="rf-section" aria-labelledby="rf-b4"><div class="rf-wrap">' +
+				'<div class="rf-narrow">' + kicker('04', 'Ta semaine type') +
+				'<h2 id="rf-b4">' + esc('3 séances de 30 min. Pas plus !') + '</h2>' +
+				'<p class="rf-sub">' +
+				esc('C’est ce dont ton corps a besoin pour suivre ce plan : des séances modulables qui s’adaptent ' + p.week.fit + '.') +
+				'</p></div>' +
+				'<ol class="rf-sessions">' + sessions + '</ol>' +
+				'</div></section>' +
+
+				renderCta()
+			);
+		}
+
+		function renderFallback() {
+			return (
+				'<header class="rf-hero"><div class="rf-wrap rf-narrow">' +
+				'<span class="rf-chip">Ton résultat RE-FLOW</span>' +
+				'<h1>' + esc('Merci, tes réponses sont bien arrivées !') + '</h1>' +
+				'<p class="rf-goal">' +
+				esc('Ton résultat détaillé n’a pas pu s’afficher sur cette page. Pas d’inquiétude : réserve ton appel bilan offert, Cécile analysera tes réponses avec toi.') +
+				'</p></div></header>' +
+				renderCta()
+			);
+		}
+
+		function mountBooking(root, lead) {
+			var mount = root.querySelector('[data-rf-booking-mount]');
+			if (!mount || mount.querySelector('iframe')) return;
+			var url = new URL(CALENDAR_URL);
+			['first_name', 'last_name', 'email', 'phone'].forEach(function (k) {
+				if (lead[k]) url.searchParams.set(k, lead[k]);
+			});
+			var iframe = document.createElement('iframe');
+			iframe.id = CALENDAR_ID + '_reflow';
+			iframe.src = url.toString();
+			iframe.title = 'Réserver mon appel bilan offert';
+			iframe.allow = 'payment';
+			iframe.setAttribute('scrolling', 'no');
+			mount.appendChild(iframe);
+			if (!document.querySelector('script[src="' + EMBED_SCRIPT + '"]')) {
+				var script = document.createElement('script');
+				script.src = EMBED_SCRIPT;
+				script.async = true;
+				document.body.appendChild(script);
+			}
+		}
+
+		function render(root, input) {
+			root.innerHTML = input.profile ? renderProfile(input.profile, input.answers, input.lead) : renderFallback();
+			root.setAttribute('data-profil', input.profile || 'inconnu');
+
+			/* Le calendrier se charge à l’approche du bloc, pour ne pas ralentir la page. */
+			var mount = root.querySelector('[data-rf-booking-mount]');
+			if ('IntersectionObserver' in window && mount) {
+				var observer = new IntersectionObserver(
+					function (entries) {
+						if (entries.some(function (e) { return e.isIntersecting; })) {
+							observer.disconnect();
+							mountBooking(root, input.lead);
+						}
+					},
+					{ rootMargin: '600px 0px' },
+				);
+				observer.observe(mount);
+			} else {
+				mountBooking(root, input.lead);
+			}
+			var link = root.querySelector('[data-rf-booking-link]');
+			if (link) link.addEventListener('click', function () { mountBooking(root, input.lead); });
+		}
+
+		/* API exposée pour les tests et le débogage dans la console. */
+		window.ReflowResultat = {
+			readInput: readInput,
+			attentionPoints: attentionPoints,
+			scoreProfile: scoreProfile,
+			parseAnswer: parseAnswer,
+			parseProfile: parseProfile,
+			PROFILES: PROFILES,
+		};
+
+		var root = document.getElementById('reflow-resultat');
+		if (root) render(root, readInput(window.location.search, window.REFLOW_RESULT));
+	})();
+</script>
