@@ -53,3 +53,16 @@ avant `; : ! ?` et à l’intérieur des guillemets sont ajoutés automatiquemen
 ## Vérification
 
 `node --test tests/reflowResultats.test.mjs`
+
+## E-mail de résultat
+
+Le workflow GHL (déclencheur : tag `quiz-reflow`) envoyait `{{contact.resultat_quizz}}`.
+Ce champ était rempli par l’ancienne fonction du site et n’est plus mis à jour : il ne faut
+plus l’utiliser. Le workflow envoie désormais un e-mail par profil, choisi par une
+condition Si/Sinon sur le champ `reflow_profil` (transmis par le formulaire du quiz).
+
+Les 4 e-mails (`ghl/emails/email-<profil>.html`) sont générés depuis les textes de
+`ghl/reflow-resultats.html` : après toute modification des textes, lancer
+`node ghl/emails/build.mjs` puis recoller les e-mails dans GHL.
+Le bouton de réservation préremplit le calendrier avec les merge fields du contact.
+Les points d’attention (selon les réponses) ne figurent que sur la page de résultats.
