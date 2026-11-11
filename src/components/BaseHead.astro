@@ -7,7 +7,6 @@ import type { ImageMetadata } from 'astro';
 import FallbackImage from '../assets/cecile-coach-apa.webp';
 import {
 	AHREFS_ANALYTICS_KEY,
-	META_PIXEL_ID,
 	UMAMI_ALLOWED_DOMAINS,
 	UMAMI_URL,
 	UMAMI_WEBSITE_ID,
@@ -119,7 +118,6 @@ const structuredDataScripts = noindex
 	? []
 	: [coachingStructuredData, webPageStructuredData, ...extraStructuredData];
 const umamiEnabled = import.meta.env.PROD && UMAMI_WEBSITE_ID && UMAMI_URL;
-const metaPixelEnabled = import.meta.env.PROD && META_PIXEL_ID;
 ---
 
 <Font cssVariable="--font-body" />
@@ -181,39 +179,8 @@ const metaPixelEnabled = import.meta.env.PROD && META_PIXEL_ID;
 }
 
 {
-	(AHREFS_ANALYTICS_KEY || metaPixelEnabled) && (
-		<script
-			is:inline
-			define:vars={{ AHREFS_ANALYTICS_KEY, META_PIXEL_ID, metaPixelEnabled }}
-		>
-			const loadMetaPixel = () => {
-				if (!metaPixelEnabled || window.__reflowMetaPixelLoaded) return;
-				window.__reflowMetaPixelLoaded = true;
-
-				!(function (f, b, e, v, n, t, s) {
-					if (f.fbq) return;
-					n = f.fbq = function () {
-						n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-					};
-					if (!f._fbq) f._fbq = n;
-					n.push = n;
-					n.loaded = !0;
-					n.version = '2.0';
-					n.queue = [];
-					t = b.createElement(e);
-					t.async = !0;
-					t.src = v;
-					s = b.getElementsByTagName(e)[0];
-					s.parentNode.insertBefore(t, s);
-				})(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-				fbq('init', META_PIXEL_ID);
-				fbq('track', 'PageView');
-			};
-
-			// Meta must be available as soon as the page arrives: Pixel Helper and
-			// landing-page campaigns otherwise only see it after a visitor interacts.
-			loadMetaPixel();
-
+	AHREFS_ANALYTICS_KEY && (
+		<script is:inline define:vars={{ AHREFS_ANALYTICS_KEY }}>
 			const loadDeferredTrackers = () => {
 				if (window.__reflowTrackersLoaded) return;
 				window.__reflowTrackersLoaded = true;
@@ -244,19 +211,6 @@ const metaPixelEnabled = import.meta.env.PROD && META_PIXEL_ID;
 			if (document.readyState === 'complete') armDeferredTrackers();
 			else window.addEventListener('load', armDeferredTrackers, { once: true });
 		</script>
-	)
-}
-{
-	metaPixelEnabled && (
-		<noscript>
-			<img
-				height="1"
-				width="1"
-				style="display:none"
-				src={`https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1`}
-				alt=""
-			/>
-		</noscript>
 	)
 }
 
