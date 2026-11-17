@@ -173,6 +173,7 @@ const umamiEnabled = import.meta.env.PROD && UMAMI_WEBSITE_ID && UMAMI_URL;
 				defer
 				src={`${UMAMI_URL}/script.js`}
 				data-website-id={UMAMI_WEBSITE_ID}
+				data-performance="true"
 				data-domains={UMAMI_ALLOWED_DOMAINS}
 			></script>
 		)
