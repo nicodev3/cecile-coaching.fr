@@ -5,6 +5,3 @@ pages_build_output_dir = "dist"
 
 # Build command (dashboard ou CI) : npm run build:deploy
 # → astro build + soumission IndexNow (scripts/submit-indexnow.mjs)
-#
-# Secrets Pages (dashboard, jamais dans le dépôt) :
-# BREVO_API_KEY, lu par functions/api/contact.js au moment du POST.

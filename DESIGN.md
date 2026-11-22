@@ -165,7 +165,7 @@ Une palette chaude et végétale : le plum structure l’identité, la sauge sig
 
 - **Conteneur** : `max-width: 75rem` (`--max-width-container`), centré, gouttières `1.5rem` (`--spacing-gutter`) avec `px-4 sm:px-6 lg:px-8` ou `sm:px-10` selon sections.
 - **Sections** : rythme vertical `5rem` (`--spacing-section`) ou `3rem` (`--spacing-section-sm`) sur mobile.
-- **Grilles** : hero 1→2 colonnes (`md:grid-cols-2`) ; contact formulaire + aside ; blog et piliers en grilles responsives.
+- **Grilles** : hero 1→2 colonnes (`md:grid-cols-2`) ; contact en carte WhatsApp centrée ; blog et piliers en grilles responsives.
 - **Header sticky** : `h-16` mobile, plus haut desktop (`lg:py-6`) ; `scroll-padding-top` 5rem / 7rem pour ancres.
 - **Densité** : marketing Persuade — blocs aérés, une idée par section, pas de sidebar dense.
 

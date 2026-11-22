@@ -30,7 +30,7 @@ Le site **cecilecoaching.fr** (marque **RE-FLOW**) sert à :
 1. Expliquer la méthode (déconditionnement, progression, cadre APA).
 2. Faire tester l’offre sans friction (**immersion gratuite 4 jours** via tunnel externe).
 3. Permettre une auto-qualification légère (**quiz / auto-évaluation**).
-4. Convertir vers contact (formulaire, WhatsApp, échange) quand la personne a besoin d’humain avant de s’engager.
+4. Convertir vers contact (WhatsApp, échange) quand la personne a besoin d’humain avant de s’engager.
 
 **Succès produit (marketing)** : une visiteuse comprend en quelques secondes l’entrée sans risque (immersion ou quiz), perçoit la crédibilité APA, et passe à l’action sans surcharge cognitive.
 
@@ -46,7 +46,7 @@ Ce que les voisins ne peuvent pas copier tels quels :
 
 - **Langue** : français (tutoiement sur le site vitrine).
 - **Canal principal post-clic** : tunnel sur `cecile-coaching.fr` (GoHighLevel) avec UTM depuis le site (`src/utils/tunnelUrl.ts`).
-- **Canaux secondaires** : WhatsApp, formulaire contact (`/api/contact`), email coach.
+- **Canal de contact** : WhatsApp uniquement (pas de formulaire de contact sur le site depuis le 2026-11-22) ; l’email coach reste affiché dans les mentions légales.
 - **Hébergement** : site statique Astro, déploiement Cloudflare Pages ; domaine canonique **https://cecilecoaching.fr** (sans tiret).
 - **SEO / contenu** : piliers (`src/data/pillars.ts`), articles blog (`src/content/blog/`), quiz d’auto-évaluation Re-flow hébergé dans le funnel GoHighLevel (`https://cecile-coaching.fr/quiz`, lien central `QUIZ_URL` dans `src/utils/tunnelUrl.ts`).
 
@@ -62,7 +62,7 @@ Ce que les voisins ne peuvent pas copier tels quels :
 
 **Contraintes techniques**
 
-- Ne pas dupliquer secrets dans le dépôt ; formulaire contact selon stack Nicodev.
+- Ne pas dupliquer secrets dans le dépôt.
 - Trailing slash obligatoire sur les routes Astro.
 
 **Non décidé / à ne pas inventer**
