@@ -29,7 +29,11 @@ export const COACH_SIRET_DISPLAY = '947 624 425 00015';
 export const COACH_APE = '85.51Z';
 export const COACH_APE_LABEL = 'Enseignement de disciplines sportives et d’activités de loisirs';
 export const COACH_ADDRESS_LINE = '24 rue des Fontaines';
-export const COACH_ADDRESS_CITY = '92310 Sèvres';
+export const COACH_ADDRESS_POSTAL_CODE = '92310';
+export const COACH_ADDRESS_LOCALITY = 'Sèvres';
+export const COACH_ADDRESS_REGION = 'Île-de-France';
+export const COACH_ADDRESS_COUNTRY = 'FR';
+export const COACH_ADDRESS_CITY = `${COACH_ADDRESS_POSTAL_CODE} ${COACH_ADDRESS_LOCALITY}`;
 export const COACH_ADDRESS = `${COACH_ADDRESS_LINE}, ${COACH_ADDRESS_CITY}`;
 
 /** Clé IndexNow - fichier public /{INDEXNOW_KEY}.txt */

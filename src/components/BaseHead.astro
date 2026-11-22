@@ -12,6 +12,11 @@ import {
 	UMAMI_WEBSITE_ID,
 } from '../config/analytics';
 import {
+	COACH_ADDRESS_COUNTRY,
+	COACH_ADDRESS_LINE,
+	COACH_ADDRESS_LOCALITY,
+	COACH_ADDRESS_POSTAL_CODE,
+	COACH_ADDRESS_REGION,
 	COACH_FAMILY_NAME,
 	COACH_FIRST_NAME,
 	COACH_NAME,
@@ -54,7 +59,7 @@ const logoUrl = new URL('/favicon.svg', siteUrlNormalized).toString();
 
 const coachingStructuredData: StructuredData = {
 	'@context': 'https://schema.org',
-	'@type': 'ProfessionalService',
+	'@type': 'OnlineBusiness',
 	'@id': `${siteUrlNormalized}/#coaching-service`,
 	name: 'RE-FLOW par Cécile Cichosz',
 	alternateName: [
@@ -68,6 +73,14 @@ const coachingStructuredData: StructuredData = {
 	url: siteUrlNormalized,
 	logo: logoUrl,
 	image: logoUrl,
+	address: {
+		'@type': 'PostalAddress',
+		streetAddress: COACH_ADDRESS_LINE,
+		postalCode: COACH_ADDRESS_POSTAL_CODE,
+		addressLocality: COACH_ADDRESS_LOCALITY,
+		addressRegion: COACH_ADDRESS_REGION,
+		addressCountry: COACH_ADDRESS_COUNTRY,
+	},
 	areaServed: {
 		'@type': 'Country',
 		name: 'France',
